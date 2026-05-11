@@ -61,8 +61,6 @@ export const philippineSunrise: Tour = {
         "April 25, 2026",
         "May 5, 2026",
         "May 17, 2026",
-        "June 13, 2026 - Pride Tour",
-        "July 3, 2026",
         "August 4, 2026",
         "August 21, 2026",
         "September 16, 2026",
