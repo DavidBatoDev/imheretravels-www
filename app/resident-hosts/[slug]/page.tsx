@@ -5,7 +5,8 @@ import type { Metadata } from "next";
 import Footer from "@/app/components/global/Footer";
 import Reveal from "@/app/components/global/Reveal";
 import { getHostBySlug, getAllHostSlugs, type Host } from "@/data/hosts";
-import WhyTravelInteractive from "./_components/WhyTravelInteractive";
+import GallerySectionClient from "./_components/GallerySectionClient";
+import WhyTravelCarousel from "./_components/WhyTravelCarousel";
 
 /* -------------------------------------------------------------------------- */
 /* Static generation                                                            */
@@ -33,27 +34,6 @@ export async function generateMetadata({
 /* Sub-components                                                               */
 /* -------------------------------------------------------------------------- */
 
-function CheckIcon() {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 18 18"
-      fill="none"
-      aria-hidden="true"
-      className="mt-0.5 shrink-0 text-crimson-red"
-    >
-      <circle cx="9" cy="9" r="8.25" stroke="currentColor" strokeWidth="1.5" />
-      <path
-        d="M5.5 9l2.5 2.5L12.5 6.5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 
 /* -------------------------------------------------------------------------- */
 /* Sections                                                                     */
@@ -138,30 +118,94 @@ function ComingSoonSection({ host }: { host: Host }) {
   );
 }
 
+function InstagramIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="shrink-0">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" strokeWidth="2" />
+      <circle cx="12" cy="12" r="4.5" stroke="currentColor" strokeWidth="2" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+    </svg>
+  );
+}
+
 function IntroSection({ host }: { host: Host }) {
   return (
-    <section className="mx-auto w-full max-w-4xl px-4 py-12 text-center md:px-8 md:py-16">
-      <Reveal>
-        <h2 className="font-sans text-h3-mobile md:text-h3-desktop text-midnight">
-          {host.pageTitle}
-        </h2>
-      </Reveal>
-      <div className="mt-6 flex flex-col gap-4">
-        {host.intro.map((para, i) => (
-          <Reveal key={i} delay={i * 80}>
-            <p className="font-body text-b2-mobile md:text-b2-desktop text-dark-gray">
-              {para}
-            </p>
-          </Reveal>
-        ))}
+    <section className="relative w-full">
+      {/* Red ImHere sticker — right */}
+      <div className="pointer-events-none absolute -right-16 -top-20 hidden rotate-15 lg:block" aria-hidden="true">
+        <Image src="/Stickers/Print/PNG/ImHere/Print_ImHereCircle_Red.png" alt="" width={300} height={300} className="object-contain" />
       </div>
+      {/* Green Globe sticker — left */}
+      <div className="pointer-events-none absolute -left-8 -bottom-20 z-20 hidden -rotate-[20deg] lg:block" aria-hidden="true">
+        <Image src="/Stickers/Print/PNG/Globe/Print_Globe_Green.png" alt="" width={230} height={230} className="object-contain" />
+      </div>
+    <div className="mx-auto w-full max-w-5xl px-4 pt-16 pb-12 md:px-8 md:pt-24 md:pb-16">
+      <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-[220px_1fr] md:gap-20">
+
+        {/* Profile column */}
+        <Reveal>
+          <div className="flex flex-col items-center gap-3 text-center">
+            {host.profileImage ? (
+              <div className="relative h-64 w-64 overflow-hidden rounded-full ring-4 ring-white shadow-medium">
+                <Image
+                  src={host.profileImage}
+                  alt={host.displayName}
+                  fill
+                  sizes="256px"
+                  className="object-cover object-top"
+                />
+              </div>
+            ) : (
+              <div className="h-44 w-44 rounded-full bg-grey/20" />
+            )}
+            <p className="font-sans text-h6-mobile md:text-h6-desktop text-midnight font-bold">
+              {host.displayName}
+            </p>
+            {host.instagram && (
+              <a
+                href={`https://instagram.com/${host.instagram}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 font-body text-b4-desktop text-dark-gray hover:text-crimson-red transition-colors"
+              >
+                <InstagramIcon />
+                {host.instagram}
+              </a>
+            )}
+          </div>
+        </Reveal>
+
+        {/* Content column */}
+        <div>
+          <Reveal>
+            <h2 className="font-sans text-h3-mobile md:text-h3-desktop text-midnight">
+              {host.pageTitle}
+            </h2>
+          </Reveal>
+          <div className="mt-5 flex flex-col gap-4">
+            {host.intro.map((para, i) => (
+              <Reveal key={i} delay={i * 80}>
+                <p className="font-body text-b2-mobile md:text-b2-desktop text-dark-gray">
+                  {para}
+                </p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </div>
     </section>
   );
 }
 
 function UpcomingTripsSection({ host }: { host: Host }) {
   return (
-    <section id="upcoming-trips" className="bg-light-grey">
+    <section id="upcoming-trips" className="relative z-0 bg-light-grey">
+      {/* Orange Heart Circle sticker — bottom-right, behind cards */}
+      <div className="pointer-events-none absolute -bottom-20 -right-20 -z-10 hidden rotate-12 lg:block" aria-hidden="true">
+        <Image src="/Stickers/Print/PNG/Heart-Circle/Print_Heart_Circle_Orange.png" alt="" width={250} height={250} className="object-contain" />
+      </div>
       <div className="mx-auto w-full max-w-7xl px-4 py-12 md:px-8 md:py-16">
         <div className="mb-8 text-center md:mb-12">
           <h2 className="font-sans text-h3-mobile md:text-h3-desktop text-midnight">
@@ -171,31 +215,52 @@ function UpcomingTripsSection({ host }: { host: Host }) {
 
         <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {host.upcomingTrips.map((trip, i) => {
+            const isTBA = !trip.duration;
             const inner = (
               <>
-                {trip.image && (
-                  <div className="relative h-44 w-full overflow-hidden">
+                <div className="relative aspect-[4/3] w-full overflow-hidden">
+                  {trip.image ? (
                     <Image
                       src={trip.image}
                       alt={trip.imageAlt ?? trip.name}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
                     />
-                  </div>
-                )}
+                  ) : (
+                    <div className="absolute inset-0 bg-grey/20" />
+                  )}
+                </div>
                 <div className="flex flex-1 flex-col p-5 md:p-6">
-                  <h3 className="font-sans text-h5-mobile md:text-h5-desktop text-midnight group-hover:text-crimson-red">
+                  <span className="inline-flex w-fit items-center gap-2 rounded-full bg-light-grey px-3 py-1 font-body text-b4-desktop text-midnight">
+                    <Image
+                      src="/Icons/SVG/Pin/pin-solid-red.svg"
+                      alt=""
+                      width={14}
+                      height={14}
+                    />
+                    {isTBA ? "TBA" : trip.duration}
+                  </span>
+                  <h3 className="mt-4 font-sans text-h5-mobile md:text-h5-desktop text-midnight transition-colors group-hover:text-crimson-red">
                     {trip.name}
                   </h3>
-                  <span className="mt-3 inline-flex w-fit items-center gap-2 rounded-full bg-light-grey px-3 py-1 font-body text-b4-desktop text-crimson-red">
-                    {trip.dates}
-                  </span>
-                  {trip.tourSlug && (
-                    <p className="mt-auto pt-5 font-body text-b4-desktop text-dark-gray group-hover:text-crimson-red">
-                      View tour details →
+                  {trip.description && (
+                    <p className="mt-2 font-body text-b4-mobile md:text-b4-desktop text-dark-gray">
+                      {trip.description}
                     </p>
                   )}
+                  <div className="mt-auto flex items-baseline gap-2 pt-5">
+                    {trip.price ? (
+                      <>
+                        <span className="font-body text-b4-desktop text-dark-gray">From</span>
+                        <span className="font-sans text-h6-mobile md:text-h6-desktop text-midnight">
+                          {trip.price}
+                        </span>
+                      </>
+                    ) : (
+                      <span className="font-body text-b4-desktop text-dark-gray">Pricing TBA</span>
+                    )}
+                  </div>
                 </div>
               </>
             );
@@ -226,86 +291,54 @@ function UpcomingTripsSection({ host }: { host: Host }) {
 function WhyTravelSection({ host }: { host: Host }) {
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-12 md:px-8 md:py-16">
-      <div className="mx-auto overflow-hidden rounded-lg bg-white shadow-small" style={{ maxWidth: "1200px" }}>
-        <div className="grid grid-cols-1 gap-6 p-6 md:grid-cols-2 md:gap-8 md:p-8">
-          <div className="flex flex-col justify-center">
-            <Reveal>
-              <h2 className="font-sans text-h4-mobile md:text-h4-desktop text-midnight">
-                Why Travel With Us
-              </h2>
-            </Reveal>
-          </div>
-          <Reveal delay={120}>
-            <WhyTravelInteractive points={host.whyTravel} />
-          </Reveal>
-        </div>
+      <div className="mb-10 text-center">
+        <Reveal>
+          <h2 className="font-sans text-h3-mobile md:text-h3-desktop text-midnight">
+            Why Travel With Us
+          </h2>
+        </Reveal>
       </div>
+      <WhyTravelCarousel points={host.whyTravel} />
     </section>
   );
 }
 
-function GallerySection({ host }: { host: Host }) {
-  return (
-    <section className="bg-light-grey">
-      <div className="mx-auto w-full max-w-7xl px-4 py-12 md:px-8 md:py-16">
-        <h2 className="mb-8 text-center font-sans text-h3-mobile md:text-h3-desktop text-midnight">
-          Real Moments from Our Trips
-        </h2>
-
-        {host.galleryImages.length === 0 ? (
-          <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <li
-                key={i}
-                className="relative aspect-square overflow-hidden rounded-md bg-grey/20 flex items-center justify-center"
-              >
-                <span className="font-body text-b4-desktop text-grey text-center px-2">
-                  Photos<br />coming soon
-                </span>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-3">
-            {host.galleryImages.map((img, i) => (
-              <li
-                key={i}
-                className="relative aspect-square overflow-hidden rounded-md bg-light-grey"
-              >
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  fill
-                  sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 33vw"
-                  className="object-cover transition-transform duration-500 hover:scale-105"
-                />
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    </section>
-  );
+function GallerySection(_: { host: Host }) {
+  return <GallerySectionClient />;
 }
 
 function HowItWorksSection({ host }: { host: Host }) {
   return (
-    <section className="mx-auto w-full max-w-7xl px-4 py-12 md:px-8 md:py-16">
-      <div className="mb-10 text-center">
+    <section className="relative mx-auto w-full max-w-7xl px-4 py-12 md:px-8 md:py-16">
+      {/* Red Flag Outline sticker — sits at circle height so step 4 overlays it */}
+      <div className="pointer-events-none absolute -right-4 -top-12 hidden rotate-10 lg:block" aria-hidden="true">
+        <Image src="/Stickers/Print/PNG/Flag-Outline/Print_Flag_Outline_Red.png" alt="" width={250} height={250} className="object-contain" />
+      </div>
+      <div className="mb-12 text-center">
         <Reveal>
           <h2 className="font-sans text-h3-mobile md:text-h3-desktop text-midnight">
             How It Works
           </h2>
         </Reveal>
       </div>
-      <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+
+      <ul className="relative grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4 md:gap-x-0">
+        {/* Dashed connector line spanning circle centers — desktop only */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute hidden md:block"
+          style={{ top: 28, left: "12.5%", right: "12.5%", borderTop: "2px dashed #d1d5db" }}
+        />
+
         {host.howItWorks.map((step, i) => (
-          <Reveal as="li" key={i} delay={i * 80}>
-            <div className="flex flex-col gap-3 rounded-lg bg-white p-6 shadow-small h-full">
-              <span className="font-display text-h2-mobile md:text-h2-desktop text-crimson-red leading-none">
-                {i + 1}
-              </span>
-              <p className="font-body text-b2-mobile md:text-b2-desktop text-dark-gray">
+          <Reveal as="li" key={i} delay={i * 100}>
+            <div className="flex flex-col items-center text-center">
+              <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full bg-crimson-red shadow-small">
+                <span className="font-display text-h4-mobile text-white leading-none">
+                  {i + 1}
+                </span>
+              </div>
+              <p className="mt-5 px-2 font-sans font-bold text-b2-mobile md:text-b2-desktop text-midnight">
                 {step}
               </p>
             </div>
@@ -391,7 +424,7 @@ export default async function ResidentHostPage({
 
   return (
     <>
-      <main className="flex-1">
+      <main className="flex-1 overflow-x-clip">
         <HeroSection host={host} />
 
         {host.comingSoon ? (

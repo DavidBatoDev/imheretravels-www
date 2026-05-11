@@ -263,3 +263,31 @@ body {
   color: var(--foreground);
   font-family: var(--font-body);
 }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Gallery sliding-door overlays — 13s cycle: 2s open · 8s hold · 2s close · 1s pause */
+@keyframes gallery-door-right {
+  0%      { transform: translateX(0);    }
+  15.4%   { transform: translateX(101%); }
+  76.9%   { transform: translateX(101%); }
+  92.3%   { transform: translateX(0);    }
+  100%    { transform: translateX(0);    }
+}
+@keyframes gallery-door-down {
+  0%      { transform: translateY(0);    }
+  15.4%   { transform: translateY(101%); }
+  76.9%   { transform: translateY(101%); }
+  92.3%   { transform: translateY(0);    }
+  100%    { transform: translateY(0);    }
+}
+
+/* Gallery overlay animation is driven by the Web Animations API in TripMomentsGallery.tsx
+   (shared startTime across all 12 overlays). No CSS animation rules needed here. */
+
