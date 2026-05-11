@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import Footer from "@/app/components/global/Footer";
 import Reveal from "@/app/components/global/Reveal";
 import { getHostBySlug, getAllHostSlugs, type Host } from "@/data/hosts";
-import TripMomentsGallery from "./_components/TripMomentsGallery";
+import GallerySectionClient from "./_components/GallerySectionClient";
 import WhyTravelCarousel from "./_components/WhyTravelCarousel";
 
 /* -------------------------------------------------------------------------- */
@@ -304,21 +304,7 @@ function WhyTravelSection({ host }: { host: Host }) {
 }
 
 function GallerySection(_: { host: Host }) {
-  return (
-    <section className="relative bg-light-grey">
-      {/* Yellow Asterisk sticker — bottom-left */}
-      <div className="pointer-events-none absolute -bottom-20 -left-16 hidden -rotate-12 lg:block" aria-hidden="true">
-        <Image src="/Stickers/Print/PNG/Asterisk/Print_Asterisk_Yellow.png" alt="" width={250} height={250} className="object-contain" />
-      </div>
-      <div className="mx-auto w-full max-w-7xl px-4 py-12 md:px-8 md:py-16">
-        <h2 className="mb-8 text-center font-sans text-h3-mobile md:text-h3-desktop text-midnight">
-          Real Moments from Our Trips
-        </h2>
-
-        <TripMomentsGallery />
-      </div>
-    </section>
-  );
+  return <GallerySectionClient />;
 }
 
 function HowItWorksSection({ host }: { host: Host }) {

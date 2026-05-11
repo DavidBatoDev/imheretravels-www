@@ -288,3 +288,6 @@ body {
   100%    { transform: translateY(0);    }
 }
 
+/* Gallery overlay animation is driven by the Web Animations API in TripMomentsGallery.tsx
+   (shared startTime across all 12 overlays). No CSS animation rules needed here. */
+
