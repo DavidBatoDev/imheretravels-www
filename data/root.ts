@@ -19,7 +19,7 @@ export const tours = [
     title: "Philippines Sunrise",
     duration: "11 Day Tour",
     description:
-      "Experience thrilling canyoneering, mesmerizing marine life, surfing, and stunning sunsets!",
+      "Experience more thrilling canyoneering, mesmerizing marine life, surfing, and stunning sunsets!",
     price: "GBP £1,199",
     image:
       "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1759341320242_philippinessunrise-header-1-3.webp?alt=media&token=176752d3-cd01-486b-b97b-d397a869db93",
