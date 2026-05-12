@@ -31,14 +31,13 @@ export const devIntro = [
 
 export const devUpcomingTrips = [
   {
-    name: "India Holi Festival Tour",
+    name: "India Holi + Yoga with Dev",
     dates: "March 19–31, 2027",
-    tourSlug: "india-holi-festival-tour",
     image: "/images/wp-content/uploads/2025/01/india-header-2.webp",
     imageAlt: "India Holi Festival Tour",
     duration: "13 Days and 12 Nights",
     description: "Explore India's vibrant culture, ancient wonders, and the stunning colors of the Holi Festival.",
-    price: "GBP £1,199",
+    price: "GBP £1,299",
   },
   {
     name: "PH Sunrise & Sunset",
