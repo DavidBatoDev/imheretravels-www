@@ -443,8 +443,7 @@ export const brazilsTreasures: Tour = {
     priceAmount: "£1,599",
     depositAmount: "£250",
     ctaLabel: "Reserve Now",
-    ctaHref:
-      "https://admin.imheretravels.com/reservation-booking-form?tour=brazils-treasures",
+    ctaHref: "https://buy.stripe.com/dRmaEX6RJ8SZ65J1NJco106",
     footnote: "Additional fees may apply",
   },
   listingCard: {
