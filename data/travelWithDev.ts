@@ -95,6 +95,7 @@ export type GalleryMediaItem = {
   size: "tall" | "short";
   src?: string;
   alt?: string;
+  objectPosition?: string;
 };
 
 /* -------------------------------------------------------------------------- */

@@ -140,12 +140,12 @@ function IntroSection({ host }: { host: Host }) {
         <Image src="/Stickers/Print/PNG/Globe/Print_Globe_Green.png" alt="" width={230} height={230} className="object-contain" />
       </div>
     <div className="mx-auto w-full max-w-5xl px-4 pt-16 pb-12 md:px-8 md:pt-24 md:pb-16">
-      <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-[220px_1fr] md:gap-20">
+      <div className={`grid grid-cols-1 items-center gap-8 ${host.profileImage ? "md:grid-cols-[220px_1fr] md:gap-20" : ""}`}>
 
-        {/* Profile column */}
-        <Reveal>
-          <div className="flex flex-col items-center gap-3 text-center">
-            {host.profileImage ? (
+        {/* Profile column — hidden when no profileImage */}
+        {host.profileImage && (
+          <Reveal>
+            <div className="flex flex-col items-center gap-3 text-center">
               <div className="relative h-64 w-64 overflow-hidden rounded-full ring-4 ring-white shadow-medium">
                 <Image
                   src={host.profileImage}
@@ -155,28 +155,26 @@ function IntroSection({ host }: { host: Host }) {
                   className="object-cover object-top"
                 />
               </div>
-            ) : (
-              <div className="h-44 w-44 rounded-full bg-grey/20" />
-            )}
-            <p className="font-sans text-h6-mobile md:text-h6-desktop text-midnight font-bold">
-              {host.displayName}
-            </p>
-            {host.instagram && (
-              <a
-                href={`https://instagram.com/${host.instagram}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 font-body text-b4-desktop text-dark-gray hover:text-crimson-red transition-colors"
-              >
-                <InstagramIcon />
-                {host.instagram}
-              </a>
-            )}
-          </div>
-        </Reveal>
+              <p className="font-sans text-h6-mobile md:text-h6-desktop text-midnight font-bold">
+                {host.displayName}
+              </p>
+              {host.instagram && (
+                <a
+                  href={`https://instagram.com/${host.instagram}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 font-body text-b4-desktop text-dark-gray hover:text-crimson-red transition-colors"
+                >
+                  <InstagramIcon />
+                  {host.instagram}
+                </a>
+              )}
+            </div>
+          </Reveal>
+        )}
 
         {/* Content column */}
-        <div>
+        <div className={!host.profileImage ? "text-center" : ""}>
           <Reveal>
             <h2 className="font-sans text-h3-mobile md:text-h3-desktop text-midnight">
               {host.pageTitle}
@@ -303,8 +301,8 @@ function WhyTravelSection({ host }: { host: Host }) {
   );
 }
 
-function GallerySection(_: { host: Host }) {
-  return <GallerySectionClient />;
+function GallerySection({ host }: { host: Host }) {
+  return <GallerySectionClient slides={host.gallerySlides ?? []} />;
 }
 
 function HowItWorksSection({ host }: { host: Host }) {

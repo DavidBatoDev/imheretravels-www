@@ -26,7 +26,26 @@ import {
   devWhyTravel,
   devHowItWorks,
   devGalleryImages,
+  devGallerySlides,
+  type GalleryMediaItem,
 } from "./travelWithDev";
+
+import {
+  jessSlug,
+  jessDisplayName,
+  jessPageTitle,
+  jessInstagram,
+  jessProfileImage,
+  jessHeroImage,
+  jessHeroImageAlt,
+  jessMeta,
+  jessIntro,
+  jessUpcomingTrips,
+  jessWhyTravel,
+  jessHowItWorks,
+  jessGalleryImages,
+  jessGallerySlides,
+} from "./travelWithJess";
 
 export type HostTrip = {
   name: string;
@@ -56,6 +75,8 @@ export type Host = {
   howItWorks: string[];
   /** Empty until host provides real photos — gallery renders placeholders */
   galleryImages: { src: string; alt: string }[];
+  /** Masonry gallery slides for the animated gallery section */
+  gallerySlides?: GalleryMediaItem[][][];
   /** 3 images for a split-panel hero (left → right). Overrides single heroImage when present. */
   heroImages?: string[];
   /** Circular profile photo shown in the intro section */
@@ -85,24 +106,23 @@ const ALL_HOSTS: Host[] = [
     profileImage: devProfileImage,
     instagram:    devInstagram,
     galleryImages: devGalleryImages,
+    gallerySlides: devGallerySlides,
   },
   {
-    slug: "jess",
-    displayName: "Jess",
-    pageTitle: "Travel with Jess",
-    heroImage: null,
-    heroImageAlt: "Jess's group travel adventures",
-    meta: {
-      title: "Travel with Jess | I'm Here Travels",
-      description:
-        "Travel with Jess on upcoming community group trips. Details coming soon.",
-    },
-    intro: [],
-    upcomingTrips: [],
-    whyTravel: [],
-    howItWorks: [],
-    galleryImages: [],
-    comingSoon: true,
+    slug:         jessSlug,
+    displayName:  jessDisplayName,
+    pageTitle:    jessPageTitle,
+    heroImage:    jessHeroImage,
+    heroImageAlt: jessHeroImageAlt,
+    meta:         jessMeta,
+    intro:        jessIntro,
+    upcomingTrips: jessUpcomingTrips,
+    whyTravel:    jessWhyTravel,
+    howItWorks:   jessHowItWorks,
+    profileImage: jessProfileImage,
+    instagram:    jessInstagram || undefined,
+    galleryImages: jessGalleryImages,
+    gallerySlides: jessGallerySlides,
   },
 ];
 
