@@ -71,7 +71,7 @@ export const indiaHoliFestivalTour: Tour = {
     {
       icon: "days",
       label: "Tour Dates",
-      values: ["March 19–31, 2027"],
+      values: ["March 19, 2027"],
     },
     {
       icon: "days",
@@ -161,6 +161,8 @@ export const indiaHoliFestivalTour: Tour = {
         title: "Airport Pickup and Welcome Dinner",
         description:
           "Welcome to the vibrant heart of India! Arrive in Delhi, meet your friendly guide, and ease into your adventure with a warm welcome dinner. Feel the excitement build for the journey ahead.",
+        image: "/tours/india-holi-festival-tour/india-day-1.webp",
+        imageAlt: "Arrival in New Delhi",
         details: [
           {
             icon: "accommodation",
@@ -180,6 +182,8 @@ export const indiaHoliFestivalTour: Tour = {
         title: "Delhi City Tour & Overnight Train",
         description:
           "Today you'll experience both the grandeur and the pulse of India's capital. Wander the towering Qutub Minar, marvel at Jama Masjid, and feel the spirit of Mahatma Gandhi at Raj Ghat. Capture the colonial charm of India Gate and Parliament House. Then, after a day rich in stories and sights, board your overnight train bound for the desert city of Jodhpur.",
+        image: "/tours/india-holi-festival-tour/india-day-2.webp",
+        imageAlt: "Delhi city tour",
         details: [
           {
             icon: "accommodation",
@@ -201,6 +205,8 @@ export const indiaHoliFestivalTour: Tour = {
         title: "Arrival in Jodhpur",
         description:
           "Good morning, Rajasthan! Disembark in Jodhpur and feel the shift in atmosphere. After a relaxed check-in, visit Jaswant Thada—a serene marble cenotaph shimmering under the sun. In the afternoon, choose to deepen your experience with an optional Bishnoi Village Safari, a glimpse into timeless desert traditions.\n\nOptional activity:\nThe Bishnoi Village Safari — Here guests will experience some of the beautiful wildlife India has to offer, get a demonstration of some poetry making and even some weaving demonstrations so guests can see how Durry's are made by hand, all of this is done by open top jeeps.",
+        image: "/tours/india-holi-festival-tour/india-day-3.webp",
+        imageAlt: "Arrival in Jodhpur",
         details: [
           {
             icon: "accommodation",
@@ -221,6 +227,8 @@ export const indiaHoliFestivalTour: Tour = {
         title: "Legends of Mehrangarh & Streets of Blue",
         description:
           "Climb to the mighty Mehrangarh Fort and let the panoramic views steal your breath away. Marvel at its museums, palaces, and stories. Then, meander through Jodhpur's winding alleys, painted in every shade of blue—alive with street markets, artisans, and surprises around every corner.",
+        image: "/tours/india-holi-festival-tour/india-day-4.webp",
+        imageAlt: "Mehrangarh Fort and Blue City, Jodhpur",
         details: [
           {
             icon: "accommodation",
@@ -241,6 +249,8 @@ export const indiaHoliFestivalTour: Tour = {
         title: "Marble Dreams and Lakeside Romance",
         description:
           "Wave goodbye to Jodhpur as you drive through the scenic Aravalli hills to Udaipur. Pause to be enchanted by the Ranakpur Jain Temples, an awe-inspiring vision of marble and devotion. Arrive in Udaipur and settle by shimmering lakes that whisper old royal tales.",
+        image: "/tours/india-holi-festival-tour/india-day-5.webp",
+        imageAlt: "Ranakpur Jain Temples and Udaipur lakes",
         details: [
           {
             icon: "accommodation",
@@ -261,6 +271,8 @@ export const indiaHoliFestivalTour: Tour = {
         title: "The Magic of Udaipur",
         description:
           "Let Udaipur cast its spell. Wander the opulent halls of the City Palace, stroll the gardens built for royal maidens, and admire ancient shrines at Jagdish Temple. In the evening, drift on a dreamy boat ride across Lake Pichola as sunset hues paint the city in gold.",
+        image: "/tours/india-holi-festival-tour/india-day-6.webp",
+        imageAlt: "City Palace and Lake Pichola, Udaipur",
         details: [
           {
             icon: "accommodation",
@@ -282,6 +294,8 @@ export const indiaHoliFestivalTour: Tour = {
         title: "Sawai Madhopur",
         description:
           "Today we have a very early start as it's time to make our way to 'Ranthambore' Sawai Madhopur via train also known as the land of Tigers, to get checked into our new hotel and grab some lunch before visiting Ranthambore National Park. Ranthambore National Park is home to landmarks such as the 10th Century Ranthambore Fort and Ganesh Mandir Temple throughout the park you also get the chance to witness different wildlife such as leopards and tigers. When we finish up at the National Park the rest of the afternoon is your own to roam around or just relax before meeting in the evening for dinner and drinks.",
+        image: "/tours/india-holi-festival-tour/india-day-7.webp",
+        imageAlt: "Ranthambore National Park, Sawai Madhopur",
         details: [
           {
             icon: "accommodation",
@@ -302,6 +316,8 @@ export const indiaHoliFestivalTour: Tour = {
         title: "Safari Adventure in Tiger Country",
         description:
           "Dawn breaks over Ranthambore National Park, home to the majestic Bengal tiger. Set off on an exhilarating safari, eyes peeled for tigers, leopards, sloth bears, and more. Return with stories of the wild etched into your soul.",
+        image: "/tours/india-holi-festival-tour/india-day-8.webp",
+        imageAlt: "Wildlife safari in Ranthambore National Park",
         details: [
           {
             icon: "accommodation",
@@ -322,6 +338,8 @@ export const indiaHoliFestivalTour: Tour = {
         title: "The Road to the Pink City of Jaipur",
         description:
           "Start with a regal jeep ride to Amber Fort, a masterpiece of Rajput architecture. Explore the royal apartments of City Palace, gaze skyward at the astronomical genius of Jantar Mantar, and admire the honeycomb-like facade of Hawa Mahal. End your day with peace and prayers at the luminous Birla Temple.\n\nOptional activity:\nIn your free time you can opt to go on a traditional cooking class to experience how this authentic Indian dishes are made to take home with you.",
+        image: "/tours/india-holi-festival-tour/india-day-9.webp",
+        imageAlt: "Jaipur — Amber Fort and Hawa Mahal",
         details: [
           {
             icon: "accommodation",
@@ -343,6 +361,8 @@ export const indiaHoliFestivalTour: Tour = {
         title: "Jaipur's Royal Treasures",
         description:
           "Start with a regal jeep ride to Amber Fort—a masterpiece of Rajput architecture. Explore the royal apartments of City Palace, gaze skyward at the astronomical genius of Jantar Mantar, and admire the honeycomb-like facade of Hawa Mahal. End your day with peace and prayers at the luminous Birla Temple.",
+        image: "/tours/india-holi-festival-tour/india-day-10.webp",
+        imageAlt: "Jaipur's royal palaces and forts",
         details: [
           {
             icon: "accommodation",
@@ -364,6 +384,8 @@ export const indiaHoliFestivalTour: Tour = {
         title: "A Monument to Love — Taj Mahal",
         description:
           "Journey to Agra and arrive at the doorstep of the world's most famous tribute to eternal love—the Taj Mahal. Stand in awe as the white marble wonder changes colors with the setting sun.",
+        image: "/tours/india-holi-festival-tour/india-day-11.webp",
+        imageAlt: "Taj Mahal, Agra",
         details: [
           {
             icon: "accommodation",
@@ -384,6 +406,8 @@ export const indiaHoliFestivalTour: Tour = {
         title: "Mighty Fortresses and Farewell to Delhi",
         description:
           "Before leaving Agra, step inside the walls of Agra Fort, a palatial maze of gardens, halls, and red sandstone beauty. Then, return to Delhi for one final evening, where the city's vibrant pulse bids you a fond farewell.",
+        image: "/tours/india-holi-festival-tour/india-day-12.webp",
+        imageAlt: "Agra Fort",
         details: [
           {
             icon: "accommodation",
@@ -404,6 +428,8 @@ export const indiaHoliFestivalTour: Tour = {
         title: "Until We Meet Again",
         description:
           "After breakfast, transfer to the airport. Depart with suitcases full of treasures and hearts full of unforgettable memories—your Indian adventure will live on long after you've left its shores.",
+        image: "/tours/india-holi-festival-tour/india-day-13.webp",
+        imageAlt: "Departure from New Delhi",
         details: [
           { icon: "location", label: "Location", value: "New Delhi" },
           { icon: "meals", label: "Meals", value: "Breakfast" },

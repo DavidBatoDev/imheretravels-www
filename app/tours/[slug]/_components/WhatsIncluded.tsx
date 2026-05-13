@@ -28,8 +28,8 @@ export default function WhatsIncluded({
                       key={v}
                       className="flex items-start gap-2 font-body text-b4-mobile md:text-b4-desktop text-dark-gray"
                     >
-                      <span aria-hidden className="text-spring-green">
-                        ✓
+                      <span aria-hidden className="text-dark-gray">
+                        •
                       </span>
                       {v}
                     </li>

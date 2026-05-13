@@ -2,16 +2,16 @@
 
 import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
-import { devGallerySlides } from "@/data/travelWithDev";
+import { type GalleryMediaItem } from "@/data/travelWithDev";
 import TripMomentsGallery from "./TripMomentsGallery";
 
-export default function GallerySectionClient() {
+export default function GallerySectionClient({ slides }: { slides: GalleryMediaItem[][][] }) {
   const [viewAll, setViewAll] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const allItems = [
     ...new Map(
-      devGallerySlides
+      slides
         .flat(2)
         .filter((item) => !!item.src)
         .map((item) => [item.src, item])
@@ -147,7 +147,7 @@ export default function GallerySectionClient() {
             ))}
           </div>
         ) : (
-          <TripMomentsGallery />
+          <TripMomentsGallery slides={slides} />
         )}
       </div>
 

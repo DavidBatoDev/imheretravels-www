@@ -147,7 +147,7 @@ const DayItem = forwardRef<HTMLLIElement, DayItemProps>(function DayItem(
             className="overflow-hidden"
           >
             <div
-              className={`mt-5 grid grid-cols-1 gap-6 ${
+              className={`mt-5 grid grid-cols-1 gap-x-6 gap-y-4 ${
                 day.image ? "md:grid-cols-[1fr_348px]" : ""
               }`}
             >
@@ -184,7 +184,7 @@ const DayItem = forwardRef<HTMLLIElement, DayItemProps>(function DayItem(
                         <p className="font-sans text-b4-desktop font-bold text-midnight">
                           {d.label}
                         </p>
-                        <p className="font-body text-b4-mobile md:text-b4-desktop text-dark-gray">
+                        <p className="font-body text-b4-mobile md:text-b4-desktop text-dark-gray whitespace-pre-line">
                           {d.value}
                         </p>
                       </div>

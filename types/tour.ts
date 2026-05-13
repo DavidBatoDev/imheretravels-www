@@ -144,6 +144,7 @@ export interface Tour {
   header: {
     title: string;
     tags: TourTag[];
+    descriptionPrefix?: string;
     description: string;
   };
   keyFacts: TourKeyFact[];

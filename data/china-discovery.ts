@@ -52,6 +52,7 @@ export const chinaDiscovery: Tour = {
       { label: "Shanghai", icon: "location" },
       { label: "Zhujiajiao", icon: "location" },
     ],
+    descriptionPrefix: "Welcome to China",
     description:
       "Explore the perfect blend of ancient history and modern marvels on this unforgettable journey through China's most iconic cities. In Beijing, uncover centuries of imperial heritage with immersive city tours and a breathtaking visit to the Mutianyu section of the Great Wall, known for its stunning views and fewer crowds. Then, travel to Shanghai, where the skyline soars at the Shanghai Tower, one of the world's tallest buildings. Step back in time with a peaceful escape to Zhujiajiao Water Town, a charming ancient village with canals, stone bridges, and traditional architecture. Experience rich history and culture alongside the futuristic vibes China has to offer.",
   },
@@ -61,7 +62,7 @@ export const chinaDiscovery: Tour = {
       icon: "route",
       label: "Route",
       values: [
-        "Beijing → Shanghai → Mutianyu Great Wall → Shanghai Tower → Zhujiajiao Water Town",
+        "Beijing → Shanghai",
       ],
     },
     { icon: "days", label: "Days", values: ["10 Days and 9 Nights"] },
@@ -83,8 +84,13 @@ export const chinaDiscovery: Tour = {
       {
         icon: "activities",
         label: "Activities",
-        value:
-          "Meet & Greet at Beijing Capital International Airport, City Tour, Tea Ceremony, Bullet Train",
+        value: [
+          "Mutianyu Great Wall",
+          "Beijing City Tour",
+          "Tea Ceremony",
+          "Bullet Train",
+          "Shanghai Tower",
+        ],
       },
       { icon: "meals", label: "Meals", value: "9 Breakfasts" },
       {
@@ -145,16 +151,9 @@ export const chinaDiscovery: Tour = {
         image: "/images/wp-content/uploads/2025/10/china-day-1.webp",
         imageAlt: "Beijing arrival",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "Beijing Longge Hotel",
-          },
-          {
-            icon: "activities",
-            label: "Activity",
-            value: "Meet & Greet at the Airport, Check In",
-          },
+          { icon: "accommodation", label: "Accommodation", value: "Beijing Longge Hotel" },
+          { icon: "location", label: "Location", value: "Beijing" },
+          { icon: "activities", label: "Activity", value: "Meet & greet at the airport, Check in" },
         ],
       },
       {
@@ -165,18 +164,10 @@ export const chinaDiscovery: Tour = {
         image: "/images/wp-content/uploads/2025/10/china-day-2.webp",
         imageAlt: "Tiananmen Square and Forbidden City",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "Beijing Longge Hotel",
-          },
-          {
-            icon: "activities",
-            label: "Activity",
-            value:
-              "City Tour (Tiananmen Square, Forbidden City, Hutongs, Houhai)",
-          },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "accommodation", label: "Accommodation", value: "Beijing Longge Hotel" },
+          { icon: "location", label: "Location", value: "Beijing" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
+          { icon: "activities", label: "Activity", value: "City Tour" },
         ],
       },
       {
@@ -187,17 +178,10 @@ export const chinaDiscovery: Tour = {
         image: "/images/wp-content/uploads/2025/10/china-day-3.webp",
         imageAlt: "Mutianyu Great Wall",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "Beijing Longge Hotel",
-          },
-          {
-            icon: "activities",
-            label: "Activity",
-            value: "Mutianyu Great Wall, Summer Palace",
-          },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "accommodation", label: "Accommodation", value: "Beijing Longge Hotel" },
+          { icon: "location", label: "Location", value: "Beijing" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
+          { icon: "activities", label: "Activity", value: "Mutianyu Great Wall" },
         ],
       },
       {
@@ -208,17 +192,10 @@ export const chinaDiscovery: Tour = {
         image: "/images/wp-content/uploads/2025/10/china-day-4.webp",
         imageAlt: "789 Art Zone Beijing",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "Beijing Longge Hotel",
-          },
-          {
-            icon: "activities",
-            label: "Activity",
-            value: "789 Art Zone Beijing, Local Markets (Free Afternoon)",
-          },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "accommodation", label: "Accommodation", value: "Beijing Longge Hotel" },
+          { icon: "location", label: "Location", value: "Beijing" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
+          { icon: "activities", label: "Activity", value: "Free Day" },
         ],
       },
       {
@@ -229,13 +206,10 @@ export const chinaDiscovery: Tour = {
         image: "/images/wp-content/uploads/2025/10/china-day-5.webp",
         imageAlt: "Beijing free day",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "Beijing Longge Hotel",
-          },
+          { icon: "accommodation", label: "Accommodation", value: "Beijing Longge Hotel" },
+          { icon: "location", label: "Location", value: "Beijing" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
           { icon: "activities", label: "Activity", value: "Free Day" },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
         ],
       },
       {
@@ -246,17 +220,10 @@ export const chinaDiscovery: Tour = {
         image: "/images/wp-content/uploads/2025/10/china-day-6.webp",
         imageAlt: "Shanghai Bund",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "Holiday Inn Express Shanghai Gongkang",
-          },
-          {
-            icon: "activities",
-            label: "Activity",
-            value: "High-speed Train, Bund Visit, Huangpu River Cruise",
-          },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "accommodation", label: "Accommodation", value: "Holiday Inn Express Shanghai Gongkang" },
+          { icon: "location", label: "Location", value: "Shanghai" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
+          { icon: "activities", label: "Activity", value: "High-speed Train, Bund Visit, River Cruise" },
         ],
       },
       {
@@ -267,18 +234,10 @@ export const chinaDiscovery: Tour = {
         image: "/images/wp-content/uploads/2025/10/china-day-7.webp",
         imageAlt: "Yu Garden and Shanghai Tower",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "Holiday Inn Express Shanghai Gongkang",
-          },
-          {
-            icon: "activities",
-            label: "Activity",
-            value:
-              "Yu Garden, City God Temple Market, Shanghai Tower, Shanghai Museum",
-          },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "accommodation", label: "Accommodation", value: "Holiday Inn Express Shanghai Gongkang" },
+          { icon: "location", label: "Location", value: "Shanghai" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
+          { icon: "activities", label: "Activity", value: "Yu Garden, City God Market Temple, Shanghai Tower, Shanghai Museum" },
         ],
       },
       {
@@ -289,17 +248,10 @@ export const chinaDiscovery: Tour = {
         image: "/images/wp-content/uploads/2025/10/china-day-8.webp",
         imageAlt: "Zhujiajiao Water Town canals",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "Holiday Inn Express Shanghai Gongkang",
-          },
-          {
-            icon: "activities",
-            label: "Activity",
-            value: "Zhujiajiao Water Town",
-          },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "accommodation", label: "Accommodation", value: "Holiday Inn Express Shanghai Gongkang" },
+          { icon: "location", label: "Location", value: "Shanghai" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
+          { icon: "activities", label: "Activity", value: "Zhujiajiao Water Town" },
         ],
       },
       {
@@ -310,13 +262,10 @@ export const chinaDiscovery: Tour = {
         image: "/images/wp-content/uploads/2025/10/china-day-9.webp",
         imageAlt: "Shanghai skyline",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "Holiday Inn Express Shanghai Gongkang",
-          },
-          { icon: "activities", label: "Activity", value: "Free Day" },
+          { icon: "accommodation", label: "Accommodation", value: "Holiday Inn Express Shanghai Gongkang" },
+          { icon: "location", label: "Location", value: "Shanghai" },
           { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "activities", label: "Activity", value: "Free Day" },
         ],
       },
       {
@@ -327,8 +276,9 @@ export const chinaDiscovery: Tour = {
         image: "/images/wp-content/uploads/2025/10/china-day-10.webp",
         imageAlt: "Shanghai departure",
         details: [
+          { icon: "location", label: "Location", value: "Shanghai" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
           { icon: "activities", label: "Activity", value: "Check Out" },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
         ],
       },
     ],
@@ -340,7 +290,7 @@ export const chinaDiscovery: Tour = {
         image:
           "/images/wp-content/uploads/2025/10/long-ge-hotel-accommodation.webp",
         imageAlt: "Long Ge Hotel Beijing",
-        name: "Long Ge Hotel (Beijing)",
+        name: "Long Ge Hotel Beijing",
         nights: "5 nights in Hotel",
       },
       {

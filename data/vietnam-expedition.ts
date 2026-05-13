@@ -298,7 +298,6 @@ export const vietnamExpedition: Tour = {
         image: `${IMG}/vietnam-day-11.png`,
         imageAlt: "Farewell day in Da Nang, Vietnam",
         details: [
-          { icon: "accommodation", label: "Accommodation", value: "Sekong Hotel" },
           { icon: "location", label: "Location", value: "Da Nang" },
           { icon: "meals", label: "Meals", value: "Breakfast" },
         ],

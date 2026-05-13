@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { devGallerySlides } from "@/data/travelWithDev";
+import { type GalleryMediaItem } from "@/data/travelWithDev";
 
 const DOOR_RIGHT = new Set([2, 5, 7, 11]);
 
@@ -28,7 +28,7 @@ const KF_DOWN: Keyframe[] = [
   { offset: 1,     transform: "translateY(0)" },
 ];
 
-export default function TripMomentsGallery() {
+export default function TripMomentsGallery({ slides }: { slides: GalleryMediaItem[][][] }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [started, setStarted] = useState(false);
   const [slideIndex, setSlideIndex] = useState(0);
@@ -82,7 +82,7 @@ export default function TripMomentsGallery() {
 
     function scheduleCycle() {
       swapTimer = setTimeout(() => {
-        setSlideIndex((prev) => (prev + 1) % devGallerySlides.length);
+        setSlideIndex((prev) => (prev + 1) % slides.length);
         cycleTimer = setTimeout(
           scheduleCycle,
           SLIDE_INTERVAL_MS - SLIDE_SWAP_OFFSET_MS
@@ -97,7 +97,7 @@ export default function TripMomentsGallery() {
     };
   }, [started]);
 
-  const columns = devGallerySlides[slideIndex];
+  const columns = slides[slideIndex];
 
   return (
     <div ref={containerRef} className="relative flex gap-2 sm:gap-2.5">
@@ -118,6 +118,7 @@ export default function TripMomentsGallery() {
                   fill
                   sizes="(max-width: 640px) 25vw, 300px"
                   className="object-cover"
+                  style={item.objectPosition ? { objectPosition: item.objectPosition } : undefined}
                 />
               )}
 
