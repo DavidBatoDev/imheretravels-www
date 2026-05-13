@@ -453,7 +453,7 @@ export const tanzaniaExploration: Tour = {
           "/images/wp-content/uploads/2025/08/demani-lodge-accommodation2.webp",
         imageAlt: "Demani Lodge",
         name: "Demani Lodge",
-        nights: "4 nights in dorm",
+        nights: "4 nights in hotel",
       },
     ],
   },
