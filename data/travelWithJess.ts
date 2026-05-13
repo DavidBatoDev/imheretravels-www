@@ -31,10 +31,9 @@ export const jessMeta = {
 
 // TODO: replace with Jess's own bio paragraphs
 export const jessIntro = [
-  "Join Jess on her group trips designed to bring her community together through travel.",
-  "Jess has been hosting with us and has successfully led multiple sold-out trips — creating unforgettable experiences and strong connections within her community.",
-  "From cultural experiences to adventure-filled itineraries, each trip is designed to create meaningful connections, lasting memories, and real shared experiences.",
-  "Whether you're joining solo or with friends, you'll be part of a welcoming group that travels with intention.",
+  "Jess is a passionate traveller and community builder who believes the best experiences are shared ones.",
+  "With a love for discovering new cultures, hidden gems, and unforgettable moments, Jess brings her community along for the ride — turning trips into memories that last a lifetime.",
+  "Whether you're a seasoned traveller or stepping out for the first time, Jess creates a space where everyone feels welcome, included, and inspired.",
 ];
 
 // TODO: replace with Jess's actual upcoming trips
