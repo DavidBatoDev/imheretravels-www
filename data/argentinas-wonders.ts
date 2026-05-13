@@ -301,7 +301,6 @@ export const argentinasWonders: Tour = {
         image: "/tours/argentinas-wonders/argentina-day-11.webp",
         imageAlt: "Farewell day in Puerto Iguazú, Argentina",
         details: [
-          { icon: "accommodation", label: "Accommodation", value: "None (Departure Day)" },
           { icon: "location", label: "Location", value: "Puerto Iguazú" },
           { icon: "meals", label: "Meals", value: "1x Breakfast" },
           { icon: "activities", label: "Activities", value: "• Day at leisure\n• Departure" },

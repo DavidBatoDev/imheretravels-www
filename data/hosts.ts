@@ -30,7 +30,6 @@ import {
 
 export type HostTrip = {
   name: string;
-  /** Human-readable date range, e.g. "March 19–31, 2027" or "TBA" */
   dates: string;
   /** If set, the trip card links to /tours/[tourSlug] */
   tourSlug?: string;

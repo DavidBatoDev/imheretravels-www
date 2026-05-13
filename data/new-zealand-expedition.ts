@@ -453,11 +453,6 @@ export const newZealandExpedition: Tour = {
         image: "/images/wp-content/uploads/2025/05/new-zealand-day-15.webp",
         imageAlt: "Queenstown departure",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "Haka House Queenstown (checkout)",
-          },
           { icon: "meals", label: "Meals", value: "Breakfast" },
         ],
       },
