@@ -2,7 +2,6 @@
 
 import { forwardRef, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Tour, TourDay } from "@/types/tour";
@@ -52,18 +51,9 @@ export default function Itinerary({
 
   return (
     <section className="mt-10 w-full md:mt-14">
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <h2 className="font-sans text-h3-mobile md:text-h3-desktop text-midnight">
-          {section.heading}
-        </h2>
-        <Link
-          href={section.downloadHref}
-          className="inline-flex items-center gap-2 rounded-full border border-midnight px-5 py-2.5 font-body text-b4-desktop text-midnight transition-colors hover:border-crimson-red hover:text-crimson-red"
-        >
-          <Icon name="download" className="size-4" />
-          {section.downloadLabel}
-        </Link>
-      </div>
+      <h2 className="font-sans text-h3-mobile md:text-h3-desktop text-midnight">
+        {section.heading}
+      </h2>
 
       <ol className="mt-8 divide-y divide-light-grey border-t border-light-grey">
         {section.days.map((day, i) => (
