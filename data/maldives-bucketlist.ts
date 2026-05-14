@@ -1,13 +1,5 @@
-﻿/**
- * Maldives Bucketlist
- *
- * Auto-generated from data/json/tourPackages-04142026.json by
- * data/scripts/generate-tours.mjs. Safe to hand-edit — the generator
- * only writes files that don't exist yet (run with --force to overwrite).
- *
- * Add richer sections (whatsIncluded, faqs, testimonials, etc.) here as
- * curated content becomes available; see data/philippine-sunrise.ts for a
- * fully-fleshed example.
+/**
+ * Maldives Bucketlist — 9-day Hulhumale-to-Ukulhas island adventure.
  */
 import type { Tour } from "@/types/tour";
 
@@ -15,68 +7,104 @@ export const maldivesBucketlist: Tour = {
   slug: "maldives-bucketlist",
   name: "Maldives Bucketlist",
   meta: {
-    title: "Maldives Bucketlist — I'm Here Travels",
+    title: "9 Days | Maldives Bucketlist: Dive, Explore, Unwind",
     description:
-      "Experience the Maldives Island Adventure! Explore bustling Male City, dive into coral reefs in Rasdhoo, and unwind on an uninhabited island paradise. From thrilling underwater adventures to sunset pad",
+      "Experience the Maldives Island Adventure! Explore bustling Male City, dive into coral reefs in Rasdhoo, and unwind on an uninhabited island paradise. From thrilling underwater adventures to sunset paddling and dolphin cruises, this trip is packed with unforgettable moments!",
   },
   gallery: {
-    hero: "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1759341315607_maldives-header-1.webp?alt=media&token=f8ec555a-c844-4b1d-a4ce-cac0ca5fdd0e",
-    heroAlt: "Maldives Bucketlist",
-    thumbnails: [],
+    hero: "/tours/maldives-bucketlist/maldives-header-1.webp",
+    heroAlt: "Maldives Bucketlist — crystal-clear waters and overwater bungalows",
+    thumbnails: [
+      { src: "/tours/maldives-bucketlist/maldives-header-2.webp", alt: "Maldives Bucketlist" },
+      { src: "/tours/maldives-bucketlist/maldives-header-3.webp", alt: "Maldives Bucketlist" },
+      { src: "/tours/maldives-bucketlist/maldives-header-4.webp", alt: "Maldives Bucketlist" },
+      { src: "/tours/maldives-bucketlist/maldives-header-5.webp", alt: "Maldives Bucketlist" },
+      { src: "/tours/maldives-bucketlist/maldives-header-6.webp", alt: "Maldives Bucketlist" },
+      { src: "/tours/maldives-bucketlist/maldives-header-7.webp", alt: "Maldives Bucketlist" },
+      { src: "/tours/maldives-bucketlist/maldives-header-8.webp", alt: "Maldives Bucketlist" },
+    ],
   },
   header: {
-    title: "8 Days and 7 Nights | Maldives Bucketlist",
+    title: "9 Days | Maldives Bucketlist: Dive, Explore, Unwind",
     tags: [
-      {
-        label: "Maldives",
-        icon: "location",
-      },
+      { label: "Maldives", icon: "location" },
     ],
     description:
       "Experience the Maldives Island Adventure! Explore bustling Male City, dive into coral reefs in Rasdhoo, and unwind on an uninhabited island paradise. From thrilling underwater adventures to sunset paddling and dolphin cruises, this trip is packed with unforgettable moments!",
   },
   keyFacts: [
-    {
-      icon: "days",
-      label: "Duration",
-      values: ["8 Days and 7 Nights"],
-    },
+    { icon: "days", label: "Tour Dates", values: ["November 9–17, 2024"] },
+    { icon: "days", label: "Duration", values: ["9 Days and 8 Nights"] },
     {
       icon: "route",
-      label: "Location",
-      values: ["Maldives"],
+      label: "Route",
+      values: ["Hulhumale → Rasdhoo → Ukulhas"],
     },
-    {
-      icon: "people",
-      label: "Group Size",
-      values: ["Maximum 12 people"],
-    },
-    {
-      icon: "days",
-      label: "Tour Dates",
-      values: [],
-    },
+    { icon: "people", label: "Group Size", values: ["Maximum 22 people"] },
   ],
+  whatsIncluded: {
+    heading: "What's Included",
+    items: [
+      {
+        icon: "transport",
+        label: "Transport",
+        value: "Boat, Van, Plane",
+      },
+      {
+        icon: "accommodation",
+        label: "Accommodation",
+        value: "Hotel (8 nights)",
+      },
+      {
+        icon: "activities",
+        label: "Activities",
+        value: "Snorkeling, Diving, Stand Up Paddle Boarding",
+      },
+      {
+        icon: "meals",
+        label: "Meals",
+        value: "8 Breakfasts, 2 Lunches, 6 Dinners",
+      },
+      {
+        icon: "plus",
+        label: "Add-on Activities",
+        value: ["Fun Diving and Discovery Diving", "Lunch at Floating Resorts"],
+      },
+      {
+        icon: "plus",
+        label: "Others",
+        value: [
+          "24/7 customer experience assistance",
+          "Airport and domestic transfer assistance",
+          "One way transfer by scheduled public speedboat to Rasdhoo",
+          "One way ferry transfer Rasdhoo – Ukulhas",
+          "One way transfer by scheduled public speedboat to Male or private speedboat transfer to resort",
+          "Tour Guide",
+          "All Local Tax (10% service charge, 16% GST and $3 Green Tax per person per night)",
+        ],
+      },
+    ],
+  },
   tripHighlights: {
     heading: "Trip Highlights",
     items: [
       {
-        image: "/tours/maldives-bucketlist/highlight-floating-resorts.webp",
-        imageAlt: "Aerial view of floating resort overwater bungalows in the Maldives",
-        title: "Floating Resorts",
-        subtitle: "",
-      },
-      {
-        image: "/tours/maldives-bucketlist/highlight-sunset-paddle.webp",
+        image: "/tours/maldives-bucketlist/maldives-triphighlight-1.webp",
         imageAlt: "Silhouette of a paddleboarder at golden sunset on calm Maldives waters",
         title: "Sunset Paddle",
-        subtitle: "",
+        subtitle: "Paddle under a colorful sunset",
       },
       {
-        image: "/tours/maldives-bucketlist/highlight-snorkeling.webp",
+        image: "/tours/maldives-bucketlist/maldives-triphighlight-2.webp",
         imageAlt: "Divers on a boat ready to snorkel the Maldives reefs",
         title: "Snorkeling",
-        subtitle: "",
+        subtitle: "Enjoy the magical underwater world",
+      },
+      {
+        image: "/tours/maldives-bucketlist/maldives-triphighlight-3.webp",
+        imageAlt: "Aerial view of floating resort overwater bungalows in the Maldives",
+        title: "Floating Resorts",
+        subtitle: "Stunning ocean views and floating resorts",
       },
     ],
   },
@@ -87,59 +115,180 @@ export const maldivesBucketlist: Tour = {
     days: [
       {
         dayNumber: 1,
-        title: "Welcome to Paradise - Hulhumale",
+        title: "Arrival Bliss",
         description:
-          "Touchdown in the Maldives! As soon as you step off the plane, the tropical breeze welcomes you. After a smooth airport transfer, we’ll check into The White Harp Beach Hotel, where you can relax or hit the beach for a golden sunset. In the evening, we’ll gather for a welcome dinner by the ocean, sharing laughs and toasting to the start of an unforgettable journey. For those who want to keep the night going, an optional cocktail evening on a cruise awaits!",
-        details: [],
+          "Touch down in paradise! As soon as you land at Male International Airport, your adventure kicks off. Our awesome tour leader will greet you and whisk you away to your guesthouse on Hulhumale, just 15 minutes away. Drop your bags, throw on some flip-flops, and hit the beach or explore local cafes. The excitement starts now!",
+        image: "/tours/maldives-bucketlist/maldives-day-1.webp",
+        imageAlt: "Arrival in Hulhumale, Maldives",
+        details: [
+          { icon: "accommodation", label: "Accommodation", value: "Ocean Grand" },
+          { icon: "location", label: "Location", value: "Hulhumale" },
+          { icon: "activities", label: "Activities", value: "Welcome Dinner" },
+          { icon: "meals", label: "Meals", value: "1 Dinner" },
+        ],
       },
       {
         dayNumber: 2,
-        title: "Island Life Begins - Maafushi Island",
+        title: "Discover Male's Hidden Gems",
         description:
-          "After breakfast, we kick things off with a guided walking tour of Male, exploring colorful markets, historic mosques, and local culture. Then, it’s time for our speedboat ride to Maafushi Island—our tropical home for the next few days. Check in, settle down, and enjoy free time before we gather for a cozy bonfire night by the beach, sharing travel stories under the stars.",
-        details: [],
+          "Get ready to dive into the vibrant culture of Male City! With our local guide leading the way, you'll explore bustling markets, the impressive President's Palace, and the historic Friday Mosque. Expect some secret spots that tourists usually miss – this is the real Maldives!",
+        image: "/tours/maldives-bucketlist/maldives-day-2.webp",
+        imageAlt: "Male City tour, Maldives",
+        details: [
+          { icon: "accommodation", label: "Accommodation", value: "Ocean Grand" },
+          { icon: "location", label: "Location", value: "Hulhumale" },
+          { icon: "activities", label: "Activities", value: "Whole day Male tour" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast, 1 Lunch" },
+        ],
       },
       {
         dayNumber: 3,
-        title: "Snorkeling & Sandbanks Adventure",
+        title: "Speedboat to Rasdhoo & Coral Reefs",
         description:
-          "Today is all about adventure! We’re heading out on an epic island-hopping tour, exploring hidden gems like Gulhi and Guraidhoo islands, snorkeling at Anantara Reef, and chilling at a dreamy sandbank surrounded by crystal-clear waters. After a day of sun and sea, we’ll return to Maafushi for a delicious beachside BBQ dinner.",
-        details: [],
+          "Rise and shine, it's time for an epic speedboat ride to Rasdhoo! This island is your gateway to some of the best dive sites in the Maldives. Snorkel or dive among stunning coral reefs and get up close with incredible marine life. Adventure awaits!",
+        image: "/tours/maldives-bucketlist/maldives-day-3.webp",
+        imageAlt: "Coral reef snorkeling in Rasdhoo",
+        details: [
+          { icon: "accommodation", label: "Accommodation", value: "Tranquila Maldives" },
+          { icon: "location", label: "Location", value: "Rasdhoo" },
+          { icon: "activities", label: "Activities", value: "Snorkeling" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast, 1 Dinner" },
+        ],
       },
       {
         dayNumber: 4,
-        title: "Free Day or Optional Excursions",
+        title: "Dive, Explore, Repeat",
         description:
-          "The day is yours! Whether you want to relax on the beach, explore Maafushi, or join an optional excursion like a dolphin cruise, paddleboarding, or a snorkeling adventure, the choice is yours. We’ll wrap up the evening with sunset cocktails by the beach—pure island vibes.",
-        details: [],
+          "Calling all divers! Start your day early with a dive at Hammerhead Point or try a Discover Scuba Dive if you're new to the underwater world. Spend the afternoon exploring Rasdhoo with your guide, meeting locals, visiting the mosque, and tasting delicious 'hedika' at a cozy cafe.",
+        image: "/tours/maldives-bucketlist/maldives-day-4.webp",
+        imageAlt: "Island tour of Rasdhoo, Maldives",
+        details: [
+          { icon: "accommodation", label: "Accommodation", value: "Tranquila Maldives" },
+          { icon: "location", label: "Location", value: "Rasdhoo" },
+          { icon: "activities", label: "Activities", value: "Island Tour" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast, 1 Dinner" },
+        ],
       },
       {
         dayNumber: 5,
-        title: "Luxury Escape - Eriyadu Island Resort",
+        title: "Robinson Crusoe Day",
         description:
-          "Escape to an uninhabited island for the ultimate castaway experience! Just a quick speedboat ride from Rasdhoo, this island paradise is perfect for sunbathing, snorkeling, and swimming in a clear blue lagoon. It’s your own private slice of heaven!",
-        details: [],
+          "Escape to an uninhabited island for the ultimate castaway experience! Just a quick speedboat ride from Rasdhoo, this island paradise is perfect for sunbathing, snorkeling, and swimming in a clear blue lagoon. It's your own private slice of heaven!",
+        image: "/tours/maldives-bucketlist/maldives-day-5.webp",
+        imageAlt: "Uninhabited island day trip, Maldives",
+        details: [
+          { icon: "accommodation", label: "Accommodation", value: "Tranquila Maldives" },
+          { icon: "location", label: "Location", value: "Rasdhoo" },
+          { icon: "activities", label: "Activities", value: "Visit to Uninhabited Island, Snorkeling" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast, 1 Lunch" },
+        ],
       },
       {
         dayNumber: 6,
-        title: "Adventure & Relaxation in Eriyadu",
+        title: "Transfer to Ukulhas & Sunset Paddle",
         description:
-          "Wake up in paradise and take the day at your own pace. Whether you’re up for scuba diving, jet skiing, or just lounging by the infinity pool, Eriyadu has something for everyone. Don’t forget to catch the golden sunset with a cocktail in hand—it’s an experience you won’t forget.",
-        details: [],
+          "Hop over to Ukulhas, an island famous for its stunning white sand beaches and vibrant house reef. Spend your day chilling or exploring, then join us for a magical sunset kayaking or SUP tour. Keep an eye out for eagle rays and sharks gliding beneath you – pure magic!",
+        image: "/tours/maldives-bucketlist/maldives-day-6.webp",
+        imageAlt: "Sunset paddle boarding in Ukulhas",
+        details: [
+          { icon: "accommodation", label: "Accommodation", value: "Ostrov" },
+          { icon: "location", label: "Location", value: "Ukulhas" },
+          { icon: "activities", label: "Activities", value: "Stand Up Paddle Boarding, Snorkeling" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast, 1 Dinner" },
+        ],
       },
       {
         dayNumber: 7,
-        title: "Final Day in Paradise",
+        title: "Sunset Cruise & Manta Rays",
         description:
-          "It’s our last full day, and we’re making the most of it! Choose from deep-sea fishing, spa treatments, or a sunset dolphin cruise. In the evening, we’ll gather for a farewell dinner under the stars, celebrating new friendships and unforgettable memories.",
-        details: [],
+          "Kick off the morning snorkeling among colorful coral reefs, with the chance to encounter majestic manta rays. Your guide will ensure a respectful and unforgettable experience. Later, set sail on a sunset cruise to hunt for dolphins. Watching them leap through the water is an absolute thrill!",
+        image: "/tours/maldives-bucketlist/maldives-day-7.webp",
+        imageAlt: "Manta ray snorkeling and sunset cruise, Ukulhas",
+        details: [
+          { icon: "accommodation", label: "Accommodation", value: "Ostrov" },
+          { icon: "location", label: "Location", value: "Ukulhas" },
+          { icon: "activities", label: "Activities", value: "Manta Ray Snorkeling Point and Sunset Cruise" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast, 1 Dinner" },
+        ],
       },
       {
         dayNumber: 8,
         title: "Free Day or Whale Shark Hunt",
         description:
-          "After breakfast, it’s time to pack up and say goodbye to the Maldives. With hearts full of memories and cameras full of breathtaking shots, we take our speedboat transfer back to Male Airport, promising to return to paradise again. Until next time!",
-        details: [],
+          "Today is all about choice – relax and soak up the sun or join an exhilarating tour to search for whale sharks. These gentle giants are seen year-round, and snorkeling alongside them is a bucket-list moment you'll never forget!",
+        image: "/tours/maldives-bucketlist/maldives-day-8.webp",
+        imageAlt: "Whale shark snorkeling, Ukulhas",
+        details: [
+          { icon: "accommodation", label: "Accommodation", value: "Ostrov" },
+          { icon: "location", label: "Location", value: "Ukulhas" },
+          { icon: "activities", label: "Activities", value: "Snorkeling" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast, 1 Dinner" },
+        ],
+      },
+      {
+        dayNumber: 9,
+        title: "Farewell Maldives",
+        description:
+          "After a hearty breakfast, it's time to head back to Male on a public speedboat. Say goodbye to your new friends and this incredible island adventure. You'll leave with amazing memories and maybe a bit of a tan!",
+        image: "/tours/maldives-bucketlist/maldives-day-9.webp",
+        imageAlt: "Farewell Maldives departure",
+        details: [
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
+        ],
+      },
+    ],
+  },
+  whereWeStay: {
+    heading: "Where We Stay",
+    items: [
+      {
+        image: "/tours/maldives-bucketlist/oceangrand-accommodation.webp",
+        imageAlt: "Hotel Ocean Grand",
+        name: "Hotel Ocean Grand",
+        nights: "2 nights in Hotel",
+      },
+      {
+        image: "/tours/maldives-bucketlist/tranquilamaldives-accommodation.webp",
+        imageAlt: "Tranquila Maldives",
+        name: "Tranquila Maldives",
+        nights: "3 nights in Hotel",
+      },
+      {
+        image: "/tours/maldives-bucketlist/ostrovhotel-accommodation.webp",
+        imageAlt: "Ostrov Hotel",
+        name: "Ostrov Hotel",
+        nights: "3 nights in Hotel",
+      },
+    ],
+  },
+  faqs: {
+    heading: "FAQs",
+    items: [
+      {
+        question: "Where does the trip start & finish?",
+        answer: "Male – Velana International Airport.",
+      },
+      {
+        question: "Which airport do I need to fly into?",
+        answer: "Male – Velana International Airport (MLE).",
+      },
+      {
+        question: "What should I wear?",
+        answer:
+          "Cotton clothes suit the hot tropical climate. Tourists are expected to dress modestly on inhabited islands. Sandals are ideal as you may often go barefoot.",
+      },
+      {
+        question: "Do you have an age limit for tours?",
+        answer:
+          "Tours cater to adventurous travelers aged 18–45, with most guests between 21–35 years old.",
+      },
+      {
+        question: "What is the local currency?",
+        answer: "Maldivian Ruffiya, with USD also accepted.",
+      },
+      {
+        question: "Which airport do I fly out from?",
+        answer: "Male – Velana International Airport (MLE).",
       },
     ],
   },
@@ -189,16 +338,16 @@ export const maldivesBucketlist: Tour = {
         icon: "handshake",
         title: "Respect local customs",
         description:
-          "Dress modestly at temples, learn a few local greetings, and tip where appropriate — small gestures make a big difference.",
+          "The Maldives is a Muslim country — alcohol is not available on local islands. Bikinis are not permitted on public beaches; dress modestly on inhabited islands. Tourist beach areas are available for guests.",
       },
     ],
   },
   booking: {
-    durationLabel: "8 Days and 7 Nights",
-    routeLabel: "Maldives",
+    durationLabel: "9 Days and 8 Nights",
+    routeLabel: "Hulhumale to Ukulhas",
     priceFromLabel: "From",
     priceCurrency: "GBP",
-    priceAmount: "£1,400",
+    priceAmount: "£1,800",
     depositAmount: "£300",
     ctaLabel: "Reserve Now",
     ctaHref:
@@ -206,15 +355,13 @@ export const maldivesBucketlist: Tour = {
     footnote: "Additional fees may apply",
   },
   listingCard: {
-    duration: "8 Days and 7 Nights",
+    duration: "9 Days and 8 Nights",
     description:
-      "Experience the Maldives Island Adventure! Explore bustling Male City, dive into coral reefs in Rasdhoo, and unwind on an uninhabited island paradise. From thril",
-    price: "GBP £1,400",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1759341315607_maldives-header-1.webp?alt=media&token=f8ec555a-c844-4b1d-a4ce-cac0ca5fdd0e",
+      "Experience the Maldives Island Adventure! Explore bustling Male City, dive into coral reefs in Rasdhoo, and unwind on an uninhabited island paradise. From thrilling underwater adventures to sunset paddling and dolphin cruises, this trip is packed with unforgettable moments!",
+    price: "GBP £1,800",
+    image: "/tours/maldives-bucketlist/maldives-header-1.webp",
     imageAlt: "Maldives Bucketlist",
   },
 };
 
 export default maldivesBucketlist;
-

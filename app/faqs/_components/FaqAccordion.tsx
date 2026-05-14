@@ -9,6 +9,7 @@ type FaqAccordionProps = {
   items: Item[];
   defaultOpen?: number | null;
   scrollActive?: boolean;
+  expandAll?: boolean | null;
 };
 
 function ChevronDown() {
@@ -29,12 +30,13 @@ export default function FaqAccordion({
   items,
   defaultOpen = 0,
   scrollActive = false,
+  expandAll = null,
 }: FaqAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(defaultOpen);
   const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    if (!scrollActive || items.length === 0) return;
+    if (!scrollActive || items.length === 0 || expandAll === true) return;
 
     const TRIGGER_RATIO = 0.3;
 
@@ -59,12 +61,12 @@ export default function FaqAccordion({
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [items.length, scrollActive]);
+  }, [items.length, scrollActive, expandAll]);
 
   return (
     <dl>
       {items.map((item, i) => {
-        const isOpen = openIndex === i;
+        const isOpen = expandAll != null ? expandAll : openIndex === i;
         return (
           <div
             key={i}

@@ -53,9 +53,9 @@ export const bhutanQuest: Tour = {
     title: "7 Days | Bhutan Quest",
     tags: [
       { label: "Bhutan", icon: "location" },
-      { label: "Punakha", icon: "location" },
-      { label: "Thimphu", icon: "location" },
-      { label: "Paro", icon: "location" },
+      { label: "Trekking", icon: "location" },
+      { label: "Adventure", icon: "location" },
+      { label: "Tiger's Nest", icon: "location" },
     ],
     description:
       "If you enjoy trekking and exploring beautiful vistas then our Bhutan tour is the tour for you. This tour is full of adventure, rich culture, amazing architecture and will let you experience some of the most beautiful landscapes Bhutan has to offer. Nestled in the Himalaya's Bhutan is a hidden treasure that you have to explore starting in Punakha, visiting Thimphu Bhutan's capital city and finishing in Paro, along the way you get to visit many fortresses known as Dzongs, monasteries and ancient temples as well as trekking to the famous Tiger's Nest Temple getting all the views from above. Join us to explore the hidden beauty of Bhutan.",
@@ -156,14 +156,14 @@ export const bhutanQuest: Tour = {
           {
             icon: "accommodation",
             label: "Accommodation",
-            value: "River Valley Resort (or similar)",
+            value: "River Valley Resort",
           },
           {
             icon: "activities",
             label: "Activity",
             value: "Meet and greet dinner",
           },
-          { icon: "meals", label: "Meals", value: "Dinner" },
+          { icon: "meals", label: "Meals", value: "1 Dinner" },
         ],
       },
       {
@@ -184,7 +184,7 @@ export const bhutanQuest: Tour = {
             label: "Activity",
             value: "Punakha Dzong, Suspension Bridge, White-water rafting",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast, Lunch, Dinner" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast, 1 Lunch, and 1 Dinner" },
         ],
       },
       {
@@ -206,7 +206,7 @@ export const bhutanQuest: Tour = {
             value:
               "Visit Gangteng Monastery, Nature trail of the valley, Visit Tashichho Dzong",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast, Lunch, Dinner" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast, 1 Lunch, and 1 Dinner" },
         ],
       },
       {
@@ -228,7 +228,7 @@ export const bhutanQuest: Tour = {
             value:
               "City tour, Memorial Chorten, Folk Heritage Museum, National Library of Bhutan",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast, Lunch, Dinner" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast, 1 Lunch, and 1 Dinner" },
         ],
       },
       {
@@ -250,7 +250,7 @@ export const bhutanQuest: Tour = {
             value:
               "National Museum of Bhutan, Paro Dzong, Namgay Artisanal Brewery",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast, Lunch, Dinner" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast, 1 Lunch, and 1 Dinner" },
         ],
       },
       {
@@ -271,7 +271,7 @@ export const bhutanQuest: Tour = {
             label: "Activity",
             value: "Tiger's Nest, Farewell dinner",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast, Lunch, Dinner" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast, 1 Lunch, and 1 Dinner" },
         ],
       },
       {
@@ -282,12 +282,7 @@ export const bhutanQuest: Tour = {
         image: "/images/wp-content/uploads/2025/08/bhutan-day-7.webp",
         imageAlt: "Paro airport departure",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "Rema Resort (checkout)",
-          },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
     ],
@@ -299,7 +294,7 @@ export const bhutanQuest: Tour = {
         image:
           "/images/wp-content/uploads/2025/08/river-valley-hotel-accommodation.webp",
         imageAlt: "River Valley Resort",
-        name: "River Valley Resort (or similar)",
+        name: "River Valley Resort",
         nights: "1 night in Hotel",
       },
       {

@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Thumbs, Keyboard, A11y } from "swiper/modules";
+import { Navigation, Thumbs, Keyboard, A11y, Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper/types";
 import type { Tour } from "@/types/tour";
 
@@ -24,7 +24,7 @@ export default function TourGallery({ gallery }: { gallery: Tour["gallery"] }) {
     <section className="w-full">
       <div className="group relative">
         <Swiper
-          modules={[Navigation, Thumbs, Keyboard, A11y]}
+          modules={[Navigation, Thumbs, Keyboard, A11y, Autoplay]}
           onSwiper={(swiper) => { mainSwiperRef.current = swiper; }}
           thumbs={{
             swiper:
@@ -32,6 +32,7 @@ export default function TourGallery({ gallery }: { gallery: Tour["gallery"] }) {
           }}
           navigation={{ prevEl: ".tg-prev", nextEl: ".tg-next" }}
           keyboard={{ enabled: true }}
+          autoplay={{ delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true }}
           loop
           spaceBetween={0}
           slidesPerView={1}

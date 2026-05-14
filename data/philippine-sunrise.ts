@@ -374,11 +374,6 @@ export const philippineSunrise: Tour = {
           "/images/wp-content/uploads/2024/05/philippinessunrise-day-11.webp",
         imageAlt: "Checkout",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "Siargao Seasky (or similar) - checkout",
-          },
           { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },

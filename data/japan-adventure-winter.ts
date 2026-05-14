@@ -22,7 +22,12 @@ export const japanAdventureWinter: Tour = {
   },
   header: {
     title: "10 Days | Japan Winter Adventure",
-    tags: [{ label: "Japan", icon: "location" }],
+    tags: [
+      { label: "Tokyo", icon: "location" },
+      { label: "Nagano", icon: "location" },
+      { label: "Kyoto", icon: "location" },
+      { label: "Osaka", icon: "location" },
+    ],
     description:
       "Welcome to Japan. Experience the perfect blend of tradition and innovation on this unforgettable journey through Japan. We start off in Tokyo, the vibrant capital where modern skyscrapers meet historic temples. Enjoy a guided city tour featuring iconic sights like the Meiji Shrine and Shibuya Crossing. After a few days in Tokyo, we will ride the world-renowned bullet train to Kyoto, Japan's cultural heart. Explore ancient temples, serene gardens, and the famous Gion district, home to traditional tea houses and geisha culture. The final stop on the tour will be Sapporo. Discover its laid-back charm, local cuisine, and unique seasonal beauty during a scenic city tour. This tour offers the best of Japan's dynamic cities, rich heritage, and stunning landscapes.",
   },
@@ -274,11 +279,6 @@ export const japanAdventureWinter: Tour = {
         description:
           "Enjoy your last breakfast with a view before heading to the airport. You're leaving Japan but trust us, part of your heart will stay behind.",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "Sarasa Hotel Namba (checkout)",
-          },
           { icon: "location", label: "Location", value: "Osaka" },
           { icon: "activities", label: "Activities", value: "Check out" },
           { icon: "meals", label: "Meals", value: "Breakfast" },

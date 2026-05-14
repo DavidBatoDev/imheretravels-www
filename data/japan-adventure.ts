@@ -273,11 +273,6 @@ export const japanAdventure: Tour = {
         description:
           "Enjoy your last breakfast with a view before heading to the airport. You're leaving Japan but trust us, part of your heart will stay behind.",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "S-Peria Hotel (checkout)",
-          },
           { icon: "location", label: "Location", value: "Kyoto" },
           { icon: "activities", label: "Activities", value: "Check out" },
           { icon: "meals", label: "Meals", value: "Breakfast" },

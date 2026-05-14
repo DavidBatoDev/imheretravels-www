@@ -33,7 +33,7 @@ export const argentinasWonders: Tour = {
     ],
   },
   header: {
-    title: "11 days | Argentina's Wonders",
+    title: "11 Days | Argentina's Wonders",
     tags: [
       { label: "Argentina", icon: "location" },
       { label: "Patagonia", icon: "location" },
@@ -301,7 +301,6 @@ export const argentinasWonders: Tour = {
         image: "/tours/argentinas-wonders/argentina-day-11.webp",
         imageAlt: "Farewell day in Puerto Iguazú, Argentina",
         details: [
-          { icon: "accommodation", label: "Accommodation", value: "None (Departure Day)" },
           { icon: "location", label: "Location", value: "Puerto Iguazú" },
           { icon: "meals", label: "Meals", value: "1x Breakfast" },
           { icon: "activities", label: "Activities", value: "• Day at leisure\n• Departure" },
@@ -442,7 +441,7 @@ export const argentinasWonders: Tour = {
     ],
   },
   booking: {
-    durationLabel: "11 days",
+    durationLabel: "11 Days",
     routeLabel: "Argentina",
     priceFromLabel: "From",
     priceCurrency: "GBP",
@@ -454,7 +453,7 @@ export const argentinasWonders: Tour = {
     footnote: "Additional fees may apply",
   },
   listingCard: {
-    duration: "11 days",
+    duration: "11 Days",
     description:
       "Discover the vibrant culture and breathtaking landscapes of Argentina on an epic 11-day adventure. Begin in Buenos Aires, where the energy of tango and rich loc",
     price: "GBP £2,499",

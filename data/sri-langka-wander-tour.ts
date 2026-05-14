@@ -472,11 +472,6 @@ export const sriLangkaWanderTour: Tour = {
         imageAlt: "Checkout",
         details: [
           {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "Coral Rock by Bansei (or similar) - checkout",
-          },
-          {
             icon: "meals",
             label: "Meals",
             value: "Breakfast",

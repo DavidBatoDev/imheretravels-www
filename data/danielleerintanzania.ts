@@ -408,11 +408,6 @@ export const danielleErinTanzaniaExploration: Tour = {
         imageAlt: "Checkout",
         details: [
           {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "La Lindrin Lodge",
-          },
-          {
             icon: "activities",
             label: "Activities",
             value: "Checkout",

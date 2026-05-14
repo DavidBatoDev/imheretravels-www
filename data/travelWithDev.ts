@@ -32,7 +32,7 @@ export const devIntro = [
 export const devUpcomingTrips = [
   {
     name: "India Holi + Yoga with Dev",
-    dates: "March 19–31, 2027",
+    dates: "March 19, 2027",
     image: "/images/wp-content/uploads/2025/01/india-header-2.webp",
     imageAlt: "India Holi Festival Tour",
     duration: "13 Days and 12 Nights",

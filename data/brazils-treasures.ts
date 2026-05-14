@@ -8,9 +8,9 @@ import type { Tour } from "@/types/tour";
 
 export const brazilsTreasures: Tour = {
   slug: "brazils-treasures",
-  name: "Discover Brazil's Treasures",
+  name: "Brazil's Treasures",
   meta: {
-    title: "Discover Brazil's Treasures — I'm Here Travels",
+    title: "Brazil's Treasures — I'm Here Travels",
     description:
       "Get ready to fall in love with Brazil—loud, colorful, and alive at every turn. From exploring the vibrant city of São Paulo to wandering the cobbled charm of Paraty, this 10-day adventure is full of energy and discovery.",
   },
@@ -40,7 +40,7 @@ export const brazilsTreasures: Tour = {
     {
       icon: "days",
       label: "Tour Dates",
-      values: ["Jan 31, 2027-Feb 6, 2027"],
+      values: ["Jan 31, 2027"],
     },
     {
       icon: "route",
@@ -453,7 +453,7 @@ export const brazilsTreasures: Tour = {
     price: "GBP £1,599",
     image:
       "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1759341307739_brazil-header-4.webp?alt=media&token=811f0f81-f1ba-4267-9da5-69c568c29335",
-    imageAlt: "Discover Brazil's Treasures",
+    imageAlt: "Brazil's Treasures",
   },
 };
 
