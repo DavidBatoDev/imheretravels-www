@@ -25,7 +25,7 @@ export const japanAdventureWithSkiing: Tour = {
     thumbnails: [],
   },
   header: {
-    title: "10 Days and 9 Nights | Japan Adventure (With Skiing)",
+    title: "10 Days | Japan Adventure (With Skiing)",
     tags: [
       {
         label: "Japan",
