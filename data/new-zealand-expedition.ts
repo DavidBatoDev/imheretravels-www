@@ -605,7 +605,7 @@ export const newZealandExpedition: Tour = {
     ],
   },
   booking: {
-    durationLabel: "15 Days and 14 Nights",
+    durationLabel: "15 Day Tour",
     routeLabel: "Auckland to Queenstown",
     priceFromLabel: "From",
     priceCurrency: "GBP",

@@ -604,7 +604,7 @@ export const sriLangkaWanderTour: Tour = {
     ],
   },
   booking: {
-    durationLabel: "12 Days and 11 Nights",
+    durationLabel: "12 Day Tour",
     routeLabel:
       "Negombo -> Habarana -> Kandy -> Ella -> Arugam Bay -> Hikkaduwa",
     priceFromLabel: "From",

@@ -403,7 +403,7 @@ export const bhutanQuest: Tour = {
     ],
   },
   booking: {
-    durationLabel: "7 Days and 6 Nights",
+    durationLabel: "7 Day Tour",
     routeLabel: "Punakha to Paro",
     priceFromLabel: "From",
     priceCurrency: "GBP",

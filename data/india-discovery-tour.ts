@@ -527,7 +527,7 @@ export const indiaDiscoveryTour: Tour = {
     ],
   },
   booking: {
-    durationLabel: "13 Days and 12 Nights",
+    durationLabel: "13 Day Tour",
     routeLabel: "New Delhi to Agra",
     priceFromLabel: "From",
     priceCurrency: "GBP",

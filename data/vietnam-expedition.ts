@@ -423,7 +423,7 @@ export const vietnamExpedition: Tour = {
     ],
   },
   booking: {
-    durationLabel: "11 Days",
+    durationLabel: "11 Day Tour",
     routeLabel: "Hanoi → Ninh Binh → Hue → Hoi An → Da Nang",
     priceFromLabel: "From",
     priceCurrency: "GBP",

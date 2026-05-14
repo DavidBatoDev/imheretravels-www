@@ -398,7 +398,7 @@ export const japanAdventureWinter: Tour = {
     ],
   },
   booking: {
-    durationLabel: "10 Days and 9 Nights",
+    durationLabel: "10 Day Tour",
     routeLabel: "Tokyo → Nagano → Kyoto → Osaka",
     priceFromLabel: "From",
     priceCurrency: "GBP",

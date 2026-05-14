@@ -552,7 +552,7 @@ export const philippineSunset: Tour = {
     ],
   },
   booking: {
-    durationLabel: "11 Days and 10 Nights",
+    durationLabel: "11 Day Tour",
     routeLabel: "Manila -> Port Barton -> El Nido -> Isla Darocotan",
     priceFromLabel: "From",
     priceCurrency: "GBP",

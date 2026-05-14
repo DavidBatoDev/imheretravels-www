@@ -436,7 +436,7 @@ export const brazilsTreasures: Tour = {
     ],
   },
   booking: {
-    durationLabel: "7 days & 6 Nights",
+    durationLabel: "7 Day Tour",
     routeLabel: "São Paulo to Rio de Janeiro",
     priceFromLabel: "From",
     priceCurrency: "GBP",

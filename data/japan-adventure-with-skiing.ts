@@ -209,7 +209,7 @@ export const japanAdventureWithSkiing: Tour = {
     ],
   },
   booking: {
-    durationLabel: "10 Days and 9 Nights",
+    durationLabel: "10 Day Tour",
     routeLabel: "Japan",
     priceFromLabel: "From",
     priceCurrency: "GBP",

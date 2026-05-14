@@ -441,7 +441,7 @@ export const argentinasWonders: Tour = {
     ],
   },
   booking: {
-    durationLabel: "11 Days",
+    durationLabel: "11 Day Tour",
     routeLabel: "Argentina",
     priceFromLabel: "From",
     priceCurrency: "GBP",

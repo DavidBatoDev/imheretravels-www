@@ -525,7 +525,7 @@ export const tanzaniaExploration: Tour = {
     ],
   },
   booking: {
-    durationLabel: "10 Days and 9 Nights",
+    durationLabel: "10 Day Tour",
     routeLabel: "Kilimanjaro -> Arusha -> Karatu -> Zanzibar",
     priceFromLabel: "From",
     priceCurrency: "GBP",

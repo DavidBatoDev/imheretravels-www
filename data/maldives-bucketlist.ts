@@ -343,7 +343,7 @@ export const maldivesBucketlist: Tour = {
     ],
   },
   booking: {
-    durationLabel: "9 Days and 8 Nights",
+    durationLabel: "9 Day Tour",
     routeLabel: "Hulhumale to Ukulhas",
     priceFromLabel: "From",
     priceCurrency: "GBP",

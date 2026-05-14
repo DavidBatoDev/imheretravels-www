@@ -490,7 +490,7 @@ export const philippineSunrise: Tour = {
   // mobile/tablet. `ctaHref` points to the inquiry page until a dedicated
   // booking flow exists.
   booking: {
-    durationLabel: "11 Days / 10 Nights",
+    durationLabel: "11 Day Tour",
     routeLabel: "Cebu -> Moalboal -> Siargao",
     priceFromLabel: "From",
     priceCurrency: "GBP",
