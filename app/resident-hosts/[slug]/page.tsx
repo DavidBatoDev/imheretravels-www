@@ -247,17 +247,24 @@ function UpcomingTripsSection({ host }: { host: Host }) {
                       {trip.description}
                     </p>
                   )}
-                  <div className="mt-auto flex items-baseline gap-2 pt-5">
-                    {trip.price ? (
-                      <>
-                        <span className="font-body text-b4-desktop text-dark-gray">From</span>
-                        <span className="font-sans text-h6-mobile md:text-h6-desktop text-midnight">
-                          {trip.price}
-                        </span>
-                      </>
-                    ) : (
-                      <span className="font-body text-b4-desktop text-dark-gray">Pricing TBA</span>
+                  <div className="mt-auto pt-5 flex flex-col gap-1">
+                    {trip.dates && trip.dates !== "TBA" && (
+                      <span className="font-body text-b4-desktop text-dark-gray">
+                        {trip.dates}
+                      </span>
                     )}
+                    <div className="flex items-baseline gap-2">
+                      {trip.price ? (
+                        <>
+                          <span className="font-body text-b4-desktop text-dark-gray">From</span>
+                          <span className="font-sans text-h6-mobile md:text-h6-desktop text-midnight">
+                            {trip.price}
+                          </span>
+                        </>
+                      ) : (
+                        <span className="font-body text-b4-desktop text-dark-gray">Pricing TBA</span>
+                      )}
+                    </div>
                   </div>
                 </div>
               </>

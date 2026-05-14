@@ -41,7 +41,7 @@ export const jessIntro = [
 export const jessUpcomingTrips = [
   {
     name: "Philippines Sunset Getaway",
-    dates: "TBA",
+    dates: "November 8–18",
     tourSlug: "philippine-sunset",
     image: "/images/wp-content/uploads/2024/05/philippinessunset-triphighlight-1.webp",
     imageAlt: "Philippines Sunset Getaway",
