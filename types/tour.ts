@@ -135,6 +135,9 @@ export interface Tour {
   // both the page H1 and the breadcrumb leaf — breadcrumbs are always
   // Home › Tours › <name>, so we don't store the trail per tour.
   name: string;
+  // Override the tour ID used in booking/reservation URLs when it differs
+  // from the page slug (e.g. private variants that share an admin tour ID).
+  bookingSlug?: string;
   meta: { title: string; description: string };
   gallery: {
     hero: string;

@@ -10,6 +10,7 @@ import type { Tour } from "@/types/tour";
 
 export const danielleErinTanzaniaExploration: Tour = {
   slug: "danielleerintanzania",
+  bookingSlug: "tanzania-exploration-danielle-erin",
   name: "Tanzania Exploration (Danielle & Erin)",
   meta: {
     title: "10 Days | Tanzania Exploration (Danielle & Erin)",
@@ -532,7 +533,7 @@ export const danielleErinTanzaniaExploration: Tour = {
     depositAmount: "£250",
     ctaLabel: "Reserve Now",
     ctaHref:
-      "https://admin.imheretravels.com/reservation-booking-form?tour=danielleerintanzania",
+      "https://admin.imheretravels.com/reservation-booking-form?tour=tanzania-exploration-danielle-erin",
     footnote: "Additional fees may apply",
   },
   listingCard: {
