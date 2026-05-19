@@ -216,6 +216,7 @@ function UpcomingTripsSection({ host }: { host: Host }) {
             const isTBA = !trip.duration;
             const inner = (
               <>
+                {/* Image */}
                 <div className="relative aspect-[4/3] w-full overflow-hidden">
                   {trip.image ? (
                     <Image
@@ -223,48 +224,57 @@ function UpcomingTripsSection({ host }: { host: Host }) {
                       alt={trip.imageAlt ?? trip.name}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      className={`object-cover transition-transform duration-300 group-hover:scale-105 ${isTBA ? "brightness-75" : ""}`}
                     />
                   ) : (
                     <div className="absolute inset-0 bg-grey/20" />
                   )}
+                  {/* Duration / Coming Soon pill — overlaid on image */}
+                  <div className="absolute bottom-3 left-3">
+                    <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-body text-b4-desktop backdrop-blur-sm ${isTBA ? "bg-midnight/60 text-white/80" : "bg-white/90 text-midnight shadow-xxsmall"}`}>
+                      <Image src="/Icons/SVG/Pin/pin-solid-red.svg" alt="" width={12} height={12} />
+                      {isTBA ? "Coming Soon" : trip.duration}
+                    </span>
+                  </div>
                 </div>
+
+                {/* Content */}
                 <div className="flex flex-1 flex-col p-5 md:p-6">
-                  <span className="inline-flex w-fit items-center gap-2 rounded-full bg-light-grey px-3 py-1 font-body text-b4-desktop text-midnight">
-                    <Image
-                      src="/Icons/SVG/Pin/pin-solid-red.svg"
-                      alt=""
-                      width={14}
-                      height={14}
-                    />
-                    {isTBA ? "TBA" : trip.duration}
-                  </span>
-                  <h3 className="mt-4 font-sans text-h5-mobile md:text-h5-desktop text-midnight transition-colors group-hover:text-crimson-red">
+                  <h3 className={`font-sans text-h5-mobile md:text-h5-desktop transition-colors ${isTBA ? "text-dark-gray" : "text-midnight group-hover:text-crimson-red"}`}>
                     {trip.name}
                   </h3>
                   {trip.description && (
-                    <p className="mt-2 font-body text-b4-mobile md:text-b4-desktop text-dark-gray">
+                    <p className="mt-2 line-clamp-2 font-body text-b4-mobile md:text-b4-desktop text-dark-gray">
                       {trip.description}
                     </p>
                   )}
-                  <div className="mt-auto pt-5 flex flex-col gap-1">
-                    {trip.dates && trip.dates !== "TBA" && (
-                      <span className="font-body text-b4-desktop text-dark-gray">
-                        {trip.dates}
-                      </span>
-                    )}
-                    <div className="flex items-baseline gap-2">
+
+                  {/* Footer */}
+                  <div className="mt-auto pt-5 flex items-end justify-between gap-3">
+                    <div className="flex flex-col gap-0.5">
+                      {!isTBA && trip.dates && trip.dates !== "TBA" && (
+                        <span className="font-body text-b4-desktop text-dark-gray">
+                          {trip.dates}
+                        </span>
+                      )}
                       {trip.price ? (
-                        <>
+                        <div className="flex items-baseline gap-1.5">
                           <span className="font-body text-b4-desktop text-dark-gray">From</span>
                           <span className="font-sans text-h6-mobile md:text-h6-desktop text-midnight">
                             {trip.price}
                           </span>
-                        </>
+                        </div>
                       ) : (
-                        <span className="font-body text-b4-desktop text-dark-gray">Pricing TBA</span>
+                        <span className="font-body text-b4-desktop text-grey italic">Dates &amp; pricing TBA</span>
                       )}
                     </div>
+
+                    {trip.tourSlug && !isTBA && (
+                      <span className="shrink-0 inline-flex items-center gap-1 rounded-full bg-crimson-red px-4 py-2 font-body text-b4-desktop font-medium text-white transition-colors group-hover:bg-light-red">
+                        View Tour
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="mt-px"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      </span>
+                    )}
                   </div>
                 </div>
               </>

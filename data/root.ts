@@ -46,11 +46,11 @@ export const tours = [
     href: "/tours/india-discovery-tour",
   },
   {
-    title: "India Holi Festival",
+    title: "India Holi + Yoga with Dev",
     duration: "13 Day Tour",
     description:
       "Explore India's vibrant culture, ancient wonders, and the stunning colors of the Holi Festival.",
-    price: "GBP £1,199",
+    price: "GBP £1,299",
     image: "/figma/dest-india-holi-festival.jpg",
     href: "/tours/india-holi-festival-tour",
   },
@@ -155,7 +155,7 @@ export const destinations = [
     href: "/tours/india-discovery-tour",
   },
   {
-    name: "India Holi Festival",
+    name: "India Holi + Yoga with Dev",
     image: "/figma/dest-india-holi-festival.jpg",
     href: "/tours/india-holi-festival-tour",
   },

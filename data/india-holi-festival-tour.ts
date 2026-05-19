@@ -13,15 +13,15 @@ import type { Tour } from "@/types/tour";
 
 export const indiaHoliFestivalTour: Tour = {
   slug: "india-holi-festival-tour",
-  name: "India Holi Festival Tour",
+  name: "India Holi + Yoga with Dev",
   meta: {
-    title: "13 Days | India Holi Festival Tour — I'm Here Travels",
+    title: "13 Days | India Holi + Yoga with Dev — I'm Here Travels",
     description:
       "It's time to start exploring India. This tour is perfect for those first time travellers that have always wanted to explore the wonders of India but don't want to do it alone. Experience the Taj Mahal, Pink Palaces of Jaipur, Ranthambhore safari, and the colours of Holi.",
   },
   gallery: {
     hero: "/images/wp-content/uploads/2025/01/india-header-2.webp",
-    heroAlt: "India Holi Festival Tour",
+    heroAlt: "India Holi + Yoga with Dev",
     thumbnails: [
       {
         src: "/images/wp-content/uploads/2025/01/india-day-2.webp",
@@ -58,7 +58,7 @@ export const indiaHoliFestivalTour: Tour = {
     ],
   },
   header: {
-    title: "13 Days | India Holi Festival Tour",
+    title: "13 Days | India Holi + Yoga with Dev",
     tags: [
       { label: "India", icon: "location" },
       { label: "Taj Mahal", icon: "location" },
@@ -582,7 +582,7 @@ export const indiaHoliFestivalTour: Tour = {
     routeLabel: "New Delhi → Jodhpur → Udaipur → Jaipur → Sawai Madhopur → Agra",
     priceFromLabel: "From",
     priceCurrency: "GBP",
-    priceAmount: "£1,199",
+    priceAmount: "£1,299",
     depositAmount: "£200",
     ctaLabel: "Reserve Now",
     ctaHref:
@@ -593,9 +593,9 @@ export const indiaHoliFestivalTour: Tour = {
     duration: "13 Days and 12 Nights",
     description:
       "Explore India's vibrant culture, ancient wonders, and the stunning colors of the Holi Festival.",
-    price: "GBP £1,199",
+    price: "GBP £1,299",
     image: "/images/wp-content/uploads/2025/01/india-header-2.webp",
-    imageAlt: "India Holi Festival Tour",
+    imageAlt: "India Holi + Yoga with Dev",
   },
 };
 

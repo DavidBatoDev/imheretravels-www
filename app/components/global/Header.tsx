@@ -17,7 +17,7 @@ const navItems = [
       { label: "Brazil's Treasures", href: "/tours/brazils-treasures" },
       { label: "China Discovery", href: "/tours/china-discovery" },
       { label: "India Discovery", href: "/tours/india-discovery-tour" },
-      { label: "India Holi Festival", href: "/tours/india-holi-festival-tour" },
+      { label: "India Holi + Yoga with Dev", href: "/tours/india-holi-festival-tour" },
       { label: "Japan Summer Adventure", href: "/tours/japan-adventure" },
       { label: "Japan Adventure (Winter)", href: "/tours/japan-adventure-winter" },
       { label: "Maldives Bucketlist", href: "/tours/maldives-bucketlist" },

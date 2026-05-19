@@ -34,22 +34,25 @@ export const devUpcomingTrips = [
     name: "India Holi + Yoga with Dev",
     dates: "March 19, 2027",
     image: "/images/wp-content/uploads/2025/01/india-header-2.webp",
-    imageAlt: "India Holi Festival Tour",
+    imageAlt: "India Holi + Yoga with Dev",
     duration: "13 Days and 12 Nights",
     description: "Explore India's vibrant culture, ancient wonders, and the stunning colors of the Holi Festival.",
     price: "GBP £1,299",
+    tourSlug: "india-holi-festival-tour",
   },
   {
     name: "PH Sunrise & Sunset",
     dates: "TBA",
     image: "/tours/philippine-sunrise/hero-1.jpg",
     imageAlt: "Philippines Sunrise & Sunset",
+    description: "Island-hop the Philippines with Dev — canyoneering, sardine runs, surfing, and unforgettable sunsets across Cebu, Moalboal, and Siargao.",
   },
   {
     name: "Brazil",
     dates: "TBA",
     image: "/images/wp-content/uploads/2025/07/brazil-trip-highlight-1.webp",
     imageAlt: "Brazil's Treasures",
+    description: "From São Paulo's street art to Copacabana Beach and the vibrant Carnival — join Dev for an energy-packed Brazilian adventure.",
   },
 ];
 
