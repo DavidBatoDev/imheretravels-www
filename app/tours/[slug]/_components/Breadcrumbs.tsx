@@ -1,11 +1,16 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
-// All tour pages share the same trail — keep the leaf in sync with `tour.name`.
-export default function Breadcrumbs({ tourName }: { tourName: string }) {
+type BreadcrumbsProps = {
+  tourName: string;
+  parent?: { label: string; href: string };
+};
+
+export default function Breadcrumbs({ tourName, parent }: BreadcrumbsProps) {
+  const parentCrumb = parent ?? { label: "Tours", href: "/tours" };
   const items = [
     { label: "Home", href: "/" },
-    { label: "Tours", href: "/tours" },
+    { label: parentCrumb.label, href: parentCrumb.href },
     { label: tourName },
   ];
   return (

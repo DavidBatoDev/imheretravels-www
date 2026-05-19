@@ -1,4 +1,4 @@
-﻿/**
+/**
  * India Discovery Tour — 13-day Golden Triangle adventure.
  *
  * Originally generated from data/json/tourPackages-04142026.json; hand-
@@ -70,7 +70,7 @@ export const indiaDiscoveryTour: Tour = {
       icon: "route",
       label: "Route",
       values: [
-        "New Delhi → Jodhpur → Udaipur → Jaipur → Sawai Madhopur → Agra",
+        "New Delhi -> Jodhpur -> Udaipur -> Jaipur -> Sawai Madhopur -> Agra",
       ],
     },
     { icon: "days", label: "Days", values: ["13 Days and 12 Nights"] },
@@ -175,7 +175,7 @@ export const indiaDiscoveryTour: Tour = {
             value:
               "Sightseeing — Jama Masjid, Raj Ghat, India Gate — Overnight Train",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -196,7 +196,7 @@ export const indiaDiscoveryTour: Tour = {
             label: "Activity",
             value: "Mehrangarh Fort and Jaswant Thada",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -217,7 +217,7 @@ export const indiaDiscoveryTour: Tour = {
             label: "Activity",
             value: "Visit Mehrangarh Fort — Jaswant Thada",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -238,7 +238,7 @@ export const indiaDiscoveryTour: Tour = {
             label: "Activity",
             value: "Ranakpur Jain Temples",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -259,7 +259,7 @@ export const indiaDiscoveryTour: Tour = {
             label: "Activity",
             value: "City Palace Complex — Sahelion-Ki-Bari — Lake Pichola",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -280,7 +280,7 @@ export const indiaDiscoveryTour: Tour = {
             label: "Activity",
             value: "Ranthambore National Park",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Lunch, 1 Dinner" },
         ],
       },
       {
@@ -301,7 +301,7 @@ export const indiaDiscoveryTour: Tour = {
             label: "Activity",
             value: "Ranthambore National Park Safari",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast, 1 Lunch, 1 Dinner" },
         ],
       },
       {
@@ -322,7 +322,7 @@ export const indiaDiscoveryTour: Tour = {
             label: "Activity",
             value: "Optional activities — traditional cooking class",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -343,7 +343,7 @@ export const indiaDiscoveryTour: Tour = {
             label: "Activity",
             value: "Amer Fort — City Palace Museum — Birla Temple",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -360,7 +360,7 @@ export const indiaDiscoveryTour: Tour = {
             value: "Hotel Sun Ring Agra",
           },
           { icon: "activities", label: "Activity", value: "Taj Mahal" },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -377,7 +377,7 @@ export const indiaDiscoveryTour: Tour = {
             value: "Deventure Hotel Delhi",
           },
           { icon: "activities", label: "Activity", value: "Agra Fort" },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -387,7 +387,7 @@ export const indiaDiscoveryTour: Tour = {
           "The time has come to go our separate ways but it's not goodbye, it's see you later. One final breakfast together where everyone can exchange Instagram handles if you haven't already. Some people may have planned more travels with your new friends for life, and our guides will be able to assist you on any further travels.",
         image: "/images/wp-content/uploads/2025/01/india-day-13.webp",
         imageAlt: "Delhi departure",
-        details: [{ icon: "meals", label: "Meals", value: "Breakfast" }],
+        details: [{ icon: "meals", label: "Meals", value: "1 Breakfast" }],
       },
     ],
   },

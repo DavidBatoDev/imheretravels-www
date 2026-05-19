@@ -135,7 +135,7 @@ export const japanAdventure: Tour = {
           },
           { icon: "location", label: "Location", value: "Tokyo" },
           { icon: "activities", label: "Activities", value: "City Tour" },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -152,7 +152,7 @@ export const japanAdventure: Tour = {
             value: "Moxy Tokyo Kinshicho",
           },
           { icon: "location", label: "Location", value: "Tokyo" },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -174,7 +174,7 @@ export const japanAdventure: Tour = {
             label: "Activities",
             value: "Kamakura/Enoshima Day Tour",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast (Grab and Go)" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast (Grab and Go)" },
         ],
       },
       {
@@ -192,7 +192,7 @@ export const japanAdventure: Tour = {
           },
           { icon: "location", label: "Location", value: "Izu - Atami" },
           { icon: "activities", label: "Activities", value: "Day Tour" },
-          { icon: "meals", label: "Meals", value: "Breakfast (Grab and Go)" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast (Grab and Go)" },
         ],
       },
       {
@@ -210,7 +210,7 @@ export const japanAdventure: Tour = {
           },
           { icon: "location", label: "Location", value: "Atami" },
           { icon: "activities", label: "Activities", value: "Free Day" },
-          { icon: "meals", label: "Meals", value: "Breakfast (Grab and Go)" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast (Grab and Go)" },
         ],
       },
       {
@@ -228,7 +228,7 @@ export const japanAdventure: Tour = {
           },
           { icon: "location", label: "Location", value: "Kyoto" },
           { icon: "activities", label: "Activities", value: "Tea Ceremony" },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -246,7 +246,7 @@ export const japanAdventure: Tour = {
           },
           { icon: "location", label: "Location", value: "Kyoto" },
           { icon: "activities", label: "Activities", value: "City Tour" },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -264,7 +264,7 @@ export const japanAdventure: Tour = {
           },
           { icon: "location", label: "Location", value: "Kyoto" },
           { icon: "activities", label: "Activities", value: "Free Day" },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -275,7 +275,7 @@ export const japanAdventure: Tour = {
         details: [
           { icon: "location", label: "Location", value: "Kyoto" },
           { icon: "activities", label: "Activities", value: "Check out" },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
     ],
@@ -287,20 +287,20 @@ export const japanAdventure: Tour = {
         image: "/tours/japan-adventure/Moxy.png",
         imageAlt: "Moxy Tokyo Kinshicho",
         name: "Moxy Tokyo Kinshicho",
-        nights: "3 nights (Days 1–3)",
+        nights: "3 Nights in Hotel",
       },
       {
         image: "/tours/japan-adventure/Prince_Inn.png",
         imageAlt: "Prince Smart Inn",
         name: "Prince Smart Inn",
-        nights: "3 nights (Days 4–6)",
+        nights: "3 Nights in Hotel",
       },
       {
         image:
           "/images/wp-content/uploads/2025/10/s-peria-hotel-accommodation.webp",
         imageAlt: "S-Peria Hotel",
         name: "S-Peria Hotel",
-        nights: "3 nights (Days 7–9, checkout Day 10)",
+        nights: "3 Nights in Hotel",
       },
     ],
   },
@@ -323,7 +323,7 @@ export const japanAdventure: Tour = {
       {
         question: "Do you have an age limit for tours?",
         answer:
-          "Tours cater to adventurous travelers aged 18–45, with most guests between 21–35 years old. It's perfect for people from diverse backgrounds to share travel experiences.",
+          "Our tours cater to adventurous travelers aged 18-45, with most guests between 21-35 years old. It's perfect for people from diverse backgrounds to share travel experiences.",
       },
       {
         question: "What is the local currency?",

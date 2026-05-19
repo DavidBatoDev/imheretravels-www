@@ -17,7 +17,6 @@ const navItems = [
       { label: "Brazil's Treasures", href: "/tours/brazils-treasures" },
       { label: "China Discovery", href: "/tours/china-discovery" },
       { label: "India Discovery", href: "/tours/india-discovery-tour" },
-      { label: "India Holi + Yoga with Dev", href: "/tours/india-holi-festival-tour" },
       { label: "Japan Summer Adventure", href: "/tours/japan-adventure" },
       { label: "Japan Adventure (Winter)", href: "/tours/japan-adventure-winter" },
       { label: "Maldives Bucketlist", href: "/tours/maldives-bucketlist" },
@@ -30,11 +29,18 @@ const navItems = [
       { label: "Philippines Sunset", href: "/tours/philippine-sunset" },
       { label: "Sri Lanka Wander", href: "/tours/sri-langka-wander-tour" },
       { label: "Tanzania Exploration", href: "/tours/tanzania-exploration" },
+      { label: "Vietnam Expedition", href: "/tours/vietnam-expedition" },
+    ],
+  },
+  {
+    label: "Hosted Tours",
+    href: "/hosted-tours",
+    dropdown: [
+      { label: "India Holi + Yoga with Dev", href: "/tours/india-holi-festival-tour" },
       {
         label: "Tanzania Exploration (Danielle & Erin)",
         href: "/tours/danielleerintanzania",
       },
-      { label: "Vietnam Expedition", href: "/tours/vietnam-expedition" },
     ],
   },
   {
@@ -78,6 +84,11 @@ const navItems = [
     ],
   },
 ];
+
+const hostedTourDetailPaths =
+  navItems
+    .find((item) => item.href === "/hosted-tours")
+    ?.dropdown?.map((child) => child.href) ?? [];
 
 function ChevronDown({ className = "" }: { className?: string }) {
   return (
@@ -137,9 +148,17 @@ export default function Header() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const { scrollY } = useScroll();
   const pathname = usePathname();
+  const isHostedTourDetail = hostedTourDetailPaths.includes(pathname);
 
-  const isParentActive = (href: string) =>
-    pathname === href || pathname.startsWith(href + "/");
+  const isParentActive = (item: (typeof navItems)[number]) => {
+    if (item.href === "/hosted-tours") {
+      return pathname === item.href || isHostedTourDetail;
+    }
+    if (item.href === "/tours" && isHostedTourDetail) {
+      return false;
+    }
+    return pathname === item.href || pathname.startsWith(item.href + "/");
+  };
   const isChildActive = (href: string) => pathname === href;
 
   useMotionValueEvent(scrollY, "change", (y) => {
@@ -197,7 +216,7 @@ export default function Header() {
               <div key={item.href} className="group relative">
                 <Link
                   href={item.href}
-                  className={`flex items-center gap-1 font-body text-b4-desktop transition-colors hover:text-crimson-red group-hover:text-crimson-red ${isParentActive(item.href) ? "text-crimson-red underline underline-offset-4 decoration-2" : "text-midnight"}`}
+                  className={`flex items-center gap-1 font-body text-b4-desktop transition-colors hover:text-crimson-red group-hover:text-crimson-red ${isParentActive(item) ? "text-crimson-red underline underline-offset-4 decoration-2" : "text-midnight"}`}
                 >
                   {item.label}
                   <ChevronDown />
@@ -222,7 +241,7 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`font-body text-b4-desktop transition-colors hover:text-crimson-red ${isParentActive(item.href) ? "text-crimson-red underline underline-offset-4 decoration-2" : "text-midnight"}`}
+                className={`font-body text-b4-desktop transition-colors hover:text-crimson-red ${isParentActive(item) ? "text-crimson-red underline underline-offset-4 decoration-2" : "text-midnight"}`}
               >
                 {item.label}
               </Link>
@@ -272,7 +291,7 @@ export default function Header() {
                         <Link
                           href={item.href}
                           onClick={closeMenu}
-                          className={`flex-1 py-4 font-body text-b2-mobile transition-colors hover:text-crimson-red ${isParentActive(item.href) ? "text-crimson-red underline underline-offset-4 decoration-2" : "text-midnight"}`}
+                          className={`flex-1 py-4 font-body text-b2-mobile transition-colors hover:text-crimson-red ${isParentActive(item) ? "text-crimson-red underline underline-offset-4 decoration-2" : "text-midnight"}`}
                         >
                           {item.label}
                         </Link>
@@ -325,7 +344,7 @@ export default function Header() {
                       <Link
                         href={item.href}
                         onClick={closeMenu}
-                        className={`block py-4 font-body text-b2-mobile transition-colors hover:text-crimson-red ${isParentActive(item.href) ? "text-crimson-red underline underline-offset-4 decoration-2" : "text-midnight"}`}
+                        className={`block py-4 font-body text-b2-mobile transition-colors hover:text-crimson-red ${isParentActive(item) ? "text-crimson-red underline underline-offset-4 decoration-2" : "text-midnight"}`}
                       >
                         {item.label}
                       </Link>

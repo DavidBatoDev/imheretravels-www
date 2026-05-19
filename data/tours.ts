@@ -121,3 +121,17 @@ export function getAllTourSlugs(): string[] {
 export function getAllTours(): Tour[] {
   return Object.values(tours);
 }
+
+// Slugs for tours led by resident hosts (shown on /hosted-tours).
+export const HOSTED_TOUR_SLUGS = [
+  "india-holi-festival-tour",
+  "danielleerintanzania",
+];
+
+export function getHostedTours(): Tour[] {
+  return HOSTED_TOUR_SLUGS.map((s) => tours[s]).filter(Boolean);
+}
+
+export function isHostedTour(slug: string): boolean {
+  return HOSTED_TOUR_SLUGS.includes(slug);
+}

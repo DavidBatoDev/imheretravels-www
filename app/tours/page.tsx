@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Footer from "@/app/components/global/Footer";
-import { getAllTours } from "@/data/tours";
+import { getAllTours, isHostedTour } from "@/data/tours";
 import {
   getAllDestinations,
   getDestinationBySlug,
@@ -109,7 +109,7 @@ export default async function ToursPage({
 }) {
   const { destination, sort } = await searchParams;
 
-  const allTours = getAllTours();
+  const allTours = getAllTours().filter((tour) => !isHostedTour(tour.slug));
   const allDestinations = getAllDestinations();
 
   // Validate destination param — ignore unknown slugs

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Footer from "@/app/components/global/Footer";
 import ShareButton from "./_components/ShareButton";
-import { getAllTourSlugs, getTourBySlug } from "@/data/tours";
+import { getAllTourSlugs, getTourBySlug, isHostedTour } from "@/data/tours";
 import type { Tour } from "@/types/tour";
 import AutoFitText from "./_components/AutoFitText";
 import Breadcrumbs from "./_components/Breadcrumbs";
@@ -139,7 +139,14 @@ export default async function TourDetailPage({ params }: { params: Params }) {
       />
       <main className="flex-1">
         <TourViewRecorder slug={tour.slug} />
-        <Breadcrumbs tourName={tour.name} />
+        <Breadcrumbs
+          tourName={tour.name}
+          parent={
+            isHostedTour(tour.slug)
+              ? { label: "Hosted Tours", href: "/hosted-tours" }
+              : undefined
+          }
+        />
 
         <div className="mx-auto w-full max-w-7xl px-4 md:px-8">
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_360px] lg:gap-8">
