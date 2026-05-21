@@ -1,27 +1,16 @@
-﻿/**
- * Philippine Sunset
- *
- * Auto-generated from data/json/tourPackages-04142026.json by
- * data/scripts/generate-tours.mjs. Safe to hand-edit — the generator
- * only writes files that don't exist yet (run with --force to overwrite).
- *
- * Add richer sections (whatsIncluded, faqs, testimonials, etc.) here as
- * curated content becomes available; see data/philippine-sunrise.ts for a
- * fully-fleshed example.
- */
 import type { Tour } from "@/types/tour";
 
-export const philippineSunset: Tour = {
-  slug: "philippine-sunset",
-  name: "Philippines Sunset",
+export const philippineSunsetWithJess: Tour = {
+  slug: "philippine-sunset-with-jess",
+  name: "Philippines Sunset with Jess",
   meta: {
-    title: "11 Days | Philippines Sunset Getaway",
+    title: "11 Days | Philippines Sunset with Jess",
     description:
-      "Experience the Philippines Sunset Tour! Start in Manila with vibrant nightlife and rich history, then head to Port Barton and El Nido for island hopping, snorkeling, and stunning sunsets. Unwind with kayaking, ziplining, and cultural experiences, ending with unforgettable moments in serene Isla Darocoton and adventurous El Nido.",
+      "Experience the Philippines Sunset Tour with Jess! Start in Manila with vibrant nightlife and rich history, then head to Port Barton and El Nido for island hopping, snorkeling, and stunning sunsets. Unwind with kayaking, ziplining, and cultural experiences, ending with unforgettable moments in serene Isla Darocoton and adventurous El Nido.",
   },
   gallery: {
     hero: "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1759341317907_philippinessunset-day-11.webp?alt=media&token=d3c35f6b-4503-438e-9cd4-c6d6848d0e8f",
-    heroAlt: "Philippines Sunset",
+    heroAlt: "Philippines Sunset with Jess",
     thumbnails: [
       {
         src: "/images/wp-content/uploads/2024/05/philippinessunset-day-1.webp",
@@ -58,7 +47,7 @@ export const philippineSunset: Tour = {
     ],
   },
   header: {
-    title: "11 Days | Philippines Sunset Getaway",
+    title: "11 Days | Philippines Sunset with Jess",
     tags: [
       {
         label: "Manila",
@@ -78,17 +67,14 @@ export const philippineSunset: Tour = {
       },
     ],
     description:
-      "Experience the Philippines Sunset Tour! Start in Manila with vibrant nightlife and rich history, then head to Port Barton and El Nido for island hopping, snorkeling, and stunning sunsets. Unwind with kayaking, ziplining, and cultural experiences, ending with unforgettable moments in serene Isla Darocoton and adventurous El Nido.",
+      "Experience the Philippines Sunset Tour with Jess! Start in Manila with vibrant nightlife and rich history, then head to Port Barton and El Nido for island hopping, snorkeling, and stunning sunsets. Unwind with kayaking, ziplining, and cultural experiences, ending with unforgettable moments in serene Isla Darocoton and adventurous El Nido.",
   },
   keyFacts: [
     {
       icon: "days",
       label: "Tour Dates",
       values: [
-        "April 22, 2026",
-        "May 16, 2026",
-        "June 3, 2026",
-        "October 25, 2026",
+        "November 8, 2026",
       ],
     },
     {
@@ -559,18 +545,18 @@ export const philippineSunset: Tour = {
     depositAmount: "£200",
     ctaLabel: "Reserve Now",
     ctaHref:
-      "https://admin.imheretravels.com/reservation-booking-form?tour=philippine-sunset",
+      "https://admin.imheretravels.com/reservation-booking-form?tour=philippine-sunset-with-jess",
     footnote: "Additional fees may apply",
   },
   listingCard: {
     duration: "11 Days and 10 Nights",
     description:
-      "Manila, Port Barton, El Nido, and Isla Darocotan with island hopping, snorkeling, and sunset experiences.",
+      "Manila, Port Barton, El Nido, and Isla Darocotan with island hopping, snorkeling, and sunset experiences. Hosted by Jess.",
     price: "GBP £1,199",
     image:
       "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1759341317907_philippinessunset-day-11.webp?alt=media&token=d3c35f6b-4503-438e-9cd4-c6d6848d0e8f",
-    imageAlt: "Philippines Sunset tour",
+    imageAlt: "Philippines Sunset with Jess tour",
   },
 };
 
-export default philippineSunset;
+export default philippineSunsetWithJess;

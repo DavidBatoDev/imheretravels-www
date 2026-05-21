@@ -33,6 +33,7 @@ import { nepalHorizons } from "./nepal-horizons";
 import { newZealandExpedition } from "./new-zealand-expedition";
 import { philippineSunrise } from "./philippine-sunrise";
 import { philippineSunset } from "./philippine-sunset";
+import { philippineSunsetWithJess } from "./philippine-sunset-with-jess";
 import { sriLangkaWanderTour } from "./sri-langka-wander-tour";
 import { tanzaniaExploration } from "./tanzania-exploration";
 import { vietnamExpedition } from "./vietnam-expedition";
@@ -40,6 +41,7 @@ import { vietnamExpedition } from "./vietnam-expedition";
 const ALL_TOURS: Tour[] = [
   philippineSunrise,
   philippineSunset,
+  philippineSunsetWithJess,
   maldivesBucketlist,
   bhutanQuest,
   nepalHorizons,
@@ -126,6 +128,7 @@ export function getAllTours(): Tour[] {
 export const HOSTED_TOUR_SLUGS = [
   "india-holi-festival-tour",
   "danielleerintanzania",
+  "philippine-sunset-with-jess",
 ];
 
 export function getHostedTours(): Tour[] {

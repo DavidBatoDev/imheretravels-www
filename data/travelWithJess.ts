@@ -19,7 +19,13 @@ export const jessInstagram = ""; // TODO: add Jess's Instagram handle
 export const jessProfileImage = "";
 
 export const jessHeroImage =
-  "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1778651589630_Jess%20Banner.png?alt=media&token=091da76c-eecc-4fa2-b76f-9fef2d0910a7";
+  "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1778651079825_1000040796.jpg?alt=media&token=1099185a-dabe-4532-83d1-8c25a9afc472";
+
+export const jessHeroImages = [
+  "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1778651093232_1000040799.jpg?alt=media&token=e8692e75-28c2-4358-af5e-79580b3956e0",
+  "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1778651079825_1000040796.jpg?alt=media&token=1099185a-dabe-4532-83d1-8c25a9afc472",
+  "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1778651084856_1000040797.jpg?alt=media&token=d71e2bd9-875a-4ad5-9ea9-33e4db749ce6",
+];
 
 export const jessHeroImageAlt = "Jess's group travel adventures";
 
@@ -39,11 +45,11 @@ export const jessIntro = [
 // TODO: replace with Jess's actual upcoming trips
 export const jessUpcomingTrips = [
   {
-    name: "Philippines Sunset Getaway",
+    name: "Philippines Sunset with Jess",
     dates: "Nov 8–18",
-    tourSlug: "philippine-sunset",
-    image: "/images/wp-content/uploads/2024/05/philippinessunset-triphighlight-1.webp",
-    imageAlt: "Philippines Sunset Getaway",
+    tourSlug: "philippine-sunset-with-jess",
+    image: "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1778651079825_1000040796.jpg?alt=media&token=1099185a-dabe-4532-83d1-8c25a9afc472",
+    imageAlt: "Philippines Sunset with Jess",
     duration: "11 Days and 10 Nights",
     description: "Manila, Port Barton, El Nido, and Isla Darocotan with island hopping, snorkeling, and sunset experiences.",
     price: "GBP £1,199",
