@@ -41,6 +41,10 @@ const navItems = [
         label: "Tanzania Exploration (Danielle & Erin)",
         href: "/tours/danielleerintanzania",
       },
+      {
+        label: "Philippines Sunset with Jess",
+        href: "/tours/philippine-sunset-with-jess",
+      },
     ],
   },
   {

@@ -95,7 +95,7 @@ const ALL_DESTINATIONS: Destination[] = [
       "The Philippines is a tropical archipelago of over 7,000 islands, blessed with pristine white-sand beaches, crystal-clear turquoise waters, and some of the world's best diving and snorkelling spots. From the historic streets of Cebu and Manila to the legendary surf breaks of Siargao and the dramatic limestone karsts of El Nido, the Philippines offers an unmatched blend of adventure, culture, and natural beauty.",
       "Explore lively cities rich in Spanish colonial history, zip-line through jungle canyons, witness the magical sardine run, island-hop through hidden lagoons, and share sunset drinks with a group of new friends. I'm Here Travels runs regular small-group departures throughout the year — so there is always the perfect time to explore.",
     ],
-    tourSlugs: ["philippine-sunrise", "philippine-sunset"],
+    tourSlugs: ["philippine-sunrise", "philippine-sunset", "philippine-sunset-with-jess"],
     quickFacts: [
       { icon: "currency", label: "Currency", value: "Philippine Peso" },
       { icon: "beer", label: "Local Beer", value: "San Miguel" },
