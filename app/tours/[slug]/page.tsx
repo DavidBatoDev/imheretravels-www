@@ -173,63 +173,103 @@ export default async function TourDetailPage({ params }: { params: Params }) {
 
               <div className="mt-6 rounded-lg bg-white px-5 py-8 md:px-10 md:py-10">
                 <Reveal y={20}>
-                  <TourHeader header={tour.header} />
+                  <TourHeader
+                    header={
+                      tour.comingSoon
+                        ? { ...tour.header, tags: [] }
+                        : tour.header
+                    }
+                  />
                 </Reveal>
                 {tour.keyFacts.length > 0 && (
                   <Reveal y={20} delay={60}>
-                    <KeyFacts items={tour.keyFacts} tourSlug={tour.bookingSlug ?? tour.slug} />
+                    <KeyFacts
+                      items={
+                        tour.comingSoon
+                          ? tour.keyFacts.filter((f) => f.icon !== "route")
+                          : tour.keyFacts
+                      }
+                      tourSlug={tour.bookingSlug ?? tour.slug}
+                    />
                   </Reveal>
                 )}
-                {tour.whatsIncluded?.heading && (
-                  <Reveal y={20}>
-                    <WhatsIncluded section={tour.whatsIncluded} />
-                  </Reveal>
-                )}
-                {tour.tripHighlights?.heading && (
-                  <Reveal y={20}>
-                    <TripHighlights section={tour.tripHighlights} />
-                  </Reveal>
-                )}
-                {tour.map?.heading && (
-                  <Reveal y={20}>
-                    <TourMap section={tour.map} />
-                  </Reveal>
-                )}
-                {tour.itinerary.heading && tour.itinerary.days.length > 0 && (
-                  <Reveal y={20}>
-                    <Itinerary section={tour.itinerary} />
-                  </Reveal>
-                )}
-                {tour.whereWeStay?.heading && (
-                  <Reveal y={20}>
-                    <WhereWeStay section={tour.whereWeStay} />
-                  </Reveal>
-                )}
-                {tour.faqs?.heading && (
-                  <Reveal y={20}>
-                    <Faqs section={tour.faqs} />
-                  </Reveal>
-                )}
-                {tour.thingsToKnow?.heading && (
-                  <Reveal y={20}>
-                    <ThingsToKnow section={tour.thingsToKnow} />
-                  </Reveal>
-                )}
-                {tour.tips?.heading && (
-                  <Reveal y={20}>
-                    <Tips section={tour.tips} />
-                  </Reveal>
+                {tour.comingSoon ? (
+                  <>
+                    <Reveal y={20}>
+                      <div className="mt-8 rounded-lg border border-light-grey px-6 py-8 text-center">
+                        <p className="font-sans text-h6-mobile md:text-h6-desktop font-bold text-dark-gray">
+                          What&apos;s Included
+                        </p>
+                        <p className="mt-2 font-body text-b4-desktop text-grey">
+                          Inclusions coming soon.
+                        </p>
+                      </div>
+                    </Reveal>
+                    <Reveal y={20}>
+                      <div className="mt-6 rounded-lg border border-light-grey px-6 py-8 text-center">
+                        <p className="font-sans text-h6-mobile md:text-h6-desktop font-bold text-dark-gray">
+                          Itinerary
+                        </p>
+                        <p className="mt-2 font-body text-b4-desktop text-grey">
+                          Itinerary to be announced.
+                        </p>
+                      </div>
+                    </Reveal>
+                  </>
+                ) : (
+                  <>
+                    {tour.whatsIncluded?.heading && (
+                      <Reveal y={20}>
+                        <WhatsIncluded section={tour.whatsIncluded} />
+                      </Reveal>
+                    )}
+                    {tour.tripHighlights?.heading && (
+                      <Reveal y={20}>
+                        <TripHighlights section={tour.tripHighlights} />
+                      </Reveal>
+                    )}
+                    {tour.map?.heading && (
+                      <Reveal y={20}>
+                        <TourMap section={tour.map} />
+                      </Reveal>
+                    )}
+                    {tour.itinerary.heading && tour.itinerary.days.length > 0 && (
+                      <Reveal y={20}>
+                        <Itinerary section={tour.itinerary} />
+                      </Reveal>
+                    )}
+                    {tour.whereWeStay?.heading && (
+                      <Reveal y={20}>
+                        <WhereWeStay section={tour.whereWeStay} />
+                      </Reveal>
+                    )}
+                    {tour.faqs?.heading && (
+                      <Reveal y={20}>
+                        <Faqs section={tour.faqs} />
+                      </Reveal>
+                    )}
+                    {tour.thingsToKnow?.heading && (
+                      <Reveal y={20}>
+                        <ThingsToKnow section={tour.thingsToKnow} />
+                      </Reveal>
+                    )}
+                    {tour.tips?.heading && (
+                      <Reveal y={20}>
+                        <Tips section={tour.tips} />
+                      </Reveal>
+                    )}
+                  </>
                 )}
               </div>
 
               <Reveal y={16} delay={60}>
                 <div className="mt-6 lg:hidden">
-                  <BookingCard booking={tour.booking} />
+                  <BookingCard booking={tour.booking} comingSoon={tour.comingSoon} />
                 </div>
               </Reveal>
             </div>
 
-            <BookingCardReveal booking={tour.booking} />
+            <BookingCardReveal booking={tour.booking} comingSoon={tour.comingSoon} />
           </div>
         </div>
 

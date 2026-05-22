@@ -15,9 +15,11 @@ const BADGE_STYLES: Record<
 export default function BookingCard({
   booking,
   sticky = false,
+  comingSoon = false,
 }: {
   booking: Tour["booking"];
   sticky?: boolean;
+  comingSoon?: boolean;
 }) {
   const hasCategories =
     booking.priceCategories && booking.priceCategories.length > 0;
@@ -35,9 +37,11 @@ export default function BookingCard({
         <p className="font-sans text-h5-mobile md:text-h5-desktop font-bold text-midnight">
           {booking.durationLabel}
         </p>
-        <p className="mt-1 font-body text-b2-mobile md:text-b1 text-dark-gray">
-          {booking.routeLabel}
-        </p>
+        {!comingSoon && (
+          <p className="mt-1 font-body text-b2-mobile md:text-b1 text-dark-gray">
+            {booking.routeLabel}
+          </p>
+        )}
       </div>
 
       <div className="border-t border-light-grey px-6 py-4 md:px-7">
@@ -86,14 +90,16 @@ export default function BookingCard({
               {booking.durationLabel}
             </span>
           </li>
-          <li className="flex items-center gap-3">
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-light-grey text-midnight">
-              <Route className="size-4" strokeWidth={2.25} />
-            </span>
-            <span className="font-body text-b4-mobile md:text-b4-desktop text-midnight">
-              {booking.routeLabel}
-            </span>
-          </li>
+          {!comingSoon && (
+            <li className="flex items-center gap-3">
+              <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-light-grey text-midnight">
+                <Route className="size-4" strokeWidth={2.25} />
+              </span>
+              <span className="font-body text-b4-mobile md:text-b4-desktop text-midnight">
+                {booking.routeLabel}
+              </span>
+            </li>
+          )}
         </ul>
       </div>
 

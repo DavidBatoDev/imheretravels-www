@@ -76,6 +76,8 @@ export type HostTrip = {
   description?: string;
   price?: string;
   priceNote?: string;
+  /** When true, card is non-clickable and shows a Coming Soon badge instead of View Tour */
+  comingSoon?: boolean;
 };
 
 export type Host = {

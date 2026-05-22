@@ -6,8 +6,10 @@ import type { Tour } from "@/types/tour";
 
 export default function BookingCardReveal({
   booking,
+  comingSoon = false,
 }: {
   booking: Tour["booking"];
+  comingSoon?: boolean;
 }) {
   return (
     <motion.div
@@ -16,7 +18,7 @@ export default function BookingCardReveal({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
-      <BookingCard booking={booking} sticky />
+      <BookingCard booking={booking} sticky comingSoon={comingSoon} />
     </motion.div>
   );
 }

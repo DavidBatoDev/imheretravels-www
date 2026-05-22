@@ -33,13 +33,14 @@ export const roxanaUpcomingTrips = [
   {
     name: "Philippines Sunset with Roxana",
     dates: "Feb 18–28, 2027",
-    image: "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1778651079825_1000040796.jpg?alt=media&token=1099185a-dabe-4532-83d1-8c25a9afc472",
+    image: "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1779422291926_WhatsApp%20Image%202026-05-21%20at%2010.14.15%20PM.jpeg?alt=media&token=257486ef-5756-450e-9684-05e250d2c1af",
     imageAlt: "Philippines Sunset with Roxana",
     duration: "11 Days and 10 Nights",
-    description: "Manila, Port Barton, El Nido, and Isla Darocotan with island hopping, snorkeling, and sunset experiences.",
+    description: "Itinerary TBA.",
     price: "GBP £1,199",
     priceNote: "£1,199 for first 8 pax, £1,299 after",
     tourSlug: "philippine-sunset-with-roxana",
+    comingSoon: true,
   },
 ];
 

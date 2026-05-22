@@ -3,10 +3,11 @@ import type { Tour } from "@/types/tour";
 export const philippineSunsetWithRoxana: Tour = {
   slug: "philippine-sunset-with-roxana",
   name: "Philippines Sunset with Roxana",
+  comingSoon: true,
   meta: {
     title: "11 Days | Philippines Sunset with Roxana",
     description:
-      "Experience the Philippines Sunset Tour with Roxana! Start in Manila with vibrant nightlife and rich history, then head to Port Barton and El Nido for island hopping, snorkeling, and stunning sunsets. Unwind with kayaking, ziplining, and cultural experiences, ending with unforgettable moments in serene Isla Darocoton and adventurous El Nido.",
+      "Join Roxana on an unforgettable 11-day Philippines adventure filled with island hopping, snorkeling, and breathtaking sunsets. Full itinerary details coming soon — secure your spot at the early price.",
   },
   gallery: {
     hero: "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1759341317907_philippinessunset-day-11.webp?alt=media&token=d3c35f6b-4503-438e-9cd4-c6d6848d0e8f",
@@ -55,7 +56,7 @@ export const philippineSunsetWithRoxana: Tour = {
       { label: "Isla Darocotan", icon: "location" },
     ],
     description:
-      "Experience the Philippines Sunset Tour with Roxana! Start in Manila with vibrant nightlife and rich history, then head to Port Barton and El Nido for island hopping, snorkeling, and stunning sunsets. Unwind with kayaking, ziplining, and cultural experiences, ending with unforgettable moments in serene Isla Darocoton and adventurous El Nido.",
+      "Join Roxana on an unforgettable 11-day Philippines adventure filled with island hopping, snorkeling, and breathtaking sunsets. Full itinerary details coming soon — secure your spot at the early price.",
   },
   keyFacts: [
     {

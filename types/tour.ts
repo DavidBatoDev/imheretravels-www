@@ -169,6 +169,8 @@ export interface Tour {
   booking: TourBookingCard;
   relatedTours?: { heading: string; items: TourRelated[] };
   community?: { heading: string; images: TourCommunityImage[] };
+  /** When true the tour page shows a Coming Soon screen instead of full content */
+  comingSoon?: boolean;
 
   listingCard: {
     duration: string;
