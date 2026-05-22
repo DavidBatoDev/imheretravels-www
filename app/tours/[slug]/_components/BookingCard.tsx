@@ -118,6 +118,11 @@ export default function BookingCard({
             Non-refundable.
           </p>
         )}
+        {booking.footnote && (
+          <p className="mt-3 text-center font-body text-b4-mobile text-grey">
+            *{booking.footnote}
+          </p>
+        )}
       </div>
     </aside>
   );

@@ -1,8 +1,8 @@
-/**
+﻿/**
  * India Holi Festival Tour
  *
  * Auto-generated from data/json/tourPackages-04142026.json by
- * data/scripts/generate-tours.mjs. Safe to hand-edit — the generator
+ * data/scripts/generate-tours.mjs. Safe to hand-edit â€” the generator
  * only writes files that don't exist yet (run with --force to overwrite).
  *
  * Add richer sections (whatsIncluded, faqs, testimonials, etc.) here as
@@ -15,7 +15,7 @@ export const indiaHoliFestivalTour: Tour = {
   slug: "india-holi-festival-tour",
   name: "India Holi + Yoga with Dev",
   meta: {
-    title: "13 Days | India Holi + Yoga with Dev — I'm Here Travels",
+    title: "13 Days | India Holi + Yoga with Dev â€” I'm Here Travels",
     description:
       "It's time to start exploring India. This tour is perfect for those first time travellers that have always wanted to explore the wonders of India but don't want to do it alone. Experience the Taj Mahal, Pink Palaces of Jaipur, Ranthambhore safari, and the colours of Holi.",
   },
@@ -82,7 +82,7 @@ export const indiaHoliFestivalTour: Tour = {
       icon: "route",
       label: "Destinations",
       values: [
-        "New Delhi → Jodhpur → Udaipur → Jaipur → Sawai Madhopur → Agra",
+        "New Delhi â†’ Jodhpur â†’ Udaipur â†’ Jaipur â†’ Sawai Madhopur â†’ Agra",
       ],
     },
     {
@@ -204,7 +204,7 @@ export const indiaHoliFestivalTour: Tour = {
         dayNumber: 3,
         title: "Arrival in Jodhpur",
         description:
-          "Good morning, Rajasthan! Disembark in Jodhpur and feel the shift in atmosphere. After a relaxed check-in, visit Jaswant Thada—a serene marble cenotaph shimmering under the sun. In the afternoon, choose to deepen your experience with an optional Bishnoi Village Safari, a glimpse into timeless desert traditions.\n\nOptional activity:\nThe Bishnoi Village Safari — Here guests will experience some of the beautiful wildlife India has to offer, get a demonstration of some poetry making and even some weaving demonstrations so guests can see how Durry's are made by hand, all of this is done by open top jeeps.",
+          "Good morning, Rajasthan! Disembark in Jodhpur and feel the shift in atmosphere. After a relaxed check-in, visit Jaswant Thadaâ€”a serene marble cenotaph shimmering under the sun. In the afternoon, choose to deepen your experience with an optional Bishnoi Village Safari, a glimpse into timeless desert traditions.\n\nOptional activity:\nThe Bishnoi Village Safari â€” Here guests will experience some of the beautiful wildlife India has to offer, get a demonstration of some poetry making and even some weaving demonstrations so guests can see how Durry's are made by hand, all of this is done by open top jeeps.",
         image: "/tours/india-holi-festival-tour/india-day-3.webp",
         imageAlt: "Arrival in Jodhpur",
         details: [
@@ -226,7 +226,7 @@ export const indiaHoliFestivalTour: Tour = {
         dayNumber: 4,
         title: "Legends of Mehrangarh & Streets of Blue",
         description:
-          "Climb to the mighty Mehrangarh Fort and let the panoramic views steal your breath away. Marvel at its museums, palaces, and stories. Then, meander through Jodhpur's winding alleys, painted in every shade of blue—alive with street markets, artisans, and surprises around every corner.",
+          "Climb to the mighty Mehrangarh Fort and let the panoramic views steal your breath away. Marvel at its museums, palaces, and stories. Then, meander through Jodhpur's winding alleys, painted in every shade of blueâ€”alive with street markets, artisans, and surprises around every corner.",
         image: "/tours/india-holi-festival-tour/india-day-4.webp",
         imageAlt: "Mehrangarh Fort and Blue City, Jodhpur",
         details: [
@@ -339,7 +339,7 @@ export const indiaHoliFestivalTour: Tour = {
         description:
           "Start with a regal jeep ride to Amber Fort, a masterpiece of Rajput architecture. Explore the royal apartments of City Palace, gaze skyward at the astronomical genius of Jantar Mantar, and admire the honeycomb-like facade of Hawa Mahal. End your day with peace and prayers at the luminous Birla Temple.\n\nOptional activity:\nIn your free time you can opt to go on a traditional cooking class to experience how this authentic Indian dishes are made to take home with you.",
         image: "/tours/india-holi-festival-tour/india-day-9.webp",
-        imageAlt: "Jaipur — Amber Fort and Hawa Mahal",
+        imageAlt: "Jaipur â€” Amber Fort and Hawa Mahal",
         details: [
           {
             icon: "accommodation",
@@ -360,7 +360,7 @@ export const indiaHoliFestivalTour: Tour = {
         dayNumber: 10,
         title: "Jaipur's Royal Treasures",
         description:
-          "Start with a regal jeep ride to Amber Fort—a masterpiece of Rajput architecture. Explore the royal apartments of City Palace, gaze skyward at the astronomical genius of Jantar Mantar, and admire the honeycomb-like facade of Hawa Mahal. End your day with peace and prayers at the luminous Birla Temple.",
+          "Start with a regal jeep ride to Amber Fortâ€”a masterpiece of Rajput architecture. Explore the royal apartments of City Palace, gaze skyward at the astronomical genius of Jantar Mantar, and admire the honeycomb-like facade of Hawa Mahal. End your day with peace and prayers at the luminous Birla Temple.",
         image: "/tours/india-holi-festival-tour/india-day-10.webp",
         imageAlt: "Jaipur's royal palaces and forts",
         details: [
@@ -381,9 +381,9 @@ export const indiaHoliFestivalTour: Tour = {
       },
       {
         dayNumber: 11,
-        title: "A Monument to Love — Taj Mahal",
+        title: "A Monument to Love â€” Taj Mahal",
         description:
-          "Journey to Agra and arrive at the doorstep of the world's most famous tribute to eternal love—the Taj Mahal. Stand in awe as the white marble wonder changes colors with the setting sun.",
+          "Journey to Agra and arrive at the doorstep of the world's most famous tribute to eternal loveâ€”the Taj Mahal. Stand in awe as the white marble wonder changes colors with the setting sun.",
         image: "/tours/india-holi-festival-tour/india-day-11.webp",
         imageAlt: "Taj Mahal, Agra",
         details: [
@@ -427,7 +427,7 @@ export const indiaHoliFestivalTour: Tour = {
         dayNumber: 13,
         title: "Until We Meet Again",
         description:
-          "After breakfast, transfer to the airport. Depart with suitcases full of treasures and hearts full of unforgettable memories—your Indian adventure will live on long after you've left its shores.",
+          "After breakfast, transfer to the airport. Depart with suitcases full of treasures and hearts full of unforgettable memoriesâ€”your Indian adventure will live on long after you've left its shores.",
         image: "/tours/india-holi-festival-tour/india-day-13.webp",
         imageAlt: "Departure from New Delhi",
         details: [
@@ -504,7 +504,7 @@ export const indiaHoliFestivalTour: Tour = {
       },
       {
         question: "Which airport do I need to fly into?",
-        answer: "To Indira Ghandi International Airport — New Delhi.",
+        answer: "To Indira Ghandi International Airport â€” New Delhi.",
       },
       {
         question: "What should I wear?",
@@ -523,7 +523,7 @@ export const indiaHoliFestivalTour: Tour = {
       },
       {
         question: "Which airport do I fly out from?",
-        answer: "From Indira Ghandi International Airport — New Delhi.",
+        answer: "From Indira Ghandi International Airport â€” New Delhi.",
       },
     ],
   },
@@ -573,27 +573,26 @@ export const indiaHoliFestivalTour: Tour = {
         icon: "handshake",
         title: "Respect local customs",
         description:
-          "Dress modestly at temples, learn a few local greetings, and tip where appropriate — small gestures make a big difference.",
+          "Dress modestly at temples, learn a few local greetings, and tip where appropriate â€” small gestures make a big difference.",
       },
     ],
   },
   booking: {
     durationLabel: "13 Day Tour",
-    routeLabel: "New Delhi → Jodhpur → Udaipur → Jaipur → Sawai Madhopur → Agra",
+    routeLabel: "New Delhi â†’ Jodhpur â†’ Udaipur â†’ Jaipur â†’ Sawai Madhopur â†’ Agra",
     priceFromLabel: "From",
     priceCurrency: "GBP",
-    priceAmount: "£1,299",
-    depositAmount: "£200",
+    priceAmount: "Â£1,299",
+    depositAmount: "Â£200",
     ctaLabel: "Reserve Now",
     ctaHref:
       "https://admin.imheretravels.com/reservation-booking-form?tour=india-holi-festival-tour",
-    footnote: "Additional fees may apply",
   },
   listingCard: {
     duration: "13 Days and 12 Nights",
     description:
       "Explore India's vibrant culture, ancient wonders, and the stunning colors of the Holi Festival.",
-    price: "GBP £1,299",
+    price: "GBP Â£1,299",
     image: "/images/wp-content/uploads/2025/01/india-header-2.webp",
     imageAlt: "India Holi + Yoga with Dev",
   },

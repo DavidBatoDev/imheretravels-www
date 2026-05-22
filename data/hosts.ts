@@ -31,6 +31,23 @@ import {
 } from "./travelWithDev";
 
 import {
+  roxanaSlug,
+  roxanaDisplayName,
+  roxanaPageTitle,
+  roxanaInstagram,
+  roxanaProfileImage,
+  roxanaHeroImage,
+  roxanaHeroImageAlt,
+  roxanaMeta,
+  roxanaIntro,
+  roxanaUpcomingTrips,
+  roxanaWhyTravel,
+  roxanaHowItWorks,
+  roxanaGalleryImages,
+  roxanaGallerySlides,
+} from "./travelWithRoxana";
+
+import {
   jessSlug,
   jessDisplayName,
   jessPageTitle,
@@ -58,6 +75,7 @@ export type HostTrip = {
   duration?: string;
   description?: string;
   price?: string;
+  priceNote?: string;
 };
 
 export type Host = {
@@ -107,6 +125,22 @@ const ALL_HOSTS: Host[] = [
     instagram:    devInstagram,
     galleryImages: devGalleryImages,
     gallerySlides: devGallerySlides,
+  },
+  {
+    slug:         roxanaSlug,
+    displayName:  roxanaDisplayName,
+    pageTitle:    roxanaPageTitle,
+    heroImage:    roxanaHeroImage || null,
+    heroImageAlt: roxanaHeroImageAlt,
+    meta:         roxanaMeta,
+    intro:        roxanaIntro,
+    upcomingTrips: roxanaUpcomingTrips,
+    whyTravel:    roxanaWhyTravel,
+    howItWorks:   roxanaHowItWorks,
+    profileImage: roxanaProfileImage || undefined,
+    instagram:    roxanaInstagram || undefined,
+    galleryImages: roxanaGalleryImages,
+    gallerySlides: roxanaGallerySlides,
   },
   {
     slug:         jessSlug,

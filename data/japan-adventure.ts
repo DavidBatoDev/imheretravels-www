@@ -1,16 +1,16 @@
-import type { Tour } from "@/types/tour";
+﻿import type { Tour } from "@/types/tour";
 
 export const japanAdventure: Tour = {
   slug: "japan-adventure",
   name: "Japan Adventure",
   meta: {
-    title: "Japan Adventure — 10 Day Tokyo to Kyoto Tour",
+    title: "Japan Adventure â€” 10 Day Tokyo to Kyoto Tour",
     description:
-      "Join the 10-day Japan Summer Adventure: Tokyo city tour, bullet train to Kyoto, traditional tea ceremony, and the scenic Atami coast. GBP £1,899.",
+      "Join the 10-day Japan Summer Adventure: Tokyo city tour, bullet train to Kyoto, traditional tea ceremony, and the scenic Atami coast. GBP Â£1,899.",
   },
   gallery: {
     hero: "/tours/japan-adventure/japan-header-6.webp",
-    heroAlt: "Japan Adventure — Tokyo, Atami, Kyoto",
+    heroAlt: "Japan Adventure â€” Tokyo, Atami, Kyoto",
     thumbnails: [
       { src: "/tours/japan-adventure/japan-header-1.webp", alt: "Japan coastal scenery" },
       { src: "/tours/japan-adventure/japan-header-2.webp", alt: "Akihabara Tokyo" },
@@ -32,7 +32,7 @@ export const japanAdventure: Tour = {
   },
   keyFacts: [
     { icon: "days", label: "Tour Dates", values: ["To be announced"] },
-    { icon: "route", label: "Route", values: ["Tokyo → Atami → Kyoto"] },
+    { icon: "route", label: "Route", values: ["Tokyo â†’ Atami â†’ Kyoto"] },
     { icon: "days", label: "Days", values: ["10 Days and 9 Nights"] },
     { icon: "people", label: "Group Size", values: ["Maximum 20 people"] },
   ],
@@ -124,7 +124,7 @@ export const japanAdventure: Tour = {
         dayNumber: 2,
         title: "Tokyo City Tour",
         description:
-          "Explore Japan's dynamic capital like a local! Hop on Tokyo's world-renowned public transport system and visit must-see neighborhoods and landmarks. Recommended stops: Akihabara (anime, gaming, tech), Ueno, Asakusa with its famous Sensoji Temple and Nakamise Shopping Street, Shibuya and the famous scramble crossing, Harajuku's fashion district and the nearby Meiji-jingu shrine, and Shinjuku — where we recommend getting a bird's-eye view of the city from the Tokyo Metropolitan Government Building's observation deck. Finish the day with a meal in a typical Japanese izakaya and try some local specialties.",
+          "Explore Japan's dynamic capital like a local! Hop on Tokyo's world-renowned public transport system and visit must-see neighborhoods and landmarks. Recommended stops: Akihabara (anime, gaming, tech), Ueno, Asakusa with its famous Sensoji Temple and Nakamise Shopping Street, Shibuya and the famous scramble crossing, Harajuku's fashion district and the nearby Meiji-jingu shrine, and Shinjuku â€” where we recommend getting a bird's-eye view of the city from the Tokyo Metropolitan Government Building's observation deck. Finish the day with a meal in a typical Japanese izakaya and try some local specialties.",
         image: "/tours/japan-adventure/japan-day-2.webp",
         imageAlt: "Tokyo City Tour",
         details: [
@@ -142,7 +142,7 @@ export const japanAdventure: Tour = {
         dayNumber: 3,
         title: "Tokyo Free Day",
         description:
-          "Explore other areas of Tokyo and the surrounding area at your own pace or relax at the hotel — the day is yours. Recommended day trips include Kamakura and Enoshima by the coast, or for something more traditional, Kawagoe in nearby Saitama prefecture. Otherwise, indulge in fun activities such as a visit to the teamLab's digital art museum or go shopping in one of the countless malls.",
+          "Explore other areas of Tokyo and the surrounding area at your own pace or relax at the hotel â€” the day is yours. Recommended day trips include Kamakura and Enoshima by the coast, or for something more traditional, Kawagoe in nearby Saitama prefecture. Otherwise, indulge in fun activities such as a visit to the teamLab's digital art museum or go shopping in one of the countless malls.",
         image: "/images/wp-content/uploads/2025/10/japan-day-3.webp",
         imageAlt: "Tokyo free day",
         details: [
@@ -199,7 +199,7 @@ export const japanAdventure: Tour = {
         dayNumber: 6,
         title: "Atami Free Day",
         description:
-          "Enjoy a relaxing free day in Atami at your pace. Unwind in soothing hot springs, stroll along the scenic coastline, or explore charming local streets and cafés. Whether you choose to relax or discover hidden gems, the day is yours to enjoy.",
+          "Enjoy a relaxing free day in Atami at your pace. Unwind in soothing hot springs, stroll along the scenic coastline, or explore charming local streets and cafÃ©s. Whether you choose to relax or discover hidden gems, the day is yours to enjoy.",
         image: "/images/wp-content/uploads/2025/10/japan-day-7.webp",
         imageAlt: "Atami free day",
         details: [
@@ -235,7 +235,7 @@ export const japanAdventure: Tour = {
         dayNumber: 8,
         title: "Kyoto City Tour",
         description:
-          "Step into Japan's ancient capital and immerse yourself in serene temples, historical streets, and unforgettable scenic beauty — all in comfort with a chartered bus for the day. Stops include Kinkakuji, Arashiyama with its bamboo grove and picturesque river, Nishiki Market (Kyoto's Kitchen — ideal for lunch), Kiyomizudera, and Gion. Afterwards rest up and prepare for dinner and possibly a few drinks.",
+          "Step into Japan's ancient capital and immerse yourself in serene temples, historical streets, and unforgettable scenic beauty â€” all in comfort with a chartered bus for the day. Stops include Kinkakuji, Arashiyama with its bamboo grove and picturesque river, Nishiki Market (Kyoto's Kitchen â€” ideal for lunch), Kiyomizudera, and Gion. Afterwards rest up and prepare for dinner and possibly a few drinks.",
         image: "/tours/japan-adventure/japan-day-8.webp",
         imageAlt: "Kyoto City Tour",
         details: [
@@ -382,7 +382,7 @@ export const japanAdventure: Tour = {
         icon: "handshake",
         title: "Respect local customs",
         description:
-          "Dress modestly at temples, learn a few local greetings, and tip where appropriate — small gestures make a big difference.",
+          "Dress modestly at temples, learn a few local greetings, and tip where appropriate â€” small gestures make a big difference.",
       },
     ],
   },
@@ -410,18 +410,17 @@ export const japanAdventure: Tour = {
     routeLabel: "Tokyo - Kyoto",
     priceFromLabel: "From",
     priceCurrency: "GBP",
-    priceAmount: "£1,899",
-    depositAmount: "£300",
+    priceAmount: "Â£1,899",
+    depositAmount: "Â£300",
     ctaLabel: "Reserve Now",
     ctaHref:
       "https://admin.imheretravels.com/reservation-booking-form?tour=japan-adventure",
-    footnote: "Additional fees may apply",
   },
   listingCard: {
     duration: "10 Days and 9 Nights",
     description:
-      "Tokyo's neon streets, the scenic Atami coast, the shinkansen to Kyoto, and a traditional tea ceremony — the perfect blend of tradition and innovation.",
-    price: "GBP £1,899",
+      "Tokyo's neon streets, the scenic Atami coast, the shinkansen to Kyoto, and a traditional tea ceremony â€” the perfect blend of tradition and innovation.",
+    price: "GBP Â£1,899",
     image: "/images/wp-content/uploads/2025/10/japan-trip-highlight-1.webp",
     imageAlt: "Japan Adventure",
   },

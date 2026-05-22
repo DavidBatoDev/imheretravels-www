@@ -450,7 +450,6 @@ export const argentinasWonders: Tour = {
     ctaLabel: "Reserve Now",
     ctaHref:
       "https://admin.imheretravels.com/reservation-booking-form?tour=argentinas-wonders",
-    footnote: "Additional fees may apply",
   },
   listingCard: {
     duration: "11 Days",

@@ -45,6 +45,10 @@ const navItems = [
         label: "Philippines Sunset with Jess",
         href: "/tours/philippine-sunset-with-jess",
       },
+      {
+        label: "Philippines Sunset with Roxana",
+        href: "/tours/philippine-sunset-with-roxana",
+      },
     ],
   },
   {
@@ -73,6 +77,7 @@ const navItems = [
     dropdown: [
       { label: "Travel with Dev", href: "/resident-hosts/dev" },
       { label: "Travel with Jess", href: "/resident-hosts/jess" },
+      { label: "Travel with Roxana", href: "/resident-hosts/roxana" },
     ],
   },
   { label: "About Us", href: "/about-us" },

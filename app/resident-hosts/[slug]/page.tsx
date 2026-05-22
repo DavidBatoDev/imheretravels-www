@@ -258,11 +258,18 @@ function UpcomingTripsSection({ host }: { host: Host }) {
                         </span>
                       )}
                       {trip.price ? (
-                        <div className="flex items-baseline gap-1.5">
-                          <span className="font-body text-b4-desktop text-dark-gray">From</span>
-                          <span className="font-sans text-h6-mobile md:text-h6-desktop text-midnight">
-                            {trip.price}
-                          </span>
+                        <div>
+                          <div className="flex items-baseline gap-1.5">
+                            <span className="font-body text-b4-desktop text-dark-gray">From</span>
+                            <span className="font-sans text-h6-mobile md:text-h6-desktop text-midnight">
+                              {trip.price}
+                            </span>
+                          </div>
+                          {trip.priceNote && (
+                            <p className="mt-0.5 font-body text-b4-mobile text-grey">
+                              *{trip.priceNote}
+                            </p>
+                          )}
                         </div>
                       ) : (
                         <span className="font-body text-b4-desktop text-grey italic">Dates &amp; pricing TBA</span>

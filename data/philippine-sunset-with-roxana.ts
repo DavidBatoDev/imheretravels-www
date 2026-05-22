@@ -1,16 +1,16 @@
-﻿import type { Tour } from "@/types/tour";
+import type { Tour } from "@/types/tour";
 
-export const philippineSunsetWithJess: Tour = {
-  slug: "philippine-sunset-with-jess",
-  name: "Philippines Sunset with Jess",
+export const philippineSunsetWithRoxana: Tour = {
+  slug: "philippine-sunset-with-roxana",
+  name: "Philippines Sunset with Roxana",
   meta: {
-    title: "11 Days | Philippines Sunset with Jess",
+    title: "11 Days | Philippines Sunset with Roxana",
     description:
-      "Experience the Philippines Sunset Tour with Jess! Start in Manila with vibrant nightlife and rich history, then head to Port Barton and El Nido for island hopping, snorkeling, and stunning sunsets. Unwind with kayaking, ziplining, and cultural experiences, ending with unforgettable moments in serene Isla Darocoton and adventurous El Nido.",
+      "Experience the Philippines Sunset Tour with Roxana! Start in Manila with vibrant nightlife and rich history, then head to Port Barton and El Nido for island hopping, snorkeling, and stunning sunsets. Unwind with kayaking, ziplining, and cultural experiences, ending with unforgettable moments in serene Isla Darocoton and adventurous El Nido.",
   },
   gallery: {
     hero: "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1759341317907_philippinessunset-day-11.webp?alt=media&token=d3c35f6b-4503-438e-9cd4-c6d6848d0e8f",
-    heroAlt: "Philippines Sunset with Jess",
+    heroAlt: "Philippines Sunset with Roxana",
     thumbnails: [
       {
         src: "/images/wp-content/uploads/2024/05/philippinessunset-day-1.webp",
@@ -47,35 +47,21 @@ export const philippineSunsetWithJess: Tour = {
     ],
   },
   header: {
-    title: "11 Days | Philippines Sunset with Jess",
+    title: "11 Days | Philippines Sunset with Roxana",
     tags: [
-      {
-        label: "Manila",
-        icon: "location",
-      },
-      {
-        label: "Port Barton",
-        icon: "location",
-      },
-      {
-        label: "El Nido",
-        icon: "location",
-      },
-      {
-        label: "Isla Darocotan",
-        icon: "location",
-      },
+      { label: "Manila", icon: "location" },
+      { label: "Port Barton", icon: "location" },
+      { label: "El Nido", icon: "location" },
+      { label: "Isla Darocotan", icon: "location" },
     ],
     description:
-      "Experience the Philippines Sunset Tour with Jess! Start in Manila with vibrant nightlife and rich history, then head to Port Barton and El Nido for island hopping, snorkeling, and stunning sunsets. Unwind with kayaking, ziplining, and cultural experiences, ending with unforgettable moments in serene Isla Darocoton and adventurous El Nido.",
+      "Experience the Philippines Sunset Tour with Roxana! Start in Manila with vibrant nightlife and rich history, then head to Port Barton and El Nido for island hopping, snorkeling, and stunning sunsets. Unwind with kayaking, ziplining, and cultural experiences, ending with unforgettable moments in serene Isla Darocoton and adventurous El Nido.",
   },
   keyFacts: [
     {
       icon: "days",
       label: "Tour Dates",
-      values: [
-        "November 8, 2026",
-      ],
+      values: ["February 18, 2027"],
     },
     {
       icon: "days",
@@ -137,22 +123,19 @@ export const philippineSunsetWithJess: Tour = {
     heading: "Trip Highlights",
     items: [
       {
-        image:
-          "/images/wp-content/uploads/2024/05/philippinessunset-triphighlight-1.webp",
+        image: "/images/wp-content/uploads/2024/05/philippinessunset-triphighlight-1.webp",
         imageAlt: "El Nido Island Hopping",
         title: "El Nido Island Hopping",
         subtitle: "Beautiful islands, lagoons, & beaches",
       },
       {
-        image:
-          "/images/wp-content/uploads/2024/05/philippinessunset-triphighlight-2.webp",
+        image: "/images/wp-content/uploads/2024/05/philippinessunset-triphighlight-2.webp",
         imageAlt: "Isla Experience",
         title: "Isla Experience",
         subtitle: "Enjoy the island under the stars",
       },
       {
-        image:
-          "/images/wp-content/uploads/2024/05/philippinessunset-day-6.webp",
+        image: "/images/wp-content/uploads/2024/05/philippinessunset-day-6.webp",
         imageAlt: "Kayaking & Canoeing",
         title: "Kayaking & Canoeing",
         subtitle: "Paddle through hidden lagoons",
@@ -170,20 +153,11 @@ export const philippineSunsetWithJess: Tour = {
         title: "Welcome to Manila!",
         description:
           "Touching down in Manila, our vibrant city of excitement and culture, you'll be greeted by our friendly van ready to whisk you away to our cozy hotel. Take some time to unwind and soak in the anticipation of the adventures ahead before joining us for a delightful meet and greet dinner. Get ready to bond with your fellow travelers and dive into the pulse of Manila's nightlife scene!",
-        image:
-          "/images/wp-content/uploads/2024/05/philippinessunset-day-1.webp",
+        image: "/images/wp-content/uploads/2024/05/philippinessunset-day-1.webp",
         imageAlt: "Welcome to Manila!",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "Lub D Makati (or similar)",
-          },
-          {
-            icon: "activities",
-            label: "Activities",
-            value: "Meet and Greet (Dinner meals are not included)",
-          },
+          { icon: "accommodation", label: "Accommodation", value: "Lub D Makati (or similar)" },
+          { icon: "activities", label: "Activities", value: "Meet and Greet (Dinner meals are not included)" },
         ],
       },
       {
@@ -191,20 +165,11 @@ export const philippineSunsetWithJess: Tour = {
         title: "Dive into Manila's History",
         description:
           "Embrace a leisurely morning to recharge your energy after your journey. Then, we're off on a captivating historical tour of Manila. Immerse yourself in the stories of the city's history before freshening up for an evening of culinary delights and exploring Manila's vibrant nightlife.",
-        image:
-          "/images/wp-content/uploads/2024/05/philippinessunset-day-2.webp",
+        image: "/images/wp-content/uploads/2024/05/philippinessunset-day-2.webp",
         imageAlt: "Dive into Manila's History",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "Lub D Makati (or similar)",
-          },
-          {
-            icon: "activities",
-            label: "Activities",
-            value: "City Tour",
-          },
+          { icon: "accommodation", label: "Accommodation", value: "Lub D Makati (or similar)" },
+          { icon: "activities", label: "Activities", value: "City Tour" },
         ],
       },
       {
@@ -212,20 +177,11 @@ export const philippineSunsetWithJess: Tour = {
         title: "Flight to Port Barton",
         description:
           "Kicking off early for a scenic flight to Port Barton. Arriving at our beachfront haven, prepare to be spellbound by the mesmerizing sunset as we sip on refreshing drinks by the shore.",
-        image:
-          "/images/wp-content/uploads/2024/05/philippinessunset-day-3.webp",
+        image: "/images/wp-content/uploads/2024/05/philippinessunset-day-3.webp",
         imageAlt: "Flight to Port Barton",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "Ferellee Beach Front Inn (or similar)",
-          },
-          {
-            icon: "airport",
-            label: "Airport",
-            value: "Flight to Puerto Princesa",
-          },
+          { icon: "accommodation", label: "Accommodation", value: "Ferellee Beach Front Inn (or similar)" },
+          { icon: "airport", label: "Airport", value: "Flight to Puerto Princesa" },
         ],
       },
       {
@@ -233,25 +189,12 @@ export const philippineSunsetWithJess: Tour = {
         title: "Island Hopping and Snorkeling",
         description:
           "Start your day as we embark on an island-hopping adventure! Discover hidden coves, dive into crystal-clear waters, and encounter marine wonders as we snorkel with turtles. With each island revealing its own enchanting charm, let's toast to adventure amidst breathtaking landscapes.",
-        image:
-          "/images/wp-content/uploads/2024/05/philippinessunset-day-4.webp",
+        image: "/images/wp-content/uploads/2024/05/philippinessunset-day-4.webp",
         imageAlt: "Island Hopping and Snorkeling",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "Ferellee Beach Front Inn (or similar)",
-          },
-          {
-            icon: "activities",
-            label: "Activities",
-            value: "Island Hopping",
-          },
-          {
-            icon: "meals",
-            label: "Meals",
-            value: "1 Breakfast, 1 Lunch",
-          },
+          { icon: "accommodation", label: "Accommodation", value: "Ferellee Beach Front Inn (or similar)" },
+          { icon: "activities", label: "Activities", value: "Island Hopping" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast, 1 Lunch" },
         ],
       },
       {
@@ -259,25 +202,12 @@ export const philippineSunsetWithJess: Tour = {
         title: "Journey to El Nido",
         description:
           "Farewell, Port Barton, and hello, El Nido! Brace yourself for a scenic journey filled with awe-inspiring vistas. Upon arrival, let the golden hues of sunset wash over you as we kick back on the beach with drinks in hand. It's the perfect welcome to this tropical paradise.",
-        image:
-          "/images/wp-content/uploads/2024/05/philippinessunset-day-5.webp",
+        image: "/images/wp-content/uploads/2024/05/philippinessunset-day-5.webp",
         imageAlt: "Journey to El Nido",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "South Anchorage (or similar)",
-          },
-          {
-            icon: "activities",
-            label: "Activities",
-            value: "Sunset Chill",
-          },
-          {
-            icon: "meals",
-            label: "Meals",
-            value: "1 Breakfast",
-          },
+          { icon: "accommodation", label: "Accommodation", value: "South Anchorage (or similar)" },
+          { icon: "activities", label: "Activities", value: "Sunset Chill" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -285,25 +215,12 @@ export const philippineSunsetWithJess: Tour = {
         title: "Kayaking and Island Exploration",
         description:
           "We set sail for a day of exploration in El Nido. Paddle through turquoise lagoons, and on pristine beaches. Whether you're kayaking or snorkeling, every moment promises to be picture-perfect. Cap off the day with a magical sunset cruise, painting the sky with vibrant hues.",
-        image:
-          "/images/wp-content/uploads/2024/05/philippinessunset-day-6.webp",
+        image: "/images/wp-content/uploads/2024/05/philippinessunset-day-6.webp",
         imageAlt: "Kayaking and Island Exploration",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "South Anchorage (or similar)",
-          },
-          {
-            icon: "activities",
-            label: "Activities",
-            value: "Island Hopping, Kayaking in Small Lagoon",
-          },
-          {
-            icon: "meals",
-            label: "Meals",
-            value: "1 Breakfast, 1 Lunch",
-          },
+          { icon: "accommodation", label: "Accommodation", value: "South Anchorage (or similar)" },
+          { icon: "activities", label: "Activities", value: "Island Hopping, Kayaking in Small Lagoon" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast, 1 Lunch" },
         ],
       },
       {
@@ -311,25 +228,12 @@ export const philippineSunsetWithJess: Tour = {
         title: "Relaxation at Nacpan Beach",
         description:
           "Indulge in a day of blissful relaxation at Nacpan Beach, where time seems to stand still amidst the soft sands and azure waters. Feel the thrill of soaring through the sky on a sunset zipline, adding an extra dash of excitement to your beach day.",
-        image:
-          "/images/wp-content/uploads/2024/05/philippinessunset-day-7.webp",
+        image: "/images/wp-content/uploads/2024/05/philippinessunset-day-7.webp",
         imageAlt: "Relaxation at Nacpan Beach",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "South Anchorage (or similar)",
-          },
-          {
-            icon: "activities",
-            label: "Activities",
-            value: "Sunset Zipline",
-          },
-          {
-            icon: "meals",
-            label: "Meals",
-            value: "1 Breakfast",
-          },
+          { icon: "accommodation", label: "Accommodation", value: "South Anchorage (or similar)" },
+          { icon: "activities", label: "Activities", value: "Sunset Zipline" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -337,25 +241,12 @@ export const philippineSunsetWithJess: Tour = {
         title: "Off-Grid Experience at Isla Darocoton",
         description:
           "Escape to the tranquil oasis of Isla Darocoton, where palm-fringed shores and crystal-clear waters await. Unwind in your beachfront paradise, listening to the gentle lull of the waves and savoring the serenity of this secluded haven.",
-        image:
-          "/images/wp-content/uploads/2024/05/philippinessunset-day-8.webp",
+        image: "/images/wp-content/uploads/2024/05/philippinessunset-day-8.webp",
         imageAlt: "Off-Grid Experience at Isla Darocoton",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "Isla Experience",
-          },
-          {
-            icon: "activities",
-            label: "Activities",
-            value: "Snorkeling",
-          },
-          {
-            icon: "meals",
-            label: "Meals",
-            value: "1 Breakfast, 1 Dinner",
-          },
+          { icon: "accommodation", label: "Accommodation", value: "Isla Experience" },
+          { icon: "activities", label: "Activities", value: "Snorkeling" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast, 1 Dinner" },
         ],
       },
       {
@@ -363,25 +254,12 @@ export const philippineSunsetWithJess: Tour = {
         title: "Shipwreck Snorkel and Cultural Experience",
         description:
           "Embark on an underwater adventure to a mesmerizing shipwreck site, where colorful marine life awaits your discovery. Delve into Filipino culture with a hands-on cooking class and village tour, immersing yourself in the warmth and hospitality of the locals. As night falls, gather around the bonfire for an evening of laughter and song under the starlit sky.",
-        image:
-          "/images/wp-content/uploads/2024/05/philippinessunset-day-9.webp",
+        image: "/images/wp-content/uploads/2024/05/philippinessunset-day-9.webp",
         imageAlt: "Shipwreck Snorkel and Cultural Experience",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "Isla Experience",
-          },
-          {
-            icon: "activities",
-            label: "Activities",
-            value: "Snorkeling, Village Tour, Cooking Demo",
-          },
-          {
-            icon: "meals",
-            label: "Meals",
-            value: "1 Breakfast, 1 Lunch, 1 Dinner",
-          },
+          { icon: "accommodation", label: "Accommodation", value: "Isla Experience" },
+          { icon: "activities", label: "Activities", value: "Snorkeling, Village Tour, Cooking Demo" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast, 1 Lunch, 1 Dinner" },
         ],
       },
       {
@@ -389,25 +267,12 @@ export const philippineSunsetWithJess: Tour = {
         title: "Free Day in El Nido",
         description:
           "Today is all yours to soak in the beauty of El Nido at your own pace. Whether you choose to explore hidden lagoons, chill on the beach, or treat yourself to some local eats, this is your moment to do you. As the sun sets on our final evening together, we'll gather one last time to celebrate the memories, the friendships, and the magic of the journey.",
-        image:
-          "/images/wp-content/uploads/2024/05/philippinessunset-day-10.webp",
+        image: "/images/wp-content/uploads/2024/05/philippinessunset-day-10.webp",
         imageAlt: "Free Day in El Nido",
         details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "South Anchorage (or similar)",
-          },
-          {
-            icon: "activities",
-            label: "Activities",
-            value: "Free Day / Optional Activities",
-          },
-          {
-            icon: "meals",
-            label: "Meals",
-            value: "1 Breakfast",
-          },
+          { icon: "accommodation", label: "Accommodation", value: "South Anchorage (or similar)" },
+          { icon: "activities", label: "Activities", value: "Free Day / Optional Activities" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -415,15 +280,10 @@ export const philippineSunsetWithJess: Tour = {
         title: "Farewell",
         description:
           "As we bid farewell to this slice of paradise, take a moment to reflect on the adventures shared and the friendships forged. Until we meet again, may the spirit of the Philippines stay with you, like a glowing sunset painting the sky with memories of adventure and joy.",
-        image:
-          "/images/wp-content/uploads/2024/05/philippinessunset-day-11.webp",
+        image: "/images/wp-content/uploads/2024/05/philippinessunset-day-11.webp",
         imageAlt: "Farewell",
         details: [
-          {
-            icon: "meals",
-            label: "Meals",
-            value: "1 Breakfast",
-          },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
     ],
@@ -438,8 +298,7 @@ export const philippineSunsetWithJess: Tour = {
         nights: "2 nights in Hotel",
       },
       {
-        image:
-          "/images/wp-content/uploads/2025/10/ferellee-beach-bront-inn-accommodation2.webp",
+        image: "/images/wp-content/uploads/2025/10/ferellee-beach-bront-inn-accommodation2.webp",
         imageAlt: "Ferellee Beach Front Inn",
         name: "Ferellee Beach Front Inn",
         nights: "2 nights in Cottages",
@@ -451,8 +310,7 @@ export const philippineSunsetWithJess: Tour = {
         nights: "2 nights in Beach Hut",
       },
       {
-        image:
-          "/images/wp-content/uploads/2025/01/southanchorage-accommodation.webp",
+        image: "/images/wp-content/uploads/2025/01/southanchorage-accommodation.webp",
         imageAlt: "South Anchorage",
         name: "South Anchorage",
         nights: "4 nights in Hotel",
@@ -532,7 +390,7 @@ export const philippineSunsetWithJess: Tour = {
         icon: "handshake",
         title: "Respect local customs",
         description:
-          "Dress modestly at temples, learn a few local greetings, and tip where appropriate â€” small gestures make a big difference.",
+          "Dress modestly at temples, learn a few local greetings, and tip where appropriate — small gestures make a big difference.",
       },
     ],
   },
@@ -541,21 +399,22 @@ export const philippineSunsetWithJess: Tour = {
     routeLabel: "Manila -> Port Barton -> El Nido -> Isla Darocotan",
     priceFromLabel: "From",
     priceCurrency: "GBP",
-    priceAmount: "Â£1,199",
-    depositAmount: "Â£200",
+    priceAmount: "£1,199",
+    depositAmount: "£200",
     ctaLabel: "Reserve Now",
     ctaHref:
-      "https://admin.imheretravels.com/reservation-booking-form?tour=philippine-sunset-with-jess",
+      "https://admin.imheretravels.com/reservation-booking-form?tour=philippine-sunset-with-roxana",
+    footnote: "£1,199 for the first 8 pax. £1,299 thereafter.",
   },
   listingCard: {
     duration: "11 Days and 10 Nights",
     description:
-      "Manila, Port Barton, El Nido, and Isla Darocotan with island hopping, snorkeling, and sunset experiences. Hosted by Jess.",
-    price: "GBP Â£1,199",
+      "Manila, Port Barton, El Nido, and Isla Darocotan with island hopping, snorkeling, and sunset experiences. Hosted by Roxana.",
+    price: "GBP £1,199",
     image:
       "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1778651079825_1000040796.jpg?alt=media&token=1099185a-dabe-4532-83d1-8c25a9afc472",
-    imageAlt: "Philippines Sunset with Jess tour",
+    imageAlt: "Philippines Sunset with Roxana tour",
   },
 };
 
-export default philippineSunsetWithJess;
+export default philippineSunsetWithRoxana;

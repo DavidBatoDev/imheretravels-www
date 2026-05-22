@@ -1,10 +1,10 @@
-import type { Tour } from "@/types/tour";
+﻿import type { Tour } from "@/types/tour";
 
 export const japanAdventureWinter: Tour = {
   slug: "japan-adventure-winter",
   name: "Japan Adventure (Winter)",
   meta: {
-    title: "Japan Adventure (Winter) — I'm Here Travels",
+    title: "Japan Adventure (Winter) â€” I'm Here Travels",
     description:
       "Experience the perfect blend of tradition and innovation on this unforgettable 10-day journey through Japan. From Tokyo to Nagano to Kyoto to Osaka, discover Japan's dynamic cities, rich heritage, and stunning winter landscapes.",
   },
@@ -37,7 +37,7 @@ export const japanAdventureWinter: Tour = {
     {
       icon: "route",
       label: "Route",
-      values: ["Tokyo → Nagano → Kyoto → Osaka"],
+      values: ["Tokyo â†’ Nagano â†’ Kyoto â†’ Osaka"],
     },
     { icon: "people", label: "Group Size", values: ["Maximum 20 people"] },
   ],
@@ -129,7 +129,7 @@ export const japanAdventureWinter: Tour = {
         dayNumber: 2,
         title: "Tokyo City Tour",
         description:
-          "Explore Japan's dynamic capital like a local! Hop on Tokyo's world-renowned public transport system and visit must-see neighborhoods and landmarks. Recommended stops: Akihabara (anime, gaming, tech), Ueno, Asakusa with its famous Sensoji Temple and Nakamise Shopping Street, Shibuya and the famous scramble crossing, Harajuku's fashion district and the nearby Meiji-jingu shrine, and Shinjuku — where we recommend getting a bird's-eye view of the city from the Tokyo Metropolitan Government Building's observation deck. Finish the day with a meal in a typical Japanese izakaya and try some local specialties.",
+          "Explore Japan's dynamic capital like a local! Hop on Tokyo's world-renowned public transport system and visit must-see neighborhoods and landmarks. Recommended stops: Akihabara (anime, gaming, tech), Ueno, Asakusa with its famous Sensoji Temple and Nakamise Shopping Street, Shibuya and the famous scramble crossing, Harajuku's fashion district and the nearby Meiji-jingu shrine, and Shinjuku â€” where we recommend getting a bird's-eye view of the city from the Tokyo Metropolitan Government Building's observation deck. Finish the day with a meal in a typical Japanese izakaya and try some local specialties.",
         image: "/tours/japan-adventure-winter/japan-day-2.webp",
         imageAlt: "Tokyo City Tour",
         details: [
@@ -147,7 +147,7 @@ export const japanAdventureWinter: Tour = {
         dayNumber: 3,
         title: "Tokyo Free Day",
         description:
-          "Explore other areas of Tokyo and the surrounding area at your own pace or relax at the hotel — the day is yours. Recommended day trips include Kamakura and Enoshima by the coast, or for something more traditional, Kawagoe in nearby Saitama prefecture. Otherwise, indulge in fun activities such as a visit to the teamLab's digital art museum or go shopping in one of the countless malls.",
+          "Explore other areas of Tokyo and the surrounding area at your own pace or relax at the hotel â€” the day is yours. Recommended day trips include Kamakura and Enoshima by the coast, or for something more traditional, Kawagoe in nearby Saitama prefecture. Otherwise, indulge in fun activities such as a visit to the teamLab's digital art museum or go shopping in one of the countless malls.",
         image: "/tours/japan-adventure-winter/japan-day-3.webp",
         imageAlt: "Tokyo Free Day",
         details: [
@@ -223,7 +223,7 @@ export const japanAdventureWinter: Tour = {
         dayNumber: 7,
         title: "Kyoto City Tour",
         description:
-          "Step into Japan's ancient capital and immerse yourself in serene temples, historical streets, and unforgettable scenic beauty — all in comfort with a chartered bus for the day. Stops include Kinkakuji, Arashiyama with its bamboo grove and picturesque river, Nishiki Market (Kyoto's Kitchen — ideal for lunch), Kiyomizudera, and Gion. Afterwards rest up and prepare for dinner and possibly a few drinks.",
+          "Step into Japan's ancient capital and immerse yourself in serene temples, historical streets, and unforgettable scenic beauty â€” all in comfort with a chartered bus for the day. Stops include Kinkakuji, Arashiyama with its bamboo grove and picturesque river, Nishiki Market (Kyoto's Kitchen â€” ideal for lunch), Kiyomizudera, and Gion. Afterwards rest up and prepare for dinner and possibly a few drinks.",
         image: "/tours/japan-adventure-winter/japan-day-7.webp",
         imageAlt: "Kyoto City Tour",
         details: [
@@ -293,19 +293,19 @@ export const japanAdventureWinter: Tour = {
         image: "/tours/japan-adventure-winter/Moxy.png",
         imageAlt: "Moxy Tokyo Kinshicho",
         name: "Moxy Tokyo Kinshicho",
-        nights: "3 nights (Days 1–3)",
+        nights: "3 nights (Days 1â€“3)",
       },
       {
         image: "/tours/japan-adventure-winter/Dormy-Inn.png",
         imageAlt: "Dormy Inn Nagano",
         name: "Dormy Inn Nagano",
-        nights: "2 nights (Days 4–5)",
+        nights: "2 nights (Days 4â€“5)",
       },
       {
         image: "/tours/japan-adventure-winter/S-Peria.webp",
         imageAlt: "S-Peria Hotel",
         name: "S-Peria Hotel",
-        nights: "3 nights (Days 6–8)",
+        nights: "3 nights (Days 6â€“8)",
       },
       {
         image: "/tours/japan-adventure-winter/Sarasa.png",
@@ -334,7 +334,7 @@ export const japanAdventureWinter: Tour = {
       {
         question: "Do you have an age limit for tours?",
         answer:
-          "Tours cater to adventurous travelers aged 18–45, with most guests between 21–35 years old. It's perfect for people from diverse backgrounds to share travel experiences.",
+          "Tours cater to adventurous travelers aged 18â€“45, with most guests between 21â€“35 years old. It's perfect for people from diverse backgrounds to share travel experiences.",
       },
       {
         question: "What is the local currency?",
@@ -393,21 +393,20 @@ export const japanAdventureWinter: Tour = {
         icon: "handshake",
         title: "Respect local customs",
         description:
-          "Dress modestly at temples, learn a few local greetings, and tip where appropriate — small gestures make a big difference.",
+          "Dress modestly at temples, learn a few local greetings, and tip where appropriate â€” small gestures make a big difference.",
       },
     ],
   },
   booking: {
     durationLabel: "10 Day Tour",
-    routeLabel: "Tokyo → Nagano → Kyoto → Osaka",
+    routeLabel: "Tokyo â†’ Nagano â†’ Kyoto â†’ Osaka",
     priceFromLabel: "From",
     priceCurrency: "GBP",
-    priceAmount: "£1,999",
-    depositAmount: "£300",
+    priceAmount: "Â£1,999",
+    depositAmount: "Â£300",
     ctaLabel: "Reserve Now",
     ctaHref:
       "https://admin.imheretravels.com/reservation-booking-form?tour=japan-adventure-winter",
-    footnote: "Additional fees may apply",
   },
   community: {
     heading: "With @Imheretravels",
@@ -432,7 +431,7 @@ export const japanAdventureWinter: Tour = {
     duration: "10 Days and 9 Nights",
     description:
       "Welcome to Japan. Experience the perfect blend of tradition and innovation on this unforgettable journey through Japan. We start off in Tokyo, the vibrant capital where modern skyscrapers meet historic temples.",
-    price: "GBP £1,999",
+    price: "GBP Â£1,999",
     image: "/tours/japan-adventure-winter/japan-header-4.webp",
     imageAlt: "Japan Adventure (Winter)",
   },

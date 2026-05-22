@@ -1,5 +1,5 @@
-/**
- * Bhutan Quest — 7-day Punakha-to-Paro Himalayan adventure.
+﻿/**
+ * Bhutan Quest â€” 7-day Punakha-to-Paro Himalayan adventure.
  *
  * Originally generated from data/json/tourPackages-04142026.json; hand-
  * enriched with itinerary details, accommodations, and FAQs sourced from
@@ -11,13 +11,13 @@ export const bhutanQuest: Tour = {
   slug: "bhutan-quest",
   name: "Bhutan Quest",
   meta: {
-    title: "Bhutan Quest — 7 Day Himalayan Adventure",
+    title: "Bhutan Quest â€” 7 Day Himalayan Adventure",
     description:
-      "Join the 7-day Bhutan Quest: trek to Tiger's Nest, raft the Mo Chhu, visit Dzongs, and explore Thimphu. Small group, local guides, GBP £1,355.",
+      "Join the 7-day Bhutan Quest: trek to Tiger's Nest, raft the Mo Chhu, visit Dzongs, and explore Thimphu. Small group, local guides, GBP Â£1,355.",
   },
   gallery: {
     hero: "/images/wp-content/uploads/2025/08/bhutan-header-1.webp",
-    heroAlt: "Bhutan Quest — Himalayan landscapes",
+    heroAlt: "Bhutan Quest â€” Himalayan landscapes",
     thumbnails: [
       {
         src: "/images/wp-content/uploads/2025/08/bhutan-day-1.webp",
@@ -66,7 +66,7 @@ export const bhutanQuest: Tour = {
     {
       icon: "route",
       label: "Route",
-      values: ["Punakha → Gangtey → Thimphu → Paro"],
+      values: ["Punakha â†’ Gangtey â†’ Thimphu â†’ Paro"],
     },
     { icon: "people", label: "Group Size", values: ["Maximum 20 people"] },
   ],
@@ -149,9 +149,9 @@ export const bhutanQuest: Tour = {
         dayNumber: 1,
         title: "Arrival in Bhutan",
         description:
-          "You've made it to Bhutan arriving in Paro international airport where you will be greeted by your local guide who will transfer you to our first hotel where you can relax and chill or go out to explore — the choice is yours. In the evening we will have dinner to meet your fellow travel companions.",
+          "You've made it to Bhutan arriving in Paro international airport where you will be greeted by your local guide who will transfer you to our first hotel where you can relax and chill or go out to explore â€” the choice is yours. In the evening we will have dinner to meet your fellow travel companions.",
         image: "/images/wp-content/uploads/2025/08/bhutan-day-1.webp",
-        imageAlt: "Bhutan Day 1 — Arrival in Paro",
+        imageAlt: "Bhutan Day 1 â€” Arrival in Paro",
         details: [
           {
             icon: "accommodation",
@@ -170,7 +170,7 @@ export const bhutanQuest: Tour = {
         dayNumber: 2,
         title: "Ride the Rapids",
         description:
-          "After a leisurely breakfast we will take a short van ride to visit the famous Punakha Dzong which served as both the religious and administrative centre of Bhutan in the past. After Punakha Dzong we make our way to visit Punakha Suspension Bridge — the longest suspension bridge in Bhutan. This is where the real fun begins: we then make our way to white-water rafting in Mo Chu river to get the adrenaline pumping. Lunch will then be served as a riverside picnic along the same river we just rafted down before making our way to Gangtey.",
+          "After a leisurely breakfast we will take a short van ride to visit the famous Punakha Dzong which served as both the religious and administrative centre of Bhutan in the past. After Punakha Dzong we make our way to visit Punakha Suspension Bridge â€” the longest suspension bridge in Bhutan. This is where the real fun begins: we then make our way to white-water rafting in Mo Chu river to get the adrenaline pumping. Lunch will then be served as a riverside picnic along the same river we just rafted down before making our way to Gangtey.",
         image: "/images/wp-content/uploads/2025/08/bhutan-day-2.webp",
         imageAlt: "White-water rafting on Mo Chhu River",
         details: [
@@ -278,7 +278,7 @@ export const bhutanQuest: Tour = {
         dayNumber: 7,
         title: "Checkout",
         description:
-          "Grab everyone's insta handles and checkout after one last breakfast together. Our local guide will help organise airport transfers for everyone — it's not goodbye, it's see you later.",
+          "Grab everyone's insta handles and checkout after one last breakfast together. Our local guide will help organise airport transfers for everyone â€” it's not goodbye, it's see you later.",
         image: "/images/wp-content/uploads/2025/08/bhutan-day-7.webp",
         imageAlt: "Paro airport departure",
         details: [
@@ -329,7 +329,7 @@ export const bhutanQuest: Tour = {
       },
       {
         question: "Which airport do I need to fly into?",
-        answer: "Paro International Airport — Paro, Bhutan.",
+        answer: "Paro International Airport â€” Paro, Bhutan.",
       },
       {
         question: "What should I wear?",
@@ -339,7 +339,7 @@ export const bhutanQuest: Tour = {
       {
         question: "Do you have an age limit for tours?",
         answer:
-          "Our tours cater to adventurous travelers aged 18–45, with most guests between 21–35 years old.",
+          "Our tours cater to adventurous travelers aged 18â€“45, with most guests between 21â€“35 years old.",
       },
       {
         question: "What is the local currency?",
@@ -348,7 +348,7 @@ export const bhutanQuest: Tour = {
       },
       {
         question: "Which airport do I fly out from?",
-        answer: "Paro International Airport — Paro.",
+        answer: "Paro International Airport â€” Paro.",
       },
     ],
   },
@@ -398,7 +398,7 @@ export const bhutanQuest: Tour = {
         icon: "handshake",
         title: "Respect local customs",
         description:
-          "Dress modestly at temples, learn a few local greetings, and tip where appropriate — small gestures make a big difference.",
+          "Dress modestly at temples, learn a few local greetings, and tip where appropriate â€” small gestures make a big difference.",
       },
     ],
   },
@@ -407,18 +407,17 @@ export const bhutanQuest: Tour = {
     routeLabel: "Punakha to Paro",
     priceFromLabel: "From",
     priceCurrency: "GBP",
-    priceAmount: "£1,355",
-    depositAmount: "£200",
+    priceAmount: "Â£1,355",
+    depositAmount: "Â£200",
     ctaLabel: "Reserve Now",
     ctaHref:
       "https://admin.imheretravels.com/reservation-booking-form?tour=bhutan-quest",
-    footnote: "Additional fees may apply",
   },
   listingCard: {
     duration: "7 Days and 6 Nights",
     description:
       "Trek to Tiger's Nest, raft the Mo Chhu, and explore Bhutan's most stunning Dzongs, monasteries, and Himalayan landscapes.",
-    price: "GBP £1,355",
+    price: "GBP Â£1,355",
     image: "/images/wp-content/uploads/2025/08/bhutan-header-1.webp",
     imageAlt: "Bhutan Quest",
   },
