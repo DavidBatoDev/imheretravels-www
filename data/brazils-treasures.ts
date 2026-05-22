@@ -1,5 +1,5 @@
 ﻿/**
- * Brazil's Treasures â€” 10-day SÃ£o Paulo-to-Rio adventure.
+ * Brazil's Treasures — 10-day São Paulo-to-Rio adventure.
  *
  * Originally generated from data/json/tourPackages-04142026.json; hand-
  * enriched with itinerary details, accommodations, and FAQs.
@@ -10,13 +10,13 @@ export const brazilsTreasures: Tour = {
   slug: "brazils-treasures",
   name: "Brazil's Treasures",
   meta: {
-    title: "Brazil's Treasures â€” I'm Here Travels",
+    title: "Brazil's Treasures — I'm Here Travels",
     description:
-      "Get ready to fall in love with Brazilâ€”loud, colorful, and alive at every turn. From exploring the vibrant city of SÃ£o Paulo to wandering the cobbled charm of Paraty, this 10-day adventure is full of energy and discovery.",
+      "Get ready to fall in love with Brazil—loud, colorful, and alive at every turn. From exploring the vibrant city of São Paulo to wandering the cobbled charm of Paraty, this 10-day adventure is full of energy and discovery.",
   },
   gallery: {
     hero: "/tours/brazils-treasures/brazil-header-1.webp",
-    heroAlt: "Brazil's Treasures â€” Rio skyline and Copacabana Beach",
+    heroAlt: "Brazil's Treasures — Rio skyline and Copacabana Beach",
     thumbnails: [
       { src: "/tours/brazils-treasures/brazil-header-2.webp", alt: "Brazil's Treasures" },
       { src: "/tours/brazils-treasures/brazil-header-3.webp", alt: "Brazil's Treasures" },
@@ -28,13 +28,13 @@ export const brazilsTreasures: Tour = {
     ],
   },
   header: {
-    title: "7 Days | Discover Brazilâ€™s Treasures",
+    title: "7 Days | Discover Brazil's Treasures",
     tags: [
-      { label: "SÃ£o Paulo", icon: "location" },
+      { label: "São Paulo", icon: "location" },
       { label: "Rio de Janeiro", icon: "location" },
     ],
     description:
-      "Get ready to fall in love with Brazilâ€”loud, colorful, and alive at every turn. From exploring the vibrant city of SÃ£o Paulo to wandering the cobbled charm of Rio de Janeiro., this 7-day adventure is full of energy and discovery. Sip caipirinhas on Copacabana Beach, ride the cable car up Sugarloaf Mountain, and experience the excitement of Carnival from front-row seats. Itâ€™s the rhythm of Afro-Brazilian music, the warmth of samba nights, and the sparkle of unforgettable celebrations, all in one incredible journey.",
+      "Get ready to fall in love with Brazil—loud, colorful, and alive at every turn. From exploring the vibrant city of São Paulo to wandering the cobbled charm of Rio de Janeiro., this 7-day adventure is full of energy and discovery. Sip caipirinhas on Copacabana Beach, ride the cable car up Sugarloaf Mountain, and experience the excitement of Carnival from front-row seats. It’s the rhythm of Afro-Brazilian music, the warmth of samba nights, and the sparkle of unforgettable celebrations, all in one incredible journey.",
   },
   keyFacts: [
     {
@@ -45,7 +45,7 @@ export const brazilsTreasures: Tour = {
     {
       icon: "route",
       label: "Destination",
-      values: ["SÃ£o Paulo - Rio de Janeiro"],
+      values: ["São Paulo - Rio de Janeiro"],
     },
     {
       icon: "days",
@@ -115,8 +115,8 @@ export const brazilsTreasures: Tour = {
       {
         image:
           "/images/wp-content/uploads/2025/07/brazil-trip-highlight-2.webp",
-        imageAlt: "SÃ£o Paulo neighborhoods",
-        title: "Explore SÃ£o Paulo's buzzing Neighborhoods",
+        imageAlt: "São Paulo neighborhoods",
+        title: "Explore São Paulo's buzzing Neighborhoods",
         subtitle: "",
       },
       {
@@ -136,11 +136,11 @@ export const brazilsTreasures: Tour = {
     days: [
       {
         dayNumber: 1,
-        title: "Arrival to SÃ£o Paulo",
+        title: "Arrival to São Paulo",
         description:
-          "Welcome to Brazil! Upon arrival in SÃ£o Paulo our local team will greet you at the airport and transfer you to your hotel for a well-deserved rest. Unwind from the flight or take a walk to discover the city's vibrant charm and cozy cafÃ©s.",
+          "Welcome to Brazil! Upon arrival in São Paulo our local team will greet you at the airport and transfer you to your hotel for a well-deserved rest. Unwind from the flight or take a walk to discover the city's vibrant charm and cozy cafés.",
         image: "/tours/brazils-treasures/brazil-day-1.webp",
-        imageAlt: "SÃ£o Paulo city arrival",
+        imageAlt: "São Paulo city arrival",
         details: [
           {
             icon: "accommodation",
@@ -165,11 +165,11 @@ export const brazilsTreasures: Tour = {
       },
       {
         dayNumber: 2,
-        title: "SÃ£o Paulo Exploration",
+        title: "São Paulo Exploration",
         description:
-          "Start your day with breakfast at the hotel before heading out to explore the vibrant city of SÃ£o Paulo. Discover the creative energy of Vila Madalena, known for its bohemian charm, and visit the famous Beco do Batman, an open-air gallery filled with colorful street art and murals.",
+          "Start your day with breakfast at the hotel before heading out to explore the vibrant city of São Paulo. Discover the creative energy of Vila Madalena, known for its bohemian charm, and visit the famous Beco do Batman, an open-air gallery filled with colorful street art and murals.",
         image: "/tours/brazils-treasures/brazil-day-2.webp",
-        imageAlt: "SÃ£o Paulo street art and neighborhoods",
+        imageAlt: "São Paulo street art and neighborhoods",
         details: [
           {
             icon: "accommodation",
@@ -196,7 +196,7 @@ export const brazilsTreasures: Tour = {
         dayNumber: 3,
         title: "Journey to Rio de Janeiro",
         description:
-          "Today we head to one of the most iconic cities in the world â€” Rio de Janeiro! After the road trip, check into your beachfront hotel in Copacabana. You'll have time to relax, stroll the famous sidewalk, or dip your toes into the Atlantic before dinner. The Marvelous City awaits.",
+          "Today we head to one of the most iconic cities in the world — Rio de Janeiro! After the road trip, check into your beachfront hotel in Copacabana. You'll have time to relax, stroll the famous sidewalk, or dip your toes into the Atlantic before dinner. The Marvelous City awaits.",
         image: "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1778576632234_brazil-day-6.webp?alt=media&token=5afd50a1-f9a4-423f-910e-0ea3ee16000c",
         imageAlt: "Rio de Janeiro beachfront hotel",
         details: [
@@ -225,7 +225,7 @@ export const brazilsTreasures: Tour = {
         dayNumber: 4,
         title: "City Icons of Rio",
         description:
-          "We're checking off the icons today! Visit Christ the Redeemer for panoramic views of the city, then take a cable car up Sugarloaf Mountain. Stop by the artistic SelarÃ³n Steps for some photos and get a real taste of Rio's magic. It's a day of legends and unforgettable sights.",
+          "We're checking off the icons today! Visit Christ the Redeemer for panoramic views of the city, then take a cable car up Sugarloaf Mountain. Stop by the artistic Selarón Steps for some photos and get a real taste of Rio's magic. It's a day of legends and unforgettable sights.",
         image: "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1778576883685_brazil-day-8.webp?alt=media&token=75452486-3208-4ba1-bd32-8080ec0e1bed",
         imageAlt: "City Icons of Rio de Janeiro - Christ the Redeemer and Sugarloaf Mountain",
         details: [
@@ -254,7 +254,7 @@ export const brazilsTreasures: Tour = {
         dayNumber: 5,
         title: "Helicopter Ride",
         description:
-          "Today, for a truly unforgettable experience, we take a helicopter ride over Rioâ€™s stunning skyline. The rest of the day is leisure at your pace; unwind and take it slow while relaxing on the golden sands of Ipanema Beach.Â ",
+          "Today, for a truly unforgettable experience, we take a helicopter ride over Rio’s stunning skyline. The rest of the day is leisure at your pace; unwind and take it slow while relaxing on the golden sands of Ipanema Beach. ",
         image: "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1778577100174_brazil-day-10%20(1)%20(1).webp?alt=media&token=3c071b51-e9f3-43eb-a0e7-cc488098ed82",
         imageAlt: "Helicopter Ride over Rio de Janeiro",
         details: [
@@ -312,7 +312,7 @@ export const brazilsTreasures: Tour = {
         dayNumber: 7,
         title: "Departure from Rio",
         description:
-          "All great adventures come to an end. Enjoy your final moments in Rio with a beach stroll or souvenir run before your airport transfer. Until next time â€” tchau, Brasil!",
+          "All great adventures come to an end. Enjoy your final moments in Rio with a beach stroll or souvenir run before your airport transfer. Until next time — tchau, Brasil!",
         image: "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1778577378152_brazil-day-12.webp?alt=media&token=c256eb5e-b850-47ac-8430-baedce99ab9b",
         imageAlt: "Christ the Redeemer and Sugarloaf Mountain Rio",
         details: [
@@ -358,11 +358,11 @@ export const brazilsTreasures: Tour = {
     items: [
       {
         question: "Where does the trip start & finish?",
-        answer: "It starts at SÃ£o Paulo and finishes in Rio de Janeiro.",
+        answer: "It starts at São Paulo and finishes in Rio de Janeiro.",
       },
       {
         question: "Which airport do I need to fly into?",
-        answer: "SÃ£o Paulo/Guarulhos International Airport (GRU).",
+        answer: "São Paulo/Guarulhos International Airport (GRU).",
       },
       {
         question: "What should I wear?",
@@ -372,7 +372,7 @@ export const brazilsTreasures: Tour = {
       {
         question: "Do you have an age limit for tours?",
         answer:
-          "Our tours cater to adventurous travelers aged 18â€“45, with most guests between 21â€“35 years old. It's perfect for people from diverse backgrounds to share travel experiences.",
+          "Our tours cater to adventurous travelers aged 18—45, with most guests between 21—35 years old. It's perfect for people from diverse backgrounds to share travel experiences.",
       },
       {
         question: "What is the local currency?",
@@ -381,7 +381,7 @@ export const brazilsTreasures: Tour = {
       },
       {
         question: "Which airport do I fly out from?",
-        answer: "Rio de Janeiro/GaleÃ£o International Airport (GIG).",
+        answer: "Rio de Janeiro/Galeão International Airport (GIG).",
       },
     ],
   },
@@ -431,17 +431,17 @@ export const brazilsTreasures: Tour = {
         icon: "handshake",
         title: "Respect local customs",
         description:
-          "Dress modestly at temples, learn a few local greetings, and tip where appropriate â€” small gestures make a big difference.",
+          "Dress modestly at temples, learn a few local greetings, and tip where appropriate — small gestures make a big difference.",
       },
     ],
   },
   booking: {
     durationLabel: "7 Day Tour",
-    routeLabel: "SÃ£o Paulo to Rio de Janeiro",
+    routeLabel: "São Paulo to Rio de Janeiro",
     priceFromLabel: "From",
     priceCurrency: "GBP",
-    priceAmount: "Â£1,599",
-    depositAmount: "Â£250",
+    priceAmount: "£1,599",
+    depositAmount: "£250",
     ctaLabel: "Reserve Now",
     ctaHref: "https://buy.stripe.com/dRmaEX6RJ8SZ65J1NJco106",
     footnote: "Additional fees may apply",
@@ -449,8 +449,8 @@ export const brazilsTreasures: Tour = {
   listingCard: {
     duration: "7 days & 6 Nights",
     description:
-      "SÃ£o Paulo street art, Paraty island hopping, Copacabana Beach, Christ the Redeemer, Sugarloaf, and front-row Sambadrome Carnival.",
-    price: "GBP Â£1,599",
+      "São Paulo street art, Paraty island hopping, Copacabana Beach, Christ the Redeemer, Sugarloaf, and front-row Sambadrome Carnival.",
+    price: "GBP £1,599",
     image:
       "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1759341307739_brazil-header-4.webp?alt=media&token=811f0f81-f1ba-4267-9da5-69c568c29335",
     imageAlt: "Brazil's Treasures",

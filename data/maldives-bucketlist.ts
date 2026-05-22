@@ -1,5 +1,5 @@
 ﻿/**
- * Maldives Bucketlist â€” 9-day Hulhumale-to-Ukulhas island adventure.
+ * Maldives Bucketlist — 9-day Hulhumale-to-Ukulhas island adventure.
  */
 import type { Tour } from "@/types/tour";
 
@@ -13,7 +13,7 @@ export const maldivesBucketlist: Tour = {
   },
   gallery: {
     hero: "/tours/maldives-bucketlist/maldives-header-1.webp",
-    heroAlt: "Maldives Bucketlist â€” crystal-clear waters and overwater bungalows",
+    heroAlt: "Maldives Bucketlist — crystal-clear waters and overwater bungalows",
     thumbnails: [
       { src: "/tours/maldives-bucketlist/maldives-header-2.webp", alt: "Maldives Bucketlist" },
       { src: "/tours/maldives-bucketlist/maldives-header-3.webp", alt: "Maldives Bucketlist" },
@@ -33,12 +33,12 @@ export const maldivesBucketlist: Tour = {
       "Experience the Maldives Island Adventure! Explore bustling Male City, dive into coral reefs in Rasdhoo, and unwind on an uninhabited island paradise. From thrilling underwater adventures to sunset paddling and dolphin cruises, this trip is packed with unforgettable moments!",
   },
   keyFacts: [
-    { icon: "days", label: "Tour Dates", values: ["November 9â€“17, 2024"] },
+    { icon: "days", label: "Tour Dates", values: ["November 9—17, 2024"] },
     { icon: "days", label: "Duration", values: ["9 Days and 8 Nights"] },
     {
       icon: "route",
       label: "Route",
-      values: ["Hulhumale â†’ Rasdhoo â†’ Ukulhas"],
+      values: ["Hulhumale -> Rasdhoo -> Ukulhas"],
     },
     { icon: "people", label: "Group Size", values: ["Maximum 22 people"] },
   ],
@@ -77,7 +77,7 @@ export const maldivesBucketlist: Tour = {
           "24/7 customer experience assistance",
           "Airport and domestic transfer assistance",
           "One way transfer by scheduled public speedboat to Rasdhoo",
-          "One way ferry transfer Rasdhoo â€“ Ukulhas",
+          "One way ferry transfer Rasdhoo — Ukulhas",
           "One way transfer by scheduled public speedboat to Male or private speedboat transfer to resort",
           "Tour Guide",
           "All Local Tax (10% service charge, 16% GST and $3 Green Tax per person per night)",
@@ -131,7 +131,7 @@ export const maldivesBucketlist: Tour = {
         dayNumber: 2,
         title: "Discover Male's Hidden Gems",
         description:
-          "Get ready to dive into the vibrant culture of Male City! With our local guide leading the way, you'll explore bustling markets, the impressive President's Palace, and the historic Friday Mosque. Expect some secret spots that tourists usually miss â€“ this is the real Maldives!",
+          "Get ready to dive into the vibrant culture of Male City! With our local guide leading the way, you'll explore bustling markets, the impressive President's Palace, and the historic Friday Mosque. Expect some secret spots that tourists usually miss — this is the real Maldives!",
         image: "/tours/maldives-bucketlist/maldives-day-2.webp",
         imageAlt: "Male City tour, Maldives",
         details: [
@@ -187,7 +187,7 @@ export const maldivesBucketlist: Tour = {
         dayNumber: 6,
         title: "Transfer to Ukulhas & Sunset Paddle",
         description:
-          "Hop over to Ukulhas, an island famous for its stunning white sand beaches and vibrant house reef. Spend your day chilling or exploring, then join us for a magical sunset kayaking or SUP tour. Keep an eye out for eagle rays and sharks gliding beneath you â€“ pure magic!",
+          "Hop over to Ukulhas, an island famous for its stunning white sand beaches and vibrant house reef. Spend your day chilling or exploring, then join us for a magical sunset kayaking or SUP tour. Keep an eye out for eagle rays and sharks gliding beneath you — pure magic!",
         image: "/tours/maldives-bucketlist/maldives-day-6.webp",
         imageAlt: "Sunset paddle boarding in Ukulhas",
         details: [
@@ -215,7 +215,7 @@ export const maldivesBucketlist: Tour = {
         dayNumber: 8,
         title: "Free Day or Whale Shark Hunt",
         description:
-          "Today is all about choice â€“ relax and soak up the sun or join an exhilarating tour to search for whale sharks. These gentle giants are seen year-round, and snorkeling alongside them is a bucket-list moment you'll never forget!",
+          "Today is all about choice — relax and soak up the sun or join an exhilarating tour to search for whale sharks. These gentle giants are seen year-round, and snorkeling alongside them is a bucket-list moment you'll never forget!",
         image: "/tours/maldives-bucketlist/maldives-day-8.webp",
         imageAlt: "Whale shark snorkeling, Ukulhas",
         details: [
@@ -266,11 +266,11 @@ export const maldivesBucketlist: Tour = {
     items: [
       {
         question: "Where does the trip start & finish?",
-        answer: "Male â€“ Velana International Airport.",
+        answer: "Male — Velana International Airport.",
       },
       {
         question: "Which airport do I need to fly into?",
-        answer: "Male â€“ Velana International Airport (MLE).",
+        answer: "Male — Velana International Airport (MLE).",
       },
       {
         question: "What should I wear?",
@@ -280,7 +280,7 @@ export const maldivesBucketlist: Tour = {
       {
         question: "Do you have an age limit for tours?",
         answer:
-          "Tours cater to adventurous travelers aged 18â€“45, with most guests between 21â€“35 years old.",
+          "Tours cater to adventurous travelers aged 18—45, with most guests between 21—35 years old.",
       },
       {
         question: "What is the local currency?",
@@ -288,7 +288,7 @@ export const maldivesBucketlist: Tour = {
       },
       {
         question: "Which airport do I fly out from?",
-        answer: "Male â€“ Velana International Airport (MLE).",
+        answer: "Male — Velana International Airport (MLE).",
       },
     ],
   },
@@ -338,7 +338,7 @@ export const maldivesBucketlist: Tour = {
         icon: "handshake",
         title: "Respect local customs",
         description:
-          "The Maldives is a Muslim country â€” alcohol is not available on local islands. Bikinis are not permitted on public beaches; dress modestly on inhabited islands. Tourist beach areas are available for guests.",
+          "The Maldives is a Muslim country — alcohol is not available on local islands. Bikinis are not permitted on public beaches; dress modestly on inhabited islands. Tourist beach areas are available for guests.",
       },
     ],
   },
@@ -347,8 +347,8 @@ export const maldivesBucketlist: Tour = {
     routeLabel: "Hulhumale to Ukulhas",
     priceFromLabel: "From",
     priceCurrency: "GBP",
-    priceAmount: "Â£1,800",
-    depositAmount: "Â£300",
+    priceAmount: "£1,800",
+    depositAmount: "£300",
     ctaLabel: "Reserve Now",
     ctaHref:
       "https://admin.imheretravels.com/reservation-booking-form?tour=maldives-bucketlist",
@@ -358,7 +358,7 @@ export const maldivesBucketlist: Tour = {
     duration: "9 Days and 8 Nights",
     description:
       "Experience the Maldives Island Adventure! Explore bustling Male City, dive into coral reefs in Rasdhoo, and unwind on an uninhabited island paradise. From thrilling underwater adventures to sunset paddling and dolphin cruises, this trip is packed with unforgettable moments!",
-    price: "GBP Â£1,800",
+    price: "GBP £1,800",
     image: "/tours/maldives-bucketlist/maldives-header-1.webp",
     imageAlt: "Maldives Bucketlist",
   },

@@ -532,7 +532,7 @@ export const philippineSunsetWithJess: Tour = {
         icon: "handshake",
         title: "Respect local customs",
         description:
-          "Dress modestly at temples, learn a few local greetings, and tip where appropriate â€” small gestures make a big difference.",
+          "Dress modestly at temples, learn a few local greetings, and tip where appropriate — small gestures make a big difference.",
       },
     ],
   },
@@ -541,8 +541,8 @@ export const philippineSunsetWithJess: Tour = {
     routeLabel: "Manila -> Port Barton -> El Nido -> Isla Darocotan",
     priceFromLabel: "From",
     priceCurrency: "GBP",
-    priceAmount: "Â£1,199",
-    depositAmount: "Â£200",
+    priceAmount: "£1,199",
+    depositAmount: "£200",
     ctaLabel: "Reserve Now",
     ctaHref:
       "https://admin.imheretravels.com/reservation-booking-form?tour=philippine-sunset-with-jess",
@@ -552,7 +552,7 @@ export const philippineSunsetWithJess: Tour = {
     duration: "11 Days and 10 Nights",
     description:
       "Manila, Port Barton, El Nido, and Isla Darocotan with island hopping, snorkeling, and sunset experiences. Hosted by Jess.",
-    price: "GBP Â£1,199",
+    price: "GBP £1,199",
     image:
       "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1778651079825_1000040796.jpg?alt=media&token=1099185a-dabe-4532-83d1-8c25a9afc472",
     imageAlt: "Philippines Sunset with Jess tour",

@@ -1,5 +1,5 @@
 ﻿/**
- * India Discovery Tour â€” 13-day Golden Triangle adventure.
+ * India Discovery Tour — 13-day Golden Triangle adventure.
  *
  * Originally generated from data/json/tourPackages-04142026.json; hand-
  * enriched with itinerary, accommodations, and FAQs sourced from the
@@ -11,13 +11,13 @@ export const indiaDiscoveryTour: Tour = {
   slug: "india-discovery-tour",
   name: "India Discovery Tour",
   meta: {
-    title: "India Discovery Tour â€” 13 Day Delhi to Agra Adventure",
+    title: "India Discovery Tour — 13 Day Delhi to Agra Adventure",
     description:
-      "Join the 13-day India Discovery Tour: Taj Mahal, Mehrangarh Fort, Lake Pichola cruise, Amer Fort, and a safari in Ranthambore National Park. GBP Â£1,099.",
+      "Join the 13-day India Discovery Tour: Taj Mahal, Mehrangarh Fort, Lake Pichola cruise, Amer Fort, and a safari in Ranthambore National Park. GBP £1,099.",
   },
   gallery: {
     hero: "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1759341302125_india-header-1.webp?alt=media&token=3f969113-15f2-4d4e-bc0c-0f5e8ac5043e",
-    heroAlt: "India Discovery Tour â€” Taj Mahal and Rajasthan",
+    heroAlt: "India Discovery Tour — Taj Mahal and Rajasthan",
     thumbnails: [
       {
         src: "/images/wp-content/uploads/2025/01/india-day-2.webp",
@@ -160,7 +160,7 @@ export const indiaDiscoveryTour: Tour = {
         dayNumber: 2,
         title: "Sightseeing Old Delhi and New Delhi",
         description:
-          "Now that the ice is broken with all your new travel companions the fun begins. We start the day with a good breakfast and afterwards you get the chance to chill for a bit before our first activity as the long travels can be exhausting. After breakfast we make our way to visit Qutub Minar, one of India's many UNESCO World Heritage sites. In the afternoon we will check out and do some sightseeing around Old Delhi and New Delhi â€” we'll visit Jama Masjid (India's largest mosque, which can accommodate 20,000 people at once), Raj Ghat (Mahatma Gandhi's memorial on the banks of the river Yamuna), and the India Gate (which has a distinct resemblance to the Arc de Triomphe in Paris). Once finished, we head to the station for everyone to experience an overnight train journey.",
+          "Now that the ice is broken with all your new travel companions the fun begins. We start the day with a good breakfast and afterwards you get the chance to chill for a bit before our first activity as the long travels can be exhausting. After breakfast we make our way to visit Qutub Minar, one of India's many UNESCO World Heritage sites. In the afternoon we will check out and do some sightseeing around Old Delhi and New Delhi - we'll visit Jama Masjid (India's largest mosque, which can accommodate 20,000 people at once), Raj Ghat (Mahatma Gandhi's memorial on the banks of the river Yamuna), and the India Gate (which has a distinct resemblance to the Arc de Triomphe in Paris). Once finished, we head to the station for everyone to experience an overnight train journey.",
         image: "/images/wp-content/uploads/2025/01/india-day-2.webp",
         imageAlt: "Old Delhi sightseeing",
         details: [
@@ -173,7 +173,7 @@ export const indiaDiscoveryTour: Tour = {
             icon: "activities",
             label: "Activity",
             value:
-              "Sightseeing â€” Jama Masjid, Raj Ghat, India Gate â€” Overnight Train",
+              "Sightseeing — Jama Masjid, Raj Ghat, India Gate — Overnight Train",
           },
           { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
@@ -182,7 +182,7 @@ export const indiaDiscoveryTour: Tour = {
         dayNumber: 3,
         title: "Arrival in Jodhpur and Chill Time",
         description:
-          "Rise and shine â€” we hope everyone had a good night's sleep and enjoyed the overnight train especially if it's your first time. After we get off the train we will be met by our local driver in Jodhpur station, from here we then make our way to the next hotel to check in and have breakfast. We will then have the entire day to chill, enjoy the pool, walk around or get more sleep.",
+          "Rise and shine — we hope everyone had a good night's sleep and enjoyed the overnight train especially if it's your first time. After we get off the train we will be met by our local driver in Jodhpur station, from here we then make our way to the next hotel to check in and have breakfast. We will then have the entire day to chill, enjoy the pool, walk around or get more sleep.",
         image: "/images/wp-content/uploads/2025/01/india-day-3.webp",
         imageAlt: "Jodhpur arrival",
         details: [
@@ -215,7 +215,7 @@ export const indiaDiscoveryTour: Tour = {
           {
             icon: "activities",
             label: "Activity",
-            value: "Visit Mehrangarh Fort â€” Jaswant Thada",
+            value: "Visit Mehrangarh Fort — Jaswant Thada",
           },
           { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
@@ -224,7 +224,7 @@ export const indiaDiscoveryTour: Tour = {
         dayNumber: 5,
         title: "Travel to Udaipur",
         description:
-          "Once everyone has eaten breakfast or just got that morning coffee, it's time to start making our way to Udaipur. Along the way we will stop and visit Ranakpur Jain Temples â€” built in the 15th century out of milk-white marble with the main temple being Chaumukha Mandir. The temple comprises 29 halls, 80 domes, and 1,444 individually carved pillars, so there is loads for everyone to explore. Once we have explored the temple, it's time to finish the journey to Udaipur so we can check in and relax at the hotel.",
+          "Once everyone has eaten breakfast or just got that morning coffee, it's time to start making our way to Udaipur. Along the way we will stop and visit Ranakpur Jain Temples —  built in the 15th century out of milk-white marble with the main temple being Chaumukha Mandir. The temple comprises 29 halls, 80 domes, and 1,444 individually carved pillars, so there is loads for everyone to explore. Once we have explored the temple, it's time to finish the journey to Udaipur so we can check in and relax at the hotel.",
         image: "/images/wp-content/uploads/2025/01/india-day-5.webp",
         imageAlt: "Ranakpur Jain Temples",
         details: [
@@ -245,7 +245,7 @@ export const indiaDiscoveryTour: Tour = {
         dayNumber: 6,
         title: "Time to Explore Udaipur",
         description:
-          "We hope everyone had a pretty chill evening as today we're going to explore Udaipur, where we will visit the majestic City Palace complex overlooking beautiful Lake Pichola. The City Palace is a must-do â€” the various buildings added over the years along with the impeccable architecture make it an experience you won't forget. From here we move on to Sahelion-Ki-Bari, a major garden and a very popular tourist attraction in Udaipur. The day doesn't finish there â€” we set sail on a sunset cruise on Lake Pichola with local expert guides explaining the fascinating history of Udaipur City.",
+          "We hope everyone had a pretty chill evening as today we're going to explore Udaipur, where we will visit the majestic City Palace complex overlooking beautiful Lake Pichola. The City Palace is a must-do — the various buildings added over the years along with the impeccable architecture make it an experience you won't forget. From here we move on to Sahelion-Ki-Bari, a major garden and a very popular tourist attraction in Udaipur. The day doesn't finish there — we set sail on a sunset cruise on Lake Pichola with local expert guides explaining the fascinating history of Udaipur City.",
         image: "/images/wp-content/uploads/2025/01/india-header-6.webp",
         imageAlt: "Udaipur City Palace and Lake Pichola",
         details: [
@@ -257,7 +257,7 @@ export const indiaDiscoveryTour: Tour = {
           {
             icon: "activities",
             label: "Activity",
-            value: "City Palace Complex â€” Sahelion-Ki-Bari â€” Lake Pichola",
+            value: "City Palace Complex — Sahelion-Ki-Bari — Lake Pichola",
           },
           { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
@@ -266,7 +266,7 @@ export const indiaDiscoveryTour: Tour = {
         dayNumber: 7,
         title: "Travel to Sawai Madhopur",
         description:
-          "Today we have a very early start as it's time to make our way to Ranthambore (Sawai Madhopur) via train â€” also known as the land of tigers. After checking into our new hotel and grabbing some lunch, we visit Ranthambore National Park, home to landmarks such as the 10th-century Ranthambore Fort and Ganesh Mandir Temple. Throughout the park you also get the chance to witness different wildlife such as leopards and tigers. The rest of the afternoon is your own to roam around or relax before meeting in the evening for dinner and drinks.",
+          "Today we have a very early start as it's time to make our way to Ranthambore (Sawai Madhopur) via train — also known as the land of tigers. After checking into our new hotel and grabbing some lunch, we visit Ranthambore National Park, home to landmarks such as the 10th-century Ranthambore Fort and Ganesh Mandir Temple. Throughout the park you also get the chance to witness different wildlife such as leopards and tigers. The rest of the afternoon is your own to roam around or relax before meeting in the evening for dinner and drinks.",
         image: "/images/wp-content/uploads/2025/01/india-day-7.webp",
         imageAlt: "Ranthambore National Park",
         details: [
@@ -320,7 +320,7 @@ export const indiaDiscoveryTour: Tour = {
           {
             icon: "activities",
             label: "Activity",
-            value: "Optional activities â€” traditional cooking class",
+            value: "Optional activities — traditional cooking class",
           },
           { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
@@ -329,7 +329,7 @@ export const indiaDiscoveryTour: Tour = {
         dayNumber: 10,
         title: "Let's Explore Jaipur",
         description:
-          "If you didn't explore Jaipur in your free time yesterday, today is the day. After breakfast we set off to Amer Fort â€” we'll be taken by jeep right up to the main gate so we can walk through its incredibly designed chambers and hallways. Next stop is the City Palace Museum, where everyone can view the superb collection of Rajasthani costumes and armoury. To finish this day tour off, we visit Birla Temple, a national landmark built of pure white marble in 1988. Afterwards everyone is free to explore the local bazaars and maybe collect some souvenirs.",
+          "If you didn't explore Jaipur in your free time yesterday, today is the day. After breakfast we set off to Amer Fort — we'll be taken by jeep right up to the main gate so we can walk through its incredibly designed chambers and hallways. Next stop is the City Palace Museum, where everyone can view the superb collection of Rajasthani costumes and armoury. To finish this day tour off, we visit Birla Temple, a national landmark built of pure white marble in 1988. Afterwards everyone is free to explore the local bazaars and maybe collect some souvenirs.",
         image: "/images/wp-content/uploads/2025/01/india-day-10.webp",
         imageAlt: "Amer Fort Jaipur",
         details: [
@@ -341,7 +341,7 @@ export const indiaDiscoveryTour: Tour = {
           {
             icon: "activities",
             label: "Activity",
-            value: "Amer Fort â€” City Palace Museum â€” Birla Temple",
+            value: "Amer Fort — City Palace Museum — Birla Temple",
           },
           { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
@@ -350,7 +350,7 @@ export const indiaDiscoveryTour: Tour = {
         dayNumber: 11,
         title: "Taj Mahal",
         description:
-          "The day has come where we get to visit the biggest highlight of India â€” the Taj Mahal, one of the seven wonders of the world, known for its impeccable symmetry and intricate marble architecture. After breakfast we check out of our hotel and make our way to Agra, where we check into our new hotel just to drop our bags and go explore. Agra is a prime tourist destination in India mainly because of the Taj Mahal, where people from all over the world come to visit â€” and now it's your turn.",
+          "The day has come where we get to visit the biggest highlight of India — the Taj Mahal, one of the seven wonders of the world, known for its impeccable symmetry and intricate marble architecture. After breakfast we check out of our hotel and make our way to Agra, where we check into our new hotel just to drop our bags and go explore. Agra is a prime tourist destination in India mainly because of the Taj Mahal, where people from all over the world come to visit — and now it's your turn.",
         image: "/images/wp-content/uploads/2025/01/india-triphighlight-1.webp",
         imageAlt: "Taj Mahal",
         details: [
@@ -367,7 +367,7 @@ export const indiaDiscoveryTour: Tour = {
         dayNumber: 12,
         title: "Agra Back to Delhi",
         description:
-          "After everyone has had some breakfast it's time to check out of our hotel, but before making our way back to Delhi we have one more stop. Today we visit Agra Fort, home to many pavilions, gardens, mosques, and royal audience halls â€” home of the Emperors for 3 generations, with truly breathtaking architecture. We then make our way to Delhi to check into our hotel and chill for a bit before our farewell dinner and drinks.",
+          "After everyone has had some breakfast it's time to check out of our hotel, but before making our way back to Delhi we have one more stop. Today we visit Agra Fort, home to many pavilions, gardens, mosques, and royal audience halls — home of the Emperors for 3 generations, with truly breathtaking architecture. We then make our way to Delhi to check into our hotel and chill for a bit before our farewell dinner and drinks.",
         image: "/images/wp-content/uploads/2025/01/india-header-2.webp",
         imageAlt: "Agra Fort",
         details: [
@@ -458,12 +458,12 @@ export const indiaDiscoveryTour: Tour = {
       {
         question: "What should I wear?",
         answer:
-          "For summer (Marchâ€“June): light breathable fabrics, comfortable sandals, sunglasses, hat, sunscreen. For cooler months (Octoberâ€“February): pack layers, light jacket or sweater, comfortable walking shoes, scarf for temple visits. Always bring a shawl for religious sites.",
+          "For summer (March—June): light breathable fabrics, comfortable sandals, sunglasses, hat, sunscreen. For cooler months (October—February): pack layers, light jacket or sweater, comfortable walking shoes, scarf for temple visits. Always bring a shawl for religious sites.",
       },
       {
         question: "Do you have an age limit for tours?",
         answer:
-          "Our tours cater to adventurous travelers aged 18â€“45, with most guests between 21â€“35 years old.",
+          "Our tours cater to adventurous travelers aged 18—45, with most guests between 21—35 years old.",
       },
       {
         question: "What is the local currency?",
@@ -522,7 +522,7 @@ export const indiaDiscoveryTour: Tour = {
         icon: "handshake",
         title: "Respect local customs",
         description:
-          "Dress modestly at temples, learn a few local greetings, and tip where appropriate â€” small gestures make a big difference.",
+          "Dress modestly at temples, learn a few local greetings, and tip where appropriate — small gestures make a big difference.",
       },
     ],
   },
@@ -531,8 +531,8 @@ export const indiaDiscoveryTour: Tour = {
     routeLabel: "New Delhi to Agra",
     priceFromLabel: "From",
     priceCurrency: "GBP",
-    priceAmount: "Â£1,199",
-    depositAmount: "Â£200",
+    priceAmount: "£1,199",
+    depositAmount: "£200",
     ctaLabel: "Reserve Now",
     ctaHref:
       "https://admin.imheretravels.com/reservation-booking-form?tour=india-discovery-tour",
@@ -542,7 +542,7 @@ export const indiaDiscoveryTour: Tour = {
     duration: "13 Days and 12 Nights",
     description:
       "The Taj Mahal, Mehrangarh Fort, Lake Pichola cruise, Amer Fort, and a canter safari through Ranthambhore National Park.",
-    price: "GBP Â£1,199",
+    price: "GBP £1,199",
     image:
       "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1759341302125_india-header-1.webp?alt=media&token=3f969113-15f2-4d4e-bc0c-0f5e8ac5043e",
     imageAlt: "India Discovery Tour",

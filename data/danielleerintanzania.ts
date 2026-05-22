@@ -2,7 +2,7 @@
  * Tanzania Exploration (Danielle & Erin)
  *
  * Private/custom variant of the Tanzania Exploration tour. Content is a
- * copy of `tanzania-exploration.ts` â€” edit here for Danielle & Erin-specific
+ * copy of `tanzania-exploration.ts` — edit here for Danielle & Erin-specific
  * overrides (dates, pricing, itinerary tweaks) without affecting the
  * public tour.
  */
@@ -15,7 +15,7 @@ export const danielleErinTanzaniaExploration: Tour = {
   meta: {
     title: "10 Days | Tanzania Exploration (Danielle & Erin)",
     description:
-     "This tour will let you experience all of that with Mini Trekking Kilimanjaro, guided game drives to experience the vast wildlife and marine life and then finishing the tour off on the amazing beaches in Zanzibar. Join us to experience these amazing destinations and meet people who will become friendâ€™s for life!"
+     "This tour will let you experience all of that with Mini Trekking Kilimanjaro, guided game drives to experience the vast wildlife and marine life and then finishing the tour off on the amazing beaches in Zanzibar. Join us to experience these amazing destinations and meet people who will become friend's for life!"
   },
   gallery: {
     hero: "/tours/tanzania-dan&erin/tanzania-header-1.webp",
@@ -72,7 +72,7 @@ export const danielleErinTanzaniaExploration: Tour = {
       },
     ],
     description:
-      "This tour will let you experience all of that with Mini Trekking Kilimanjaro, guided game drives to experience the vast wildlife and marine life and then finishing the tour off on the amazing beaches in Zanzibar. Join us to experience these amazing destinations and meet people who will become friendâ€™s for life!"
+      "This tour will let you experience all of that with Mini Trekking Kilimanjaro, guided game drives to experience the vast wildlife and marine life and then finishing the tour off on the amazing beaches in Zanzibar. Join us to experience these amazing destinations and meet people who will become friends for life!"
   },
   keyFacts: [
     {
@@ -529,8 +529,8 @@ export const danielleErinTanzaniaExploration: Tour = {
     routeLabel: "Moshi -> Arusha -> Karatu -> Zanzibar",
     priceFromLabel: "From",
     priceCurrency: "GBP",
-    priceAmount: "Â£1,949",
-    depositAmount: "Â£250",
+    priceAmount: "£1,949",
+    depositAmount: "£250",
     ctaLabel: "Reserve Now",
     ctaHref:
       "https://admin.imheretravels.com/reservation-booking-form?tour=tanzania-exploration-danielle-erin",
@@ -540,7 +540,7 @@ export const danielleErinTanzaniaExploration: Tour = {
     duration: "10 Days and 9 Nights",
     description:
       "Hosted by Danielle & Erin. Kilimanjaro mini trek, Tarangire and Ngorongoro game drives, Zanzibar marine adventures, with a one-way domestic flight from Kilimanjaro to Zanzibar included.",
-    price: "GBP Â£1,949",
+    price: "GBP £1,949",
     image: "/tours/tanzania-dan&erin/tanzania-header-1.webp",
     imageAlt: "Tanzania Exploration (Danielle & Erin)",
   },
