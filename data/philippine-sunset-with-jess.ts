@@ -546,6 +546,7 @@ export const philippineSunsetWithJess: Tour = {
     ctaLabel: "Reserve Now",
     ctaHref:
       "https://admin.imheretravels.com/reservation-booking-form?tour=philippine-sunset-with-jess",
+    footnote: "Additional fees may apply",
   },
   listingCard: {
     duration: "11 Days and 10 Nights",

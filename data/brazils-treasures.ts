@@ -444,6 +444,7 @@ export const brazilsTreasures: Tour = {
     depositAmount: "Â£250",
     ctaLabel: "Reserve Now",
     ctaHref: "https://buy.stripe.com/dRmaEX6RJ8SZ65J1NJco106",
+    footnote: "Additional fees may apply",
   },
   listingCard: {
     duration: "7 days & 6 Nights",

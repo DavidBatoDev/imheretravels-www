@@ -415,6 +415,7 @@ export const japanAdventure: Tour = {
     ctaLabel: "Reserve Now",
     ctaHref:
       "https://admin.imheretravels.com/reservation-booking-form?tour=japan-adventure",
+    footnote: "Additional fees may apply",
   },
   listingCard: {
     duration: "10 Days and 9 Nights",

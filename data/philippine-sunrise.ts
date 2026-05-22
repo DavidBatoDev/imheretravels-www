@@ -499,6 +499,7 @@ export const philippineSunrise: Tour = {
     ctaLabel: "Reserve Now",
     ctaHref:
       "https://admin.imheretravels.com/reservation-booking-form?tour=philippine-sunrise",
+    footnote: "Additional fees may apply",
   },
   // Related-tour cards are auto-attached in `data/tours.ts` by picking
   // the next three tours in registry order and pulling their cover image

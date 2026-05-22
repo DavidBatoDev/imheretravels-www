@@ -426,6 +426,7 @@ export const nepalHorizons: Tour = {
     ctaLabel: "Reserve Now",
     ctaHref:
       "https://admin.imheretravels.com/reservation-booking-form?tour=nepal-horizons",
+    footnote: "Additional fees may apply",
   },
   listingCard: {
     duration: "9 Days and 8 Nights",

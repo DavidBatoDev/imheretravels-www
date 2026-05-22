@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Resident Hosts registry.
  *
  * Each host entry drives a page at /resident-hosts/[slug].

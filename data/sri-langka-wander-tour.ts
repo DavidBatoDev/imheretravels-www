@@ -614,6 +614,7 @@ export const sriLangkaWanderTour: Tour = {
     ctaLabel: "Reserve Now",
     ctaHref:
       "https://admin.imheretravels.com/reservation-booking-form?tour=sri-langka-wander-tour",
+    footnote: "Additional fees may apply",
   },
   listingCard: {
     duration: "12 Days and 11 Nights",

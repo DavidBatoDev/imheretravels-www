@@ -407,6 +407,7 @@ export const japanAdventureWinter: Tour = {
     ctaLabel: "Reserve Now",
     ctaHref:
       "https://admin.imheretravels.com/reservation-booking-form?tour=japan-adventure-winter",
+    footnote: "Additional fees may apply",
   },
   community: {
     heading: "With @Imheretravels",

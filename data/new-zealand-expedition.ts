@@ -614,6 +614,7 @@ export const newZealandExpedition: Tour = {
     ctaLabel: "Reserve Now",
     ctaHref:
       "https://admin.imheretravels.com/reservation-booking-form?tour=new-zealand-expedition",
+    footnote: "Additional fees may apply",
   },
   listingCard: {
     duration: "15 Days and 14 Nights",

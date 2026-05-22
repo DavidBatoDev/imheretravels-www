@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Destinations registry.
  *
  * Source of truth for every destination landing page the site can render.

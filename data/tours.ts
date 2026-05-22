@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Tours registry.
  *
  * Source of truth for every tour the site can render. The dynamic route

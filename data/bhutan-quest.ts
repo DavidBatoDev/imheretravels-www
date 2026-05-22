@@ -412,6 +412,7 @@ export const bhutanQuest: Tour = {
     ctaLabel: "Reserve Now",
     ctaHref:
       "https://admin.imheretravels.com/reservation-booking-form?tour=bhutan-quest",
+    footnote: "Additional fees may apply",
   },
   listingCard: {
     duration: "7 Days and 6 Nights",

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * All dynamic content for the "Travel with Jess" resident host page.
  * Imported by data/hosts.ts to build the Jess host entry.
  *

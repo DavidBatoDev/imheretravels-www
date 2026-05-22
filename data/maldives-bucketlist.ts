@@ -352,6 +352,7 @@ export const maldivesBucketlist: Tour = {
     ctaLabel: "Reserve Now",
     ctaHref:
       "https://admin.imheretravels.com/reservation-booking-form?tour=maldives-bucketlist",
+    footnote: "Additional fees may apply",
   },
   listingCard: {
     duration: "9 Days and 8 Nights",
