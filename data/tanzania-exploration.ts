@@ -93,7 +93,7 @@ export const tanzaniaExploration: Tour = {
     {
       icon: "route",
       label: "Route",
-      values: ["Kilimanjaro -> Arusha -> Karatu -> Zanzibar"],
+      values: ["Kilimanjaro → Arusha → Karatu → Zanzibar"],
     },
     {
       icon: "people",
@@ -518,7 +518,7 @@ export const tanzaniaExploration: Tour = {
   },
   booking: {
     durationLabel: "10 Day Tour",
-    routeLabel: "Kilimanjaro -> Arusha -> Karatu -> Zanzibar",
+    routeLabel: "Kilimanjaro → Arusha → Karatu → Zanzibar",
     priceFromLabel: "From",
     priceCurrency: "GBP",
     priceAmount: "£1,949",

@@ -386,7 +386,7 @@ export const chinaDiscovery: Tour = {
   },
   booking: {
     durationLabel: "10 Day Tour",
-    routeLabel: "Beijing to Shanghai",
+    routeLabel: "Beijing → Shanghai",
     priceFromLabel: "From",
     priceCurrency: "GBP",
     priceAmount: "£1,199",

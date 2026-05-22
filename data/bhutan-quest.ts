@@ -66,7 +66,7 @@ export const bhutanQuest: Tour = {
     {
       icon: "route",
       label: "Route",
-      values: ["Punakha -> Gangtey -> Thimphu -> Paro"],
+      values: ["Punakha → Gangtey → Thimphu → Paro"],
     },
     { icon: "people", label: "Group Size", values: ["Maximum 20 people"] },
   ],
@@ -404,7 +404,7 @@ export const bhutanQuest: Tour = {
   },
   booking: {
     durationLabel: "7 Day Tour",
-    routeLabel: "Punakha to Paro",
+    routeLabel: "Punakha → Paro",
     priceFromLabel: "From",
     priceCurrency: "GBP",
     priceAmount: "£1,355",

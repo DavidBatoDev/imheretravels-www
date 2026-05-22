@@ -103,7 +103,7 @@ export const sriLangkaWanderTour: Tour = {
       icon: "route",
       label: "Route",
       values: [
-        "Negombo -> Habarana -> Kandy -> Ella -> Arugam Bay -> Hikkaduwa",
+        "Negombo → Habarana → Kandy → Ella → Arugam Bay → Hikkaduwa",
       ],
     },
     {
@@ -606,7 +606,7 @@ export const sriLangkaWanderTour: Tour = {
   booking: {
     durationLabel: "12 Day Tour",
     routeLabel:
-      "Negombo -> Habarana -> Kandy -> Ella -> Arugam Bay -> Hikkaduwa",
+      "Negombo → Habarana → Kandy → Ella → Arugam Bay → Hikkaduwa",
     priceFromLabel: "From",
     priceCurrency: "GBP",
     priceAmount: "£1,200",

@@ -68,7 +68,7 @@ export const philippineSunrise: Tour = {
       ],
     },
     { icon: "days", label: "Duration", values: ["11 Days / 10 Nights"] },
-    { icon: "route", label: "Route", values: ["Cebu -> Moalboal -> Siargao"] },
+    { icon: "route", label: "Route", values: ["Cebu → Moalboal → Siargao"] },
     { icon: "people", label: "Group Size", values: ["Maximum 22 people"] },
   ],
   // "What's Included" two-column icon list. `value` can be a string or an
@@ -491,7 +491,7 @@ export const philippineSunrise: Tour = {
   // booking flow exists.
   booking: {
     durationLabel: "11 Day Tour",
-    routeLabel: "Cebu -> Moalboal -> Siargao",
+    routeLabel: "Cebu → Moalboal → Siargao",
     priceFromLabel: "From",
     priceCurrency: "GBP",
     priceAmount: "£1199",

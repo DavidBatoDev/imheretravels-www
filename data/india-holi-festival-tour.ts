@@ -579,7 +579,7 @@ export const indiaHoliFestivalTour: Tour = {
   },
   booking: {
     durationLabel: "13 Day Tour",
-    routeLabel: "New Delhi -> Jodhpur -> Udaipur -> Jaipur -> Sawai Madhopur -> Agra",
+    routeLabel: "New Delhi → Jodhpur → Udaipur → Jaipur → Sawai Madhopur → Agra",
     priceFromLabel: "From",
     priceCurrency: "GBP",
     priceAmount: "£1,299",

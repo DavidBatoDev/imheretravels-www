@@ -45,7 +45,7 @@ export const brazilsTreasures: Tour = {
     {
       icon: "route",
       label: "Destination",
-      values: ["São Paulo - Rio de Janeiro"],
+      values: ["São Paulo → Rio de Janeiro"],
     },
     {
       icon: "days",
@@ -437,7 +437,7 @@ export const brazilsTreasures: Tour = {
   },
   booking: {
     durationLabel: "7 Day Tour",
-    routeLabel: "São Paulo to Rio de Janeiro",
+    routeLabel: "São Paulo → Rio de Janeiro",
     priceFromLabel: "From",
     priceCurrency: "GBP",
     priceAmount: "£1,599",

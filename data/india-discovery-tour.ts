@@ -70,7 +70,7 @@ export const indiaDiscoveryTour: Tour = {
       icon: "route",
       label: "Route",
       values: [
-        "New Delhi -> Jodhpur -> Udaipur -> Jaipur -> Sawai Madhopur -> Agra",
+        "New Delhi → Jodhpur → Udaipur → Jaipur → Sawai Madhopur → Agra",
       ],
     },
     { icon: "days", label: "Days", values: ["13 Days and 12 Nights"] },
@@ -528,7 +528,7 @@ export const indiaDiscoveryTour: Tour = {
   },
   booking: {
     durationLabel: "13 Day Tour",
-    routeLabel: "New Delhi to Agra",
+    routeLabel: "New Delhi → Agra",
     priceFromLabel: "From",
     priceCurrency: "GBP",
     priceAmount: "£1,199",

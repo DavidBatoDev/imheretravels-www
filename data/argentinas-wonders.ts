@@ -55,7 +55,7 @@ export const argentinasWonders: Tour = {
     {
       icon: "route",
       label: "Destination",
-      values: ["Buenos Aires - Patagonia El Chalten - Iguazu"],
+      values: ["Buenos Aires → Patagonia El Chalten → Iguazu"],
     },
     {
       icon: "people",

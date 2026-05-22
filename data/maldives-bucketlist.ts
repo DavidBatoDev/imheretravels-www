@@ -38,7 +38,7 @@ export const maldivesBucketlist: Tour = {
     {
       icon: "route",
       label: "Route",
-      values: ["Hulhumale -> Rasdhoo -> Ukulhas"],
+      values: ["Hulhumale → Rasdhoo → Ukulhas"],
     },
     { icon: "people", label: "Group Size", values: ["Maximum 22 people"] },
   ],
@@ -344,7 +344,7 @@ export const maldivesBucketlist: Tour = {
   },
   booking: {
     durationLabel: "9 Day Tour",
-    routeLabel: "Hulhumale to Ukulhas",
+    routeLabel: "Hulhumale → Ukulhas",
     priceFromLabel: "From",
     priceCurrency: "GBP",
     priceAmount: "£1,800",

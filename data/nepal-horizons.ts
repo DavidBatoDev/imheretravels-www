@@ -418,7 +418,7 @@ export const nepalHorizons: Tour = {
   },
   booking: {
     durationLabel: "9 Day Tour",
-    routeLabel: "Kathmandu to Pokhara",
+    routeLabel: "Kathmandu → Pokhara",
     priceFromLabel: "From",
     priceCurrency: "GBP",
     priceAmount: "£1,099",

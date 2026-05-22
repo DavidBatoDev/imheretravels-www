@@ -99,7 +99,7 @@ export const philippineSunset: Tour = {
     {
       icon: "route",
       label: "Route",
-      values: ["Manila -> Port Barton -> El Nido -> Isla Darocotan"],
+      values: ["Manila → Port Barton → El Nido → Isla Darocotan"],
     },
     {
       icon: "people",
@@ -552,7 +552,7 @@ export const philippineSunset: Tour = {
   },
   booking: {
     durationLabel: "11 Day Tour",
-    routeLabel: "Manila -> Port Barton -> El Nido -> Isla Darocotan",
+    routeLabel: "Manila → Port Barton → El Nido → Isla Darocotan",
     priceFromLabel: "From",
     priceCurrency: "GBP",
     priceAmount: "£1,199",

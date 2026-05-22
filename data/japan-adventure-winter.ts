@@ -37,7 +37,7 @@ export const japanAdventureWinter: Tour = {
     {
       icon: "route",
       label: "Route",
-      values: ["Tokyo -> Nagano -> Kyoto -> Osaka"],
+      values: ["Tokyo → Nagano → Kyoto → Osaka"],
     },
     { icon: "people", label: "Group Size", values: ["Maximum 20 people"] },
   ],
@@ -399,7 +399,7 @@ export const japanAdventureWinter: Tour = {
   },
   booking: {
     durationLabel: "10 Day Tour",
-    routeLabel: "Tokyo -> Nagano -> Kyoto -> Osaka",
+    routeLabel: "Tokyo → Nagano → Kyoto → Osaka",
     priceFromLabel: "From",
     priceCurrency: "GBP",
     priceAmount: "£1,999",

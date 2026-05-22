@@ -32,7 +32,7 @@ export const japanAdventure: Tour = {
   },
   keyFacts: [
     { icon: "days", label: "Tour Dates", values: ["To be announced"] },
-    { icon: "route", label: "Route", values: ["Tokyo -> Atami -> Kyoto"] },
+    { icon: "route", label: "Route", values: ["Tokyo → Atami → Kyoto"] },
     { icon: "days", label: "Days", values: ["10 Days and 9 Nights"] },
     { icon: "people", label: "Group Size", values: ["Maximum 20 people"] },
   ],
@@ -407,7 +407,7 @@ export const japanAdventure: Tour = {
   },
   booking: {
     durationLabel: "10 Day Tour",
-    routeLabel: "Tokyo - Kyoto",
+    routeLabel: "Tokyo → Kyoto",
     priceFromLabel: "From",
     priceCurrency: "GBP",
     priceAmount: "£1,899",
