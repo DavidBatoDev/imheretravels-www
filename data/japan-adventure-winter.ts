@@ -293,25 +293,25 @@ export const japanAdventureWinter: Tour = {
         image: "/tours/japan-adventure-winter/Moxy.png",
         imageAlt: "Moxy Tokyo Kinshicho",
         name: "Moxy Tokyo Kinshicho",
-        nights: "3 nights (Days 1—3)",
+        nights: "3 Nights in Hotel",
       },
       {
         image: "/tours/japan-adventure-winter/Dormy-Inn.png",
         imageAlt: "Dormy Inn Nagano",
         name: "Dormy Inn Nagano",
-        nights: "2 nights (Days 4—5)",
+        nights: "2 Nights in Hotel",
       },
       {
         image: "/tours/japan-adventure-winter/S-Peria.webp",
         imageAlt: "S-Peria Hotel",
         name: "S-Peria Hotel",
-        nights: "3 nights (Days 6—8)",
+        nights: "3 Nights in Hotel",
       },
       {
         image: "/tours/japan-adventure-winter/Sarasa.png",
         imageAlt: "Sarasa Hotel Namba",
         name: "Sarasa Hotel Namba",
-        nights: "1 night (Day 9, checkout Day 10)",
+        nights: "1 Night in Hotel",
       },
     ],
   },
@@ -334,7 +334,7 @@ export const japanAdventureWinter: Tour = {
       {
         question: "Do you have an age limit for tours?",
         answer:
-          "Tours cater to adventurous travelers aged 18—45, with most guests between 21—35 years old. It's perfect for people from diverse backgrounds to share travel experiences.",
+          "Our tours cater to adventurous travelers aged 18—45, with most guests between 21—35 years old. It's perfect for people from diverse backgrounds to share travel experiences.",
       },
       {
         question: "What is the local currency?",
