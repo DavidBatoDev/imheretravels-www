@@ -80,7 +80,7 @@ export const brazilsTreasures: Tour = {
       {
         icon: "meals",
         label: "Meals",
-        value: "Hotel (6 nights)",
+        value: "6 Breakfasts",
       },
       {
         icon: "plus",
@@ -440,7 +440,7 @@ export const brazilsTreasures: Tour = {
     routeLabel: "São Paulo → Rio de Janeiro",
     priceFromLabel: "From",
     priceCurrency: "GBP",
-    priceAmount: "£1,599",
+    priceAmount: "£1,699",
     depositAmount: "£250",
     ctaLabel: "Reserve Now",
     ctaHref: "https://buy.stripe.com/dRmaEX6RJ8SZ65J1NJco106",
@@ -450,7 +450,7 @@ export const brazilsTreasures: Tour = {
     duration: "7 days & 6 Nights",
     description:
       "São Paulo street art, Paraty island hopping, Copacabana Beach, Christ the Redeemer, Sugarloaf, and front-row Sambadrome Carnival.",
-    price: "GBP £1,599",
+    price: "GBP £1,699",
     image:
       "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1759341307739_brazil-header-4.webp?alt=media&token=811f0f81-f1ba-4267-9da5-69c568c29335",
     imageAlt: "Brazil's Treasures",
