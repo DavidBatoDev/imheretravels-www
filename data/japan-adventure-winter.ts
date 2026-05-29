@@ -12,11 +12,12 @@ export const japanAdventureWinter: Tour = {
     hero: "/tours/japan-adventure-winter/japan-header-4.webp",
     heroAlt: "Japan Adventure (Winter)",
     thumbnails: [
+      { src: "/tours/japan-adventure-winter/japan-header-6.webp", alt: "Japan Adventure (Winter)" },
       { src: "/tours/japan-adventure-winter/japan-header-1.webp", alt: "Japan Adventure (Winter)" },
       { src: "/tours/japan-adventure-winter/japan-header-2.webp", alt: "Japan Adventure (Winter)" },
       { src: "/tours/japan-adventure-winter/japan-header-3.webp", alt: "Japan Adventure (Winter)" },
+      { src: "/tours/japan-adventure-winter/japan-header-4.webp", alt: "Japan Adventure (Winter)" },
       { src: "/tours/japan-adventure-winter/japan-header-5.webp", alt: "Japan Adventure (Winter)" },
-      { src: "/tours/japan-adventure-winter/japan-header-6.webp", alt: "Japan Adventure (Winter)" },
       { src: "/tours/japan-adventure-winter/japan-header-7.webp", alt: "Japan Adventure (Winter)" },
     ],
   },
@@ -260,7 +261,7 @@ export const japanAdventureWinter: Tour = {
         title: "Kyoto to Osaka",
         description:
           "Depart from your Kyoto hotel and travel towards Osaka, with enriching stops along the way. Visit the iconic Fushimi Inari Taisha, then continue to Nara to explore Nara Park and the magnificent Todai-ji Temple. After this cultural side trip, arrive at your Osaka hotel, with the late afternoon free to relax or explore.",
-        image: "/tours/japan-adventure-winter/japan-day-9.webp",
+        image: "/tours/japan-adventure-winter/japan-header-3.webp",
         imageAlt: "Kyoto to Osaka",
         details: [
           {
@@ -278,6 +279,8 @@ export const japanAdventureWinter: Tour = {
         title: "Check Out, Until Next Time!",
         description:
           "Enjoy your last breakfast with a view before heading to the airport. You're leaving Japan but trust us, part of your heart will stay behind.",
+        image: "/tours/japan-adventure-winter/japan-day-9.webp",
+        imageAlt: "Check Out, Until Next Time!",
         details: [
           { icon: "location", label: "Location", value: "Osaka" },
           { icon: "activities", label: "Activities", value: "Check out" },
