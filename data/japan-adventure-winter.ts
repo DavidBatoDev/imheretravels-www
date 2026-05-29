@@ -6,7 +6,7 @@ export const japanAdventureWinter: Tour = {
   meta: {
     title: "Japan Adventure (Winter) — I'm Here Travels",
     description:
-      "Experience the perfect blend of tradition and innovation on this unforgettable 10-day journey through Japan. From Tokyo to Nagano to Kyoto to Osaka, discover Japan's dynamic cities, rich heritage, and stunning winter landscapes.",
+      "Experience the perfect blend of tradition and innovation on this unforgettable 10-day journey through Japan. From Tokyo to Nagano, discover Japan's dynamic cities, rich heritage, and stunning winter landscapes.",
   },
   gallery: {
     hero: "/tours/japan-adventure-winter/japan-header-4.webp",
@@ -38,7 +38,7 @@ export const japanAdventureWinter: Tour = {
     {
       icon: "route",
       label: "Route",
-      values: ["Tokyo → Nagano → Kyoto → Osaka"],
+      values: ["Tokyo → Nagano"],
     },
     { icon: "people", label: "Group Size", values: ["Maximum 20 people"] },
   ],
@@ -402,7 +402,7 @@ export const japanAdventureWinter: Tour = {
   },
   booking: {
     durationLabel: "10 Day Tour",
-    routeLabel: "Tokyo → Nagano → Kyoto → Osaka",
+    routeLabel: "Tokyo → Nagano",
     priceFromLabel: "From",
     priceCurrency: "GBP",
     priceAmount: "£1,999",
