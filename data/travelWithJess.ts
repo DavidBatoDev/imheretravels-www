@@ -13,10 +13,10 @@ export type { GalleryMediaItem };
 export const jessSlug = "jess";
 export const jessDisplayName = "Jess";
 export const jessPageTitle = "Travel with Jess";
-export const jessInstagram = ""; // TODO: add Jess's Instagram handle
+export const jessInstagram = "jessicaallott_"; // Jess's Instagram handle
 
 // TODO: replace with Jess's profile photo
-export const jessProfileImage = "";
+export const jessProfileImage = "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1780081966916_706504635_18212408944335159_2174542554172203577_n.jpg?alt=media&token=813bb94b-3c46-4e7e-82cd-1bb44c4b4ead";
 
 export const jessHeroImage =
   "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1778651079825_1000040796.jpg?alt=media&token=1099185a-dabe-4532-83d1-8c25a9afc472";
