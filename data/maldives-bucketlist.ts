@@ -33,7 +33,7 @@ export const maldivesBucketlist: Tour = {
       "Experience the Maldives Island Adventure! Explore bustling Male City, dive into coral reefs in Rasdhoo, and unwind on an uninhabited island paradise. From thrilling underwater adventures to sunset paddling and dolphin cruises, this trip is packed with unforgettable moments!",
   },
   keyFacts: [
-    { icon: "days", label: "Tour Dates", values: ["November 9—17, 2024"] },
+    { icon: "days", label: "Tour Dates", values: ["To be announced ..."] },
     { icon: "days", label: "Duration", values: ["9 Days and 8 Nights"] },
     {
       icon: "route",
