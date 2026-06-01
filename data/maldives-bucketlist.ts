@@ -48,7 +48,7 @@ export const maldivesBucketlist: Tour = {
       {
         icon: "transport",
         label: "Transport",
-        value: "Boat, Van, Plane",
+        value: "Speedboat transfers between islands, Van",
       },
       {
         icon: "accommodation",

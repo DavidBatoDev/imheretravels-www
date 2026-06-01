@@ -65,7 +65,7 @@ export const newZealandExpedition: Tour = {
       "Embark on an unforgettable 15-day journey through Aotearoa, the land of the long white cloud. From the vibrant cityscapes of Auckland and Wellington to the serene beauty of Rotorua's geothermal wonders and Queenstown's adrenaline-pumping adventures, this expedition offers a perfect blend of culture, nature, and thrill. Experience Maori traditions, explore glowworm-lit caves, cruise the majestic Milford Sound, and immerse yourself in the diverse landscapes that make New Zealand a traveler's paradise.",
   },
   keyFacts: [
-    { icon: "days", label: "Tour Dates", values: ["To be announced"] },
+    { icon: "days", label: "Tour Dates", values: ["To be announced ..."] },
     {
       icon: "route",
       label: "Route",

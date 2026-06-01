@@ -33,7 +33,7 @@ export const japanAdventureWinter: Tour = {
       "Welcome to Japan. Experience the perfect blend of tradition and innovation on this unforgettable journey through Japan. We start off in Tokyo, the vibrant capital where modern skyscrapers meet historic temples. Enjoy a guided city tour featuring iconic sights like the Meiji Shrine and Shibuya Crossing. After a few days in Tokyo, we will ride the world-renowned bullet train to Kyoto, Japan's cultural heart. Explore ancient temples, serene gardens, and the famous Gion district, home to traditional tea houses and geisha culture. The final stop on the tour will be Sapporo. Discover its laid-back charm, local cuisine, and unique seasonal beauty during a scenic city tour. This tour offers the best of Japan's dynamic cities, rich heritage, and stunning landscapes.",
   },
   keyFacts: [
-    { icon: "days", label: "Tour Dates", values: ["TBA"] },
+    { icon: "days", label: "Tour Dates", values: ["To be announced ..."] },
     { icon: "days", label: "Duration", values: ["10 Days and 9 Nights"] },
     {
       icon: "route",

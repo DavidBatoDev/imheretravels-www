@@ -47,7 +47,7 @@ export default function WhatsIncluded({
       </h2>
       <ul className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
         {orderedItems.map((item) => {
-          const useBullets = /activities|others?/i.test(item.label);
+          const useBullets = /activities|others?|transport/i.test(item.label);
           const bulletItems = useBullets
             ? Array.isArray(item.value)
               ? item.value.flatMap(toBulletItems)
