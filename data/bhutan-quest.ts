@@ -61,7 +61,7 @@ export const bhutanQuest: Tour = {
       "If you enjoy trekking and exploring beautiful vistas then our Bhutan tour is the tour for you. This tour is full of adventure, rich culture, amazing architecture and will let you experience some of the most beautiful landscapes Bhutan has to offer. Nestled in the Himalaya's Bhutan is a hidden treasure that you have to explore starting in Punakha, visiting Thimphu Bhutan's capital city and finishing in Paro, along the way you get to visit many fortresses known as Dzongs, monasteries and ancient temples as well as trekking to the famous Tiger's Nest Temple getting all the views from above. Join us to explore the hidden beauty of Bhutan.",
   },
   keyFacts: [
-    { icon: "days", label: "Tour Dates", values: ["To be announced"] },
+    { icon: "days", label: "Tour Dates", values: ["To be announced ..."] },
     { icon: "days", label: "Duration", values: ["7 Days and 6 Nights"] },
     {
       icon: "route",

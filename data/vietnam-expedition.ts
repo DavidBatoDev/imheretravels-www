@@ -49,7 +49,7 @@ export const vietnamExpedition: Tour = {
     {
       icon: "days",
       label: "Tour Dates",
-      values: ["TBA"],
+      values: ["To be announced ..."],
     },
     {
       icon: "days",
