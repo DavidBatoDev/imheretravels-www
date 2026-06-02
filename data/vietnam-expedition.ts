@@ -54,7 +54,7 @@ export const vietnamExpedition: Tour = {
     {
       icon: "days",
       label: "Duration",
-      values: ["11 Days"],
+      values: ["11 Days and 10 Nights"],
     },
     {
       icon: "route",
@@ -177,7 +177,7 @@ export const vietnamExpedition: Tour = {
         details: [
           { icon: "accommodation", label: "Accommodation", value: "San Premium Hotel" },
           { icon: "location", label: "Location", value: "Hanoi" },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
           { icon: "activities", label: "Activities", value: "• Hanoi City Tour\n• Street food tasting" },
         ],
       },
@@ -191,7 +191,7 @@ export const vietnamExpedition: Tour = {
         details: [
           { icon: "accommodation", label: "Accommodation", value: "Tam Coc Botique Garden" },
           { icon: "location", label: "Location", value: "Ninh Binh" },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
           { icon: "activities", label: "Activities", value: "• Trang An boat trip" },
         ],
       },
@@ -205,7 +205,7 @@ export const vietnamExpedition: Tour = {
         details: [
           { icon: "accommodation", label: "Accommodation", value: "Verdure Lotus Cruise" },
           { icon: "location", label: "Location", value: "Ninh Binh → Bai Tu Long Bay" },
-          { icon: "meals", label: "Meals", value: "Lunch, Dinner" },
+          { icon: "meals", label: "Meals", value: "1 Lunch & 1 Dinner" },
           { icon: "activities", label: "Activities", value: "• Cruise\n• Kayaking\n• Beach day" },
         ],
       },
@@ -219,7 +219,7 @@ export const vietnamExpedition: Tour = {
         details: [
           { icon: "accommodation", label: "Accommodation", value: "Overnight Train" },
           { icon: "location", label: "Location", value: "Hanoi → Night train to Hue" },
-          { icon: "meals", label: "Meals", value: "Breakfast, Lunch" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast & 1 Lunch" },
         ],
       },
       {
@@ -232,7 +232,7 @@ export const vietnamExpedition: Tour = {
         details: [
           { icon: "accommodation", label: "Accommodation", value: "Thanh Lich Hotel" },
           { icon: "location", label: "Location", value: "Hue" },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
           { icon: "activities", label: "Activities", value: "• City tour by jeep\n• Khai Dinh Tomb\n• Minh Mang Tomb\n• Hue Citadel" },
         ],
       },
@@ -246,7 +246,7 @@ export const vietnamExpedition: Tour = {
         details: [
           { icon: "accommodation", label: "Accommodation", value: "Kiman Hoi An Hotel" },
           { icon: "location", label: "Location", value: "Hoi An" },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -259,7 +259,7 @@ export const vietnamExpedition: Tour = {
         details: [
           { icon: "accommodation", label: "Accommodation", value: "Kiman Hoi An Hotel" },
           { icon: "location", label: "Location", value: "Hoi An" },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
           { icon: "activities", label: "Activities", value: "• Walking tour" },
         ],
       },
@@ -273,7 +273,7 @@ export const vietnamExpedition: Tour = {
         details: [
           { icon: "accommodation", label: "Accommodation", value: "Sekong Hotel" },
           { icon: "location", label: "Location", value: "Da Nang" },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -286,7 +286,7 @@ export const vietnamExpedition: Tour = {
         details: [
           { icon: "accommodation", label: "Accommodation", value: "Sekong Hotel" },
           { icon: "location", label: "Location", value: "Da Nang" },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
           { icon: "activities", label: "Activities", value: "• City & historical tour\n• Marble Mountains\n• Son Tra Peninsula\n• Lady Buddha" },
         ],
       },
@@ -299,7 +299,7 @@ export const vietnamExpedition: Tour = {
         imageAlt: "Farewell day in Da Nang, Vietnam",
         details: [
           { icon: "location", label: "Location", value: "Da Nang" },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
     ],
@@ -311,43 +311,43 @@ export const vietnamExpedition: Tour = {
         image: `${IMG}/San Premuim Hotel.png`,
         imageAlt: "San Premium Hotel, Hanoi",
         name: "San Premium Hotel",
-        nights: "2 nights in hotel (Days 1-2)",
+        nights: "2 nights in hotel",
       },
       {
         image: `${IMG}/Tam Coc Botique Garden.png`,
         imageAlt: "Tam Coc Botique Garden, Ninh Binh",
         name: "Tam Coc Botique Garden",
-        nights: "1 night in hotel (Day 3)",
+        nights: "1 night in hotel",
       },
       {
         image: `${IMG}/verdure lotus cruise.png`,
         imageAlt: "Verdure Lotus Cruise, Bai Tu Long Bay",
         name: "Verdure Lotus Cruise",
-        nights: "1 night on cruise (Day 4)",
+        nights: "1 night on cruise",
       },
       {
         image: `${IMG}/overnight-train-accommodation.webp`,
         imageAlt: "Overnight sleeper train, Hanoi to Hue",
         name: "Overnight Train",
-        nights: "1 night on sleeper train (Day 5)",
+        nights: "1 night on sleeper train",
       },
       {
         image: `${IMG}/Thanh Lich Hotel.png`,
         imageAlt: "Thanh Lich Hotel, Hue",
         name: "Thanh Lich Hotel",
-        nights: "1 night in hotel (Day 6)",
+        nights: "1 night in hotel",
       },
       {
         image: `${IMG}/Kiman Hoi an.png`,
         imageAlt: "Kiman Hoi An Hotel",
         name: "Kiman Hoi An Hotel",
-        nights: "2 nights in hotel (Days 7-8)",
+        nights: "2 nights in hotel",
       },
       {
         image: `${IMG}/Sekong Dananng.png`,
         imageAlt: "Sekong Hotel, Da Nang",
         name: "Sekong Hotel",
-        nights: "2 nights in hotel (Days 9-10)",
+        nights: "2 nights in hotel",
       },
     ],
   },
@@ -424,7 +424,7 @@ export const vietnamExpedition: Tour = {
   },
   booking: {
     durationLabel: "11 Day Tour",
-    routeLabel: "Hanoi → Ninh Binh → Hue → Hoi An → Da Nang",
+    routeLabel: "Hanoi → Da Nang",
     priceFromLabel: "From",
     priceCurrency: "GBP",
     priceAmount: "£1,099",

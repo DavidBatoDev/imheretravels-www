@@ -229,7 +229,7 @@ export const sriLangkaWanderTour: Tour = {
           {
             icon: "meals",
             label: "Meals",
-            value: "Breakfast",
+            value: "1 Breakfast",
           },
         ],
       },
@@ -254,7 +254,7 @@ export const sriLangkaWanderTour: Tour = {
           {
             icon: "meals",
             label: "Meals",
-            value: "Breakfast",
+            value: "1 Breakfast",
           },
         ],
       },
@@ -279,7 +279,7 @@ export const sriLangkaWanderTour: Tour = {
           {
             icon: "meals",
             label: "Meals",
-            value: "Breakfast",
+            value: "1 Breakfast",
           },
         ],
       },
@@ -304,7 +304,7 @@ export const sriLangkaWanderTour: Tour = {
           {
             icon: "meals",
             label: "Meals",
-            value: "Breakfast",
+            value: "1 Breakfast",
           },
         ],
       },
@@ -329,7 +329,7 @@ export const sriLangkaWanderTour: Tour = {
           {
             icon: "meals",
             label: "Meals",
-            value: "Breakfast",
+            value: "1 Breakfast",
           },
         ],
       },
@@ -354,7 +354,7 @@ export const sriLangkaWanderTour: Tour = {
           {
             icon: "meals",
             label: "Meals",
-            value: "Breakfast",
+            value: "1 Breakfast",
           },
         ],
       },
@@ -379,7 +379,7 @@ export const sriLangkaWanderTour: Tour = {
           {
             icon: "meals",
             label: "Meals",
-            value: "Breakfast",
+            value: "1 Breakfast",
           },
         ],
       },
@@ -409,7 +409,7 @@ export const sriLangkaWanderTour: Tour = {
           {
             icon: "meals",
             label: "Meals",
-            value: "Breakfast",
+            value: "1 Breakfast",
           },
         ],
       },
@@ -434,7 +434,7 @@ export const sriLangkaWanderTour: Tour = {
           {
             icon: "meals",
             label: "Meals",
-            value: "Breakfast",
+            value: "1 Breakfast",
           },
         ],
       },
@@ -459,7 +459,7 @@ export const sriLangkaWanderTour: Tour = {
           {
             icon: "meals",
             label: "Meals",
-            value: "Breakfast",
+            value: "1 Breakfast",
           },
         ],
       },
@@ -474,7 +474,7 @@ export const sriLangkaWanderTour: Tour = {
           {
             icon: "meals",
             label: "Meals",
-            value: "Breakfast",
+            value: "1 Breakfast",
           },
         ],
       },
@@ -545,7 +545,7 @@ export const sriLangkaWanderTour: Tour = {
       {
         question: "Do you have an age limit for tours?",
         answer:
-          "Tours cater to adventurous travelers aged 18-45, with most guests between 21-35 years old. Perfect for people of all different backgrounds to share travel experiences.",
+          "Our tours cater to adventurous travelers aged 18-45, with most guests between 21-35 years old. It's perfect for people from diverse backgrounds to share travel experiences.",
       },
       {
         question: "What is the local currency?",
@@ -606,7 +606,7 @@ export const sriLangkaWanderTour: Tour = {
   booking: {
     durationLabel: "12 Day Tour",
     routeLabel:
-      "Negombo → Habarana → Kandy → Ella → Arugam Bay → Hikkaduwa",
+      "Negombo → Hikkaduwa",
     priceFromLabel: "From",
     priceCurrency: "GBP",
     priceAmount: "£1,200",
