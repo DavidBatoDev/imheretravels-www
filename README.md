@@ -26,7 +26,7 @@
 
 ## ✦ Getting Started (Step-by-Step)
 
-New to the stack? Follow every step below, in order. By the end you'll have the site running on your own machine at `http://localhost:3000`.
+New to the stack? Follow every step below, in order. By the end you'll have the site running on your own machine at `http://localhost:4200`.
 
 ### Step 1 — Install Git
 
@@ -148,11 +148,11 @@ You should see:
 
 ```
  ▲ Next.js 16.2.3
- - Local:    http://localhost:3000
+ - Local:    http://localhost:4200
  ✓ Ready in 1.2s
 ```
 
-Open **[http://localhost:3000](http://localhost:3000)** in any browser. 🎉
+Open **[http://localhost:4200](http://localhost:4200)** in any browser. 🎉
 
 **Hot reload** is on — save any file in [`app/`](app/) and the page updates automatically.
 
@@ -190,7 +190,7 @@ If both succeed, you're ready to contribute. ✅
 | ------- | --- |
 | `command not found: npm` | Node.js didn't add itself to PATH — reinstall and restart the terminal. |
 | `EACCES` / permission errors on macOS/Linux | Don't use `sudo`. Fix npm's prefix per [npm docs](https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally). |
-| Port `3000` already in use | Run `npm run dev -- -p 3001` to switch ports. |
+| Port `4200` already in use | Run `npm run dev -- -p 4201` to switch ports. |
 | `Module not found` after pulling changes | Re-run `npm install` — someone added a new dependency. |
 | Styling looks broken | Restart the dev server; Tailwind v4 rebuilds tokens on start. |
 | Gmail OAuth error on `/contact-us` | Check `.env` values; ensure the refresh token hasn't expired. |
