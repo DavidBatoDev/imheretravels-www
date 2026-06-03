@@ -20,7 +20,7 @@ export const sriLangkaWanderTour: Tour = {
       "Embark on the Sri Lanka Wander Tour and experience the island from Negombo to Mirissa. Explore the Dambulla Cave Temple, hike Pidurangala Rock, cycle through local villages, climb Sigiriya Rock Fortress, discover Kandy's temples and markets, ride the scenic train from Nanu Oya to Ella, and unwind with wildlife, surfing, and beach time along the south coast.",
   },
   gallery: {
-    hero: "/tours/sri-lanka-wander/hero.jpg",
+    hero: "/tours/sri-lanka-wander/srilanka-header-1.webp",
     heroAlt: "Sri Lanka Wander Tour",
     showHeroInGallery: false,
     thumbnails: [
@@ -631,4 +631,3 @@ export const sriLangkaWanderTour: Tour = {
 };
 
 export default sriLangkaWanderTour;
-
