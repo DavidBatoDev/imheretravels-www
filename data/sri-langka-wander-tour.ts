@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Sri Lanka Wander Tour
  *
  * Auto-generated from data/json/tourPackages-04142026.json by
@@ -62,7 +62,7 @@ export const sriLangkaWanderTour: Tour = {
         icon: "location",
       },
       {
-        label: "Sigiriya",
+        label: "Habarana",
         icon: "location",
       },
       {
@@ -83,7 +83,7 @@ export const sriLangkaWanderTour: Tour = {
       },
     ],
     description:
-      "Journey from Negombo to Mirissa on a classic Sri Lanka adventure filled with cave temples, rock forts, hill-country tea plantations, scenic train travel, safari landscapes, surfing in Weligama, and laid-back beach time on the south coast.",
+      "Embark on the adventure of a lifetime with our Sri Lanka Wander Tour! Journey from the ancient wonders of Sigiriya to the cultural heart of Kandy, the breathtaking hills of Ella, and the stunning beaches of Mirissa. Hike Pidurangala Rock, explore the Dambulla Cave Temple, experience a traditional village tour, and ride the famous scenic train through Sri Lanka's tea country.\n\nAdventure seekers will love the wildlife safari in Yala National Park and surfing in Weligama, while culture lovers can discover sacred temples, spice gardens, and vibrant local traditions. From epic landscapes and wildlife encounters to beach sunsets and unforgettable experiences, this tour showcases the very best of Sri Lanka.",
   },
   keyFacts: [
     {
@@ -103,7 +103,7 @@ export const sriLangkaWanderTour: Tour = {
     {
       icon: "route",
       label: "Route",
-      values: ["Negombo → Sigiriya → Kandy → Ella → Yala → Mirissa"],
+      values: ["NNegombo → Sigiriya → Kandy → Ella → Yala → Mirissa"],
     },
     {
       icon: "people",
@@ -117,7 +117,7 @@ export const sriLangkaWanderTour: Tour = {
       {
         icon: "transport",
         label: "Transport",
-        value: "Van, Train, Boat, Bicycle",
+        value: "Van, Train (Non-reserved seats), Boat, Bicycle",
       },
       {
         icon: "accommodation",
@@ -127,8 +127,14 @@ export const sriLangkaWanderTour: Tour = {
       {
         icon: "activities",
         label: "Activities",
-        value:
-          "Dambulla Cave Temple, Pidurangala Rock, cycling tour, Sigiriya Rock Fortress, Kandy city tour, Nanu Oya to Ella train ride, Ella Rock, safari game drive, Galle city tour, surfing in Weligama",
+        value: [
+          "Trekking",
+          "Bicycling",
+          "Hiking",
+          "Surfing",
+          "Famous Train Ride - Nanu Oya to Ella",
+          "Jeep Ride - National Park",
+        ],
       },
       {
         icon: "meals",
@@ -141,6 +147,9 @@ export const sriLangkaWanderTour: Tour = {
         value: [
           "24/7 Customer Support",
           "Airport & Domestic Transfer Assistance (Excluding Airport Drop-Off)",
+          "Farming Experience",
+          "Cooking Experience",
+          "Boat Trip Across Hiriwadunna Lake",
           "Local Tour Guide",
         ],
       },
@@ -168,7 +177,7 @@ export const sriLangkaWanderTour: Tour = {
         subtitle: "Tea plantations, waterfalls & hill-country views",
       },
       {
-        image: "/images/wp-content/uploads/2024/08/srilanka-day-5.webp",
+        image: "/tours/sri-lanka-wander/srilanka-triphighlight-4.png",
         imageAlt: "Cultural Show in Kandy",
         title: "Cultural Show in Kandy",
         subtitle: "Traditional music, dance & vibrant costumes",

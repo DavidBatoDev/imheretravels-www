@@ -34,14 +34,18 @@ export default function TourHeader({ header }: { header: Tour["header"] }) {
           </li>
         ))}
       </ul>
-      <p className="mt-6 max-w-3xl font-body text-b2-mobile md:text-b2-desktop text-dark-gray">
+      <div className="mt-6 max-w-3xl space-y-4">
         {header.descriptionPrefix && (
           <strong className="block font-body font-bold text-midnight mb-1">
             {header.descriptionPrefix}
           </strong>
         )}
-        {header.description}
-      </p>
+        {header.description.split("\n\n").map((para, i) => (
+          <p key={i} className="font-body text-b2-mobile md:text-b2-desktop text-dark-gray">
+            {para}
+          </p>
+        ))}
+      </div>
     </header>
   );
 }
