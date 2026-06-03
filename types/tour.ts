@@ -28,6 +28,7 @@ export interface TourKeyFact {
   icon: TourIcon;
   label: string;
   values: string[];
+  links?: string[];
 }
 
 export interface TourIncludedItem {
@@ -142,6 +143,7 @@ export interface Tour {
   gallery: {
     hero: string;
     heroAlt: string;
+    showHeroInGallery?: boolean;
     thumbnails: { src: string; alt: string }[];
   };
   header: {

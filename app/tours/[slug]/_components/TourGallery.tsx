@@ -16,7 +16,9 @@ export default function TourGallery({ gallery }: { gallery: Tour["gallery"] }) {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const mainSwiperRef = useRef<SwiperType | null>(null);
   const slides = [
-    { src: gallery.hero, alt: gallery.heroAlt },
+    ...(gallery.showHeroInGallery === false
+      ? []
+      : [{ src: gallery.hero, alt: gallery.heroAlt }]),
     ...gallery.thumbnails,
   ];
 
