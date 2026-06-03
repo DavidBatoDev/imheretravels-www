@@ -154,31 +154,34 @@ export const sriLangkaWanderTour: Tour = {
     heading: "Trip Highlights",
     items: [
       {
+        image: "/images/wp-content/uploads/2024/08/srilanka-day-9.png",
+        imageAlt: "Surfing in Weligama",
+        title: "Surfing in Weligama",
+        subtitle: "Catch your first wave or improve your skills",
+      },
+      {
         image: "/images/wp-content/uploads/2024/08/srilanka-day-10.webp",
-        imageAlt: "Surf & Safari Experience",
-        title: "Surf & Safari Experience",
-        subtitle: "Ride waves, roam wild, unforgettable encounters",
+        imageAlt: "Safari Game Drive in Yala",
+        title: "Safari Game Drive in Yala",
+        subtitle: "Spot elephants, leopards, crocs & sloth bears",
       },
       {
-        image:
-          "/images/wp-content/uploads/2024/08/srilanka-triphighlight-3.webp",
-        imageAlt: "Colombo City Tour",
-        title: "Colombo City Tour",
-        subtitle: "Immerse in the city's culture",
+        image: "/images/wp-content/uploads/2024/08/srilanka-triphighlight-2.webp",
+        imageAlt: "Scenic Train Journey in Ella",
+        title: "Scenic Train Journey in Ella",
+        subtitle: "Tea plantations, waterfalls & hill-country views",
       },
       {
-        image:
-          "/images/wp-content/uploads/2024/08/srilanka-triphighlight-1.webp",
-        imageAlt: "Hiriwadunna Cycling Tour",
-        title: "Hiriwadunna Cycling Tour",
-        subtitle: "Experience and see the local village",
+        image: "/images/wp-content/uploads/2024/08/srilanka-day-5.webp",
+        imageAlt: "Cultural Show in Kandy",
+        title: "Cultural Show in Kandy",
+        subtitle: "Traditional music, dance & vibrant costumes",
       },
       {
-        image:
-          "/images/wp-content/uploads/2024/08/srilanka-triphighlight-2.webp",
-        imageAlt: "Scenic Train Journey",
-        title: "Scenic Train Journey",
-        subtitle: "See Sri Lanka's hill country side",
+        image: "/images/wp-content/uploads/2024/08/srilanka-day-4.webp",
+        imageAlt: "Sunset Hike at Pidurangala Rock in Sigiriya",
+        title: "Sunset Hike at Pidurangala Rock",
+        subtitle: "Panoramic views over Sigiriya & the jungle",
       },
     ],
   },
@@ -388,7 +391,7 @@ export const sriLangkaWanderTour: Tour = {
         title: "Surfing & Jeep Safari Kumana National Park",
         description:
           "Fuel up with a big breakfast and get ready for a day of surfing with highly qualified instructors. After surfing, a jeep safari through Kumana National Park. Spot crocodiles, leopards, and elephants!",
-        image: "/images/wp-content/uploads/2024/08/srilanka-day-10.webp",
+        image: "/images/wp-content/uploads/2024/08/srilanka-day-9.png",
         imageAlt: "Surfing & Jeep Safari Kumana National Park",
         details: [
           {
