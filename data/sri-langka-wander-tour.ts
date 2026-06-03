@@ -435,15 +435,9 @@ export const sriLangkaWanderTour: Tour = {
         dayNumber: 9,
         title: "Surfing in Weligama",
         description:
-<<<<<<< HEAD
-          "Fuel up with a big breakfast and get ready for a day of surfing with highly qualified instructors. After surfing, a jeep safari through Kumana National Park. Spot crocodiles, leopards, and elephants!",
-        image: "/images/wp-content/uploads/2024/08/srilanka-day-9.png",
-        imageAlt: "Surfing & Jeep Safari Kumana National Park",
-=======
           "Today is all about sun, surf, and relaxation. Enjoy an included surfing lesson in nearby Weligama, one of Sri Lanka's best beaches for beginner and intermediate surfers. Spend the rest of the day unwinding on the beach, swimming in the Indian Ocean, or joining additional surfing sessions if you're keen to catch more waves.",
         image: "/tours/sri-lanka-wander/srilanka-day-9.png",
         imageAlt: "Surfing in Weligama",
->>>>>>> d9fc1082af865d38ec77774fdb9b66f617ff8fd9
         details: [
           {
             icon: "accommodation",
