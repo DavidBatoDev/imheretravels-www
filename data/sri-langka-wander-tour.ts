@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Sri Lanka Wander Tour
  *
  * Auto-generated from data/json/tourPackages-04142026.json by
@@ -15,57 +15,54 @@ export const sriLangkaWanderTour: Tour = {
   slug: "sri-langka-wander-tour",
   name: "Sri Lanka Wander Tour",
   meta: {
-    title: "12 Days | Sri Lanka Wander Tour",
+    title: "11 Days | Sri Lanka Wander Tour",
     description:
-      "Embark on the adventure of a lifetime with our Sri Lanka Wander Tour! From the bustling streets of Colombo to the serene beaches of Arugam Bay, this tour is packed with unforgettable experiences. Dive into the rich history at the National Museum and Dambulla Rock Temple, savor the flavors of Matale's spice gardens, and immerse yourself in the cultural heart of Kandy. Thrill-seekers will love hiking in Ella and surfing in Arugam Bay, while nature enthusiasts can marvel at the diverse wildlife during a jeep safari in Kumana National Park. Capture stunning landscapes on the scenic train ride from Nanu Oya to Ella and soak in the panoramic views from the iconic Sigiriya rock fortress.",
+      "Embark on the Sri Lanka Wander Tour and experience the island from Negombo to Mirissa. Explore the Dambulla Cave Temple, hike Pidurangala Rock, cycle through local villages, climb Sigiriya Rock Fortress, discover Kandy's temples and markets, ride the scenic train from Nanu Oya to Ella, and unwind with wildlife, surfing, and beach time along the south coast.",
   },
   gallery: {
-    hero: "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1759341313258_srilanka-header-22.webp?alt=media&token=a9755c83-5fac-4284-87dd-9325e1b24727",
+    hero: "/tours/sri-lanka-wander/srilanka-header-1.webp",
     heroAlt: "Sri Lanka Wander Tour",
+    showHeroInGallery: false,
     thumbnails: [
       {
-        src: "/images/wp-content/uploads/2024/08/srilanka-day-1.webp",
+        src: "/tours/sri-lanka-wander/srilanka-header-1.webp",
         alt: "Arrival in Negombo",
       },
       {
-        src: "/images/wp-content/uploads/2024/08/srilanka-day-3.webp",
+        src: "/tours/sri-lanka-wander/srilanka-header-2.webp",
         alt: "Dambulla Rock Temple",
       },
       {
-        src: "/images/wp-content/uploads/2024/08/srilanka-day-4.webp",
+        src: "/tours/sri-lanka-wander/srilanka-header-3.webp",
         alt: "Sigiriya and cycling tour",
       },
       {
-        src: "/images/wp-content/uploads/2024/08/srilanka-day-5.webp",
+        src: "/tours/sri-lanka-wander/srilanka-header-4.webp",
         alt: "Matale Spice Gardens and Kandy",
       },
       {
-        src: "/images/wp-content/uploads/2024/08/srilanka-day-6.webp",
+        src: "/tours/sri-lanka-wander/srilanka-header-5.webp",
         alt: "Train ride from Nuwara Eliya to Ella",
       },
       {
-        src: "/images/wp-content/uploads/2024/08/srilanka-day-7.webp",
+        src: "/tours/sri-lanka-wander/srilanka-header-6.webp",
         alt: "Exploring Ella",
       },
       {
-        src: "/images/wp-content/uploads/2024/08/srilanka-day-10.webp",
+        src: "/tours/sri-lanka-wander/srilanka-header-7.webp",
         alt: "Galle city tour",
-      },
-      {
-        src: "/images/wp-content/uploads/2024/08/srilanka-day-11.webp",
-        alt: "Madu Ganga river experience",
       },
     ],
   },
   header: {
-    title: "12 Days | Sri Lanka Wander Tour",
+    title: "11 Days | Sri Lanka Wander Tour",
     tags: [
       {
         label: "Negombo",
         icon: "location",
       },
       {
-        label: "Habarana",
+        label: "Sigiriya",
         icon: "location",
       },
       {
@@ -77,34 +74,36 @@ export const sriLangkaWanderTour: Tour = {
         icon: "location",
       },
       {
-        label: "Arugam Bay",
+        label: "Yala",
         icon: "location",
       },
       {
-        label: "Hikkaduwa",
+        label: "Mirissa",
         icon: "location",
       },
     ],
     description:
-      "Embark on the adventure of a lifetime with our Sri Lanka Wander Tour! From the bustling streets of Colombo to the serene beaches of Arugam Bay, this tour is packed with unforgettable experiences. Dive into the rich history at the National Museum and Dambulla Rock Temple, savor the flavors of Matale's spice gardens, and immerse yourself in the cultural heart of Kandy. Thrill-seekers will love hiking in Ella and surfing in Arugam Bay, while nature enthusiasts can marvel at the diverse wildlife during a jeep safari in Kumana National Park. Capture stunning landscapes on the scenic train ride from Nanu Oya to Ella and soak in the panoramic views from the iconic Sigiriya rock fortress.",
+      "Journey from Negombo to Mirissa on a classic Sri Lanka adventure filled with cave temples, rock forts, hill-country tea plantations, scenic train travel, safari landscapes, surfing in Weligama, and laid-back beach time on the south coast.",
   },
   keyFacts: [
     {
       icon: "days",
       label: "Tour Dates",
-      values: [],
+      values: ["December 1-11, 2026", "November 15-25, 2026"],
+      links: [
+        "https://admin.imheretravels.com/reservation-booking-form?tour=sri-langka-wander-tour&tourdate=2026-12-15",
+        "https://admin.imheretravels.com/reservation-booking-form?tour=sri-langka-wander-tour&tourdate=2026-11-15",
+      ],
     },
     {
       icon: "days",
       label: "Duration",
-      values: ["12 Days and 11 Nights"],
+      values: ["11 Days and 10 Nights"],
     },
     {
       icon: "route",
       label: "Route",
-      values: [
-        "Negombo → Habarana → Kandy → Ella → Arugam Bay → Hikkaduwa",
-      ],
+      values: ["Negombo → Sigiriya → Kandy → Ella → Yala → Mirissa"],
     },
     {
       icon: "people",
@@ -118,34 +117,31 @@ export const sriLangkaWanderTour: Tour = {
       {
         icon: "transport",
         label: "Transport",
-        value: "Van, Train (Non-reserved seats), Boat, Bicycle",
+        value: "Van, Train, Boat, Bicycle",
       },
       {
         icon: "accommodation",
         label: "Accommodation",
-        value: "Hotel (11 nights)",
+        value: "Hotel (10 nights)",
       },
       {
         icon: "activities",
         label: "Activities",
         value:
-          "Trekking, Bicycling, Hiking, Surfing, Famous Train Ride - Nanu Oya to Ella, Jeep Ride, National Park, City Tours",
+          "Dambulla Cave Temple, Pidurangala Rock, cycling tour, Sigiriya Rock Fortress, Kandy city tour, Nanu Oya to Ella train ride, Ella Rock, safari game drive, Galle city tour, surfing in Weligama",
       },
       {
         icon: "meals",
         label: "Meals",
-        value: "11 Breakfasts",
+        value: "10 Breakfasts",
       },
       {
         icon: "plus",
         label: "Others",
         value: [
-          "24/7 customer experience assistance",
-          "Airport and Domestic transfer assistance (Excluding airport drop-off)",
-          "Farming",
-          "Cooking",
-          "Boat trip across Hiriwadunna lake",
-          "Tour guide",
+          "24/7 Customer Support",
+          "Airport & Domestic Transfer Assistance (Excluding Airport Drop-Off)",
+          "Local Tour Guide",
         ],
       },
     ],
@@ -183,6 +179,12 @@ export const sriLangkaWanderTour: Tour = {
         title: "Sunset Hike at Pidurangala Rock",
         subtitle: "Panoramic views over Sigiriya & the jungle",
       },
+      {
+        image: "/tours/sri-lanka-wander/srilanka-day-4.webp",
+        imageAlt: "Sigiriya Rock Fortress",
+        title: "Sigiriya Rock Fortress",
+        subtitle: "Climb one of Sri Lanka's most iconic landmarks",
+      },
     ],
   },
   itinerary: {
@@ -196,13 +198,18 @@ export const sriLangkaWanderTour: Tour = {
         title: "Arrival in Negombo",
         description:
           "You've just arrived, time to start the trip of a lifetime! Once you've collected your bags at Bandaranaike International Airport, our local guide will be there to assist you and transfer you to our first hotel. Relax for a bit or head out exploring; it's all up to you. In the evening, it's time to meet your fellow travelers.",
-        image: "/images/wp-content/uploads/2024/08/srilanka-day-1.webp",
+        image: "/tours/sri-lanka-wander/srilanka-day-1.webp",
         imageAlt: "Arrival in Negombo",
         details: [
           {
             icon: "accommodation",
             label: "Accommodation",
             value: "Beacon Beach Hotel",
+          },
+          {
+            icon: "location",
+            label: "Location",
+            value: "Negombo",
           },
           {
             icon: "activities",
@@ -213,191 +220,235 @@ export const sriLangkaWanderTour: Tour = {
       },
       {
         dayNumber: 2,
-        title: "Travel to Colombo and City Tour",
+        title: "Travel to Sigiriya",
         description:
-          "After breakfast, we set off to Colombo to delve into the country's culture, history, and modernity. We'll visit the National Museum and the famous Lotus Tower for breathtaking city views. Get that perfect city pic and prepare for dinner back at the hotel.",
-        image: "/images/wp-content/uploads/2024/08/srilanka-day-2.webp",
-        imageAlt: "Travel to Colombo and City Tour",
+          "After breakfast, we'll begin our journey to Sigiriya, stopping along the way to explore the fascinating Dambulla Cave Temple, home to ancient Buddhist murals and statues. Upon arrival in Sigiriya, we'll head up Pidurangala Rock for sunset, where you'll be rewarded with panoramic views of the iconic Sigiriya Rock Fortress and surrounding countryside.",
+        image: "/tours/sri-lanka-wander/srilanka-day-2.webp",
+        imageAlt: "Travel to Sigiriya",
         details: [
           {
             icon: "accommodation",
             label: "Accommodation",
-            value: "Beacon Beach Hotel",
+            value: "Elysia Hotel Sigiriya (or similar)",
           },
           {
-            icon: "activities",
-            label: "Activities",
-            value: "City Tour",
+            icon: "location",
+            label: "Location",
+            value: "Negombo, Sigiriya",
           },
           {
             icon: "meals",
             label: "Meals",
-            value: "Breakfast",
+            value: "1 Breakfast",
+          },
+          {
+            icon: "activities",
+            label: "Activities",
+            value: "Dambulla Cave Temple, Sunset Hike at Pidurangala Rock",
           },
         ],
       },
       {
         dayNumber: 3,
-        title: "Visit Dambulla Rock Temple",
+        title: "Explore Sigiriya",
         description:
-          "We journey to Dambulla to explore the stunning cave temples and the Golden Temple. After checking into our accommodation in Habarana, we'll hike to the top of Pidurangala for amazing sunset views.",
-        image: "/images/wp-content/uploads/2024/08/srilanka-day-3.webp",
-        imageAlt: "Visit Dambulla Rock Temple",
+          "Today we'll experience local Sri Lankan life with a cycling tour through traditional villages and scenic rice fields. Enjoy an authentic Sri Lankan rice and curry lunch before taking on the iconic climb to Sigiriya Rock Fortress, a UNESCO World Heritage Site known for its ancient ruins, fascinating history, and breathtaking views from the summit.",
+        image: "/tours/sri-lanka-wander/srilanka-day-3.webp",
+        imageAlt: "Explore Sigiriya",
         details: [
           {
             icon: "accommodation",
             label: "Accommodation",
-            value: "Fresco Water Villa (or similar)",
+            value: "Elysia Hotel Sigiriya (or similar)",
           },
           {
-            icon: "activities",
-            label: "Activities",
-            value: "Dambulla Rock Temple, Pidurangala Rock Formation",
+            icon: "location",
+            label: "Location",
+            value: "Habarana, Dambulla",
           },
           {
             icon: "meals",
             label: "Meals",
-            value: "Breakfast",
+            value: "1 Breakfast",
+          },
+          {
+            icon: "activities",
+            label: "Activities",
+            value:
+              "Cycling tour through local villages and rice fields, Traditional Sri Lankan rice & curry experience, Climb Sigiriya Rock Fortress",
           },
         ],
       },
       {
         dayNumber: 4,
-        title: "Sigiriya and Cycling Tour",
+        title: "Sigiriya to Kandy",
         description:
-          "On the morning of day four, embark on a cycling tour that takes you through the scenic surroundings of Sigiriya. The tour highlights include a visit to the iconic World Heritage Site of Sigiriya, where you'll climb the stairs through the great lion's paws and explore the ancient fortress and its innovative hydraulic system.",
-        image: "/images/wp-content/uploads/2024/08/srilanka-day-4.webp",
-        imageAlt: "Sigiriya and Cycling Tour",
+          "Today we'll journey to the cultural capital of Kandy, stopping at a fragrant spice garden in Matale to learn about Sri Lanka's famous spices and traditional remedies. In Kandy, we'll visit the sacred Temple of the Tooth Relic, explore vibrant local markets, and discover the city's rich heritage before ending the day with a traditional Sri Lankan cultural dance performance.",
+        image: "/tours/sri-lanka-wander/srilanka-day-4.webp",
+        imageAlt: "Sigiriya to Kandy",
         details: [
           {
             icon: "accommodation",
             label: "Accommodation",
-            value: "Fresco Water Villa (or similar)",
+            value: "Swiss Residence (or similar)",
           },
           {
-            icon: "activities",
-            label: "Activities",
-            value: "Sigiriya, Cycling Tour",
+            icon: "location",
+            label: "Location",
+            value: "Sigiriya, Kandy",
           },
           {
             icon: "meals",
             label: "Meals",
-            value: "Breakfast",
+            value: "1 Breakfast",
+          },
+          {
+            icon: "activities",
+            label: "Activities",
+            value:
+              "Spice Garden visit in Matale, Kandy city tour, Temple of the Tooth Relic, Explore local markets, Evening cultural dance performance",
           },
         ],
       },
       {
         dayNumber: 5,
-        title: "Matale Spice Gardens and Kandy",
+        title: "Kandy to Ella",
         description:
-          "Explore Matale's spice gardens and sample herbal tea before heading to the vibrant city of Kandy. Visit Buddhist sites, stroll through local markets, and enjoy traditional music and a cultural show in the evening.",
-        image: "/images/wp-content/uploads/2024/08/srilanka-day-5.webp",
-        imageAlt: "Matale Spice Gardens and Kandy",
+          "Today we'll journey through Sri Lanka's stunning hill country, taking in breathtaking mountain scenery, rolling tea plantations, and cascading waterfalls along the way. We'll explore the charming town of Nuwara Eliya before boarding the famous train from Nanu Oya to Ella, one of the most scenic rail journeys in the world.",
+        image: "/tours/sri-lanka-wander/srilanka-day-5.webp",
+        imageAlt: "Kandy to Ella",
         details: [
           {
             icon: "accommodation",
             label: "Accommodation",
-            value: "Oakray Regency (or similar)",
+            value: "Oak Ray Ella Gap (or similar)",
           },
           {
-            icon: "activities",
-            label: "Activities",
-            value: "Spice Gardens, Cultural show",
+            icon: "location",
+            label: "Location",
+            value: "Kandy, Ella",
           },
           {
             icon: "meals",
             label: "Meals",
-            value: "Breakfast",
+            value: "1 Breakfast",
+          },
+          {
+            icon: "activities",
+            label: "Activities",
+            value:
+              "Nuwara Eliya city tour, Scenic hill country drive, Famous train ride from Nanu Oya to Ella, Tea plantations and waterfall views",
           },
         ],
       },
       {
         dayNumber: 6,
-        title: "Nuwara Eliya & Train Ride to Ella",
+        title: "Explore Ella",
         description:
-          "Drive through tea-covered hills to Nuwara Eliya, then take the iconic scenic train ride from Nanu Oya to Ella, capturing stunning views of green valleys and small villages along the way.",
-        image: "/images/wp-content/uploads/2024/08/srilanka-day-6.webp",
-        imageAlt: "Nuwara Eliya & Train Ride to Ella",
+          "Spend the day discovering the natural beauty and laid-back charm of Ella. Hike to scenic viewpoints, including the famous Ella Rock, take in breathtaking mountain landscapes, and enjoy free time exploring local cafes, tea plantations, and the relaxed atmosphere of this hill-country gem.",
+        image: "/tours/sri-lanka-wander/srilanka-day-6.webp",
+        imageAlt: "Explore Ella",
         details: [
           {
             icon: "accommodation",
             label: "Accommodation",
-            value: "On Rock Ella",
+            value: "Oak Ray Ella Gap (or similar)",
           },
           {
-            icon: "activities",
-            label: "Activities",
-            value: "Tea Country Hills, Scenic Train Journey",
+            icon: "location",
+            label: "Location",
+            value: "Nuwara Eliya, Ella",
           },
           {
             icon: "meals",
             label: "Meals",
-            value: "Breakfast",
+            value: "1 Breakfast",
+          },
+          {
+            icon: "activities",
+            label: "Activities",
+            value: "Ella Rock",
           },
         ],
       },
       {
         dayNumber: 7,
-        title: "It's Time to Explore Ella",
+        title: "Ella to Yala National Park",
         description:
-          "Hike to Ella's Rock or Little Adams Peak, visit tea estates, or stroll through tranquil forests. After a day of exploring, prepare for dinner and maybe a few drinks.",
-        image: "/images/wp-content/uploads/2024/08/srilanka-day-7.webp",
-        imageAlt: "It's Time to Explore Ella",
+          "Today we'll leave the mountains behind and head to Yala National Park, home to some of Sri Lanka's most incredible wildlife. In the afternoon, we'll embark on an exciting safari game drive in search of elephants, leopards, crocodiles, sloth bears, and a variety of bird species, offering an unforgettable experience in the wild.",
+        image: "/tours/sri-lanka-wander/srilanka-day-7.png",
+        imageAlt: "Ella to Yala National Park",
         details: [
           {
             icon: "accommodation",
             label: "Accommodation",
-            value: "On Rock Ella",
+            value: "Oak Ray Wild (or similar)",
           },
           {
-            icon: "activities",
-            label: "Activities",
-            value: "Hiking, Exploring",
+            icon: "location",
+            label: "Location",
+            value: "Ella, Yala",
           },
           {
             icon: "meals",
             label: "Meals",
-            value: "Breakfast",
+            value: "1 Breakfast",
+          },
+          {
+            icon: "activities",
+            label: "Activities",
+            value: "Safari Game Drive",
           },
         ],
       },
       {
         dayNumber: 8,
-        title: "Rest and Recharge",
+        title: "Yala to Mirissa",
         description:
-          "Travel to Arugam Bay for a chill day. Relax by the beach with cocktails or take a surf lesson. In the evening, meet up for dinner and drinks.",
-        image: "/images/wp-content/uploads/2024/08/srilanka-day-82.webp",
-        imageAlt: "Rest and Recharge",
+          "Today we'll make our way to Sri Lanka's beautiful southern coast. Along the journey, we'll explore the historic city of Galle and its UNESCO-listed fort, wandering through charming colonial streets and coastal viewpoints. Those keen for more adventure can enjoy an optional surf session in Hiriketiya before continuing to Mirissa for a relaxing evening by the beach.",
+        image: "/tours/sri-lanka-wander/srilanka-day-8.webp",
+        imageAlt: "Yala to Mirissa",
         details: [
           {
             icon: "accommodation",
             label: "Accommodation",
-            value: "Sunrise Cabanas",
+            value: "Silan Mo Mirissa (or similar)",
           },
           {
-            icon: "activities",
-            label: "Activities",
-            value: "Beach Day, Surfing (optional)",
+            icon: "location",
+            label: "Location",
+            value: "Yala, Mirissa",
           },
           {
             icon: "meals",
             label: "Meals",
-            value: "Breakfast",
+            value: "1 Breakfast",
+          },
+          {
+            icon: "activities",
+            label: "Activities",
+            value: "Galle city tour, Surfing (optional)",
           },
         ],
       },
       {
         dayNumber: 9,
-        title: "Surfing & Jeep Safari Kumana National Park",
+        title: "Surfing in Weligama",
         description:
+<<<<<<< HEAD
           "Fuel up with a big breakfast and get ready for a day of surfing with highly qualified instructors. After surfing, a jeep safari through Kumana National Park. Spot crocodiles, leopards, and elephants!",
         image: "/images/wp-content/uploads/2024/08/srilanka-day-9.png",
         imageAlt: "Surfing & Jeep Safari Kumana National Park",
+=======
+          "Today is all about sun, surf, and relaxation. Enjoy an included surfing lesson in nearby Weligama, one of Sri Lanka's best beaches for beginner and intermediate surfers. Spend the rest of the day unwinding on the beach, swimming in the Indian Ocean, or joining additional surfing sessions if you're keen to catch more waves.",
+        image: "/tours/sri-lanka-wander/srilanka-day-9.png",
+        imageAlt: "Surfing in Weligama",
+>>>>>>> d9fc1082af865d38ec77774fdb9b66f617ff8fd9
         details: [
           {
             icon: "accommodation",
             label: "Accommodation",
-            value: "Sunrise Cabanas",
+            value: "Silan Mo Mirissa (or similar)",
           },
           {
             icon: "activities",
@@ -407,77 +458,57 @@ export const sriLangkaWanderTour: Tour = {
           {
             icon: "location",
             label: "Location",
-            value: "Arugam Bay",
+            value: "Mirissa",
           },
           {
             icon: "meals",
             label: "Meals",
-            value: "Breakfast",
+            value: "1 Breakfast",
           },
         ],
       },
       {
         dayNumber: 10,
-        title: "Galle City Tour",
+        title: "Mirissa Beach Day",
         description:
-          "Head to Galle to explore the mesmerizing Galle Fort and enjoy panoramic views of the Indian Ocean.",
-        image: "/images/wp-content/uploads/2024/08/srilanka-day-11.webp",
-        imageAlt: "Galle City Tour",
+          "Enjoy a full day at your own pace in the laid-back beach town of Mirissa. Relax on the golden sands, explore local beach cafes, take a refreshing swim in the ocean, or opt for another surfing session in Mirissa or nearby Weligama. As the day winds down, soak in a spectacular sunset and enjoy the relaxed coastal atmosphere of Sri Lanka's southern shore.",
+        image: "/tours/sri-lanka-wander/srilanka-day-10.png",
+        imageAlt: "Mirissa Beach Day",
         details: [
           {
             icon: "accommodation",
             label: "Accommodation",
-            value: "Coral Rock by Bansei (or similar)",
+            value: "Silan Mo Mirissa (or similar)",
           },
           {
-            icon: "activities",
-            label: "Activities",
-            value: "Galle City Tour",
+            icon: "location",
+            label: "Location",
+            value: "Mirissa",
           },
           {
             icon: "meals",
             label: "Meals",
-            value: "Breakfast",
+            value: "1 Breakfast",
+          },
+          {
+            icon: "activities",
+            label: "Activities",
+            value: "Full Free Day, Optional surfing in Weligama",
           },
         ],
       },
       {
         dayNumber: 11,
-        title: "Madu Ganga Experience",
+        title: "Departure Day",
         description:
-          "Experience a cruise in a canopied, outboard motor-powered boat. Boat safari along the river is a relaxing trip with plenty of interesting stops. Later visit Kosgoda Turtle hatchery - discover the inspiring conservation efforts at the Kosgoda Turtle Hatchery, a sanctuary dedicated to protecting endangered sea turtles.",
-        image: "/images/wp-content/uploads/2024/08/srilanka-day-10.webp",
-        imageAlt: "Madu Ganga Experience",
-        details: [
-          {
-            icon: "accommodation",
-            label: "Accommodation",
-            value: "Coral Rock by Bansei (or similar)",
-          },
-          {
-            icon: "activities",
-            label: "Activities",
-            value: "Madu Ganga Experience",
-          },
-          {
-            icon: "meals",
-            label: "Meals",
-            value: "Breakfast",
-          },
-        ],
-      },
-      {
-        dayNumber: 12,
-        title: "Checkout",
-        description:
-          "Exchange contacts with your new friends and check out after breakfast. Our trustee tour guide can help you organise your onward travel plans. It's not goodbye—it's see you later!",
-        image: "/images/wp-content/uploads/2024/08/srilanka-header-5.webp",
-        imageAlt: "Checkout",
+          "After breakfast, it's time to say goodbye to Sri Lanka. Enjoy some final moments with the group before your airport transfer. We hope you leave with unforgettable memories, new friendships, and incredible stories from your Sri Lankan adventure.",
+        image: "/tours/sri-lanka-wander/srilanka-day-11.png",
+        imageAlt: "Departure Day",
         details: [
           {
             icon: "meals",
             label: "Meals",
-            value: "Breakfast",
+            value: "1 Breakfast",
           },
         ],
       },
@@ -487,45 +518,40 @@ export const sriLangkaWanderTour: Tour = {
     heading: "Where We Stay",
     items: [
       {
-        image: "/images/wp-content/uploads/2025/10/hive-68-accommodation.webp",
-        imageAlt: "Hive 68 Hotel",
-        name: "Hive 68 Hotel",
-        nights: "2 nights",
-      },
-      {
-        image:
-          "/images/wp-content/uploads/2025/10/lario-resort-accommodation.webp",
-        imageAlt: "Lario Resort",
-        name: "Lario Resort",
-        nights: "2 nights",
-      },
-      {
-        image:
-          "/images/wp-content/uploads/2025/10/swiss-residence-accommodation.webp",
-        imageAlt: "Swiss Residence",
-        name: "Swiss Residence",
+        image: "/tours/sri-lanka-wander/beacon-beach.webp",
+        imageAlt: "Beacon Beach Hotel",
+        name: "Beacon Beach - Negombo",
         nights: "1 night",
       },
       {
-        image:
-          "/images/wp-content/uploads/2025/10/ella-flower-garden-accommodation.webp",
-        imageAlt: "Ella Flower Garden Hotel",
-        name: "Ella Flower Garden Hotel",
+        image: "/tours/sri-lanka-wander/elysia-hotel.jpg",
+        imageAlt: "Elysia Hotel Sigiriya",
+        name: "Elysia Hotel Sigiriya - Habarana",
         nights: "2 nights",
       },
       {
-        image:
-          "/images/wp-content/uploads/2025/10/blue-wave-hotel-accommodation.webp",
-        imageAlt: "The Blue Wave Hotel",
-        name: "The Blue Wave Hotel",
+        image: "/tours/sri-lanka-wander/swiss-residence.jpg",
+        imageAlt: "Swiss Residence",
+        name: "Swiss Residence - Kandy",
+        nights: "1 night",
+      },
+      {
+        image: "/tours/sri-lanka-wander/oak-ray-ella.jpg",
+        imageAlt: "Oak Ray Ella Gap",
+        name: "Oak Ray Ella Gap - Ella",
         nights: "2 nights",
       },
       {
-        image:
-          "/images/wp-content/uploads/2025/10/coral-rock-accommodation.webp",
-        imageAlt: "Coral Rock by Bansei",
-        name: "Coral Rock by Bansei",
-        nights: "2 nights",
+        image: "/tours/sri-lanka-wander/oak-ray-wild.jpg",
+        imageAlt: "Oak Ray Wild",
+        name: "Oak Ray Wild - Yala",
+        nights: "1 night",
+      },
+      {
+        image: "/tours/sri-lanka-wander/silan-mo-mirissa.jpg",
+        imageAlt: "Silan Mo Mirissa",
+        name: "Silan Mo Mirissa - Mirissa",
+        nights: "3 nights",
       },
     ],
   },
@@ -534,7 +560,7 @@ export const sriLangkaWanderTour: Tour = {
     items: [
       {
         question: "Where does the trip start & finish?",
-        answer: "The trip starts in Negombo and finishes in Hikkaduwa.",
+        answer: "The trip starts in Negombo and finishes in Mirissa.",
       },
       {
         question: "Which airport do I need to fly into?",
@@ -548,7 +574,7 @@ export const sriLangkaWanderTour: Tour = {
       {
         question: "Do you have an age limit for tours?",
         answer:
-          "Tours cater to adventurous travelers aged 18-45, with most guests between 21-35 years old. Perfect for people of all different backgrounds to share travel experiences.",
+          "Our tours cater to adventurous travelers aged 18-45, with most guests between 21-35 years old. It's perfect for people from diverse backgrounds to share travel experiences.",
       },
       {
         question: "What is the local currency?",
@@ -607,12 +633,11 @@ export const sriLangkaWanderTour: Tour = {
     ],
   },
   booking: {
-    durationLabel: "12 Day Tour",
-    routeLabel:
-      "Negombo → Habarana → Kandy → Ella → Arugam Bay → Hikkaduwa",
+    durationLabel: "11 Day Tour",
+    routeLabel: "Negombo → Mirissa",
     priceFromLabel: "From",
     priceCurrency: "GBP",
-    priceAmount: "£1,200",
+    priceAmount: "£1,199",
     depositAmount: "£200",
     ctaLabel: "Reserve Now",
     ctaHref:
@@ -620,15 +645,13 @@ export const sriLangkaWanderTour: Tour = {
     footnote: "Additional fees may apply",
   },
   listingCard: {
-    duration: "12 Days and 11 Nights",
+    duration: "11 Days and 10 Nights",
     description:
-      "Negombo, Habarana, Kandy, Ella, Arugam Bay, and Hikkaduwa with trekking, surfing, safaris, and scenic train rides.",
-    price: "GBP £1,200",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1759341313258_srilanka-header-22.webp?alt=media&token=a9755c83-5fac-4284-87dd-9325e1b24727",
+      "Negombo, Sigiriya, Kandy, Ella, Yala, and Mirissa with cave temples, a scenic hill-country train ride, wildlife, surfing, and beach days.",
+    price: "GBP £1,199",
+    image: "/tours/sri-lanka-wander/hero.jpg",
     imageAlt: "Sri Lanka Wander Tour",
   },
 };
 
 export default sriLangkaWanderTour;
-

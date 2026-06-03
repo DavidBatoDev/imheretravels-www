@@ -116,6 +116,8 @@ export const philippineSunsetWithRoxana: Tour = {
           "24/7 customer experience assistance",
           "Environmental fees & taxes",
           "Local tourist taxes & fees",
+          "Tour Guide",
+          "Flight from Manila to Puerto Princesa",
         ],
       },
     ],
@@ -300,20 +302,20 @@ export const philippineSunsetWithRoxana: Tour = {
       },
       {
         image: "/images/wp-content/uploads/2025/10/ferellee-beach-bront-inn-accommodation2.webp",
-        imageAlt: "Ferellee Beach Front Inn",
-        name: "Ferellee Beach Front Inn",
-        nights: "2 nights in Cottages",
+        imageAlt: "Ferellee Beach Front Inn (or similar)",
+        name: "Ferellee Beach Front Inn (or similar)",
+        nights: "2 nights in Hotel",
       },
       {
         image: "/images/wp-content/uploads/2024/05/isla-accommodation-1.webp",
         imageAlt: "Isla Experience",
         name: "Isla Experience",
-        nights: "2 nights in Beach Hut",
+        nights: "2 nights in Hotel",
       },
       {
         image: "/images/wp-content/uploads/2025/01/southanchorage-accommodation.webp",
-        imageAlt: "South Anchorage",
-        name: "South Anchorage",
+        imageAlt: "South Anchorage (or similar)",
+        name: "South Anchorage (or similar)",
         nights: "4 nights in Hotel",
       },
     ],
@@ -337,7 +339,7 @@ export const philippineSunsetWithRoxana: Tour = {
       {
         question: "Do you have an age limit for tours?",
         answer:
-          "Tours cater to adventurous travelers aged 18-45, with most guests between 21-35 years old.",
+          "Our tours cater to adventurous travelers aged 18-45, with most guests between 21-35 years old. It's perfect for people from diverse backgrounds to share travel experiences.",
       },
       {
         question: "What is the local currency?",

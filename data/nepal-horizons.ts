@@ -135,7 +135,7 @@ export const nepalHorizons: Tour = {
             label: "Activity",
             value: "Meet & greet at the airport, Check in",
           },
-          { icon: "meals", label: "Meals", value: "Dinner" },
+          { icon: "meals", label: "Meals", value: "1 Dinner" },
         ],
       },
       {
@@ -157,7 +157,7 @@ export const nepalHorizons: Tour = {
             value:
               "Pashupatinath Temple, Boudhanath Stupa, Kathmandu Durbar Square, transfer to Bhaktapur, Golden Gate & Palace of 55 Windows",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -179,7 +179,7 @@ export const nepalHorizons: Tour = {
             value:
               "Transfer to Chitwan National Park, optional rafting on the Trishuli river",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast, Lunch & Dinner" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast, 1 Lunch & 1 Dinner" },
         ],
       },
       {
@@ -201,7 +201,7 @@ export const nepalHorizons: Tour = {
             value:
               "Canoeing, Jungle walk, Bird watching, Jeep safari & Tharu Tribal Dance",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast, Lunch & Dinner" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast, 1 Lunch & 1 Dinner" },
         ],
       },
       {
@@ -222,7 +222,7 @@ export const nepalHorizons: Tour = {
             label: "Activity",
             value: "Transfer to Bandipur, Hike to Ramkot Village",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -244,7 +244,7 @@ export const nepalHorizons: Tour = {
             value:
               "Transfer to Pokhara, boating on Phewa Lake, Tal Barahi Temple visit",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast and Dinner" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast & 1 Dinner" },
         ],
       },
       {
@@ -265,7 +265,7 @@ export const nepalHorizons: Tour = {
             label: "Activity",
             value: "Scenic trek to Australian Base Camp",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -286,7 +286,7 @@ export const nepalHorizons: Tour = {
             label: "Activity",
             value: "(Optional) Souvenir Shopping, Cafe Hopping",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -296,7 +296,7 @@ export const nepalHorizons: Tour = {
           "Enjoy your last breakfast with a view before heading to the airport. You're leaving Nepal but trust us, part of your heart will stay behind.",
         image: "/images/wp-content/uploads/2025/08/nepal-day-9.webp",
         imageAlt: "Nepal departure",
-        details: [{ icon: "meals", label: "Meals", value: "Breakfast" }],
+        details: [{ icon: "meals", label: "Meals", value: "1 Breakfast" }],
       },
     ],
   },

@@ -116,7 +116,9 @@ export default async function TourDetailPage({ params }: { params: Params }) {
 
   const instagramHref = "https://www.instagram.com/imheretravels";
   const fallbackCommunityImages = [
-    { src: tour.gallery.hero, alt: tour.gallery.heroAlt, href: instagramHref },
+    ...(tour.gallery.showHeroInGallery === false
+      ? []
+      : [{ src: tour.gallery.hero, alt: tour.gallery.heroAlt, href: instagramHref }]),
     ...tour.gallery.thumbnails.map((thumb) => ({
       src: thumb.src,
       alt: thumb.alt,

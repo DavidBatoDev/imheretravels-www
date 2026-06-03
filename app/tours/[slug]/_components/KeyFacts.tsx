@@ -63,9 +63,10 @@ export default function KeyFacts({ items, tourSlug }: { items: TourKeyFact[]; to
                     >
                       {showDateIndicator ? (() => {
                         const iso = tourSlug ? toISODate(v) : "";
-                        const href = iso
-                          ? `https://admin.imheretravels.com/reservation-booking-form?tour=${tourSlug}&tourdate=${iso}`
-                          : "";
+                        const href = fact.links?.[index]
+                          ?? (iso
+                            ? `https://admin.imheretravels.com/reservation-booking-form?tour=${tourSlug}&tourdate=${iso}`
+                            : "");
                         const inner = (
                           <span className="inline-flex items-center gap-2">
                             <span

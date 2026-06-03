@@ -389,20 +389,20 @@ export const philippineSunrise: Tour = {
           "/images/wp-content/uploads/2024/05/redplanet-accommodation.webp",
         imageAlt: "Red Planet (or similar)",
         name: "Red Planet (or similar)",
-        nights: "2 nights (Days 1-2)",
+        nights: "2 nights in Hotel",
       },
       {
         image:
           "/images/wp-content/uploads/2024/05/lovesdiveresort-accommodation.webp",
         imageAlt: "Love's Dive Resort in Moalboal",
         name: "Love's Dive Resort (or similar)",
-        nights: "3 nights (Days 3-5)",
+        nights: "3 nights in Hotel",
       },
       {
         image: "/images/wp-content/uploads/2024/05/seasky-accommodation.webp",
         imageAlt: "Siargao Seasky hotel",
         name: "Siargao Seasky (or similar)",
-        nights: "5 nights (Days 6-10, checkout Day 11)",
+        nights: "5 nights in Hotel",
       },
     ],
   },

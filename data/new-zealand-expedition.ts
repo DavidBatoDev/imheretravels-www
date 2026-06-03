@@ -189,7 +189,7 @@ export const newZealandExpedition: Tour = {
             label: "Activity",
             value: "Optional: Surf lesson, Beach Time",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -210,7 +210,7 @@ export const newZealandExpedition: Tour = {
             label: "Activity",
             value: "Optional: Glowworm Cave Tour, Black Water Rafting",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -232,7 +232,7 @@ export const newZealandExpedition: Tour = {
             value:
               "Optional: Kiwi Hatchery, Redwood Forest walk, Whakarewarewa Living Maori Village",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast, Lunch" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast, 1 Lunch" },
         ],
       },
       {
@@ -253,7 +253,7 @@ export const newZealandExpedition: Tour = {
             label: "Activity",
             value: "Optional: Tarawera Hike, Spa, Rafting, Ziplining",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -274,7 +274,7 @@ export const newZealandExpedition: Tour = {
             label: "Activity",
             value: "Drive from Rotorua to Wellington",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -295,7 +295,7 @@ export const newZealandExpedition: Tour = {
             label: "Activity",
             value: "Explore the Capital",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -316,7 +316,7 @@ export const newZealandExpedition: Tour = {
             label: "Activity",
             value: "Optional: Ferry ride, Coastal Pacific Train",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -337,7 +337,7 @@ export const newZealandExpedition: Tour = {
             label: "Activity",
             value: "Arthur's Pass Scenic Drive",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast, Dinner" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast, 1 Dinner" },
         ],
       },
       {
@@ -358,7 +358,7 @@ export const newZealandExpedition: Tour = {
             label: "Activity",
             value: "Optional: Heli-hiking, Kayaking, Guided Glacier Walk",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -379,7 +379,7 @@ export const newZealandExpedition: Tour = {
             label: "Activity",
             value: "Lake Matheson walk",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -400,7 +400,7 @@ export const newZealandExpedition: Tour = {
             label: "Activity",
             value: "Optional: Bungy, Skydive, Spa, Gondola Rides",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -421,7 +421,7 @@ export const newZealandExpedition: Tour = {
             label: "Activity",
             value: "Optional: Milford Sound Day Cruise",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -442,7 +442,7 @@ export const newZealandExpedition: Tour = {
             label: "Activity",
             value: "Optional: Winery Tour, Jet Boating, Souvenir Shopping",
           },
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
       {
@@ -453,7 +453,7 @@ export const newZealandExpedition: Tour = {
         image: "/images/wp-content/uploads/2025/05/new-zealand-day-15.webp",
         imageAlt: "Queenstown departure",
         details: [
-          { icon: "meals", label: "Meals", value: "Breakfast" },
+          { icon: "meals", label: "Meals", value: "1 Breakfast" },
         ],
       },
     ],
