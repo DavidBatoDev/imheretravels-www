@@ -55,7 +55,7 @@ export const philippineSunsetWithRoxana: Tour = {
       { label: "Isla Darocotan", icon: "location" },
     ],
     description:
-      "Join Roxana on an unforgettable 11-day Philippines adventure filled with island hopping, snorkeling, and breathtaking sunsets. Full itinerary details coming soon — secure your spot at the early price.",
+      "The 11-day Philippine Sunset Getaway with Roxana offers a curated itinerary featuring nightlife in Manila, snorkeling in Port Barton, and exploration of El Nido's lagoons, culminating in an off-grid experience on Isla Darocotan. The trip emphasizes adventure and community, with activities including Nacpan Beach sunsets, a coastal zipline, and bonfires on a private beach.",
   },
   keyFacts: [
     {
