@@ -188,12 +188,6 @@ export const sriLangkaWanderTour: Tour = {
         title: "Sunset Hike at Pidurangala Rock",
         subtitle: "Panoramic views over Sigiriya & the jungle",
       },
-      {
-        image: "/tours/sri-lanka-wander/srilanka-day-4.webp",
-        imageAlt: "Sigiriya Rock Fortress",
-        title: "Sigiriya Rock Fortress",
-        subtitle: "Climb one of Sri Lanka's most iconic landmarks",
-      },
     ],
   },
   itinerary: {

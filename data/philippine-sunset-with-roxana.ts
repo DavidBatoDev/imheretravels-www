@@ -3,7 +3,6 @@ import type { Tour } from "@/types/tour";
 export const philippineSunsetWithRoxana: Tour = {
   slug: "philippine-sunset-with-roxana",
   name: "Philippines Sunset with Roxana",
-  comingSoon: true,
   meta: {
     title: "11 Days | Philippines Sunset with Roxana",
     description:
