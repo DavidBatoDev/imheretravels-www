@@ -6,7 +6,7 @@ export const philippineSunsetWithRoxana: Tour = {
   meta: {
     title: "11 Days | Philippines Sunset with Roxana",
     description:
-      "Join Roxana on an unforgettable 11-day Philippines adventure filled with island hopping, snorkeling, and breathtaking sunsets. Full itinerary details coming soon — secure your spot at the early price.",
+      "The 11-day Philippine Sunset Getaway with Roxana offers a curated itinerary featuring nightlife in Manila, snorkeling in Port Barton, and exploration of El Nido's lagoons, culminating in an off-grid experience on Isla Darocotan. The trip emphasizes adventure and community, with activities including Nacpan Beach sunsets, a coastal zipline, and bonfires on a private beach.",
   },
   gallery: {
     hero: "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2F1759341317907_philippinessunset-day-11.webp?alt=media&token=d3c35f6b-4503-438e-9cd4-c6d6848d0e8f",
