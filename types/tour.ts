@@ -125,6 +125,8 @@ export interface TourBookingCard {
   // Deposit amount shown in the reservation notice below the CTA
   // (e.g. "£300"). Omit to hide the notice.
   depositAmount?: string;
+  // Full deposit note text. Defaults to "Reserve for {depositAmount} — deducted from total fees. Non-refundable."
+  depositNote?: string;
   ctaLabel: string;
   ctaHref: string;
   footnote: string;

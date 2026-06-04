@@ -1,5 +1,5 @@
 import { notFound, permanentRedirect } from "next/navigation";
-import { getTourBySlug } from "@/data/tours";
+import { getTourBySlug } from "@/lib/tours-firestore";
 
 type Params = Promise<{ slug: string }>;
 
@@ -15,7 +15,7 @@ export default async function AllToursPage({
   const { slug } = await params;
   const normalizedSlug = LEGACY_TOUR_SLUG_ALIASES[slug] ?? slug;
 
-  if (!getTourBySlug(normalizedSlug)) {
+  if (!(await getTourBySlug(normalizedSlug))) {
     notFound();
   }
 

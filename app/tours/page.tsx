@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Footer from "@/app/components/global/Footer";
-import { getAllTours, isHostedTour } from "@/data/tours";
+export const revalidate = 3600;
+
+import { getAllTours, isHostedTour } from "@/lib/tours-firestore";
 import {
   getAllDestinations,
   getDestinationBySlug,
@@ -109,7 +111,7 @@ export default async function ToursPage({
 }) {
   const { destination, sort } = await searchParams;
 
-  const allTours = getAllTours().filter((tour) => !isHostedTour(tour.slug));
+  const allTours = (await getAllTours()).filter((tour) => !isHostedTour(tour.slug));
   const allDestinations = getAllDestinations();
 
   // Validate destination param — ignore unknown slugs
@@ -176,8 +178,8 @@ export default async function ToursPage({
             </div>
           ) : (
             <ul className="mt-10 grid grid-cols-1 gap-6 md:mt-14 md:grid-cols-2 lg:grid-cols-3">
-              {sorted.map((tour) => (
-                <TourCard key={tour.slug} tour={tour} />
+              {sorted.map((tour, i) => (
+                <TourCard key={tour.slug} tour={tour} priority={i < 3} />
               ))}
             </ul>
           )}

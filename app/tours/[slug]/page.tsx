@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Footer from "@/app/components/global/Footer";
 import ShareButton from "./_components/ShareButton";
-import { getAllTourSlugs, getTourBySlug, isHostedTour } from "@/data/tours";
+export const revalidate = 3600; // Re-fetch from Firestore at most once per hour
+
+import { getAllTourSlugs, getTourBySlug, isHostedTour } from "@/lib/tours-firestore";
 import type { Tour } from "@/types/tour";
 import AutoFitText from "./_components/AutoFitText";
 import Breadcrumbs from "./_components/Breadcrumbs";
@@ -30,7 +32,8 @@ const BASE_URL = "https://www.imheretravels.com";
 type Params = Promise<{ slug: string }>;
 
 export async function generateStaticParams() {
-  return getAllTourSlugs().map((slug) => ({ slug }));
+  const slugs = await getAllTourSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -39,7 +42,7 @@ export async function generateMetadata({
   params: Params;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const tour = getTourBySlug(slug);
+  const tour = await getTourBySlug(slug);
   if (!tour) return { title: "Tour not found" };
   return {
     title: tour.meta.title,
@@ -111,7 +114,7 @@ function buildTourJsonLd(tour: Tour) {
 
 export default async function TourDetailPage({ params }: { params: Params }) {
   const { slug } = await params;
-  const tour = getTourBySlug(slug);
+  const tour = await getTourBySlug(slug);
   if (!tour) notFound();
 
   const instagramHref = "https://www.instagram.com/imheretravels";
