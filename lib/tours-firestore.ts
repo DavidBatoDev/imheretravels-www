@@ -117,7 +117,6 @@ function toTour(raw: RawDoc): Tour {
     });
   } else {
     const places: string[] = [];
-    if (raw.location) places.push(raw.location);
     if (Array.isArray(raw.destinations)) places.push(...raw.destinations.slice(0, 3));
     const seen = new Set<string>();
     tags = places
@@ -148,11 +147,6 @@ function toTour(raw: RawDoc): Tour {
   } else {
     if (raw.duration) {
       keyFacts.push({ icon: "days", label: "Duration", values: [raw.duration] });
-    }
-    if (details.route) {
-      keyFacts.push({ icon: "route", label: "Destination", values: [details.route] });
-    } else if (raw.location) {
-      keyFacts.push({ icon: "route", label: "Location", values: [raw.location] });
     }
   }
 
@@ -311,7 +305,7 @@ function toTour(raw: RawDoc): Tour {
   const deposit = raw.pricing?.deposit;
   const booking: TourBookingCard = {
     durationLabel: raw.cardHeaderTitle ?? "",
-    routeLabel: raw.cardSubHeader || details.route || raw.location || "",
+    routeLabel: raw.cardSubHeader || "",
     priceFromLabel: "From",
     priceCurrency: currency,
     priceAmount: amount,
