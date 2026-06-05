@@ -56,53 +56,6 @@ export const HOSTED_TOUR_SLUGS = [
   "philippine-sunset-with-roxana",
 ];
 
-// ─── Default section content ─────────────────────────────────────────────────
-
-const DEFAULT_THINGS_TO_KNOW: TourThingToKnow[] = [
-  {
-    icon: "info",
-    title: "Travel Information",
-    description:
-      "Get ready for your trip! Find helpful links to everything you need from travel and health requirements to travel guides, visa information, and more here.",
-    ctaLabel: "Show more",
-    ctaHref: "/travel-information",
-  },
-  {
-    icon: "faq",
-    title: "General FAQs",
-    description:
-      "Have more questions? Check out our FAQs as we might already have the answers.",
-    ctaLabel: "Show more",
-    ctaHref: "/faqs",
-  },
-];
-
-const DEFAULT_TIPS: TourTip[] = [
-  {
-    icon: "luggage",
-    title: "Pack smart",
-    description:
-      "Bring comfortable walking shoes, quick-dry clothing, a reusable water bottle, and a power adapter suited for your destination.",
-  },
-  {
-    icon: "shield",
-    title: "Travel insurance",
-    description:
-      "We require all travelers to have valid travel insurance covering medical, cancellation, and activity risks for the duration of the trip.",
-  },
-  {
-    icon: "sun",
-    title: "Beat the climate",
-    description:
-      "Sunscreen, a hat, and insect repellent go a long way. Stay hydrated and listen to your body, especially on active days.",
-  },
-  {
-    icon: "handshake",
-    title: "Respect local customs",
-    description:
-      "Dress modestly at temples, learn a few local greetings, and tip where appropriate — small gestures make a big difference.",
-  },
-];
 
 // ─── Firestore document shape (raw) ─────────────────────────────────────────
 // We use `any` / unknown here because Firestore documents arrive untyped.
@@ -321,7 +274,7 @@ function toTour(raw: RawDoc): Tour {
       ),
     };
   } else {
-    thingsToKnow = { heading: "Things to know", items: DEFAULT_THINGS_TO_KNOW };
+    thingsToKnow = { heading: "Things to know", items: [] };
   }
 
   // ── Tips ──────────────────────────────────────────────────────────────────
@@ -338,7 +291,7 @@ function toTour(raw: RawDoc): Tour {
       ),
     };
   } else {
-    tips = { heading: "Tips", items: DEFAULT_TIPS };
+    tips = { heading: "Tips", items: [] };
   }
 
   // ── Map ───────────────────────────────────────────────────────────────────
