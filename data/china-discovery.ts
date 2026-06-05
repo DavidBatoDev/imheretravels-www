@@ -60,7 +60,7 @@ export const chinaDiscovery: Tour = {
     { icon: "days", label: "Tour Dates", values: ["April 19, 2026"] },
     {
       icon: "route",
-      label: "Route",
+      label: "Destination",
       values: [
         "Beijing → Shanghai",
       ],

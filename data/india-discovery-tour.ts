@@ -68,7 +68,7 @@ export const indiaDiscoveryTour: Tour = {
     { icon: "days", label: "Tour Dates", values: ["To be announced ..."] },
     {
       icon: "route",
-      label: "Route",
+      label: "Destination",
       values: [
         "New Delhi → Jodhpur → Udaipur → Jaipur → Sawai Madhopur → Agra",
       ],

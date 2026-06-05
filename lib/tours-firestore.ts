@@ -205,15 +205,19 @@ function toTour(raw: RawDoc): Tour {
   if (dateValues.length) {
     keyFacts.push({ icon: "days", label: "Tour Dates", values: dateValues });
   }
-  if (raw.duration) {
-    keyFacts.push({ icon: "days", label: "Duration", values: [raw.duration] });
+  // Use stored keyFacts (admin-edited) when available; fall back to derived
+  if (Array.isArray(details.keyFacts) && details.keyFacts.length > 0) {
+    keyFacts.push(...details.keyFacts);
+  } else {
+    if (raw.duration) {
+      keyFacts.push({ icon: "days", label: "Duration", values: [raw.duration] });
+    }
+    if (details.route) {
+      keyFacts.push({ icon: "route", label: "Destination", values: [details.route] });
+    } else if (raw.location) {
+      keyFacts.push({ icon: "route", label: "Location", values: [raw.location] });
+    }
   }
-  if (details.route) {
-    keyFacts.push({ icon: "route", label: "Route", values: [details.route] });
-  } else if (raw.location) {
-    keyFacts.push({ icon: "route", label: "Location", values: [raw.location] });
-  }
-  // Group Size intentionally omitted (decision 3: drop entirely)
 
   // ── Trip Highlights ───────────────────────────────────────────────────────
   const highlightItems: TourHighlight[] = (details.highlights ?? [])
@@ -248,14 +252,22 @@ function toTour(raw: RawDoc): Tour {
   const days: TourDay[] = (details.itinerary ?? []).map(
     (d: RawDoc, i: number): TourDay => {
       const dayDetails: TourDayDetail[] = [];
-      if (d.accommodation) {
-        dayDetails.push({ icon: "accommodation", label: "Accommodation", value: d.accommodation });
-      }
-      if (d.activities) {
-        dayDetails.push({ icon: "activities", label: "Activity", value: d.activities });
-      }
-      if (d.meals) {
-        dayDetails.push({ icon: "meals", label: "Meals", value: d.meals });
+      if (Array.isArray(d.details) && d.details.length > 0) {
+        dayDetails.push(...(d.details as RawDoc[]).map((det) => ({
+          icon: (det.icon ?? "activities") as TourDayDetail["icon"],
+          label: det.label ?? "",
+          value: det.value ?? "",
+        })));
+      } else {
+        if (d.accommodation) {
+          dayDetails.push({ icon: "accommodation", label: "Accommodation", value: d.accommodation });
+        }
+        if (d.activities) {
+          dayDetails.push({ icon: "activities", label: "Activity", value: d.activities });
+        }
+        if (d.meals) {
+          dayDetails.push({ icon: "meals", label: "Meals", value: d.meals });
+        }
       }
 
       const day: TourDay = {

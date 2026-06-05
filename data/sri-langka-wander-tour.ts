@@ -102,7 +102,7 @@ export const sriLangkaWanderTour: Tour = {
     },
     {
       icon: "route",
-      label: "Route",
+      label: "Destination",
       values: ["Negombo → Sigiriya → Kandy → Ella → Yala → Mirissa"],
     },
     {
