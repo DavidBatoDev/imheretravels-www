@@ -118,18 +118,9 @@ export default async function TourDetailPage({ params }: { params: Params }) {
   if (!tour) notFound();
 
   const instagramHref = "https://www.instagram.com/imheretravels";
-  const fallbackCommunityImages = [
-    ...(tour.gallery.showHeroInGallery === false
-      ? []
-      : [{ src: tour.gallery.hero, alt: tour.gallery.heroAlt, href: instagramHref }]),
-    ...tour.gallery.thumbnails.map((thumb) => ({
-      src: thumb.src,
-      alt: thumb.alt,
-      href: instagramHref,
-    })),
-  ].filter(
-    (img, index, arr) => arr.findIndex((item) => item.src === img.src) === index,
-  ).slice(0, 7);
+  const fallbackCommunityImages = tour.gallery.thumbnails
+    .map((thumb) => ({ src: thumb.src, alt: thumb.alt, href: instagramHref }))
+    .slice(0, 7);
 
   const communitySection = tour.community ?? {
     heading: "With @imheretravels",

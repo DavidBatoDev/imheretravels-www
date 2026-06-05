@@ -115,16 +115,6 @@ function toTitleCase(s: string): string {
   return s.replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-/**
- * Extract a comparable filename from any URL:
- * - Firebase Storage: .../images%2F1759341310782_argentina-header-2.webp → "argentina-header-2.webp"
- * - Local path:       /tours/argentinas-wonders/argentina-header-2.webp   → "argentina-header-2.webp"
- */
-function extractOriginalFilename(url: string): string {
-  const decoded = decodeURIComponent(url.split("?")[0] ?? "");
-  const filename = decoded.split("/").pop() ?? "";
-  return filename.replace(/^\d+_/, ""); // strip Firebase Storage timestamp prefix
-}
 
 function priceParts(pricing: RawDoc | undefined): {
   currency: string;
@@ -382,10 +372,9 @@ function toTour(raw: RawDoc): Tour {
 
   // ── Gallery ───────────────────────────────────────────────────────────────
   const heroImage = raw.media?.coverImage || FALLBACK_IMAGE;
-  const heroFilename = extractOriginalFilename(heroImage);
-  const galleryImages: string[] = (
-    Array.isArray(raw.media?.gallery) ? (raw.media.gallery as string[]) : []
-  ).filter((url) => extractOriginalFilename(url) !== heroFilename);
+  const galleryImages: string[] = Array.isArray(raw.media?.gallery)
+    ? (raw.media.gallery as string[])
+    : [];
 
   // ── SEO ───────────────────────────────────────────────────────────────────
   const seoTitle =

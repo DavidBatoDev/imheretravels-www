@@ -145,7 +145,6 @@ export interface Tour {
   gallery: {
     hero: string;
     heroAlt: string;
-    showHeroInGallery?: boolean;
     thumbnails: { src: string; alt: string }[];
   };
   header: {

@@ -22,7 +22,6 @@ export const sriLangkaWanderTour: Tour = {
   gallery: {
     hero: "/tours/sri-lanka-wander/srilanka-header-1.webp",
     heroAlt: "Sri Lanka Wander Tour",
-    showHeroInGallery: false,
     thumbnails: [
       {
         src: "/tours/sri-lanka-wander/srilanka-header-1.webp",
