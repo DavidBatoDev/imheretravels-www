@@ -115,12 +115,6 @@ function toTitleCase(s: string): string {
   return s.replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-/** "11 days" → "11 Day Tour", "14 days" → "14 Day Tour" */
-function buildDurationLabel(duration: string): string {
-  const converted = duration.replace(/\b(\d+)\s+days?\b/gi, "$1 Day Tour");
-  return converted !== duration ? converted : toTitleCase(duration);
-}
-
 /**
  * Extract a comparable filename from any URL:
  * - Firebase Storage: .../images%2F1759341310782_argentina-header-2.webp → "argentina-header-2.webp"
@@ -373,8 +367,8 @@ function toTour(raw: RawDoc): Tour {
   const symbol = CURRENCY_SYMBOL[raw.pricing?.currency] ?? "";
   const deposit = raw.pricing?.deposit;
   const booking: TourBookingCard = {
-    durationLabel: raw.duration ? buildDurationLabel(raw.duration) : "Tour",
-    routeLabel: details.route ?? raw.location ?? "",
+    durationLabel: raw.cardHeaderTitle ?? "",
+    routeLabel: raw.cardSubHeader || details.route || raw.location || "",
     priceFromLabel: "From",
     priceCurrency: currency,
     priceAmount: amount,
