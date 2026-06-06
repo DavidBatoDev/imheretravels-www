@@ -4,16 +4,20 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import Footer from "@/app/components/global/Footer";
 import Reveal from "@/app/components/global/Reveal";
-import { getHostBySlug, getAllHostSlugs, type Host } from "@/data/hosts";
+import type { Host } from "@/data/hosts";
+import { getHostBySlug, getAllHostSlugs } from "@/lib/resident-hosts-firestore";
+import { getActiveTourSlugById } from "@/lib/tours-firestore";
 import GallerySectionClient from "./_components/GallerySectionClient";
 import WhyTravelCarousel from "./_components/WhyTravelCarousel";
+
+export const revalidate = 3600;
 
 /* -------------------------------------------------------------------------- */
 /* Static generation                                                            */
 /* -------------------------------------------------------------------------- */
 
-export function generateStaticParams() {
-  return getAllHostSlugs().map((slug) => ({ slug }));
+export async function generateStaticParams() {
+  return (await getAllHostSlugs()).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -22,7 +26,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const host = getHostBySlug(slug);
+  const host = await getHostBySlug(slug);
   if (!host) return {};
   return {
     title: host.meta.title,
@@ -197,7 +201,7 @@ function IntroSection({ host }: { host: Host }) {
   );
 }
 
-function UpcomingTripsSection({ host }: { host: Host }) {
+function UpcomingTripsSection({ host, trips }: { host: Host; trips: Host["upcomingTrips"] }) {
   return (
     <section id="upcoming-trips" className="relative z-0 bg-light-grey">
       {/* Orange Heart Circle sticker — bottom-right, behind cards */}
@@ -212,7 +216,7 @@ function UpcomingTripsSection({ host }: { host: Host }) {
         </div>
 
         <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {host.upcomingTrips.map((trip, i) => {
+          {trips.map((trip, i) => {
             const isTBA = !trip.duration;
             const inner = (
               <>
@@ -320,13 +324,17 @@ function WhyTravelSection({ host }: { host: Host }) {
           </h2>
         </Reveal>
       </div>
-      <WhyTravelCarousel points={host.whyTravel} />
+      <WhyTravelCarousel points={host.whyTravel} notes={host.whyTravelNotes} />
     </section>
   );
 }
 
 function GallerySection({ host }: { host: Host }) {
-  return <GallerySectionClient slides={host.gallerySlides ?? []} />;
+  const slides = host.gallerySlides ?? [];
+  // A host may have no gallery (e.g. newly created in the admin). Render nothing
+  // rather than the empty "Real Moments" section (and avoid a render crash).
+  if (slides.length === 0) return null;
+  return <GallerySectionClient slides={slides} />;
 }
 
 function HowItWorksSection({ host }: { host: Host }) {
@@ -441,8 +449,16 @@ export default async function ResidentHostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const host = getHostBySlug(slug);
+  const host = await getHostBySlug(slug);
   if (!host) notFound();
+
+  // Resolve each trip's linked tour by ID → current slug so "View Tour" links
+  // survive tour renames; fall back to the stored slug when there's no ID.
+  const tourSlugById = await getActiveTourSlugById();
+  const resolvedTrips = host.upcomingTrips.map((trip) => ({
+    ...trip,
+    tourSlug: trip.tourId ? tourSlugById[trip.tourId] ?? trip.tourSlug : trip.tourSlug,
+  }));
 
   return (
     <>
@@ -454,7 +470,7 @@ export default async function ResidentHostPage({
         ) : (
           <>
             <IntroSection host={host} />
-            <UpcomingTripsSection host={host} />
+            <UpcomingTripsSection host={host} trips={resolvedTrips} />
             <WhyTravelSection host={host} />
             <GallerySection host={host} />
             <HowItWorksSection host={host} />

@@ -97,7 +97,7 @@ export default function TripMomentsGallery({ slides }: { slides: GalleryMediaIte
     };
   }, [started]);
 
-  const columns = slides[slideIndex];
+  const columns = slides[slideIndex] ?? [];
 
   return (
     <div ref={containerRef} className="relative flex gap-2 sm:gap-2.5">
