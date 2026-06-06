@@ -41,6 +41,10 @@ import type {
 const TOURS_COLLECTION = "tourPackages";
 const FALLBACK_IMAGE = "/figma/tour-philippines-sunrise.png";
 
+// Booking CTA fallback when a tour has no Stripe payment link configured.
+const RESERVATION_BOOKING_FORM_URL =
+  "https://admin.imheretravels.com/reservation-booking-form";
+
 const CURRENCY_SYMBOL: Record<string, string> = {
   GBP: "£",
   USD: "$",
@@ -294,6 +298,24 @@ function toTour(raw: RawDoc): Tour {
   const { currency, amount } = priceParts(raw.pricing);
   const symbol = CURRENCY_SYMBOL[raw.pricing?.currency] ?? "";
   const deposit = raw.pricing?.deposit;
+  // When no Stripe payment link is set, send the traveller to the in-house
+  // reservation booking form with this tour pre-selected (same convention as
+  // KeyFacts date links). `bookingSlug` overrides `slug` when they differ.
+  const reservationSlug = raw.bookingSlug ?? raw.slug ?? "";
+  const reservationFallback = reservationSlug
+    ? `${RESERVATION_BOOKING_FORM_URL}?tour=${reservationSlug}`
+    : RESERVATION_BOOKING_FORM_URL;
+  // The admin form persists blank inputs as "" (not undefined), so treat
+  // empty/whitespace strings as "not set" — otherwise `??` defaults below
+  // never apply and the deposit/footnote lines render blank or vanish.
+  const depositNote =
+    typeof raw.depositNote === "string" && raw.depositNote.trim()
+      ? raw.depositNote
+      : undefined;
+  const footnote =
+    typeof raw.footnote === "string" && raw.footnote.trim()
+      ? raw.footnote
+      : "Additional fees may apply";
   const booking: TourBookingCard = {
     durationLabel: raw.cardHeaderTitle ?? "",
     routeLabel: raw.cardSubHeader || "",
@@ -302,10 +324,10 @@ function toTour(raw: RawDoc): Tour {
     priceAmount: amount,
     depositAmount:
       deposit && deposit > 0 ? `${symbol}${deposit.toLocaleString()}` : undefined,
-    depositNote: raw.depositNote,
+    depositNote,
     ctaLabel: "Reserve Now",
-    ctaHref: raw.stripePaymentLink || "/contact-us",
-    footnote: raw.footnote ?? "Additional fees may apply",
+    ctaHref: raw.stripePaymentLink || reservationFallback,
+    footnote,
   };
 
   // ── Gallery ───────────────────────────────────────────────────────────────
