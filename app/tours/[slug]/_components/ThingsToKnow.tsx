@@ -30,6 +30,8 @@ export default function ThingsToKnow({
             </p>
             <Link
               href={t.ctaHref}
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-auto inline-flex items-center gap-1 font-body text-b4-desktop font-bold text-crimson-red hover:underline"
             >
               {t.ctaLabel}

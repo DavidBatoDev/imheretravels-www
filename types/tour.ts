@@ -125,6 +125,8 @@ export interface TourBookingCard {
   // Deposit amount shown in the reservation notice below the CTA
   // (e.g. "£300"). Omit to hide the notice.
   depositAmount?: string;
+  // Full deposit note text. Defaults to "Reserve for {depositAmount} — deducted from total fees. Non-refundable."
+  depositNote?: string;
   ctaLabel: string;
   ctaHref: string;
   footnote: string;
@@ -143,7 +145,6 @@ export interface Tour {
   gallery: {
     hero: string;
     heroAlt: string;
-    showHeroInGallery?: boolean;
     thumbnails: { src: string; alt: string }[];
   };
   header: {
@@ -173,6 +174,8 @@ export interface Tour {
   community?: { heading: string; images: TourCommunityImage[] };
   /** When true the tour page shows a Coming Soon screen instead of full content */
   comingSoon?: boolean;
+  /** When true the tour is a hosted tour (shown under /hosted-tours, excluded from /tours) */
+  isHosted?: boolean;
 
   listingCard: {
     duration: string;

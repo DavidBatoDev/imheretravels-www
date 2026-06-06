@@ -92,7 +92,7 @@ export const tanzaniaExploration: Tour = {
     },
     {
       icon: "route",
-      label: "Route",
+      label: "Destination",
       values: ["Kilimanjaro → Arusha → Karatu → Zanzibar"],
     },
     {

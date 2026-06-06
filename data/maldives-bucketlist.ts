@@ -37,7 +37,7 @@ export const maldivesBucketlist: Tour = {
     { icon: "days", label: "Duration", values: ["9 Days and 8 Nights"] },
     {
       icon: "route",
-      label: "Route",
+      label: "Destination",
       values: ["Hulhumale → Rasdhoo → Ukulhas"],
     },
     { icon: "people", label: "Group Size", values: ["Maximum 22 people"] },

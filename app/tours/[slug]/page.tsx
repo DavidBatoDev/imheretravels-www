@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Footer from "@/app/components/global/Footer";
 import ShareButton from "./_components/ShareButton";
-import { getAllTourSlugs, getTourBySlug, isHostedTour } from "@/data/tours";
+export const revalidate = 3600; // Re-fetch from Firestore at most once per hour
+
+import { getAllTourSlugs, getTourBySlug, getHostedTourSlugs } from "@/lib/tours-firestore";
 import type { Tour } from "@/types/tour";
 import AutoFitText from "./_components/AutoFitText";
 import Breadcrumbs from "./_components/Breadcrumbs";
@@ -30,7 +32,8 @@ const BASE_URL = "https://www.imheretravels.com";
 type Params = Promise<{ slug: string }>;
 
 export async function generateStaticParams() {
-  return getAllTourSlugs().map((slug) => ({ slug }));
+  const slugs = await getAllTourSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -39,7 +42,7 @@ export async function generateMetadata({
   params: Params;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const tour = getTourBySlug(slug);
+  const tour = await getTourBySlug(slug);
   if (!tour) return { title: "Tour not found" };
   return {
     title: tour.meta.title,
@@ -52,7 +55,12 @@ export async function generateMetadata({
       description: tour.meta.description,
       type: "website",
       url: `${BASE_URL}/tours/${tour.slug}`,
-      images: [{ url: tour.gallery.hero, alt: tour.gallery.heroAlt }],
+      // og:image is supplied by the generated `opengraph-image.tsx` card.
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: tour.meta.title,
+      description: tour.meta.description,
     },
   };
 }
@@ -79,7 +87,9 @@ function buildTourJsonLd(tour: Tour) {
         name: tour.meta.title,
         description: tour.meta.description,
         url: `${BASE_URL}/tours/${tour.slug}`,
-        image: `${BASE_URL}${tour.gallery.hero}`,
+        image: tour.gallery.hero.startsWith("http")
+          ? tour.gallery.hero
+          : `${BASE_URL}${tour.gallery.hero}`,
         provider: { "@id": `${BASE_URL}/#organization` },
         ...(durationFact ? { duration: durationFact.values[0] } : {}),
         ...(routeFact ? { itinerary: { "@type": "ItemList", name: routeFact.values[0] } } : {}),
@@ -111,22 +121,15 @@ function buildTourJsonLd(tour: Tour) {
 
 export default async function TourDetailPage({ params }: { params: Params }) {
   const { slug } = await params;
-  const tour = getTourBySlug(slug);
+  const tour = await getTourBySlug(slug);
   if (!tour) notFound();
 
+  const hostedSlugs = new Set(await getHostedTourSlugs());
+
   const instagramHref = "https://www.instagram.com/imheretravels";
-  const fallbackCommunityImages = [
-    ...(tour.gallery.showHeroInGallery === false
-      ? []
-      : [{ src: tour.gallery.hero, alt: tour.gallery.heroAlt, href: instagramHref }]),
-    ...tour.gallery.thumbnails.map((thumb) => ({
-      src: thumb.src,
-      alt: thumb.alt,
-      href: instagramHref,
-    })),
-  ].filter(
-    (img, index, arr) => arr.findIndex((item) => item.src === img.src) === index,
-  ).slice(0, 7);
+  const fallbackCommunityImages = tour.gallery.thumbnails
+    .map((thumb) => ({ src: thumb.src, alt: thumb.alt, href: instagramHref }))
+    .slice(0, 7);
 
   const communitySection = tour.community ?? {
     heading: "With @imheretravels",
@@ -144,7 +147,7 @@ export default async function TourDetailPage({ params }: { params: Params }) {
         <Breadcrumbs
           tourName={tour.name}
           parent={
-            isHostedTour(tour.slug)
+            hostedSlugs.has(tour.slug)
               ? { label: "Hosted Tours", href: "/hosted-tours" }
               : undefined
           }

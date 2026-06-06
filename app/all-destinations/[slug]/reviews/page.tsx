@@ -8,7 +8,8 @@ import {
   getAllDestinationSlugs,
   type DestinationReview,
 } from "@/data/destinations";
-import { getTourBySlug } from "@/data/tours";
+import { getTourBySlug } from "@/lib/tours-firestore";
+import type { Tour } from "@/types/tour";
 
 /* -------------------------------------------------------------------------- */
 /* Static generation                                                           */
@@ -121,9 +122,9 @@ export default async function DestinationReviewsPage({
   const tourNames = Object.keys(grouped);
 
   // Resolve tour listing data for the CTA section
-  const tours = destination.tourSlugs
-    .map((s) => getTourBySlug(s))
-    .filter(Boolean) as NonNullable<ReturnType<typeof getTourBySlug>>[];
+  const tours = (
+    await Promise.all(destination.tourSlugs.map((s) => getTourBySlug(s)))
+  ).filter((t): t is Tour => t !== undefined);
 
   return (
     <>

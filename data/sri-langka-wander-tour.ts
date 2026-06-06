@@ -22,7 +22,6 @@ export const sriLangkaWanderTour: Tour = {
   gallery: {
     hero: "/tours/sri-lanka-wander/srilanka-header-1.webp",
     heroAlt: "Sri Lanka Wander Tour",
-    showHeroInGallery: false,
     thumbnails: [
       {
         src: "/tours/sri-lanka-wander/srilanka-header-1.webp",
@@ -102,8 +101,8 @@ export const sriLangkaWanderTour: Tour = {
     },
     {
       icon: "route",
-      label: "Route",
-      values: ["NNegombo → Sigiriya → Kandy → Ella → Yala → Mirissa"],
+      label: "Destination",
+      values: ["Negombo → Sigiriya → Kandy → Ella → Yala → Mirissa"],
     },
     {
       icon: "people",

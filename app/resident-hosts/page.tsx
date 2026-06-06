@@ -3,7 +3,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import Footer from "@/app/components/global/Footer";
 import Reveal from "@/app/components/global/Reveal";
-import { getAllHostSlugs, getHostBySlug } from "@/data/hosts";
+import { getAllHosts } from "@/lib/resident-hosts-firestore";
+
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Resident Hosts — I'm Here Travels",
@@ -11,10 +13,8 @@ export const metadata: Metadata = {
     "Travel with our community hosts. Join group trips led by Dev, Jess, and more — curated experiences built around real connections.",
 };
 
-export default function ResidentHostsPage() {
-  const hosts = getAllHostSlugs()
-    .map((slug) => getHostBySlug(slug)!)
-    .filter(Boolean);
+export default async function ResidentHostsPage() {
+  const hosts = await getAllHosts();
 
   return (
     <>

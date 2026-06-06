@@ -87,7 +87,7 @@ export const danielleErinTanzaniaExploration: Tour = {
     },
     {
       icon: "route",
-      label: "Route",
+      label: "Destination",
       values: ["Moshi -> Arusha -> Karatu -> Zanzibar"],
     },
     {
