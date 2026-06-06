@@ -55,7 +55,12 @@ export async function generateMetadata({
       description: tour.meta.description,
       type: "website",
       url: `${BASE_URL}/tours/${tour.slug}`,
-      images: [{ url: tour.gallery.hero, alt: tour.gallery.heroAlt }],
+      // og:image is supplied by the generated `opengraph-image.tsx` card.
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: tour.meta.title,
+      description: tour.meta.description,
     },
   };
 }
@@ -82,7 +87,9 @@ function buildTourJsonLd(tour: Tour) {
         name: tour.meta.title,
         description: tour.meta.description,
         url: `${BASE_URL}/tours/${tour.slug}`,
-        image: `${BASE_URL}${tour.gallery.hero}`,
+        image: tour.gallery.hero.startsWith("http")
+          ? tour.gallery.hero
+          : `${BASE_URL}${tour.gallery.hero}`,
         provider: { "@id": `${BASE_URL}/#organization` },
         ...(durationFact ? { duration: durationFact.values[0] } : {}),
         ...(routeFact ? { itinerary: { "@type": "ItemList", name: routeFact.values[0] } } : {}),

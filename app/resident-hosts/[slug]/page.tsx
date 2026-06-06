@@ -20,6 +20,8 @@ export async function generateStaticParams() {
   return (await getAllHostSlugs()).map((slug) => ({ slug }));
 }
 
+const BASE_URL = "https://www.imheretravels.com";
+
 export async function generateMetadata({
   params,
 }: {
@@ -28,9 +30,23 @@ export async function generateMetadata({
   const { slug } = await params;
   const host = await getHostBySlug(slug);
   if (!host) return {};
+  const url = `${BASE_URL}/resident-hosts/${host.slug}`;
   return {
     title: host.meta.title,
     description: host.meta.description,
+    alternates: { canonical: url },
+    openGraph: {
+      title: host.meta.title,
+      description: host.meta.description,
+      type: "profile",
+      url,
+      // og:image is supplied by the generated `opengraph-image.tsx` card.
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: host.meta.title,
+      description: host.meta.description,
+    },
   };
 }
 
