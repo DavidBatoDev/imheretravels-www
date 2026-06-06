@@ -4,7 +4,7 @@ import Footer from "@/app/components/global/Footer";
 import ShareButton from "./_components/ShareButton";
 export const revalidate = 3600; // Re-fetch from Firestore at most once per hour
 
-import { getAllTourSlugs, getTourBySlug, isHostedTour } from "@/lib/tours-firestore";
+import { getAllTourSlugs, getTourBySlug, getHostedTourSlugs } from "@/lib/tours-firestore";
 import type { Tour } from "@/types/tour";
 import AutoFitText from "./_components/AutoFitText";
 import Breadcrumbs from "./_components/Breadcrumbs";
@@ -117,6 +117,8 @@ export default async function TourDetailPage({ params }: { params: Params }) {
   const tour = await getTourBySlug(slug);
   if (!tour) notFound();
 
+  const hostedSlugs = new Set(await getHostedTourSlugs());
+
   const instagramHref = "https://www.instagram.com/imheretravels";
   const fallbackCommunityImages = tour.gallery.thumbnails
     .map((thumb) => ({ src: thumb.src, alt: thumb.alt, href: instagramHref }))
@@ -138,7 +140,7 @@ export default async function TourDetailPage({ params }: { params: Params }) {
         <Breadcrumbs
           tourName={tour.name}
           parent={
-            isHostedTour(tour.slug)
+            hostedSlugs.has(tour.slug)
               ? { label: "Hosted Tours", href: "/hosted-tours" }
               : undefined
           }

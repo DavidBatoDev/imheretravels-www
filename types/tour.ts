@@ -174,6 +174,8 @@ export interface Tour {
   community?: { heading: string; images: TourCommunityImage[] };
   /** When true the tour page shows a Coming Soon screen instead of full content */
   comingSoon?: boolean;
+  /** When true the tour is a hosted tour (shown under /hosted-tours, excluded from /tours) */
+  isHosted?: boolean;
 
   listingCard: {
     duration: string;

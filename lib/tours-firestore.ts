@@ -48,15 +48,6 @@ const CURRENCY_SYMBOL: Record<string, string> = {
   PHP: "₱",
 };
 
-/** Slugs for tours led by resident hosts (shown on /hosted-tours). */
-export const HOSTED_TOUR_SLUGS = [
-  "india-holi-festival-tour",
-  "danielleerintanzania",
-  "philippine-sunset-with-jess",
-  "philippine-sunset-with-roxana",
-];
-
-
 // ─── Firestore document shape (raw) ─────────────────────────────────────────
 // We use `any` / unknown here because Firestore documents arrive untyped.
 
@@ -334,6 +325,7 @@ function toTour(raw: RawDoc): Tour {
     name: raw.name ?? "",
     bookingSlug: raw.bookingSlug,
     comingSoon: raw.comingSoon ?? false,
+    isHosted: raw.isHosted === true,
     meta: { title: seoTitle, description: seoDescription },
     gallery: {
       hero: heroImage,
@@ -441,13 +433,38 @@ export async function getAllTourSlugs(): Promise<string[]> {
   return tours.map((t) => t.slug);
 }
 
+/**
+ * Hosted tours are defined by the tour's own `isHosted` flag on the tourPackages
+ * doc — independent of resident-host attachment (a tour can be hosted without a
+ * resident host, e.g. Tanzania with Danielle & Erin).
+ */
 export async function getHostedTours(): Promise<Tour[]> {
   const tours = await fetchAllActiveTours();
-  return HOSTED_TOUR_SLUGS.map((s) => tours.find((t) => t.slug === s)).filter(
-    (t): t is Tour => t !== undefined,
-  );
+  return tours.filter((t) => t.isHosted);
 }
 
-export function isHostedTour(slug: string): boolean {
-  return HOSTED_TOUR_SLUGS.includes(slug);
+export async function getHostedTourSlugs(): Promise<string[]> {
+  return (await getHostedTours()).map((t) => t.slug);
+}
+
+/**
+ * Map of active tour doc ID → current slug. Lets callers that hold a tour ID
+ * (e.g. a resident host's upcoming-trip link) resolve the live slug, so links
+ * never go stale when a tour is renamed. Cached per build/request.
+ */
+const fetchActiveTourSlugById = cache(async (): Promise<Record<string, string>> => {
+  const snap = await adminDb
+    .collection(TOURS_COLLECTION)
+    .where("status", "==", "active")
+    .get();
+  const map: Record<string, string> = {};
+  snap.docs.forEach((d) => {
+    const slug = (d.data() as RawDoc).slug;
+    if (typeof slug === "string" && slug) map[d.id] = slug;
+  });
+  return map;
+});
+
+export async function getActiveTourSlugById(): Promise<Record<string, string>> {
+  return fetchActiveTourSlugById();
 }
