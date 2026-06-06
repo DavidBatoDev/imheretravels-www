@@ -133,9 +133,9 @@ function toTour(raw: RawDoc): Tour {
     .map(formatDateRange)
     .filter(Boolean)
     .slice(0, 3);
-  if (dateValues.length) {
-    keyFacts.push({ icon: "days", label: "Tour Dates", values: dateValues });
-  }
+  // Always surface "Tour Dates" — when there are no available dates, KeyFacts
+  // renders "To be announced" (mirrors the admin tour form's derived row).
+  keyFacts.push({ icon: "days", label: "Tour Dates", values: dateValues });
   // Use stored keyFacts (admin-edited) when available; fall back to derived
   if (Array.isArray(details.keyFacts) && details.keyFacts.length > 0) {
     keyFacts.push(...details.keyFacts);
