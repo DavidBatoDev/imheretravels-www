@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllTourSlugs } from "@/lib/tours-firestore";
+import { getAllHostSlugs } from "@/lib/resident-hosts-firestore";
 import { getAllDestinationSlugs } from "@/data/destinations";
 
 const BASE_URL = "https://www.imheretravels.com";
@@ -26,6 +27,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/hosted-tours`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/resident-hosts`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.7,
     },
     {
       url: `${BASE_URL}/about-us`,
@@ -114,5 +127,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  return [...staticPages, ...destinationPages, ...tourPages];
+  /* ── Resident host pages ──────────────────────────────────────────────── */
+  const hostSlugs = await getAllHostSlugs();
+  const hostPages: MetadataRoute.Sitemap = hostSlugs.map((slug) => ({
+    url: `${BASE_URL}/resident-hosts/${slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...destinationPages, ...tourPages, ...hostPages];
 }
