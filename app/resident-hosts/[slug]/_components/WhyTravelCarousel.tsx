@@ -3,7 +3,13 @@
 import { useRef } from "react";
 import { devWhyTravelNotes } from "@/data/travelWithDev";
 
-export default function WhyTravelCarousel({ points }: { points: string[] }) {
+export default function WhyTravelCarousel({
+  points,
+  notes,
+}: {
+  points: string[];
+  notes?: string[];
+}) {
   const trackRef = useRef<HTMLDivElement>(null);
 
   const pause  = () => { if (trackRef.current) trackRef.current.style.animationPlayState = "paused";  };
@@ -35,7 +41,7 @@ export default function WhyTravelCarousel({ points }: { points: string[] }) {
                 {point}
               </h3>
               <p className="font-body text-b4-desktop text-dark-gray">
-                {devWhyTravelNotes[idx] ?? ""}
+                {notes?.[idx] ?? devWhyTravelNotes[idx] ?? ""}
               </p>
             </div>
           );

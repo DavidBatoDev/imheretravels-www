@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Tour } from "@/types/tour";
 
-export default function TourCard({ tour }: { tour: Tour }) {
+export default function TourCard({ tour, priority = false }: { tour: Tour; priority?: boolean }) {
   return (
     <li className="group overflow-hidden rounded-lg bg-white shadow-small transition-shadow hover:shadow-medium">
       <Link href={`/tours/${tour.slug}`} className="flex h-full flex-col">
@@ -11,6 +11,7 @@ export default function TourCard({ tour }: { tour: Tour }) {
             src={tour.listingCard.image}
             alt={tour.listingCard.imageAlt}
             fill
+            priority={priority}
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />

@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/app/components/global/Header";
+import { getAllTours, getHostedTours } from "@/lib/tours-firestore";
+import { getAllHosts } from "@/lib/resident-hosts-firestore";
 
 const BASE_URL = "https://www.imheretravels.com";
+
+// Refresh the Firebase-driven nav at most once per hour (matches tour pages).
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -157,11 +162,38 @@ const jsonLd = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [tours, hostedTours, hosts] = await Promise.all([
+    getAllTours(),
+    getHostedTours(),
+    getAllHosts(),
+  ]);
+
+  const byName = (a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name);
+  const hostedSlugs = new Set(hostedTours.map((t) => t.slug));
+
+  // Tours dropdown lists only non-hosted active tours; hosted ones live under
+  // their own dropdown (both driven by residentHost.attachedTourIds).
+  const tourLinks = tours
+    .filter((t) => !hostedSlugs.has(t.slug))
+    .slice()
+    .sort(byName)
+    .map((t) => ({ label: t.name, href: `/tours/${t.slug}` }));
+
+  const hostedTourLinks = hostedTours
+    .slice()
+    .sort(byName)
+    .map((t) => ({ label: t.name, href: `/tours/${t.slug}` }));
+
+  const hostLinks = hosts
+    .slice()
+    .sort((a, b) => a.displayName.localeCompare(b.displayName))
+    .map((h) => ({ label: h.pageTitle, href: `/resident-hosts/${h.slug}` }));
+
   return (
     <html lang="en" className="antialiased">
       <head>
@@ -171,7 +203,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col">
-        <Header />
+        <Header tourLinks={tourLinks} hostedTourLinks={hostedTourLinks} hostLinks={hostLinks} />
         {children}
       </body>
     </html>

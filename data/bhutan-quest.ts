@@ -65,7 +65,7 @@ export const bhutanQuest: Tour = {
     { icon: "days", label: "Duration", values: ["7 Days and 6 Nights"] },
     {
       icon: "route",
-      label: "Route",
+      label: "Destination",
       values: ["Punakha → Gangtey → Thimphu → Paro"],
     },
     { icon: "people", label: "Group Size", values: ["Maximum 20 people"] },

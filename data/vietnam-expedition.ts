@@ -58,7 +58,7 @@ export const vietnamExpedition: Tour = {
     },
     {
       icon: "route",
-      label: "Route",
+      label: "Destination",
       values: ["Hanoi → Ninh Binh → Hue → Hoi An → Da Nang"],
     },
     {

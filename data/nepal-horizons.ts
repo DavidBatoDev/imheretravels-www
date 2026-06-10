@@ -40,7 +40,7 @@ export const nepalHorizons: Tour = {
     { icon: "days", label: "Tour Dates", values: ["March 15, 2027"] },
     {
       icon: "route",
-      label: "Route",
+      label: "Destination",
       values: ["Kathmandu → Chitwan → Bandipur → Pokhara"],
     },
     { icon: "days", label: "Days", values: ["9 Days and 8 Nights"] },

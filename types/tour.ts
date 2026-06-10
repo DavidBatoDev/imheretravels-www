@@ -87,6 +87,15 @@ export interface TourTip {
   description: string;
 }
 
+export interface TourReview {
+  rating: number; // 1–5 stars
+  date: string; // Display string, e.g. "May 2023"
+  body: string;
+  reviewerName: string;
+  reviewerLocation: string;
+  reviewerAvatar?: string; // Optional URL / storage path
+}
+
 export interface TourRelated {
   slug: string;
   image: string;
@@ -125,6 +134,8 @@ export interface TourBookingCard {
   // Deposit amount shown in the reservation notice below the CTA
   // (e.g. "£300"). Omit to hide the notice.
   depositAmount?: string;
+  // Full deposit note text. Defaults to "Reserve for {depositAmount} — deducted from total fees. Non-refundable."
+  depositNote?: string;
   ctaLabel: string;
   ctaHref: string;
   footnote: string;
@@ -143,7 +154,6 @@ export interface Tour {
   gallery: {
     hero: string;
     heroAlt: string;
-    showHeroInGallery?: boolean;
     thumbnails: { src: string; alt: string }[];
   };
   header: {
@@ -168,11 +178,16 @@ export interface Tour {
   faqs?: { heading: string; items: TourFaq[] };
   thingsToKnow?: { heading: string; items: TourThingToKnow[] };
   tips?: { heading: string; items: TourTip[] };
+  // Per-tour reviews (admin-edited). When absent/empty, the tour page falls
+  // back to generic placeholder testimonials.
+  reviews?: TourReview[];
   booking: TourBookingCard;
   relatedTours?: { heading: string; items: TourRelated[] };
   community?: { heading: string; images: TourCommunityImage[] };
   /** When true the tour page shows a Coming Soon screen instead of full content */
   comingSoon?: boolean;
+  /** When true the tour is a hosted tour (shown under /hosted-tours, excluded from /tours) */
+  isHosted?: boolean;
 
   listingCard: {
     duration: string;

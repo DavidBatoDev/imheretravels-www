@@ -68,7 +68,7 @@ export const newZealandExpedition: Tour = {
     { icon: "days", label: "Tour Dates", values: ["To be announced ..."] },
     {
       icon: "route",
-      label: "Route",
+      label: "Destination",
       values: [
         "North: Auckland → Raglan → Waitomo → Rotorua → Wellington",
         "South: Christchurch → Franz Josef → Queenstown → Milford Sound",

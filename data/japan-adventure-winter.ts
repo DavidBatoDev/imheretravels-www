@@ -37,7 +37,7 @@ export const japanAdventureWinter: Tour = {
     { icon: "days", label: "Duration", values: ["10 Days and 9 Nights"] },
     {
       icon: "route",
-      label: "Route",
+      label: "Destination",
       values: ["Tokyo → Nagano"],
     },
     { icon: "people", label: "Group Size", values: ["Maximum 20 people"] },

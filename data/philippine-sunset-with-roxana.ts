@@ -70,7 +70,7 @@ export const philippineSunsetWithRoxana: Tour = {
     },
     {
       icon: "route",
-      label: "Route",
+      label: "Destination",
       values: ["Manila → Port Barton → El Nido → Isla Darocotan"],
     },
     {

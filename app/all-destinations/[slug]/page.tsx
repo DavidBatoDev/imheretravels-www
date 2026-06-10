@@ -13,7 +13,8 @@ import {
   type DestinationQuickFact,
   type Destination,
 } from "@/data/destinations";
-import { getTourBySlug } from "@/data/tours";
+import { getTourBySlug } from "@/lib/tours-firestore";
+import type { Tour } from "@/types/tour";
 
 const BASE_URL = "https://www.imheretravels.com";
 
@@ -135,9 +136,9 @@ export default async function DestinationPage({
   const destination = getDestinationBySlug(slug);
   if (!destination) notFound();
 
-  const tours = destination.tourSlugs
-    .map((s) => getTourBySlug(s))
-    .filter(Boolean) as NonNullable<ReturnType<typeof getTourBySlug>>[];
+  const tours = (
+    await Promise.all(destination.tourSlugs.map((s) => getTourBySlug(s)))
+  ).filter((t): t is Tour => t !== undefined);
 
   // Derive highlights by merging tripHighlights from every related tour.
   // Falls back to destination.highlights (manual override) if no tour highlights exist.

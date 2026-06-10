@@ -68,7 +68,9 @@ import {
 export type HostTrip = {
   name: string;
   dates: string;
-  /** If set, the trip card links to /tours/[tourSlug] */
+  /** tourPackages doc ID the card links to; resolved to the live slug on www */
+  tourId?: string;
+  /** Slug fallback used when tourId is unset or can't be resolved */
   tourSlug?: string;
   image?: string;
   imageAlt?: string;
@@ -92,6 +94,8 @@ export type Host = {
   intro: string[];
   upcomingTrips: HostTrip[];
   whyTravel: string[];
+  /** Supporting note per whyTravel point (parallel array). */
+  whyTravelNotes?: string[];
   howItWorks: string[];
   /** Empty until host provides real photos — gallery renders placeholders */
   galleryImages: { src: string; alt: string }[];

@@ -1,5 +1,7 @@
+export const revalidate = 3600;
+
 import Footer from "@/app/components/global/Footer";
-import { getHostedTours } from "@/data/tours";
+import { getHostedTours } from "@/lib/tours-firestore";
 import TourCard from "@/app/tours/_components/TourCard";
 
 const BASE_URL = "https://www.imheretravels.com";
@@ -13,8 +15,8 @@ export const metadata = {
   },
 };
 
-export default function HostedToursPage() {
-  const tours = getHostedTours();
+export default async function HostedToursPage() {
+  const tours = await getHostedTours();
 
   return (
     <>
@@ -29,8 +31,8 @@ export default function HostedToursPage() {
           </p>
 
           <ul className="mt-10 grid grid-cols-1 gap-6 md:mt-14 md:grid-cols-2 lg:grid-cols-3">
-            {tours.map((tour) => (
-              <TourCard key={tour.slug} tour={tour} />
+            {tours.map((tour, i) => (
+              <TourCard key={tour.slug} tour={tour} priority={i < 3} />
             ))}
           </ul>
         </section>

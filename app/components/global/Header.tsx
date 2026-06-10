@@ -3,54 +3,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 
-const navItems = [
-  {
-    label: "Tours",
-    href: "/tours",
-    dropdown: [
-      { label: "All Tours", href: "/tours" },
-      { label: "Argentina's Wonders", href: "/tours/argentinas-wonders" },
-      { label: "Bhutan Quest", href: "/tours/bhutan-quest" },
-      { label: "Brazil's Treasures", href: "/tours/brazils-treasures" },
-      { label: "China Discovery", href: "/tours/china-discovery" },
-      { label: "India Discovery", href: "/tours/india-discovery-tour" },
-      { label: "Japan Summer Adventure", href: "/tours/japan-adventure" },
-      { label: "Japan Adventure (Winter)", href: "/tours/japan-adventure-winter" },
-      { label: "Maldives Bucketlist", href: "/tours/maldives-bucketlist" },
-      { label: "Nepal Horizons", href: "/tours/nepal-horizons" },
-      {
-        label: "New Zealand Expedition",
-        href: "/tours/new-zealand-expedition",
-      },
-      { label: "Philippines Sunrise", href: "/tours/philippine-sunrise" },
-      { label: "Philippines Sunset", href: "/tours/philippine-sunset" },
-      { label: "Sri Lanka Wander", href: "/tours/sri-langka-wander-tour" },
-      { label: "Tanzania Exploration", href: "/tours/tanzania-exploration" },
-      { label: "Vietnam Expedition", href: "/tours/vietnam-expedition" },
-    ],
-  },
-  {
-    label: "Hosted Tours",
-    href: "/hosted-tours",
-    dropdown: [
-      { label: "India Holi + Yoga with Dev", href: "/tours/india-holi-festival-tour" },
-      {
-        label: "Tanzania Exploration (Danielle & Erin)",
-        href: "/tours/danielleerintanzania",
-      },
-      {
-        label: "Philippines Sunset with Jess",
-        href: "/tours/philippine-sunset-with-jess",
-      },
-      {
-        label: "Philippines Sunset with Roxana",
-        href: "/tours/philippine-sunset-with-roxana",
-      },
-    ],
-  },
+type NavLink = { label: string; href: string };
+type NavItem = { label: string; href: string; dropdown?: NavLink[] };
+
+// Nav entries that are NOT built from Firebase. "Tours", "Hosted Tours" and
+// "Resident Hosts" are injected dynamically in the component (see navItems).
+const STATIC_NAV_ITEMS: NavItem[] = [
   {
     label: "Destinations",
     href: "/all-destinations",
@@ -71,15 +32,6 @@ const navItems = [
       { label: "Brazil", href: "/all-destinations/brazil" },
     ],
   },
-  {
-    label: "Resident Hosts",
-    href: "/resident-hosts",
-    dropdown: [
-      { label: "Travel with Dev", href: "/resident-hosts/dev" },
-      { label: "Travel with Jess", href: "/resident-hosts/jess" },
-      { label: "Travel with Roxana", href: "/resident-hosts/roxana" },
-    ],
-  },
   { label: "About Us", href: "/about-us" },
   {
     label: "Travel Info",
@@ -93,11 +45,6 @@ const navItems = [
     ],
   },
 ];
-
-const hostedTourDetailPaths =
-  navItems
-    .find((item) => item.href === "/hosted-tours")
-    ?.dropdown?.map((child) => child.href) ?? [];
 
 function ChevronDown({ className = "" }: { className?: string }) {
   return (
@@ -150,7 +97,37 @@ function MenuIcon({ open }: { open: boolean }) {
   );
 }
 
-export default function Header() {
+export default function Header({
+  tourLinks = [],
+  hostedTourLinks = [],
+  hostLinks = [],
+}: {
+  tourLinks?: NavLink[];
+  hostedTourLinks?: NavLink[];
+  hostLinks?: NavLink[];
+}) {
+  const navItems = useMemo<NavItem[]>(() => {
+    const destinations = STATIC_NAV_ITEMS.find((i) => i.href === "/all-destinations");
+    const trailing = STATIC_NAV_ITEMS.filter((i) => i.href !== "/all-destinations");
+    return [
+      {
+        label: "Tours",
+        href: "/tours",
+        dropdown: [{ label: "All Tours", href: "/tours" }, ...tourLinks],
+      },
+      { label: "Hosted Tours", href: "/hosted-tours", dropdown: hostedTourLinks },
+      ...(destinations ? [destinations] : []),
+      { label: "Resident Hosts", href: "/resident-hosts", dropdown: hostLinks },
+      ...trailing,
+    ];
+  }, [tourLinks, hostedTourLinks, hostLinks]);
+
+  // Paths of hosted-tour detail pages — drives active-state of the parent nav.
+  const hostedTourDetailPaths = useMemo(
+    () => hostedTourLinks.map((l) => l.href),
+    [hostedTourLinks],
+  );
+
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);

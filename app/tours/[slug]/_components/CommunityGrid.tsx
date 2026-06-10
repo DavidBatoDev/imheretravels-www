@@ -55,7 +55,7 @@ export default function CommunityGrid({
               target="_blank"
               rel="noopener noreferrer"
               aria-label={img.alt}
-              className="group block h-full w-full"
+              className="group relative block h-full w-full"
             >
               <Image
                 src={img.src}

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import Footer from "@/app/components/global/Footer";
 import Reveal from "@/app/components/global/Reveal";
 import { getAllDestinations } from "@/data/destinations";
-import { getAllTours } from "@/data/tours";
+import { getAllTours } from "@/lib/tours-firestore";
 
 export const metadata: Metadata = {
   title: "All Destinations — I'm Here Travels",
@@ -18,9 +18,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AllDestinationsPage() {
+export default async function AllDestinationsPage() {
   const destinations = getAllDestinations();
-  const featuredTours = getAllTours().slice(0, 6);
+  const featuredTours = (await getAllTours()).slice(0, 6);
 
   return (
     <>

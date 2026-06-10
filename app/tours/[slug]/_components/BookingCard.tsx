@@ -118,10 +118,10 @@ export default function BookingCard({
             {booking.ctaLabel}
           </Link>
         )}
-        {booking.depositAmount && (
+        {(booking.depositNote || booking.depositAmount) && (
           <p className="mt-4 text-center font-body text-b4-mobile text-dark-gray">
-            Reserve for {booking.depositAmount} — deducted from total fees.
-            Non-refundable.
+            {booking.depositNote ??
+              `Reserve for ${booking.depositAmount} — deducted from total fees. Non-refundable.`}
           </p>
         )}
         {booking.footnote && (

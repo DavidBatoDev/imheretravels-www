@@ -15,12 +15,7 @@ import "swiper/css/thumbs";
 export default function TourGallery({ gallery }: { gallery: Tour["gallery"] }) {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const mainSwiperRef = useRef<SwiperType | null>(null);
-  const slides = [
-    ...(gallery.showHeroInGallery === false
-      ? []
-      : [{ src: gallery.hero, alt: gallery.heroAlt }]),
-    ...gallery.thumbnails,
-  ];
+  const slides = gallery.thumbnails;
 
   return (
     <section className="w-full">
