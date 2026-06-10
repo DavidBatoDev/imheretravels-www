@@ -279,7 +279,7 @@ export default async function TourDetailPage({ params }: { params: Params }) {
         </div>
 
         <Reveal y={24}>
-          <Testimonials />
+          <Testimonials reviews={tour.reviews} />
         </Reveal>
         {tour.relatedTours?.heading && (
           <Reveal y={24}>

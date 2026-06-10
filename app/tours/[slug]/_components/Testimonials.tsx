@@ -1,10 +1,19 @@
 import Image from "next/image";
+import type { TourReview } from "@/types/tour";
 
-// Static testimonials shared across every tour detail page.
-// Edit this list directly — there's no per-tour override.
 const HEADING = "What people say about us";
 
-const ITEMS = [
+type DisplayReview = {
+  rating: number;
+  date: string;
+  body: string;
+  avatar?: string;
+  author: string;
+  location: string;
+};
+
+// Generic fallback testimonials, shown when a tour has no reviews of its own.
+const PLACEHOLDERS: DisplayReview[] = [
   {
     rating: 5,
     date: "May 2023",
@@ -46,16 +55,29 @@ function Stars({ count }: { count: number }) {
   );
 }
 
-export default function Testimonials() {
+export default function Testimonials({ reviews }: { reviews?: TourReview[] }) {
+  // Use the tour's own reviews when present; otherwise the generic placeholders.
+  const items: DisplayReview[] =
+    reviews && reviews.length > 0
+      ? reviews.map((r) => ({
+          rating: r.rating,
+          date: r.date,
+          body: r.body,
+          avatar: r.reviewerAvatar,
+          author: r.reviewerName,
+          location: r.reviewerLocation,
+        }))
+      : PLACEHOLDERS;
+
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-10 md:px-8 md:py-14">
       <h2 className="font-sans text-h3-mobile md:text-h3-desktop text-midnight">
         {HEADING}
       </h2>
       <ul className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {ITEMS.map((t) => (
+        {items.map((t, i) => (
           <li
-            key={t.author}
+            key={i}
             className="flex flex-col gap-6 rounded-lg bg-white p-8 shadow-small md:p-10"
           >
             <div className="flex items-center justify-between">
@@ -68,15 +90,21 @@ export default function Testimonials() {
               {t.body}
             </p>
             <div className="mt-auto flex items-center gap-4 pt-2">
-              <div className="relative size-14 shrink-0 overflow-hidden rounded-full bg-light-grey">
-                <Image
-                  src={t.avatar}
-                  alt=""
-                  fill
-                  sizes="56px"
-                  className="object-cover"
-                />
-              </div>
+              {t.avatar ? (
+                <div className="relative size-14 shrink-0 overflow-hidden rounded-full bg-light-grey">
+                  <Image
+                    src={t.avatar}
+                    alt=""
+                    fill
+                    sizes="56px"
+                    className="object-cover"
+                  />
+                </div>
+              ) : (
+                <div className="flex size-14 shrink-0 items-center justify-center rounded-full bg-light-grey font-sans text-h6-desktop font-bold text-midnight">
+                  {t.author.charAt(0).toUpperCase()}
+                </div>
+              )}
               <div>
                 <p className="font-sans text-h6-mobile md:text-h6-desktop font-bold text-midnight">
                   {t.author}
