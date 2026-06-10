@@ -1,12 +1,48 @@
+import type { ReactNode } from "react";
 import type { Tour } from "@/types/tour";
 import Icon from "./Icon";
 
 function toBulletItems(value: string): string[] {
   return value
-    .split(/\r?\n|\u2022/g)
+    .split(/\r?\n|•/g)
     .flatMap((part) => part.split(/\s*,\s*/g))
     .map((part) => part.trim().replace(/^[-*]\s+/, ""))
     .filter(Boolean);
+}
+
+// Mirrors the admin editor's inline rendering: arrays and "known list" labels
+// (Activities / Others / Transport) become full bullet lists, while any other
+// field honours per-line "- " prefixes — so bullets formatted in admin show as
+// bullets on www instead of collapsing into one run-on paragraph.
+type Line = { text: string; bullet: boolean };
+
+function toLines(label: string, value: string | string[]): Line[] {
+  const forceBullets = /activities|others?|transport/i.test(label);
+
+  if (Array.isArray(value)) {
+    // Arrays are inherently list items (e.g. "Others"); split each entry too in
+    // case a single string packs several comma/newline-separated values.
+    return value
+      .flatMap((v) => (forceBullets ? toBulletItems(v) : [v]))
+      .map((text) => text.trim())
+      .filter(Boolean)
+      .map((text) => ({ text, bullet: true }));
+  }
+
+  if (forceBullets) {
+    return toBulletItems(value).map((text) => ({ text, bullet: true }));
+  }
+
+  // Free-text field: each line is a bullet only when written with a "- " prefix.
+  return value
+    .split(/\r?\n/)
+    .map((line) => line.trimEnd())
+    .filter(Boolean)
+    .map((line) => {
+      const trimmed = line.trimStart();
+      const bullet = trimmed.startsWith("- ");
+      return { text: bullet ? trimmed.replace(/^-\s+/, "") : line, bullet };
+    });
 }
 
 function includedOrder(label: string): number {
@@ -26,6 +62,8 @@ function includedOrder(label: string): number {
 function getDisplayLabel(label: string): string {
   return /^stay$/i.test(label.trim()) ? "Accomodation" : label;
 }
+
+const TEXT_CLASS = "font-body text-b4-mobile md:text-b4-desktop text-dark-gray";
 
 export default function WhatsIncluded({
   section,
@@ -47,41 +85,18 @@ export default function WhatsIncluded({
       </h2>
       <ul className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
         {orderedItems.map((item) => {
-          const useBullets = /activities|others?|transport/i.test(item.label);
-          const bulletItems = useBullets
-            ? Array.isArray(item.value)
-              ? item.value.flatMap(toBulletItems)
-              : toBulletItems(item.value)
-            : [];
-          const textValue = Array.isArray(item.value)
-            ? item.value.join(", ")
-            : item.value;
+          const lines = toLines(item.label, item.value);
 
           return (
             <li key={item.label} className="flex items-start gap-4">
               <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-light-grey text-midnight">
                 <Icon name={item.icon} className="size-5" />
               </span>
-              <div>
+              <div className="space-y-1">
                 <p className="font-sans text-b2-desktop font-bold text-midnight">
                   {getDisplayLabel(item.label)}
                 </p>
-                {useBullets ? (
-                  <ul className="mt-1 list-disc space-y-1 pl-4 marker:text-dark-gray">
-                    {bulletItems.map((v, index) => (
-                      <li
-                        key={`${item.label}-${index}-${v}`}
-                        className="font-body text-b4-mobile md:text-b4-desktop text-dark-gray"
-                      >
-                        {v}
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className="mt-1 font-body text-b4-mobile md:text-b4-desktop text-dark-gray">
-                    {textValue}
-                  </p>
-                )}
+                {renderLines(item.label, lines)}
               </div>
             </li>
           );
@@ -89,4 +104,41 @@ export default function WhatsIncluded({
       </ul>
     </section>
   );
+}
+
+// Groups consecutive bullet lines into a single <ul> and renders plain lines as
+// <p>, preserving the order the content was written in.
+function renderLines(label: string, lines: Line[]) {
+  const blocks: ReactNode[] = [];
+  let bulletBuffer: string[] = [];
+
+  const flushBullets = (key: string) => {
+    if (!bulletBuffer.length) return;
+    blocks.push(
+      <ul key={key} className="list-disc space-y-1 pl-4 marker:text-dark-gray">
+        {bulletBuffer.map((text, i) => (
+          <li key={`${key}-${i}-${text}`} className={TEXT_CLASS}>
+            {text}
+          </li>
+        ))}
+      </ul>,
+    );
+    bulletBuffer = [];
+  };
+
+  lines.forEach((line, i) => {
+    if (line.bullet) {
+      bulletBuffer.push(line.text);
+      return;
+    }
+    flushBullets(`${label}-ul-${i}`);
+    blocks.push(
+      <p key={`${label}-p-${i}`} className={TEXT_CLASS}>
+        {line.text}
+      </p>,
+    );
+  });
+  flushBullets(`${label}-ul-end`);
+
+  return blocks;
 }
