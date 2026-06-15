@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import Footer from "@/app/components/global/Footer";
 import ShareButton from "./_components/ShareButton";
 export const revalidate = 3600; // Re-fetch from Firestore at most once per hour
 
-import { getAllTourSlugs, getTourBySlug, getHostedTourSlugs } from "@/lib/tours-firestore";
+import { getAllTourSlugs, getTourBySlug, getHostedTourSlugs, getCurrentSlugForPreviousSlug } from "@/lib/tours-firestore";
 import type { Tour } from "@/types/tour";
 import AutoFitText from "./_components/AutoFitText";
 import Breadcrumbs from "./_components/Breadcrumbs";
@@ -122,7 +122,13 @@ function buildTourJsonLd(tour: Tour) {
 export default async function TourDetailPage({ params }: { params: Params }) {
   const { slug } = await params;
   const tour = await getTourBySlug(slug);
-  if (!tour) notFound();
+  if (!tour) {
+    // A stale slug may have been renamed — redirect to the current page if one
+    // of the active tours lists it as a (redirect-enabled) previous slug.
+    const current = await getCurrentSlugForPreviousSlug(slug);
+    if (current && current !== slug) permanentRedirect(`/tours/${current}`);
+    notFound();
+  }
 
   const hostedSlugs = new Set(await getHostedTourSlugs());
 

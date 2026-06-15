@@ -512,3 +512,38 @@ const fetchActiveTourSlugById = cache(async (): Promise<Record<string, string>> 
 export async function getActiveTourSlugById(): Promise<Record<string, string>> {
   return fetchActiveTourSlugById();
 }
+
+/**
+ * Map of old slug → current slug, built from each active tour's `previousSlugs`.
+ * Lets a stale `/tours/{oldSlug}` URL permanently redirect to the live page.
+ * Only entries whose `redirect` toggle is on (default on if missing) are mapped,
+ * so an admin can keep an old slug recorded without redirecting it. Cached per
+ * build/request.
+ */
+const fetchSlugByPreviousSlug = cache(async (): Promise<Record<string, string>> => {
+  const snap = await adminDb
+    .collection(TOURS_COLLECTION)
+    .where("status", "==", "active")
+    .get();
+  const map: Record<string, string> = {};
+  snap.docs.forEach((d) => {
+    const data = d.data() as RawDoc & {
+      previousSlugs?: Array<{ slug?: unknown; redirect?: unknown }>;
+    };
+    const cur = data.slug;
+    if (typeof cur !== "string" || !cur) return;
+    const prev = Array.isArray(data.previousSlugs) ? data.previousSlugs : [];
+    for (const p of prev) {
+      if (p && typeof p.slug === "string" && p.slug && p.redirect !== false) {
+        map[p.slug] = cur;
+      }
+    }
+  });
+  return map;
+});
+
+export async function getCurrentSlugForPreviousSlug(
+  slug: string,
+): Promise<string | undefined> {
+  return (await fetchSlugByPreviousSlug())[slug];
+}
