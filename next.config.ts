@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
+import { fileURLToPath } from "node:url";
 import { getAllTourSlugs } from "./data/tours";
 
 const nextConfig: NextConfig = {
+  // Pin the workspace root so Next.js doesn't infer it from the stray
+  // lockfile at C:\Users\August\Desktop\Code\package-lock.json.
+  turbopack: {
+    root: fileURLToPath(new URL(".", import.meta.url)),
+  },
   images: {
     unoptimized: true,
     remotePatterns: [

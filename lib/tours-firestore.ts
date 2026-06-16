@@ -98,6 +98,14 @@ function formatDateRange(td: RawDoc): string | null {
   return `${fmt.format(start)} – ${fmt.format(end)}`;
 }
 
+// ISO (YYYY-MM-DD, UTC) start date — matches the reservation form's `tourdate`
+// param format so a deep-linked date pre-selects correctly.
+function isoStartDate(td: RawDoc): string {
+  const start = td?.startDate?.toDate?.();
+  if (!start) return "";
+  return start.toISOString().slice(0, 10);
+}
+
 // ─── Transformer ─────────────────────────────────────────────────────────────
 
 function toTour(raw: RawDoc): Tour {
@@ -129,14 +137,36 @@ function toTour(raw: RawDoc): Tour {
   // ── Key Facts ─────────────────────────────────────────────────────────────
   const keyFacts: TourKeyFact[] = [];
 
-  const dateValues = (raw.travelDates ?? [])
+  // Each available date links to the reservation form with that tour + date
+  // pre-filled. Dated links use the `bookingSlug` override (the host's bookable
+  // catalog entry) when set, otherwise the tour's own slug. The admin persists
+  // blank inputs as "" (not undefined), so fall through with `||`, not `??`.
+  const dateLinkSlug =
+    (typeof raw.bookingSlug === "string" && raw.bookingSlug.trim()) ||
+    raw.slug ||
+    "";
+  const dateEntries = (raw.travelDates ?? [])
     .filter((d: RawDoc) => d.isAvailable !== false)
-    .map(formatDateRange)
+    .map((d: RawDoc) => {
+      const value = formatDateRange(d);
+      if (!value) return null;
+      const iso = isoStartDate(d);
+      const link =
+        iso && dateLinkSlug
+          ? `${RESERVATION_BOOKING_FORM_URL}?tour=${dateLinkSlug}&tourdate=${iso}`
+          : "";
+      return { value, link };
+    })
     .filter(Boolean)
-    .slice(0, 3);
+    .slice(0, 3) as { value: string; link: string }[];
   // Always surface "Tour Dates" — when there are no available dates, KeyFacts
   // renders "To be announced" (mirrors the admin tour form's derived row).
-  keyFacts.push({ icon: "days", label: "Tour Dates", values: dateValues });
+  keyFacts.push({
+    icon: "days",
+    label: "Tour Dates",
+    values: dateEntries.map((e) => e.value),
+    links: dateEntries.map((e) => e.link),
+  });
   // Use stored keyFacts (admin-edited) when available; fall back to derived
   if (Array.isArray(details.keyFacts) && details.keyFacts.length > 0) {
     keyFacts.push(...details.keyFacts);
@@ -320,9 +350,9 @@ function toTour(raw: RawDoc): Tour {
   const symbol = CURRENCY_SYMBOL[raw.pricing?.currency] ?? "";
   const deposit = raw.pricing?.deposit;
   // When no Stripe payment link is set, send the traveller to the in-house
-  // reservation booking form with this tour pre-selected (same convention as
-  // KeyFacts date links). `bookingSlug` overrides `slug` when they differ.
-  const reservationSlug = raw.bookingSlug ?? raw.slug ?? "";
+  // reservation booking form with this tour pre-selected by its own slug.
+  // (The booking-slug override only applies to the dated KeyFacts links.)
+  const reservationSlug = raw.slug ?? "";
   const reservationFallback = reservationSlug
     ? `${RESERVATION_BOOKING_FORM_URL}?tour=${reservationSlug}`
     : RESERVATION_BOOKING_FORM_URL;
