@@ -404,6 +404,33 @@ const ALL_DESTINATIONS: Destination[] = [
     ],
     tourSlugs: ["brazils-treasures"],
   },
+
+  /* ——— Greece ——————————————————————————————————————————————————————————— */
+  {
+    slug: "greece",
+    name: "Greece",
+    region: "Europe",
+    meta: {
+      title: "Greece Tours — I'm Here Travels",
+      description:
+        "Explore Greece with I'm Here Travels. From the ancient streets of Athens to the beaches of Mykonos and the sunsets of Santorini — discover our small-group Greece tour.",
+    },
+    heroImage:
+      "https://firebasestorage.googleapis.com/v0/b/imheretravels-a3f81.firebasestorage.app/o/images%2Ftours%2Fbest-of-greece-culture-coast-islands%2F1781084125708_greece-header-2-cropped.jpg?alt=media&token=69635e60-cbc1-47f2-a76d-ef3bd4c6ffb3",
+    heroImageAlt:
+      "Blue-domed bell tower above the caldera in Santorini, Greece",
+    description: [
+      "Greece is where ancient history meets island paradise — a country of sun-bleached ruins, whitewashed villages tumbling toward turquoise water, world-famous food, and some of the most iconic sunsets on earth. From the buzzing streets of Athens to the beaches of the Cyclades, Greece blends culture and coastline like nowhere else.",
+      "The Greece Highlights tour takes you from the Acropolis and the markets of Athens to a beach day in Mykonos and the clifftop villages and Oia sunset of Santorini — all with a group of new friends.",
+    ],
+    tourSlugs: ["greece-highlights"],
+    quickFacts: [
+      { icon: "currency", label: "Currency", value: "Euro" },
+      { icon: "beer", label: "Local Beer", value: "Mythos" },
+      { icon: "hello", label: "Say Hello", value: "Yassou" },
+      { icon: "dish", label: "Famous Dish", value: "Moussaka" },
+    ],
+  },
 ];
 
 /* -------------------------------------------------------------------------- */

@@ -30,6 +30,7 @@ const STATIC_NAV_ITEMS: NavItem[] = [
       { label: "New Zealand", href: "/all-destinations/new-zealand" },
       { label: "Argentina", href: "/all-destinations/argentina" },
       { label: "Brazil", href: "/all-destinations/brazil" },
+      { label: "Greece", href: "/all-destinations/greece" },
     ],
   },
   { label: "About Us", href: "/about-us" },
