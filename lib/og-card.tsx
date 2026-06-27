@@ -76,7 +76,11 @@ async function fetchImageDataUri(
   height: number,
 ): Promise<string | null> {
   try {
-    const res = await fetch(url);
+    // Hard timeout: a slow/unreachable cover must never hang the build. These
+    // cards are generated statically, and Vercel aborts any page that takes
+    // >60s — without this, one dead image URL stalls the whole export. On
+    // timeout we fall through to `null` → the gradient fallback panel.
+    const res = await fetch(url, { signal: AbortSignal.timeout(15_000) });
     if (!res.ok) return null;
     const input = Buffer.from(await res.arrayBuffer());
     const jpeg = await sharp(input)
