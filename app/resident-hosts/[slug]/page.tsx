@@ -6,7 +6,7 @@ import Footer from "@/app/components/global/Footer";
 import Reveal from "@/app/components/global/Reveal";
 import type { Host } from "@/data/hosts";
 import { getHostBySlug, getAllHostSlugs } from "@/lib/resident-hosts-firestore";
-import { getActiveTourSlugById, getArchivedTourIds } from "@/lib/tours-firestore";
+import { getActiveTourSlugById } from "@/lib/tours-firestore";
 import GallerySectionClient from "./_components/GallerySectionClient";
 import WhyTravelCarousel from "./_components/WhyTravelCarousel";
 
@@ -470,14 +470,22 @@ export default async function ResidentHostPage({
 
   // Resolve each trip's linked tour by ID → current slug so "View Tour" links
   // survive tour renames; fall back to the stored slug when there's no ID.
-  // Archived tours are hidden entirely — a trip linked to an archived tour is
-  // dropped from the page (TBA/Coming-Soon trips with no tourId are kept).
-  const [tourSlugById, archivedTourIds] = await Promise.all([
-    getActiveTourSlugById(),
-    getArchivedTourIds(),
-  ]);
+  //
+  // Visibility: a real trip card only shows while its linked tour is *active*.
+  // That means draft/scheduled tours (not yet published) and archived tours
+  // both drop off this page until they go live — a tour scheduled to publish
+  // later won't appear here until the publish time flips it to active.
+  // Coming-Soon / TBA placeholder cards (no duration, or comingSoon) always
+  // show; cards with no tour link at all are left untouched.
+  const tourSlugById = await getActiveTourSlugById();
+  const activeTourSlugs = new Set(Object.values(tourSlugById));
   const resolvedTrips = host.upcomingTrips
-    .filter((trip) => !(trip.tourId && archivedTourIds.has(trip.tourId)))
+    .filter((trip) => {
+      if (trip.comingSoon || !trip.duration) return true; // placeholder card
+      if (trip.tourId) return Boolean(tourSlugById[trip.tourId]); // linked by id
+      if (trip.tourSlug) return activeTourSlugs.has(trip.tourSlug); // linked by slug
+      return true; // no tour link — leave as-is
+    })
     .map((trip) => ({
       ...trip,
       tourSlug: trip.tourId ? tourSlugById[trip.tourId] ?? trip.tourSlug : trip.tourSlug,

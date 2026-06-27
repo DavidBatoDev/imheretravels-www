@@ -544,24 +544,6 @@ export async function getActiveTourSlugById(): Promise<Record<string, string>> {
 }
 
 /**
- * Set of tour doc IDs whose status is "archived". Used to hide a resident
- * host's upcoming-trip card when the linked tour has been archived in the admin
- * (so an archived tour disappears from the host page without editing the host).
- * Cached per build/request.
- */
-const fetchArchivedTourIds = cache(async (): Promise<Set<string>> => {
-  const snap = await adminDb
-    .collection(TOURS_COLLECTION)
-    .where("status", "==", "archived")
-    .get();
-  return new Set(snap.docs.map((d) => d.id));
-});
-
-export async function getArchivedTourIds(): Promise<Set<string>> {
-  return fetchArchivedTourIds();
-}
-
-/**
  * Map of old slug → current slug, built from each active tour's `previousSlugs`.
  * Lets a stale `/tours/{oldSlug}` URL permanently redirect to the live page.
  * Only entries whose `redirect` toggle is on (default on if missing) are mapped,
