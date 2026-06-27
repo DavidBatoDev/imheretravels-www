@@ -6,7 +6,7 @@ import Footer from "@/app/components/global/Footer";
 import Reveal from "@/app/components/global/Reveal";
 import type { Host } from "@/data/hosts";
 import { getHostBySlug, getAllHostSlugs } from "@/lib/resident-hosts-firestore";
-import { getActiveTourSlugById } from "@/lib/tours-firestore";
+import { getActiveTourSlugById, getArchivedTourIds } from "@/lib/tours-firestore";
 import GallerySectionClient from "./_components/GallerySectionClient";
 import WhyTravelCarousel from "./_components/WhyTravelCarousel";
 
@@ -470,11 +470,18 @@ export default async function ResidentHostPage({
 
   // Resolve each trip's linked tour by ID → current slug so "View Tour" links
   // survive tour renames; fall back to the stored slug when there's no ID.
-  const tourSlugById = await getActiveTourSlugById();
-  const resolvedTrips = host.upcomingTrips.map((trip) => ({
-    ...trip,
-    tourSlug: trip.tourId ? tourSlugById[trip.tourId] ?? trip.tourSlug : trip.tourSlug,
-  }));
+  // Archived tours are hidden entirely — a trip linked to an archived tour is
+  // dropped from the page (TBA/Coming-Soon trips with no tourId are kept).
+  const [tourSlugById, archivedTourIds] = await Promise.all([
+    getActiveTourSlugById(),
+    getArchivedTourIds(),
+  ]);
+  const resolvedTrips = host.upcomingTrips
+    .filter((trip) => !(trip.tourId && archivedTourIds.has(trip.tourId)))
+    .map((trip) => ({
+      ...trip,
+      tourSlug: trip.tourId ? tourSlugById[trip.tourId] ?? trip.tourSlug : trip.tourSlug,
+    }));
 
   return (
     <>
