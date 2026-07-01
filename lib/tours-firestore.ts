@@ -49,7 +49,7 @@ const RESERVATION_BOOKING_FORM_URL =
 const CURRENCY_SYMBOL: Record<string, string> = {
   GBP: "£",
   USD: "$",
-  EUR: "€",
+  EUR: "£",
   PHP: "₱",
 };
 

@@ -27,7 +27,7 @@ const force = process.argv.includes("--force");
 const SKIP_SLUGS = new Set(["philippine-sunrise"]);
 
 const FALLBACK_IMAGE = "/figma/tour-philippines-sunrise.png";
-const CURRENCY_SYMBOL = { GBP: "£", USD: "$", EUR: "€", PHP: "₱" };
+const CURRENCY_SYMBOL = { GBP: "£", USD: "$", EUR: "£", PHP: "₱" };
 
 // ─── helpers ───────────────────────────────────────────────────────────────
 
