@@ -93,6 +93,12 @@ export type Host = {
   /** Bio / intro paragraphs shown below the hero */
   intro: string[];
   upcomingTrips: HostTrip[];
+  /**
+   * tourPackages doc IDs attached to this host in the admin. Any attached tour
+   * with no hand-authored `upcomingTrips` card is rendered as one automatically,
+   * so attaching a hosted tour is enough to make it show up here.
+   */
+  attachedTourIds?: string[];
   whyTravel: string[];
   /** Supporting note per whyTravel point (parallel array). */
   whyTravelNotes?: string[];

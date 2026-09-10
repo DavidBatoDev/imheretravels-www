@@ -8,9 +8,10 @@ import ImageWithSkeleton from "@/app/components/global/ImageWithSkeleton";
 import NewsletterForm from "@/app/components/global/NewsletterForm";
 import type { Host } from "@/data/hosts";
 import { getHostBySlug, getAllHostSlugs } from "@/lib/resident-hosts-firestore";
-import { getActiveTourSlugById } from "@/lib/tours-firestore";
+import { getActiveTourMetaById, getAllTours } from "@/lib/tours-firestore";
 import GallerySectionClient from "./_components/GallerySectionClient";
 import WhyTravelCarousel from "./_components/WhyTravelCarousel";
+import UpcomingTripsList from "./_components/UpcomingTripsList";
 
 export const revalidate = 3600;
 
@@ -234,100 +235,7 @@ function UpcomingTripsSection({ host, trips }: { host: Host; trips: Host["upcomi
           </h2>
         </div>
 
-        <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {trips.map((trip, i) => {
-            const isTBA = !trip.duration;
-            const inner = (
-              <>
-                {/* Image */}
-                <div className="relative aspect-[4/3] w-full overflow-hidden">
-                  {trip.image ? (
-                    <ImageWithSkeleton
-                      src={trip.image}
-                      alt={trip.imageAlt ?? trip.name}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className={`object-cover transition-transform duration-300 group-hover:scale-105 ${isTBA ? "brightness-75" : ""}`}
-                    />
-                  ) : (
-                    <div className="absolute inset-0 bg-grey/20" />
-                  )}
-                  {/* Duration / Coming Soon pill — overlaid on image */}
-                  <div className="absolute bottom-3 left-3">
-                    <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-body text-b4-desktop backdrop-blur-sm ${isTBA ? "bg-midnight/60 text-white/80" : "bg-white/90 text-midnight shadow-xxsmall"}`}>
-                      <Image src="/Icons/SVG/Pin/pin-solid-red.svg" alt="" width={12} height={12} />
-                      {isTBA ? "Coming Soon" : trip.duration}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="flex flex-1 flex-col p-5 md:p-6">
-                  <h3 className={`font-sans text-h5-mobile md:text-h5-desktop transition-colors ${isTBA ? "text-dark-gray" : "text-midnight group-hover:text-crimson-red"}`}>
-                    {trip.name}
-                  </h3>
-                  {trip.description && (
-                    <p className="mt-2 line-clamp-2 font-body text-b4-mobile md:text-b4-desktop text-dark-gray">
-                      {trip.description}
-                    </p>
-                  )}
-
-                  {/* Footer */}
-                  <div className="mt-auto pt-5 flex items-end justify-between gap-3">
-                    <div className="flex flex-col gap-0.5">
-                      {!isTBA && trip.dates && trip.dates !== "TBA" && (
-                        <span className="font-body text-b4-desktop text-dark-gray">
-                          {trip.dates}
-                        </span>
-                      )}
-                      {trip.price ? (
-                        <div>
-                          <div className="flex items-baseline gap-1.5">
-                            <span className="font-body text-b4-desktop text-dark-gray">From</span>
-                            <span className="font-sans text-h6-mobile md:text-h6-desktop text-midnight">
-                              {trip.price}
-                            </span>
-                          </div>
-                          {trip.priceNote && (
-                            <p className="mt-0.5 font-body text-b4-mobile text-grey">
-                              *{trip.priceNote}
-                            </p>
-                          )}
-                        </div>
-                      ) : (
-                        <span className="font-body text-b4-desktop text-grey italic">Dates &amp; pricing TBA</span>
-                      )}
-                    </div>
-
-                    {trip.tourSlug && !isTBA && (
-                      <span className="shrink-0 inline-flex items-center gap-1 rounded-full bg-crimson-red px-4 py-2 font-body text-b4-desktop font-medium text-white transition-colors group-hover:bg-light-red">
-                        View Tour
-                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="mt-px"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </>
-            );
-
-            return (
-              <Reveal as="li" key={trip.name} delay={i * 80}>
-                {trip.tourSlug ? (
-                  <Link
-                    href={`/tours/${trip.tourSlug}`}
-                    className="group flex h-full flex-col overflow-hidden rounded-lg bg-white shadow-small transition-shadow hover:shadow-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-crimson-red"
-                  >
-                    {inner}
-                  </Link>
-                ) : (
-                  <div className="group flex h-full flex-col overflow-hidden rounded-lg bg-white shadow-small">
-                    {inner}
-                  </div>
-                )}
-              </Reveal>
-            );
-          })}
-        </ul>
+        <UpcomingTripsList trips={trips} />
       </div>
     </section>
   );
@@ -455,19 +363,61 @@ export default async function ResidentHostPage({
   // later won't appear here until the publish time flips it to active.
   // Coming-Soon / TBA placeholder cards (no duration, or comingSoon) always
   // show; cards with no tour link at all are left untouched.
-  const tourSlugById = await getActiveTourSlugById();
-  const activeTourSlugs = new Set(Object.values(tourSlugById));
-  const resolvedTrips = host.upcomingTrips
+  const tourMetaById = await getActiveTourMetaById();
+  const activeTourSlugs = new Set(
+    Object.values(tourMetaById).map((m) => m.slug),
+  );
+  // Order is whatever the admin authored on the host doc — the CMS is the
+  // single source of truth for card order, so newest-first is arranged there.
+  const authoredTrips = host.upcomingTrips
     .filter((trip) => {
       if (trip.comingSoon || !trip.duration) return true; // placeholder card
-      if (trip.tourId) return Boolean(tourSlugById[trip.tourId]); // linked by id
+      if (trip.tourId) return Boolean(tourMetaById[trip.tourId]); // linked by id
       if (trip.tourSlug) return activeTourSlugs.has(trip.tourSlug); // linked by slug
       return true; // no tour link — leave as-is
     })
     .map((trip) => ({
       ...trip,
-      tourSlug: trip.tourId ? tourSlugById[trip.tourId] ?? trip.tourSlug : trip.tourSlug,
+      tourSlug: trip.tourId
+        ? tourMetaById[trip.tourId]?.slug ?? trip.tourSlug
+        : trip.tourSlug,
     }));
+
+  // Tours attached to this host in the admin that nobody authored a card for
+  // yet are rendered automatically from the tour's own listing data, so
+  // attaching a hosted tour is all it takes to surface it here. Newest first,
+  // after the hand-authored cards (which the CMS orders explicitly).
+  const coveredSlugs = new Set(
+    authoredTrips.map((t) => t.tourSlug).filter(Boolean) as string[],
+  );
+  const toursBySlug = new Map(
+    (await getAllTours()).map((t) => [t.slug, t] as const),
+  );
+  const derivedTrips: Host["upcomingTrips"] = (host.attachedTourIds ?? [])
+    .map((id) => tourMetaById[id])
+    .filter((m): m is { slug: string; createdAt: number } => Boolean(m))
+    .filter((m) => !coveredSlugs.has(m.slug))
+    .sort((a, b) => b.createdAt - a.createdAt)
+    .map((m) => {
+      const tour = toursBySlug.get(m.slug);
+      if (!tour) return null;
+      const dates =
+        tour.keyFacts.find((f) => f.label === "Tour Dates")?.values?.[0] ?? "TBA";
+      return {
+        name: tour.name,
+        dates,
+        tourSlug: tour.slug,
+        image: tour.listingCard.image,
+        imageAlt: tour.listingCard.imageAlt,
+        duration: tour.listingCard.duration,
+        description: tour.listingCard.description,
+        price: tour.listingCard.price,
+        comingSoon: tour.comingSoon,
+      };
+    })
+    .filter(Boolean) as Host["upcomingTrips"];
+
+  const resolvedTrips = [...authoredTrips, ...derivedTrips];
 
   return (
     <>

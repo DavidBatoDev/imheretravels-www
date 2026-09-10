@@ -610,6 +610,36 @@ export async function getActiveTourSlugById(): Promise<Record<string, string>> {
 }
 
 /**
+ * Map of active tour doc ID → { slug, createdAt }. Same lookup as
+ * `getActiveTourSlugById`, plus the catalog-add timestamp so callers can order
+ * by "most recently posted" (the resident-host Upcoming Trips rail). Docs
+ * written before `metadata.createdAt` existed report 0, so they sort last.
+ */
+const fetchActiveTourMetaById = cache(
+  async (): Promise<Record<string, { slug: string; createdAt: number }>> => {
+    const snap = await adminDb
+      .collection(TOURS_COLLECTION)
+      .where("status", "==", "active")
+      .get();
+    const map: Record<string, { slug: string; createdAt: number }> = {};
+    snap.docs.forEach((d) => {
+      const raw = d.data() as RawDoc;
+      const slug = raw.slug;
+      if (typeof slug === "string" && slug) {
+        map[d.id] = { slug, createdAt: toMillis(raw.metadata?.createdAt) ?? 0 };
+      }
+    });
+    return map;
+  },
+);
+
+export async function getActiveTourMetaById(): Promise<
+  Record<string, { slug: string; createdAt: number }>
+> {
+  return fetchActiveTourMetaById();
+}
+
+/**
  * Map of old slug → current slug, built from each active tour's `previousSlugs`.
  * Lets a stale `/tours/{oldSlug}` URL permanently redirect to the live page.
  * Only entries whose `redirect` toggle is on (default on if missing) are mapped,

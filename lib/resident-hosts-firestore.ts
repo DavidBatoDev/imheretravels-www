@@ -59,6 +59,9 @@ function toHost(raw: RawDoc): Host {
     upcomingTrips: (Array.isArray(raw.upcomingTrips)
       ? raw.upcomingTrips
       : []) as HostTrip[],
+    attachedTourIds: Array.isArray(raw.attachedTourIds)
+      ? (raw.attachedTourIds as string[])
+      : [],
     whyTravel: Array.isArray(raw.whyTravel) ? raw.whyTravel : [],
     whyTravelNotes: Array.isArray(raw.whyTravelNotes)
       ? raw.whyTravelNotes
