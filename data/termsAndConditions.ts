@@ -21,7 +21,7 @@ export const termsHero = {
 /* Content                                                                     */
 /* -------------------------------------------------------------------------- */
 
-export const termsLastUpdated = "August 11, 2026";
+export const termsLastUpdated = "September 23, 2026";
 
 export const termsIntro = [
   "GENERAL",
@@ -92,7 +92,7 @@ export const termsSections = [
       "• Payment plans available: 4 instalments, 3 instalments, 2 instalments, or full payment",
       "Late Fees:",
       "• Each scheduled instalment must be paid by the due date shown in your payment schedule",
-      "• If a scheduled instalment remains unpaid three days after its due date, a one-time late fee of 3% of that instalment amount may be applied",
+      "• If a scheduled instalment remains unpaid two days after its due date, a one-time late fee of 3% of that instalment amount may be applied. For bookings made before September 24, 2026, this applies three days after the due date",
       "• Any late fee will be added to your remaining balance, and you will receive a notice showing the overdue instalment, late fee, and updated balance",
       "• If the outstanding payment remains unpaid for three days after the late-fee notice is sent, I'm Here Travels may cancel your booking",
       "• If you believe a late fee has been applied in error or exceptional circumstances prevented payment, contact I'm Here Travels promptly. Any waiver or adjustment is at I'm Here Travels' discretion",
