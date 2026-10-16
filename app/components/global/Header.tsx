@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import { PORTAL_SIGNIN_ENABLED, PORTAL_SIGNIN_URL } from "@/lib/portal";
 
 type NavLink = { label: string; href: string };
 // A non-clickable heading inside a dropdown, grouping the links after it until
@@ -421,6 +422,14 @@ export default function Header({
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
+          {PORTAL_SIGNIN_ENABLED && (
+            <a
+              href={PORTAL_SIGNIN_URL}
+              className="hidden items-center justify-center rounded-full border border-midnight px-6 py-3 font-body font-medium text-b4-desktop text-midnight transition-colors hover:bg-midnight hover:text-white sm:inline-flex"
+            >
+              Sign in
+            </a>
+          )}
           <Link
             href="/contact-us"
             onClick={closeMenu}
@@ -540,6 +549,14 @@ export default function Header({
                   );
                 })}
               </ul>
+              {PORTAL_SIGNIN_ENABLED && (
+                <a
+                  href={PORTAL_SIGNIN_URL}
+                  className="mt-4 flex justify-center rounded-full border border-midnight px-6 py-3 font-body font-medium text-midnight"
+                >
+                  Sign in
+                </a>
+              )}
             </nav>
           </motion.div>
         )}

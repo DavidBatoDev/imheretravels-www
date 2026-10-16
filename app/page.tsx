@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 };
 import Reveal from "@/app/components/global/Reveal";
 import HeroTitle from "@/app/components/global/HeroTitle";
+import { PORTAL_SIGNIN_ENABLED, PORTAL_SIGNIN_URL } from "@/lib/portal";
 import { hero, destinations, features } from "@/data/root";
 import DestinationsMarquee from "@/app/components/global/DestinationsMarquee";
 import NewToursCarousel from "@/app/components/home/NewToursCarousel";
@@ -113,9 +114,18 @@ function Hero() {
             className="font-display text-h1-mobile md:text-h1-desktop"
           />
           <Reveal delay={900}>
-            <PillButton href={hero.cta.href} className="mt-2">
-              {hero.cta.label}
-            </PillButton>
+            <div className="mt-2 flex flex-wrap items-center justify-center gap-3">
+              <PillButton href={hero.cta.href}>{hero.cta.label}</PillButton>
+              {PORTAL_SIGNIN_ENABLED && (
+                // WF 1a: white-hairline button; the filled crimson CTA stays commercial.
+                <a
+                  href={PORTAL_SIGNIN_URL}
+                  className="inline-flex items-center justify-center rounded-full border border-white px-6 py-3 font-body font-medium text-white transition-colors hover:bg-white hover:text-midnight"
+                >
+                  Sign in
+                </a>
+              )}
+            </div>
           </Reveal>
         </div>
       </div>
