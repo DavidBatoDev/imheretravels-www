@@ -55,11 +55,12 @@ export async function generateMetadata({
   // Admin "SEO & sharing" overrides win; otherwise fall back to the hero.
   const description = sale?.seo.description || sale?.hero.subtitle || DESCRIPTION;
   const image = sale?.seo.ogImage || sale?.hero.bannerUrl || sale?.tours[0]?.coverImage;
-  const shareTitle = sale?.seo.title || `${TITLE} — I'm Here Travels`;
+  const pageTitle = sale?.hero.title || TITLE;
+  const shareTitle = sale?.seo.title || `${pageTitle} — I'm Here Travels`;
 
   return {
     // Root layout template appends "— I'm Here Travels" unless admin set an exact title.
-    title: sale?.seo.title ? { absolute: sale.seo.title } : TITLE,
+    title: sale?.seo.title ? { absolute: sale.seo.title } : pageTitle,
     description,
     alternates: { canonical: PAGE_URL },
     robots: indexable ? undefined : { index: false, follow: true },
