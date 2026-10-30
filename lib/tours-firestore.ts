@@ -673,3 +673,56 @@ export async function getCurrentSlugForPreviousSlug(
 ): Promise<string | undefined> {
   return (await fetchSlugByPreviousSlug())[slug];
 }
+
+/**
+ * Card-level presentation data for tours referenced by doc ID — backs the
+ * Black Friday sale grid, whose config stores `tourPackageId`s. Reads the docs
+ * directly (any status, so a sale tour still renders if it is unlisted) and
+ * reuses `toTour` so labels/covers match the tour page. Missing IDs are
+ * simply absent from the result.
+ */
+export interface TourCardPresentation {
+  id: string;
+  slug: string;
+  name: string;
+  coverImage: string;
+  /** e.g. "11 Days" (same as the listing card pill). */
+  durationLabel: string;
+  /** e.g. "Manila → Port Barton → El Nido" (the booking card sub-header). */
+  routeLabel: string;
+  /** Reservation fee per person (`pricing.deposit`), or null when unset. */
+  deposit: number | null;
+  /** Only active tours have a public /tours/[slug] page (drafts can still be on sale). */
+  published: boolean;
+}
+
+export async function getTourCardPresentationByIds(
+  ids: string[],
+): Promise<Record<string, TourCardPresentation>> {
+  const unique = [...new Set(ids.filter((id) => id && !id.includes("/")))];
+  if (unique.length === 0) return {};
+  const snaps = await adminDb.getAll(
+    ...unique.map((id) => adminDb.collection(TOURS_COLLECTION).doc(id)),
+  );
+  const out: Record<string, TourCardPresentation> = {};
+  for (const snap of snaps) {
+    if (!snap.exists) continue;
+    const raw = snap.data() as RawDoc;
+    const tour = toTour(raw);
+    const deposit = Number(raw.pricing?.deposit);
+    const destinations = Array.isArray(raw.destinations)
+      ? (raw.destinations as unknown[]).filter((d): d is string => typeof d === "string")
+      : [];
+    out[snap.id] = {
+      id: snap.id,
+      slug: tour.slug,
+      name: tour.name,
+      coverImage: tour.gallery.hero,
+      durationLabel: tour.listingCard.duration,
+      routeLabel: tour.booking.routeLabel || destinations.slice(0, 3).join(" → "),
+      deposit: Number.isFinite(deposit) && deposit > 0 ? deposit : null,
+      published: raw.status === "active",
+    };
+  }
+  return out;
+}

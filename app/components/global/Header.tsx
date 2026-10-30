@@ -5,6 +5,8 @@ import Link from "next/link";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import PromoStrip from "@/app/components/global/PromoStrip";
+import { BLACK_FRIDAY_PATH, BLACK_FRIDAY_PROMO_ON } from "@/lib/sale/config";
 
 type NavLink = { label: string; href: string };
 // A non-clickable heading inside a dropdown, grouping the links after it until
@@ -12,7 +14,8 @@ type NavLink = { label: string; href: string };
 type NavSection = { section: string };
 type DropdownEntry = NavLink | NavSection;
 // `href` is optional: a dropdown-only trigger (e.g. "More") has no landing page.
-type NavItem = { label: string; href?: string; dropdown?: DropdownEntry[] };
+// `accent` renders the item in crimson with a dot (time-limited promos).
+type NavItem = { label: string; href?: string; dropdown?: DropdownEntry[]; accent?: boolean };
 
 const isSection = (entry: DropdownEntry): entry is NavSection => "section" in entry;
 
@@ -204,7 +207,12 @@ export default function Header({
   destinationLinks?: NavLink[];
 }) {
   const navItems = useMemo<NavItem[]>(() => {
+    // Black Friday sale — toggled with NEXT_PUBLIC_BLACK_FRIDAY (see lib/sale/config.ts).
+    const promo: NavItem[] = BLACK_FRIDAY_PROMO_ON
+      ? [{ label: "Black Friday", href: BLACK_FRIDAY_PATH, accent: true }]
+      : [];
     return [
+      ...promo,
       {
         label: "Tours",
         href: "/tours",
@@ -261,10 +269,13 @@ export default function Header({
   function renderNavLink(item: NavItem, mobile: boolean) {
     const activeCls = isParentActive(item)
       ? "text-crimson-red underline underline-offset-4 decoration-2"
-      : "text-midnight";
+      : item.accent
+        ? "font-bold text-crimson-red"
+        : "text-midnight";
+    const accentCls = item.accent ? "inline-flex items-center gap-2" : "";
     const className = mobile
-      ? `block py-4 font-body text-b2-mobile transition-colors hover:text-crimson-red ${activeCls}`
-      : `font-body text-b4-desktop transition-colors hover:text-crimson-red ${activeCls}`;
+      ? `${item.accent ? "flex items-center gap-2" : "block"} py-4 font-body text-b2-mobile transition-colors hover:text-crimson-red ${activeCls}`
+      : `${accentCls} font-body text-b4-desktop transition-colors hover:text-crimson-red ${activeCls}`;
 
     return (
       <Link
@@ -273,6 +284,9 @@ export default function Header({
         onClick={mobile ? closeMenu : undefined}
         className={className}
       >
+        {item.accent && (
+          <span aria-hidden="true" className="inline-block size-2 shrink-0 rounded-full bg-crimson-red" />
+        )}
         {item.label}
       </Link>
     );
@@ -351,6 +365,9 @@ export default function Header({
   }, []);
 
   return (
+    <>
+    {/* Not sticky: sits above the sticky header and scrolls away with the page. */}
+    <PromoStrip />
     <motion.header
       initial={{ y: 0 }}
       animate={{ y: hidden ? "-100%" : "0%" }}
@@ -545,5 +562,6 @@ export default function Header({
         )}
       </AnimatePresence>
     </motion.header>
+    </>
   );
 }
