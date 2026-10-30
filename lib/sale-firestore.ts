@@ -103,6 +103,23 @@ export function toPublicTourAvailability(
   };
 }
 
+/**
+ * Whether the site-wide Black Friday nav item and promo strip should show:
+ * only while the sale is public (live or paused). Draft or ended hides them,
+ * so the nav never links to a 404. Errors hide them too.
+ */
+export const isSalePublic = cache(async (slug: string): Promise<boolean> => {
+  try {
+    const { adminDb } = await import("@/lib/firebase-admin");
+    const q = await adminDb.collection(SALE_COLLECTION).where("slug", "==", slug).limit(1).get();
+    const status = q.empty ? null : q.docs[0]!.get("status");
+    return status === "live" || status === "paused";
+  } catch (e) {
+    console.error("[sale] promo state lookup failed", e);
+    return false;
+  }
+});
+
 /** Cached per request so generateMetadata and the page share one read. */
 export const getSalePageData = cache(async (slug: string): Promise<SaleLoadResult> => {
   return loadSale("slug", slug, { allowDraft: false });
