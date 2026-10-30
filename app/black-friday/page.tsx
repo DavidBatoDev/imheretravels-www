@@ -2,15 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Footer from "@/app/components/global/Footer";
-import FaqAccordion from "@/app/faqs/_components/FaqAccordion";
 import { getSalePageData, type SaleLoadResult } from "@/lib/sale-firestore";
 import { BLACK_FRIDAY_PATH, BLACK_FRIDAY_SLUG } from "@/lib/sale/config";
-import { maxDiscount, salePhase, statusLabel } from "@/lib/sale/ladder";
-import HowItWorks from "./_components/HowItWorks";
-import SaleExperience from "./_components/SaleExperience";
 import SaleHero from "./_components/SaleHero";
-import SaleViewTracker from "./_components/SaleViewTracker";
-import { saleFaqs } from "./_components/saleFaqs";
+import SalePageView from "./_components/SalePageView";
 
 // Explicit route — wins over the app/[slug] short-URL catch-all.
 // Sale config and the initial slot snapshot refresh at most once a minute;
@@ -57,33 +52,31 @@ export async function generateMetadata({
 
   const sale = result.kind === "ok" ? result.sale : null;
   const indexable = !mock && sale?.status === "live";
-  const description = sale?.hero.subtitle || DESCRIPTION;
-  const image = sale?.hero.bannerUrl || sale?.tours[0]?.coverImage;
+  // Admin "SEO & sharing" overrides win; otherwise fall back to the hero.
+  const description = sale?.seo.description || sale?.hero.subtitle || DESCRIPTION;
+  const image = sale?.seo.ogImage || sale?.hero.bannerUrl || sale?.tours[0]?.coverImage;
+  const shareTitle = sale?.seo.title || `${TITLE} — I'm Here Travels`;
 
   return {
-    // Root layout template appends "— I'm Here Travels".
-    title: TITLE,
+    // Root layout template appends "— I'm Here Travels" unless admin set an exact title.
+    title: sale?.seo.title ? { absolute: sale.seo.title } : TITLE,
     description,
     alternates: { canonical: PAGE_URL },
     robots: indexable ? undefined : { index: false, follow: true },
     openGraph: {
-      title: `${TITLE} — I'm Here Travels`,
+      title: shareTitle,
       description,
       type: "website",
       url: PAGE_URL,
-      ...(image ? { images: [{ url: image, alt: `${TITLE} — I'm Here Travels` }] } : {}),
+      ...(image ? { images: [{ url: image, alt: shareTitle }] } : {}),
     },
     twitter: {
       card: "summary_large_image",
-      title: `${TITLE} — I'm Here Travels`,
+      title: shareTitle,
       description,
       ...(image ? { images: [image] } : {}),
     },
   };
-}
-
-function stripLinks(md: string): string {
-  return md.replace(/\[([^\]]+)\]\([^)]*\)/g, "$1");
 }
 
 export default async function BlackFridayPage({ searchParams }: { searchParams: SearchParams }) {
@@ -125,81 +118,5 @@ export default async function BlackFridayPage({ searchParams }: { searchParams: 
     );
   }
 
-  const sale = result.sale;
-  const phase = salePhase(sale, Date.parse(sale.availability.serverNow));
-  const statusText = statusLabel(sale, phase);
-  const faqs = saleFaqs(sale.holdMinutes);
-  const firstTour = sale.tours[0];
-  const firstSlots = sale.availability.tours.find(
-    (t) => t.tourPackageId === firstTour?.tourPackageId,
-  )?.slots;
-
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: stripLinks(f.a) },
-    })),
-  };
-
-  return (
-    <>
-      {sale.status === "live" && !mock && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-        />
-      )}
-      <SaleViewTracker saleId={sale.saleId} saleName={sale.name} status={phase} />
-      <main className="flex-1">
-        <SaleHero
-          title={sale.hero.title}
-          subtitle={sale.hero.subtitle}
-          statusText={statusText}
-          phase={phase}
-          upTo={maxDiscount(sale)}
-          bannerUrl={sale.hero.bannerUrl}
-          mobileBannerUrl={sale.hero.mobileBannerUrl}
-          fallbackImage={firstTour?.coverImage}
-          showCta={sale.tours.length > 0}
-          startAt={sale.startAt}
-        />
-
-        {/* Resume banner (holder only) → How it works → the deals grid. */}
-        <SaleExperience sale={sale} mock={mock}>
-          <HowItWorks
-            holdMinutes={sale.holdMinutes}
-            example={
-              firstTour && firstSlots
-                ? { name: firstTour.displayName, originalPrice: firstTour.originalPrice, slots: firstSlots }
-                : undefined
-            }
-          />
-        </SaleExperience>
-
-        <section aria-labelledby="sale-faq-heading" className="mx-auto w-full max-w-5xl px-4 py-12 md:px-8 md:py-16">
-          <h2 id="sale-faq-heading" className="font-display text-h2-mobile text-midnight md:text-h2-desktop">
-            Sale FAQs
-          </h2>
-          <div className="mt-6 rounded-lg bg-white px-5 py-3 md:px-10 md:py-6">
-            <FaqAccordion items={faqs} defaultOpen={0} />
-          </div>
-          <p className="mt-6 font-body text-b4-mobile text-dark-gray md:text-b4-desktop">
-            Black Friday bookings are non-refundable. Full details in our{" "}
-            <Link href="/terms-and-conditions" className="font-medium text-midnight underline underline-offset-2 hover:text-crimson-red">
-              Terms &amp; Conditions
-            </Link>
-            . Questions?{" "}
-            <Link href="/contact-us" className="font-medium text-midnight underline underline-offset-2 hover:text-crimson-red">
-              Contact us
-            </Link>
-            .
-          </p>
-        </section>
-      </main>
-      <Footer />
-    </>
-  );
+  return <SalePageView sale={result.sale} mock={mock} />;
 }

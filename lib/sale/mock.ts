@@ -128,6 +128,7 @@ export async function getMockSalePageData(opts: {
       subtitle:
         "Our biggest savings of the year on small-group tours. A few discounted slots per tour, cheapest first — hold yours for 15 minutes while you book.",
     },
+    seo: {},
     tours,
     availability: {
       saleId: "mock-black-friday",

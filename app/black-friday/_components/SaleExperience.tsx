@@ -40,17 +40,20 @@ function toActive(stored: StoredHold): ActiveHold {
 export default function SaleExperience({
   sale,
   mock,
+  preview = false,
   children,
 }: {
   sale: SalePageData;
   mock: boolean;
+  /** Admin preview link: shows the page as configured, booking disabled. */
+  preview?: boolean;
   /** Server-rendered content placed between the resume banner and the grid. */
   children?: ReactNode;
 }) {
   const reduce = useReducedMotion() ?? false;
 
   // ── API (mock is dev-only and loaded on demand) ───────────────────────────
-  const [api, setApi] = useState<SaleApi | null>(mock ? null : liveSaleApi);
+  const [api, setApi] = useState<SaleApi | null>(mock || preview ? null : liveSaleApi);
   useEffect(() => {
     if (!mock) return;
     let cancelled = false;
@@ -178,8 +181,9 @@ export default function SaleExperience({
   // ── Derived ───────────────────────────────────────────────────────────────
   const serverNowMs = Date.parse(availability.serverNow);
   const phase = salePhase({ ...sale, status: availability.status }, serverNowMs);
-  const closedLabel =
-    phase === "upcoming"
+  const closedLabel = preview
+    ? "Preview only"
+    : phase === "upcoming"
       ? statusLabel(sale, phase).replace(/^Starts/, "Opens")
       : phase === "paused"
         ? "Sale paused"
@@ -309,7 +313,7 @@ export default function SaleExperience({
   };
 
   // ── Render ────────────────────────────────────────────────────────────────
-  const saleOpen = availability.isOpen;
+  const saleOpen = availability.isOpen && !preview;
 
   return (
     <>

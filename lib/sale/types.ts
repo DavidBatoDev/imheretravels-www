@@ -93,6 +93,8 @@ export interface SalePageData {
     bannerUrl?: string;
     mobileBannerUrl?: string;
   };
+  /** Search / link-share overrides set in admin; blanks fall back to the hero. */
+  seo: { title?: string; description?: string; ogImage?: string };
   tours: SalePageTour[];
   /** Availability computed at render time (ISR); the client refreshes it. */
   availability: PublicSaleAvailability;

@@ -105,9 +105,28 @@ export function toPublicTourAvailability(
 
 /** Cached per request so generateMetadata and the page share one read. */
 export const getSalePageData = cache(async (slug: string): Promise<SaleLoadResult> => {
+  return loadSale("slug", slug, { allowDraft: false });
+});
+
+/**
+ * Private preview (admin "Preview" link): finds the sale by its secret
+ * preview token, in any status, draft included. The page renders it noindex
+ * with booking disabled.
+ */
+export const getSalePreviewData = cache(async (token: string): Promise<SaleLoadResult> => {
+  if (!/^[A-Za-z0-9_-]{16,64}$/.test(token)) return { kind: "not_found" };
+  return loadSale("previewToken", token, { allowDraft: true });
+});
+
+async function loadSale(
+  field: "slug" | "previewToken",
+  value: string,
+  opts: { allowDraft: boolean },
+): Promise<SaleLoadResult> {
+  const slug = field === "slug" ? value : "";
   try {
     const { adminDb } = await import("@/lib/firebase-admin");
-    const q = await adminDb.collection(SALE_COLLECTION).where("slug", "==", slug).limit(1).get();
+    const q = await adminDb.collection(SALE_COLLECTION).where(field, "==", value).limit(1).get();
     if (q.empty) return { kind: "not_found" };
     const doc = q.docs[0]!;
     const raw = doc.data() as RawDoc;
@@ -115,7 +134,7 @@ export const getSalePageData = cache(async (slug: string): Promise<SaleLoadResul
     const status = STATUSES.includes(raw.status as SaleStatus)
       ? (raw.status as SaleStatus)
       : "draft";
-    if (status === "draft") return { kind: "not_found" };
+    if (status === "draft" && !opts.allowDraft) return { kind: "not_found" };
 
     const rawTours = (Array.isArray(raw.tours) ? (raw.tours as RawDoc[]) : [])
       .filter((t) => typeof t.tourPackageId === "string" && t.tourPackageId)
@@ -155,6 +174,7 @@ export const getSalePageData = cache(async (slug: string): Promise<SaleLoadResul
     const startAt = toIso(raw.startAt);
     const endAt = toIso(raw.endAt);
     const hero = (raw.hero ?? {}) as RawDoc;
+    const seo = (raw.seo ?? {}) as RawDoc;
 
     return {
       kind: "ok",
@@ -173,6 +193,11 @@ export const getSalePageData = cache(async (slug: string): Promise<SaleLoadResul
           bannerUrl: str(hero.bannerUrl) || undefined,
           mobileBannerUrl: str(hero.mobileBannerUrl) || undefined,
         },
+        seo: {
+          title: str(seo.title) || undefined,
+          description: str(seo.description) || undefined,
+          ogImage: str(seo.ogImage) || undefined,
+        },
         tours,
         availability: {
           saleId: doc.id,
@@ -189,4 +214,4 @@ export const getSalePageData = cache(async (slug: string): Promise<SaleLoadResul
     console.error("[sale] failed to load sale page data", e);
     return { kind: "unavailable" };
   }
-});
+}
