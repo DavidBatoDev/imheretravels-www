@@ -121,8 +121,10 @@ function DesktopDropdown({
   const linkCount = groups.reduce((n, g) => n + g.links.length, 0);
   const columns = linkCount > 14 ? 3 : linkCount > 7 ? 2 : 1;
 
+  // Keep the panel inside the viewport even while closed: an invisible panel
+  // still takes layout, and one hanging off the right edge (e.g. the 3-column
+  // menu once the Black Friday item shifts the nav) adds a horizontal scrollbar.
   useLayoutEffect(() => {
-    if (!isOpen) return;
     const measure = () => {
       const el = panelRef.current;
       if (!el) return;

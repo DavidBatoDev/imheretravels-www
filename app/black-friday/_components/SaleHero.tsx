@@ -1,6 +1,6 @@
-import { ArrowDown } from "lucide-react";
 import type { SalePhase } from "@/lib/sale/ladder";
 import { formatGBP } from "@/lib/sale/ladder";
+import DealsCta from "./DealsCta";
 import StartCountdown from "./StartCountdown";
 
 /**
@@ -75,13 +75,7 @@ export default function SaleHero({
 
           {showCta && (
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <a
-                href="#deals"
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-crimson-red px-8 py-3.5 font-body font-bold text-white shadow-small transition-colors hover:bg-light-red focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              >
-                See the deals
-                <ArrowDown className="size-4" strokeWidth={2.5} aria-hidden="true" />
-              </a>
+              <DealsCta />
               <p className="font-body text-b4-mobile text-white/75 md:text-b4-desktop">
                 {live ? "Pay just the reservation fee today." : "Pay just the reservation fee when it opens."}
               </p>

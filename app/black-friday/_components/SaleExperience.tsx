@@ -338,15 +338,26 @@ export default function SaleExperience({
         aria-labelledby="deals-heading"
         className="mx-auto w-full max-w-7xl scroll-mt-20 px-4 py-12 md:px-8 md:py-16"
       >
-        <div className="max-w-2xl">
-          <h2 id="deals-heading" className="font-display text-h2-mobile text-midnight md:text-h2-desktop">
+        <motion.div
+          className="max-w-2xl"
+          initial={reduce ? false : { opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {/* tabIndex -1: "See the deals" moves focus here after scrolling. */}
+          <h2
+            id="deals-heading"
+            tabIndex={-1}
+            className="font-display text-h2-mobile text-midnight outline-none md:text-h2-desktop"
+          >
             The deals
           </h2>
           <p className="mt-3 font-body text-b2-mobile text-midnight md:text-b2-desktop">
             Prices are per person. Each tour has a handful of discounted slots, cheapest first — when
             one goes, the next price applies.
           </p>
-        </div>
+        </motion.div>
 
         {sale.tours.length === 0 ? (
           <div className="mt-8 rounded-lg bg-white p-8 text-center">

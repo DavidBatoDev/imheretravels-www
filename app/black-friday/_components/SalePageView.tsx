@@ -1,12 +1,12 @@
 import Link from "next/link";
 import Footer from "@/app/components/global/Footer";
-import FaqAccordion from "@/app/faqs/_components/FaqAccordion";
 import { maxDiscount, salePhase, statusLabel } from "@/lib/sale/ladder";
 import type { SalePageData } from "@/lib/sale/types";
 import HowItWorks from "./HowItWorks";
 import SaleExperience from "./SaleExperience";
 import SaleHero from "./SaleHero";
 import SaleViewTracker from "./SaleViewTracker";
+import SaleFaqAccordion from "./SaleFaqAccordion";
 import { saleFaqs } from "./saleFaqs";
 
 function stripLinks(md: string): string {
@@ -90,7 +90,7 @@ export default function SalePageView({
             Sale FAQs
           </h2>
           <div className="mt-6 rounded-lg bg-white px-5 py-3 md:px-10 md:py-6">
-            <FaqAccordion items={faqs} defaultOpen={0} />
+            <SaleFaqAccordion items={faqs} defaultOpen={0} />
           </div>
           <p className="mt-6 font-body text-b4-mobile text-dark-gray md:text-b4-desktop">
             Black Friday bookings are non-refundable. Full details in our{" "}

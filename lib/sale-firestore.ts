@@ -176,7 +176,8 @@ async function loadSale(
       return {
         tourPackageId: id,
         tourSlug: str(t.tourSlug) || p?.slug || "",
-        displayName: str(t.displayName) || p?.name || "Tour",
+        // Card title is the tour's current name (falls back to the saved snapshot).
+        displayName: p?.name || str(t.tourName) || str(t.displayName) || "Tour",
         tourName: str(t.tourName) || p?.name || "",
         originalPrice: num(t.originalPrice),
         coverImage: str(t.coverImage) || p?.coverImage || FALLBACK_IMAGE,
