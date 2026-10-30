@@ -26,7 +26,7 @@ function describe(av: PublicTourAvailability): string {
   const total = av.slots.length;
   if (isSoldOut(av)) return "sold out";
   const held = av.onHold ? `, ${av.onHold} on hold` : "";
-  return `${av.left} of ${total} slots left${held}`;
+  return `${av.left} of ${total} sale places left${held}`;
 }
 
 function toActive(stored: StoredHold): ActiveHold {
@@ -354,8 +354,8 @@ export default function SaleExperience({
             The deals
           </h2>
           <p className="mt-3 font-body text-b2-mobile text-midnight md:text-b2-desktop">
-            Prices are per person. Each tour has a handful of discounted slots, cheapest first — when
-            one goes, the next price applies.
+            Prices are per person, and each slot is one person&apos;s place. Slots sell cheapest
+            first — when one goes, the next price applies.
           </p>
         </motion.div>
 

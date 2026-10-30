@@ -5,6 +5,8 @@ import { formatGBP } from "@/lib/sale/ladder";
 import type { PublicSlot } from "@/lib/sale/types";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+/** Bars shown in the ladder example; longer ladders end in a "+N more" cap. */
+const EXAMPLE_BARS = 5;
 const VIEWPORT = { once: true, amount: 0.3 } as const;
 
 /**
@@ -28,7 +30,7 @@ export default function HowItWorks({
   const steps = [
     {
       title: "Pick a tour",
-      body: "Choose Solo, Duo or a group. Your party takes the next free slots in order.",
+      body: "Choose Solo, Duo or a group. Each person takes one slot: the next free ones, in order.",
     },
     {
       title: `Hold your slots for ${holdMinutes} min`,
@@ -120,7 +122,8 @@ export default function HowItWorks({
           <div className="md:max-w-sm">
             <p className="font-sans text-h5-mobile text-midnight md:text-h5-desktop">Earlier slots = bigger savings</p>
             <p className="mt-1 font-body text-b2-mobile text-dark-gray md:text-b4-desktop">
-              Slot 1 is the cheapest. Each slot after it costs a little more, so the sooner you book, the more you save.
+              One slot is one person&apos;s place. Slot 1 is the cheapest and each slot after it costs a little more, so
+              the sooner you book, the more you save.
             </p>
           </div>
           {example && example.slots.length > 1 && (
@@ -133,20 +136,31 @@ export default function HowItWorks({
                 whileInView="show"
                 viewport={VIEWPORT}
               >
-                {example.slots.map((s, i) => (
+                {example.slots.slice(0, EXAMPLE_BARS).map((s, i) => (
                   <motion.li
                     key={s.index}
                     variants={bar}
-                    className={`flex flex-1 origin-bottom flex-col justify-end rounded-sm px-2 pb-2 ${i === 0 ? "bg-crimson-red text-white" : "bg-white text-midnight"}`}
+                    className={`flex min-w-0 flex-1 origin-bottom flex-col justify-end rounded-sm px-1.5 pb-2 sm:px-2 ${i === 0 ? "bg-crimson-red text-white" : "bg-white text-midnight"}`}
                     style={{ minHeight: `${56 + i * 14}px` }}
                   >
                     <span className="font-body text-[0.75rem] font-medium">Slot {s.index}</span>
-                    <span className="font-body text-[0.875rem] font-bold">{formatGBP(s.salePrice)}</span>
+                    <span className="font-body text-[0.8125rem] font-bold sm:text-[0.875rem]">{formatGBP(s.salePrice)}</span>
                   </motion.li>
                 ))}
+                {example.slots.length > EXAMPLE_BARS && (
+                  <motion.li
+                    variants={bar}
+                    className="flex w-12 shrink-0 origin-bottom flex-col items-center justify-end rounded-sm border-2 border-dashed border-midnight/15 pb-2 text-midnight sm:w-14"
+                    style={{ minHeight: `${56 + EXAMPLE_BARS * 14}px` }}
+                  >
+                    <span className="font-body text-[0.875rem] font-bold">+{example.slots.length - EXAMPLE_BARS}</span>
+                    <span className="font-body text-[0.75rem] font-medium">more</span>
+                  </motion.li>
+                )}
               </motion.ol>
               <figcaption className="mt-2 font-body text-b4-mobile text-dark-gray md:text-b4-desktop">
-                {example.name}, usually {formatGBP(example.originalPrice)} per person.
+                {example.name}, usually {formatGBP(example.originalPrice)} per person.{" "}
+                <span className="font-medium text-midnight">1 slot = 1 person.</span>
               </figcaption>
             </figure>
           )}

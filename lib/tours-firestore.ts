@@ -692,6 +692,8 @@ export interface TourCardPresentation {
   routeLabel: string;
   /** Reservation fee per person (`pricing.deposit`), or null when unset. */
   deposit: number | null;
+  /** Live full price per person (`pricing.original`), or null when unset. */
+  originalPrice: number | null;
   /** Only active tours have a public /tours/[slug] page (drafts can still be on sale). */
   published: boolean;
 }
@@ -710,6 +712,7 @@ export async function getTourCardPresentationByIds(
     const raw = snap.data() as RawDoc;
     const tour = toTour(raw);
     const deposit = Number(raw.pricing?.deposit);
+    const original = Number(raw.pricing?.original);
     const destinations = Array.isArray(raw.destinations)
       ? (raw.destinations as unknown[]).filter((d): d is string => typeof d === "string")
       : [];
@@ -721,6 +724,7 @@ export async function getTourCardPresentationByIds(
       durationLabel: tour.listingCard.duration,
       routeLabel: tour.booking.routeLabel || destinations.slice(0, 3).join(" → "),
       deposit: Number.isFinite(deposit) && deposit > 0 ? deposit : null,
+      originalPrice: Number.isFinite(original) && original > 0 ? original : null,
       published: raw.status === "active",
     };
   }

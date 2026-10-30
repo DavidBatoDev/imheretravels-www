@@ -80,18 +80,28 @@ function isSaleOpen(status: SaleStatus, startMs: number | null, endMs: number | 
   return true;
 }
 
+/**
+ * Public slot states and prices. Like the admin availability API, prices
+ * follow the tour's live price: an unsold slot costs `liveOriginal − discount`
+ * (never below 0); sold slots keep the price they were sold at. Without a live
+ * price the stored snapshot is used.
+ */
 export function toPublicTourAvailability(
   tourPackageId: string,
   rawSlots: unknown,
   nowMs: number,
+  liveOriginal: number | null = null,
 ): PublicTourAvailability {
   const slots: PublicSlot[] = (Array.isArray(rawSlots) ? (rawSlots as RawDoc[]) : [])
-    .map((s) => ({
-      index: num(s.index),
-      salePrice: num(s.salePrice),
-      discountGBP: num(s.discountGBP),
-      state: publicState(s, nowMs),
-    }))
+    .map((s) => {
+      const state = publicState(s, nowMs);
+      const discountGBP = num(s.discountGBP);
+      const salePrice =
+        state !== "sold" && liveOriginal !== null
+          ? Math.max(0, Math.round((liveOriginal - discountGBP) * 100) / 100)
+          : num(s.salePrice);
+      return { index: num(s.index), salePrice, discountGBP, state };
+    })
     .sort((a, b) => a.index - b.index);
   const free = slots.filter((s) => s.state === "available");
   return {
@@ -179,7 +189,8 @@ async function loadSale(
         // Card title is the tour's current name (falls back to the saved snapshot).
         displayName: p?.name || str(t.tourName) || str(t.displayName) || "Tour",
         tourName: str(t.tourName) || p?.name || "",
-        originalPrice: num(t.originalPrice),
+        // Live tour price, so the sale follows price changes (stored snapshot as fallback).
+        originalPrice: p?.originalPrice ?? num(t.originalPrice),
         coverImage: str(t.coverImage) || p?.coverImage || FALLBACK_IMAGE,
         order: num(t.order),
         durationLabel: p?.durationLabel ?? "",
@@ -223,7 +234,12 @@ async function loadSale(
           isOpen: isSaleOpen(status, toMs(raw.startAt), toMs(raw.endAt), now),
           serverNow: new Date(now).toISOString(),
           tours: tours.map((t) =>
-            toPublicTourAvailability(t.tourPackageId, slotsById.get(t.tourPackageId), now),
+            toPublicTourAvailability(
+              t.tourPackageId,
+              slotsById.get(t.tourPackageId),
+              now,
+              presentation[t.tourPackageId]?.originalPrice ?? null,
+            ),
           ),
         },
       },

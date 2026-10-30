@@ -2,15 +2,40 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { UserRound } from "lucide-react";
 import ImageWithSkeleton from "@/app/components/global/ImageWithSkeleton";
-import SlotLadder from "./SlotLadder";
 import {
   availabilityLine,
   formatGBP,
   isSoldOut,
   onHoldLine,
 } from "@/lib/sale/ladder";
-import type { PublicTourAvailability, SalePageTour } from "@/lib/sale/types";
+import type { PublicSlot, PublicTourAvailability, SalePageTour } from "@/lib/sale/types";
+
+/**
+ * How many of the tour's sale places are left, one segment per place (a tour
+ * can have up to 20). Free places are crimson, places on hold are amber and
+ * taken places fade out, in ladder order, so "slot 1 sold" reads at a glance.
+ * Purely visual: the sentence next to it carries the same information.
+ */
+function PlacesBar({ slots }: { slots: PublicSlot[] }) {
+  return (
+    <div aria-hidden="true" className="flex h-2.5 gap-0.5 overflow-hidden rounded-full">
+      {slots.map((s) => (
+        <span
+          key={s.index}
+          className={`h-full flex-1 ${
+            s.state === "sold"
+              ? "bg-midnight/25"
+              : s.state === "on_hold"
+                ? "bg-sunglow-yellow"
+                : "bg-crimson-red"
+          }`}
+        />
+      ))}
+    </div>
+  );
+}
 
 export default function SaleTourCard({
   tour,
@@ -24,7 +49,7 @@ export default function SaleTourCard({
   tour: SalePageTour;
   availability: PublicTourAvailability | undefined;
   saleOpen: boolean;
-  /** CTA label when the sale isn't taking holds ("Sale paused", "Opens 28 Nov"…). */
+  /** CTA label when the sale isn't taking holds ("Sale paused", "Preview only"…). */
   closedLabel: string;
   /** The visitor holds slots on this tour right now. */
   isMine: boolean;
@@ -35,24 +60,28 @@ export default function SaleTourCard({
   const allHeld = !!availability && !soldOut && availability.left === 0;
   const nextSlot = availability?.slots.find((s) => s.state === "available");
   const nextUnsold = availability?.slots.find((s) => s.state !== "sold");
-  // Price a new booking gets; when every free slot is on hold, the price of
-  // the next slot that could free up (sold-out cards show the original only).
+  // Price a new booking gets; when every free place is on hold, the price of
+  // the next one that could free up (sold-out cards show the original only).
   const fromPrice = availability?.nextPrice ?? nextUnsold?.salePrice ?? null;
-  // The saving a new booking would actually get (falls back to the next slot
-  // that could free up, so an all-on-hold card doesn't advertise slot 1).
+  // Slots are sold cheapest first, so the next free slot carries the biggest
+  // saving still on offer — hence "up to".
   const saving = (nextSlot ?? nextUnsold)?.discountGBP ?? 0;
   const heldNote = onHoldLine(availability);
   // Draft tours can be on sale but have no public tour page to link to.
   const detailsHref = tour.hasDetailsPage && tour.tourSlug ? `/tours/${tour.tourSlug}` : undefined;
   const headingId = `sale-tour-${tour.tourPackageId}`;
+  const hasSlots = !!availability && availability.slots.length > 0;
 
   let cta: { label: string; enabled: boolean };
-  if (isMine) cta = { label: "View my held slots", enabled: true };
+  if (isMine) cta = { label: "My held slots", enabled: true };
   else if (soldOut) cta = { label: "Sold out", enabled: false };
   else if (!saleOpen) cta = { label: closedLabel, enabled: false };
-  else if (allHeld) cta = { label: "All slots on hold", enabled: false };
-  else if (!availability || availability.slots.length === 0) cta = { label: "Coming soon", enabled: false };
-  else cta = { label: "Hold my slot", enabled: true };
+  else if (allHeld) cta = { label: "All on hold", enabled: false };
+  else if (!hasSlots) cta = { label: "Coming soon", enabled: false };
+  else cta = { label: "Reserve now", enabled: true };
+
+  const btn =
+    "inline-flex min-h-12 items-center justify-center rounded-full px-5 py-3 text-center font-body font-bold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson-red";
 
   return (
     <article
@@ -75,7 +104,7 @@ export default function SaleTourCard({
             </span>
           ) : saving > 0 ? (
             <span className="inline-flex items-center rounded-full bg-crimson-red px-3 py-1.5 font-body text-b4-mobile font-bold text-white tabular-nums md:text-b4-desktop">
-              Save {formatGBP(saving)}
+              Save up to {formatGBP(saving)}
             </span>
           ) : null}
           {isMine && (
@@ -93,20 +122,8 @@ export default function SaleTourCard({
             {tour.durationLabel}
           </span>
         )}
-        <h3
-          id={headingId}
-          className="mt-3 font-sans text-h5-mobile text-midnight md:text-h5-desktop"
-        >
-          {detailsHref ? (
-            <Link
-              href={detailsHref}
-              className="rounded-sm underline-offset-4 transition-colors hover:text-crimson-red hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson-red"
-            >
-              {tour.displayName}
-            </Link>
-          ) : (
-            tour.displayName
-          )}
+        <h3 id={headingId} className="mt-3 font-sans text-h5-mobile text-midnight md:text-h5-desktop">
+          {tour.displayName}
         </h3>
         {tour.routeLabel && tour.routeLabel.trim().toLowerCase() !== tour.displayName.trim().toLowerCase() && (
           <p className="mt-1 line-clamp-2 font-body text-b4-mobile text-dark-gray md:text-b4-desktop">
@@ -115,7 +132,7 @@ export default function SaleTourCard({
         )}
 
         <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1 tabular-nums">
-          {fromPrice !== null ? (
+          {fromPrice !== null && !soldOut ? (
             <>
               <span className="font-body text-b4-desktop text-dark-gray">
                 {availability?.nextPrice != null ? "Now from" : "From"}
@@ -125,38 +142,52 @@ export default function SaleTourCard({
               </span>
               {tour.originalPrice > fromPrice && (
                 <span className="font-body text-b2-mobile text-dark-gray line-through md:text-b2-desktop">
-                  <span className="sr-only">Was </span>
+                  <span className="sr-only">was </span>
                   {formatGBP(tour.originalPrice)}
                 </span>
               )}
             </>
           ) : (
-            <span className="font-body text-b2-mobile text-dark-gray line-through md:text-b2-desktop">
-              <span className="sr-only">Was </span>
-              {formatGBP(tour.originalPrice)}
+            <span className="font-body text-b2-mobile text-dark-gray md:text-b2-desktop">
+              Usually {formatGBP(tour.originalPrice)}
             </span>
           )}
         </div>
         <p className="mt-1 font-body text-b4-mobile text-dark-gray md:text-b4-desktop">per person</p>
 
-        {availability && availability.slots.length > 0 && (
+        {hasSlots && (
           <div className="mt-4">
-            <SlotLadder slots={availability.slots} />
+            <PlacesBar slots={availability!.slots} />
+            <p className="mt-2 font-body text-b4-mobile font-medium text-midnight tabular-nums md:text-b4-desktop">
+              {availabilityLine(availability)}
+            </p>
+            {heldNote && (
+              <p className="font-body text-b4-mobile text-dark-gray md:text-b4-desktop">{heldNote}</p>
+            )}
           </div>
         )}
 
-        <p className="mt-3 font-body text-b4-mobile font-medium text-midnight tabular-nums md:text-b4-desktop">
-          {availabilityLine(availability)}
-          {heldNote && <span className="font-normal text-dark-gray"> · {heldNote}</span>}
+        <p className="mt-3 flex items-center gap-1.5 font-body text-b4-mobile text-dark-gray md:text-b4-desktop">
+          <UserRound className="size-3.5 shrink-0" strokeWidth={2.25} aria-hidden="true" />
+          1 slot = 1 person · earlier slots cost less
         </p>
 
-        <div className="mt-auto pt-5">
+        <div className="mt-auto flex gap-2 pt-5">
+          {detailsHref && (
+            <Link
+              href={detailsHref}
+              aria-describedby={headingId}
+              className={`${btn} flex-1 border-2 border-midnight/15 bg-white text-midnight hover:border-midnight`}
+            >
+              View tour
+            </Link>
+          )}
           <button
             type="button"
             disabled={!cta.enabled}
             onClick={(e) => onHold(e.currentTarget)}
             aria-describedby={headingId}
-            className={`inline-flex min-h-12 w-full items-center justify-center rounded-full px-6 py-3 font-body font-bold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson-red ${
+            className={`${btn} flex-1 ${
               cta.enabled
                 ? isMine
                   ? "bg-midnight text-white hover:bg-dark-gray"

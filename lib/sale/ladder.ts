@@ -18,15 +18,15 @@ export function formatGBP(amount: number): string {
   return gbp.format(amount);
 }
 
-export const PARTY_OPTIONS = [
-  { size: 1, label: "Solo" },
-  { size: 2, label: "Duo" },
-  { size: 3, label: "Group of 3" },
-  { size: 4, label: "Group of 4" },
-] as const;
-
+/** Solo / Duo / Group of N — one slot per person. */
 export function partyLabel(size: number): string {
-  return PARTY_OPTIONS.find((o) => o.size === size)?.label ?? `Group of ${size}`;
+  if (size <= 1) return "Solo";
+  if (size === 2) return "Duo";
+  return `Group of ${size}`;
+}
+
+export function peopleLabel(n: number): string {
+  return n === 1 ? "1 person" : `${n} people`;
 }
 
 /** The next `partySize` free slots in ladder order, or null if there aren't enough. */
@@ -56,24 +56,27 @@ export function maxDiscount(data: Pick<SalePageData, "availability">): number {
   return max;
 }
 
-/** Copy for "N of M left", honest and without timers. */
+/**
+ * Copy for "N of M sale places left" (one slot = one person's place), honest
+ * and without timers.
+ */
 export function availabilityLine(av: PublicTourAvailability | undefined): string {
-  if (!av || av.slots.length === 0) return "Slots coming soon";
+  if (!av || av.slots.length === 0) return "Sale places coming soon";
   const total = av.slots.length;
-  if (isSoldOut(av)) return "Sold out";
+  if (isSoldOut(av)) return `Sold out · all ${total} sale places taken`;
   if (av.left === 0) {
     return av.onHold === 1
-      ? "Last slot on hold — may free up soon"
-      : "All slots on hold — may free up soon";
+      ? "Last place on hold — may free up soon"
+      : "All places on hold — may free up soon";
   }
-  return `${av.left} of ${total} left`;
+  return `${av.left} of ${total} sale ${total === 1 ? "place" : "places"} left`;
 }
 
 export function onHoldLine(av: PublicTourAvailability | undefined): string | null {
   if (!av || av.onHold === 0 || av.left === 0) return null;
   return av.onHold === 1
-    ? "1 slot on hold — may free up soon"
-    : `${av.onHold} slots on hold — may free up soon`;
+    ? "1 on hold — may free up soon"
+    : `${av.onHold} on hold — may free up soon`;
 }
 
 /** Splits `${holdId}.${token}` (token may itself contain dots). */

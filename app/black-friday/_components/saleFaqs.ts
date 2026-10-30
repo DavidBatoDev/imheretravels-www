@@ -3,7 +3,7 @@ export function saleFaqs(holdMinutes: number): { q: string; a: string }[] {
   return [
     {
       q: "How do slots work?",
-      a: "Each tour in the sale has a small number of discounted slots, sold in order. Slot 1 is the cheapest, slot 2 costs a little more, and so on. When you book, your party takes the next free slots — a Duo booking after slot 1 has gone gets slots 2 and 3.",
+      a: "Each slot is one person's place on the tour, and each tour in the sale has a set number of them (for example 10). They're sold in order: slot 1 is the cheapest, slot 2 costs a little more, and so on. When you book, each person in your party takes the next free slot — so a Duo booking after slot 1 has gone gets slots 2 and 3, and the card then shows the new lowest price.",
     },
     {
       q: "Why do earlier slots cost less?",

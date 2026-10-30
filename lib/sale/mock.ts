@@ -28,8 +28,9 @@ const MOCK_TOURS: MockTour[] = [
     slug: "argentinas-wonders",
     displayName: "Argentina",
     originalPrice: 2199,
-    ladder: [500, 300, 200, 100],
-    states: ["sold", "on_hold", "available", "available"],
+    // The example ladder: 10 slots (10 people), slot 1 sold, slot 4 on hold.
+    ladder: [500, 300, 300, 200, 200, 200, 100, 100, 100, 100],
+    states: ["sold", "available", "available", "on_hold", "available", "available", "available", "available", "available", "available"],
     fallback: { duration: "11 Days", route: "Argentina", cover: "/figma/tour-philippines-sunrise.png", deposit: 300 },
   },
   {
@@ -37,8 +38,8 @@ const MOCK_TOURS: MockTour[] = [
     slug: "japan-adventure-winter",
     displayName: "Japan Winter",
     originalPrice: 1999,
-    ladder: [400, 300, 200, 100],
-    states: ["available", "available", "available", "available"],
+    ladder: [400, 300, 200, 200, 100, 100],
+    states: ["available", "available", "available", "available", "available", "available"],
     fallback: { duration: "10 Days And 9 Nights", route: "Tokyo → Nagano", cover: "/figma/tour-philippines-sunrise.png", deposit: 300 },
   },
   {
@@ -126,7 +127,7 @@ export async function getMockSalePageData(opts: {
     hero: {
       title: "Black Friday Sale",
       subtitle:
-        "Our biggest savings of the year on small-group tours. A few discounted slots per tour, cheapest first — hold yours for 15 minutes while you book.",
+        "Our biggest savings of the year on small-group tours. Discounted slots per tour (one slot = one person), cheapest first — hold yours for 15 minutes while you book.",
     },
     seo: {},
     tours,

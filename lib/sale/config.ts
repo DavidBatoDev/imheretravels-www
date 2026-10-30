@@ -31,7 +31,8 @@ export const AUTO_REDIRECT_DELAY_MS = 1_300;
 export const HOLD_STORAGE_KEY = `iht:sale-hold:${BLACK_FRIDAY_SLUG}`;
 export const PROMO_STRIP_DISMISS_KEY = `iht:promo-strip-dismissed:${BLACK_FRIDAY_SLUG}`;
 
-export const MAX_PARTY_SIZE = 4;
+/** Largest party one booking can hold (1 slot = 1 person). Mirrors the admin API. */
+export const MAX_PARTY_SIZE = 10;
 
 export function reservationFormHref(tourSlug: string, holdParam: string): string {
   const url = new URL(RESERVATION_FORM_URL);
