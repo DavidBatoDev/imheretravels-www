@@ -153,7 +153,9 @@ export default function SaleTourCard({
             </span>
           )}
         </div>
-        <p className="mt-1 font-body text-b4-mobile text-dark-gray md:text-b4-desktop">per person</p>
+        <p className="mt-1 font-body text-b4-mobile text-dark-gray md:text-b4-desktop">
+          per person{tour.pricesVary && " · Prices vary by date"}
+        </p>
 
         {hasSlots && (
           <div className="mt-4">
