@@ -12,21 +12,31 @@ const UNITS = [
 ] as const;
 
 /**
- * Countdown to the sale opening, shown in the hero while the sale is
- * upcoming. Everyone sees the same start time (unlike a hold timer, it isn't
- * personal). At zero the page refreshes so the cards open.
+ * Countdown in the hero: to the sale opening while it's upcoming, then to its
+ * end date while it's live. Everyone sees the same time (unlike a hold timer,
+ * it isn't personal). At zero the page refreshes so the cards open or close.
  */
-export default function StartCountdown({ startAt }: { startAt: string }) {
+export default function SaleCountdown({
+  to,
+  label,
+  doneLabel,
+}: {
+  to: string;
+  /** "Sale opens in" */
+  label: string;
+  /** Shown at zero until the refreshed page arrives. */
+  doneLabel: string;
+}) {
   const hydrated = useHydrated();
   const now = useClock();
   const router = useRouter();
   const refreshed = useRef(false);
-  const left = Math.max(0, Date.parse(startAt) - now);
+  const left = Math.max(0, Date.parse(to) - now);
 
   useEffect(() => {
     if (!hydrated || left > 0 || refreshed.current) return;
     refreshed.current = true;
-    // A beat of grace so the server-side clock has passed the start too.
+    // A beat of grace so the server-side clock has passed it too.
     const id = window.setTimeout(() => router.refresh(), 1500);
     return () => window.clearTimeout(id);
   }, [hydrated, left, router]);
@@ -39,9 +49,9 @@ export default function StartCountdown({ startAt }: { startAt: string }) {
   });
 
   return (
-    <div className="mt-6" role="timer" aria-live="off" aria-label="Time until the sale opens">
+    <div className="mt-6" role="timer" aria-live="off" aria-label={label}>
       <p className="font-body text-b4-mobile font-medium uppercase tracking-wider text-white/70 md:text-b4-desktop">
-        {hydrated && left === 0 ? "Opening now…" : "Sale opens in"}
+        {hydrated && left === 0 ? doneLabel : label}
       </p>
       <div className="mt-2 flex gap-2 sm:gap-3">
         {parts.map((p) => (

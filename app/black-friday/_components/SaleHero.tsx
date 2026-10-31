@@ -1,7 +1,7 @@
 import type { SalePhase } from "@/lib/sale/ladder";
 import { formatGBP } from "@/lib/sale/ladder";
 import DealsCta from "./DealsCta";
-import StartCountdown from "./StartCountdown";
+import SaleCountdown from "./SaleCountdown";
 
 /**
  * Midnight band with the sale headline. Text sits beside (desktop) or above
@@ -19,6 +19,7 @@ export default function SaleHero({
   fallbackImage,
   showCta = true,
   startAt,
+  endAt,
 }: {
   title: string;
   subtitle: string;
@@ -32,6 +33,8 @@ export default function SaleHero({
   showCta?: boolean;
   /** Shown as a countdown while the sale is upcoming. */
   startAt?: string | null;
+  /** Shown as a countdown while the sale is live, if an end date is set. */
+  endAt?: string | null;
 }) {
   const desktopSrc = bannerUrl || mobileBannerUrl || fallbackImage;
   const mobileSrc = mobileBannerUrl || bannerUrl || fallbackImage;
@@ -71,7 +74,10 @@ export default function SaleHero({
             </p>
           )}
 
-          {phase === "upcoming" && startAt && <StartCountdown startAt={startAt} />}
+          {phase === "upcoming" && startAt && (
+            <SaleCountdown to={startAt} label="Sale opens in" doneLabel="Opening now…" />
+          )}
+          {live && endAt && <SaleCountdown to={endAt} label="Sale ends in" doneLabel="Sale ending now…" />}
 
           {showCta && (
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">

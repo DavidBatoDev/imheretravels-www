@@ -71,6 +71,7 @@ export default function SalePageView({
           fallbackImage={firstTour?.coverImage}
           showCta={sale.tours.length > 0}
           startAt={sale.startAt}
+          endAt={sale.endAt}
         />
 
         {/* Resume banner (holder only) → How it works → the deals grid. */}
