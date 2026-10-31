@@ -16,7 +16,7 @@ import {
   writeStoredHold,
   type StoredHold,
 } from "@/lib/sale/hold-storage";
-import { isSoldOut, salePhase, statusLabel } from "@/lib/sale/ladder";
+import { isSoldOut, salePhase, statusLabel, withSlotStates } from "@/lib/sale/ladder";
 import type { PublicSaleAvailability, PublicTourAvailability, SalePageData } from "@/lib/sale/types";
 import ClaimSheet, { type ActiveHold } from "./ClaimSheet";
 import ResumeBanner from "./ResumeBanner";
@@ -251,7 +251,12 @@ export default function SaleExperience({
     }
   };
 
-  const claim = async (partySize: number, email: string, website: string): Promise<ClaimResult> => {
+  const claim = async (
+    partySize: number,
+    email: string,
+    website: string,
+    shownSlots: number[],
+  ): Promise<ClaimResult> => {
     const tour = sheetTour;
     if (!api || !tour) return { ok: false, error: "network" };
     trackEvent("sale_claim_started", { tour: tour.tourSlug, party_size: partySize });
@@ -261,6 +266,7 @@ export default function SaleExperience({
       partySize,
       email,
       website,
+      shownSlots,
     });
 
     if (res.ok) {
@@ -295,13 +301,19 @@ export default function SaleExperience({
       return res;
     }
 
-    if (res.error === "not_enough_slots") {
-      trackEvent("sale_claim_soldout", {
+    if (res.error === "not_enough_slots" || res.error === "slots_changed") {
+      trackEvent(res.error === "slots_changed" ? "sale_claim_slots_changed" : "sale_claim_soldout", {
         tour: tour.tourSlug,
         party_size: partySize,
         left: res.left ?? 0,
       });
       await refresh();
+      // The feed is cached briefly; the refusal's states are the live ones.
+      if (res.states) {
+        const next = withSlotStates(availabilityRef.current, tour.tourPackageId, res.states);
+        availabilityRef.current = next;
+        setAvailability(next);
+      }
     } else {
       trackEvent("sale_claim_error", { tour: tour.tourSlug, party_size: partySize, error: res.error });
       if (res.error === "sale_closed") await refresh();

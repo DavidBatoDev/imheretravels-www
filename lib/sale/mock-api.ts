@@ -5,7 +5,7 @@
  * import so it stays out of the normal bundle path.
  *
  * Email tricks for exercising error states:
- *   …+race@…       another visitor takes a slot first (not_enough_slots)
+ *   …+race@…       another visitor takes a slot first (slots_changed or not_enough_slots)
  *   …+soldout@…    everything sells out first (not_enough_slots, left 0)
  *   …+ratelimit@…  rate_limited (retryAfterS 42)
  *   …+paying@…     hold_in_payment
@@ -62,8 +62,12 @@ export function createMockSaleApi(
       }
       recount(state);
       const free = t.slots.filter((s) => s.state === "available");
+      const states = t.slots.map((s) => ({ index: s.index, state: s.state }));
       if (free.length < input.partySize) {
-        return { ok: false, error: "not_enough_slots", left: free.length };
+        return { ok: false, error: "not_enough_slots", left: free.length, states };
+      }
+      if (input.shownSlots.some((i) => !free.some((s) => s.index === i))) {
+        return { ok: false, error: "slots_changed", states };
       }
       const taken = free.slice(0, input.partySize);
       taken.forEach((s) => (s.state = "on_hold"));

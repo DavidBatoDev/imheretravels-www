@@ -6,7 +6,7 @@
 
 import { BLACK_FRIDAY_SLUG, SALE_API_BASE } from "./config";
 import { splitHoldParam } from "./ladder";
-import type { ClaimErrorCode, PublicSaleAvailability, SaleHoldView } from "./types";
+import type { ClaimErrorCode, PublicSaleAvailability, PublicSlot, SaleHoldView } from "./types";
 
 export type ClaimInput = {
   saleId: string;
@@ -15,11 +15,16 @@ export type ClaimInput = {
   email: string;
   /** Honeypot — must stay empty. */
   website: string;
+  /** Slots on screen when Hold was tapped; the claim is refused if one has gone. */
+  shownSlots: number[];
 };
+
+/** Live slot states sent back with a refused claim. */
+export type SlotStates = Pick<PublicSlot, "index" | "state">[];
 
 export type ClaimResult =
   | { ok: true; hold: SaleHoldView; holdParam: string }
-  | { ok: false; error: ClaimErrorCode; left?: number; retryAfterS?: number };
+  | { ok: false; error: ClaimErrorCode; left?: number; retryAfterS?: number; states?: SlotStates };
 
 export type HoldLookup =
   | { ok: true; hold: SaleHoldView }
@@ -33,6 +38,7 @@ export interface SaleApi {
 
 const KNOWN_ERRORS: ClaimErrorCode[] = [
   "not_enough_slots",
+  "slots_changed",
   "sale_closed",
   "hold_in_payment",
   "rate_limited",
@@ -73,6 +79,7 @@ export const liveSaleApi: SaleApi = {
       error: KNOWN_ERRORS.includes(code) ? code : "unknown",
       left: typeof body?.left === "number" ? body.left : undefined,
       retryAfterS: typeof body?.retryAfterS === "number" ? body.retryAfterS : undefined,
+      states: Array.isArray(body?.states) ? (body.states as SlotStates) : undefined,
     };
   },
 

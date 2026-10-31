@@ -105,6 +105,7 @@ export interface SalePageData {
 /** Claim API error codes the page handles explicitly. */
 export type ClaimErrorCode =
   | "not_enough_slots"
+  | "slots_changed"
   | "sale_closed"
   | "hold_in_payment"
   | "rate_limited"

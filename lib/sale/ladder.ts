@@ -3,7 +3,7 @@
  * and the copy for party sizes. Shared by the server page and client components.
  */
 
-import type { PublicSlot, PublicTourAvailability, SalePageData } from "./types";
+import type { PublicSaleAvailability, PublicSlot, PublicTourAvailability, SalePageData } from "./types";
 import { MAX_PARTY_SIZE } from "./config";
 
 const gbp = new Intl.NumberFormat("en-GB", {
@@ -35,6 +35,51 @@ export function pickSlots(slots: PublicSlot[], partySize: number): PublicSlot[] 
     .sort((a, b) => a.index - b.index)
     .filter((s) => s.state === "available");
   return free.length >= partySize ? free.slice(0, partySize) : null;
+}
+
+/** The slots a customer was shown that have gone since, in their current state. */
+export function lostSlots(shown: PublicSlot[], current: PublicSlot[]): PublicSlot[] {
+  return shown.flatMap((s) => {
+    const now = current.find((c) => c.index === s.index);
+    if (now?.state === "available") return [];
+    return [now ?? { ...s, state: "sold" as const }];
+  });
+}
+
+/** "Slot 3", "Slots 3 and 4", "Slots 3, 5 and 6", "Slots 3–7". */
+export function slotNames(indexes: number[]): string {
+  const sorted = [...indexes].sort((a, b) => a - b);
+  const first = sorted[0];
+  const last = sorted[sorted.length - 1];
+  if (sorted.length === 1) return `Slot ${first}`;
+  if (sorted.length > 2 && last! - first! === sorted.length - 1) return `Slots ${first}–${last}`;
+  return `Slots ${sorted.slice(0, -1).join(", ")} and ${last}`;
+}
+
+/** Applies the live slot states from a refused claim to one tour. */
+export function withSlotStates(
+  av: PublicSaleAvailability,
+  tourPackageId: string,
+  states: Pick<PublicSlot, "index" | "state">[],
+): PublicSaleAvailability {
+  return {
+    ...av,
+    tours: av.tours.map((t) => {
+      if (t.tourPackageId !== tourPackageId) return t;
+      const slots = t.slots.map((s) => ({
+        ...s,
+        state: states.find((x) => x.index === s.index)?.state ?? s.state,
+      }));
+      const free = slots.filter((s) => s.state === "available");
+      return {
+        ...t,
+        slots,
+        left: free.length,
+        onHold: slots.filter((s) => s.state === "on_hold").length,
+        nextPrice: free[0]?.salePrice ?? null,
+      };
+    }),
+  };
 }
 
 /** Largest party the tour can take right now (0 when nothing is free). */

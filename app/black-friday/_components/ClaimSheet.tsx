@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useId, useRef, useState, type FormEvent } from "react";
-import { Check, ChevronDown, Copy, ExternalLink, Loader2, Minus, Plus, TimerOff } from "lucide-react";
+import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { Check, ChevronDown, Copy, ExternalLink, Loader2, Minus, Plus, TimerOff, X } from "lucide-react";
 import BottomSheet from "./BottomSheet";
 import SlotLadder from "./SlotLadder";
 import { useClock } from "./hooks";
@@ -13,13 +13,15 @@ import {
   formatGBP,
   holdReference,
   isSoldOut,
+  lostSlots,
   maxParty,
   partyLabel,
   peopleLabel,
   pickSlots,
+  slotNames,
 } from "@/lib/sale/ladder";
 import type { ClaimResult } from "@/lib/sale/api";
-import type { PublicTourAvailability, SaleHoldView, SalePageTour } from "@/lib/sale/types";
+import type { PublicSlot, PublicTourAvailability, SaleHoldView, SalePageTour } from "@/lib/sale/types";
 
 export type ActiveHold = {
   hold: SaleHoldView;
@@ -39,6 +41,118 @@ const STEPPER_BTN =
 
 /** Breakdown rows shown before "Show all N slots" for big groups. */
 const BREAKDOWN_PREVIEW = 3;
+
+function lostHeading(lost: PublicSlot[]): string {
+  const names = slotNames(lost.map((s) => s.index));
+  const one = lost.length === 1;
+  if (lost.every((s) => s.state === "on_hold")) return `${names} ${one ? "is" : "are"} now on hold`;
+  if (lost.every((s) => s.state === "sold")) return `${names} ${one ? "has" : "have"} just sold`;
+  return `${names} are no longer available`;
+}
+
+/** Tells the customer a slot they were looking at has gone, and offers the next. */
+function SlotChangePrompt({
+  lost,
+  picked,
+  total,
+  previousTotal,
+  saved,
+  switchedParty,
+  onContinue,
+  onClose,
+}: {
+  lost: PublicSlot[];
+  picked: PublicSlot[];
+  total: number;
+  previousTotal: number;
+  saved: number;
+  /** New party label when there are no longer enough slots for the whole party. */
+  switchedParty: string | null;
+  onContinue: () => void;
+  onClose: () => void;
+}) {
+  const primaryRef = useRef<HTMLButtonElement | null>(null);
+  const hasNext = picked.length > 0;
+  const names = hasNext ? slotNames(picked.map((s) => s.index)) : "";
+  const onHold = lost.some((s) => s.state === "on_hold");
+
+  // The Hold button this replaces may have had focus.
+  useEffect(() => {
+    if (document.activeElement === document.body) primaryRef.current?.focus({ preventScroll: true });
+  }, []);
+
+  return (
+    <div role="alert">
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <p className="font-sans text-h6-mobile text-midnight md:text-h6-desktop">{lostHeading(lost)}</p>
+          <p className="mt-1 font-body text-b4-mobile text-dark-gray md:text-b4-desktop">
+            Another customer got there first.
+            {onHold && ` ${lost.length === 1 ? "It" : "They"} may free up if that booking isn't finished.`}
+            {!hasNext && " There are no other slots free on this tour right now."}
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={onContinue}
+          aria-label={hasNext ? `Dismiss and continue with ${names}` : "Dismiss"}
+          className="-mr-2 -mt-2 inline-flex size-11 shrink-0 items-center justify-center rounded-full text-midnight transition-colors hover:bg-light-grey focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson-red"
+        >
+          <X className="size-5" strokeWidth={2.25} aria-hidden="true" />
+        </button>
+      </div>
+
+      {hasNext && (
+        <div className="mt-3 flex items-baseline justify-between gap-3 rounded-md bg-light-grey p-3 tabular-nums">
+          <div className="min-w-0">
+            <p className="font-body text-b4-mobile text-dark-gray">Next available</p>
+            <p className="font-body text-b2-mobile font-bold text-midnight md:text-b4-desktop">{names}</p>
+            {saved > 0 && (
+              <p className="font-body text-b4-mobile text-dark-gray">You save {formatGBP(saved)}</p>
+            )}
+          </div>
+          <div className="shrink-0 text-right">
+            <p className="font-sans text-h6-mobile text-midnight md:text-h6-desktop">{formatGBP(total)}</p>
+            {!switchedParty && (
+              <p className="font-body text-b4-mobile text-dark-gray">
+                {total === previousTotal ? (
+                  "Same price"
+                ) : (
+                  <>
+                    was <s>{formatGBP(previousTotal)}</s>
+                  </>
+                )}
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+      {hasNext && switchedParty && (
+        <p className="mt-2 font-body text-b4-mobile text-midnight md:text-b4-desktop">
+          Not enough slots left for your whole party, so this is for {switchedParty}.
+        </p>
+      )}
+
+      <button
+        ref={primaryRef}
+        type="button"
+        onClick={hasNext ? onContinue : onClose}
+        className="mt-3 inline-flex min-h-13 w-full items-center justify-center rounded-full bg-crimson-red px-6 py-3.5 font-body font-bold text-white shadow-small transition-colors hover:bg-light-red focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson-red"
+      >
+        {hasNext ? `Continue with ${names}` : "See other tours"}
+      </button>
+      {hasNext && (
+        <button
+          type="button"
+          onClick={onClose}
+          className="mt-1 inline-flex min-h-11 w-full items-center justify-center rounded-full font-body text-b4-desktop font-bold text-midnight underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson-red"
+        >
+          See other tours
+        </button>
+      )}
+    </div>
+  );
+}
 
 function errorCopy(err: ClaimFailure): string {
   switch (err.error) {
@@ -91,7 +205,7 @@ export default function ClaimSheet({
   /** Polite live-region text for availability changes on this tour. */
   announcement: string;
   mock: boolean;
-  onClaim: (partySize: number, email: string, website: string) => Promise<ClaimResult>;
+  onClaim: (partySize: number, email: string, website: string, shownSlots: number[]) => Promise<ClaimResult>;
   onTryAgain: () => void;
 }) {
   const titleId = useId();
@@ -108,6 +222,8 @@ export default function ClaimSheet({
   const [emailError, setEmailError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<ClaimFailure | null>(null);
+  /** The slots the customer last saw and accepted for their party. */
+  const [seen, setSeen] = useState<{ requested: number; slots: PublicSlot[] } | null>(null);
   const emailRef = useRef<HTMLInputElement | null>(null);
 
   const maxP = maxParty(availability);
@@ -140,9 +256,26 @@ export default function ClaimSheet({
   const slotWord = party === 1 ? "slot" : "slots";
   const collapsible = picked.length > BREAKDOWN_PREVIEW + 1;
 
+  // Prompt only when a slot they were looking at went; a cheaper one freeing up
+  // just updates the price. Closing the sheet starts over.
+  const watching = open && saleOpen && !activeHold;
+  const offering = watching && canClaim && picked.length > 0;
+  const lost = watching && seen ? lostSlots(seen.slots, availability?.slots ?? []) : [];
+  const seenSamePicks =
+    seen?.slots.length === picked.length && seen.slots.every((s, i) => s.index === picked[i]?.index);
+  if (!open && seen) {
+    setSeen(null);
+  } else if (offering && (seen?.requested !== requested || (lost.length === 0 && !seenSamePicks))) {
+    setSeen({ requested, slots: picked });
+  }
+  const acceptNewSlots = () => {
+    setSeen({ requested, slots: picked });
+    setError(null);
+  };
+
   async function submit(e: FormEvent) {
     e.preventDefault();
-    if (submitting || !canClaim) return;
+    if (submitting || !canClaim || lost.length > 0) return;
     const trimmed = email.trim();
     if (!EMAIL_RE.test(trimmed)) {
       setEmailError("Enter a valid email address, like name@example.com.");
@@ -152,11 +285,12 @@ export default function ClaimSheet({
     setEmailError(null);
     setError(null);
     setSubmitting(true);
-    const res = await onClaim(party, trimmed, website);
+    const res = await onClaim(party, trimmed, website, picked.map((s) => s.index));
     setSubmitting(false);
     // On not_enough_slots the parent has already refreshed availability, so the
     // party selector re-clamps itself; the message offers the size that fits.
-    if (!res.ok) setError(res);
+    // On slots_changed the fresh states bring up the slot-change prompt instead.
+    if (!res.ok && res.error !== "slots_changed") setError(res);
   }
 
   const title = (
@@ -182,10 +316,23 @@ export default function ClaimSheet({
   }
 
   // ── Form ──────────────────────────────────────────────────────────────────
-  const notEnough = error?.error === "not_enough_slots" ? error : null;
+  const notEnough = error?.error === "not_enough_slots" && lost.length === 0 ? error : null;
   const otherError = error && error.error !== "not_enough_slots" ? error : null;
 
-  const footer = (
+  // Takes the footer's place: always in view (even scrolled to the email field
+  // on a phone), and Hold can't be tapped until the new slot is accepted.
+  const footer = lost.length > 0 ? (
+    <SlotChangePrompt
+      lost={lost}
+      picked={picked}
+      total={total}
+      previousTotal={(seen?.slots ?? []).reduce((sum, s) => sum + s.salePrice, 0)}
+      saved={saved}
+      switchedParty={clamped ? partyLabel(party) : null}
+      onContinue={acceptNewSlots}
+      onClose={onClose}
+    />
+  ) : (
     <div>
       {canClaim && (
         <div className="mb-3 flex items-baseline justify-between gap-3 tabular-nums">
