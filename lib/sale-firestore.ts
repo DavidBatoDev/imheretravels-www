@@ -130,6 +130,30 @@ export const isSalePublic = cache(async (slug: string): Promise<boolean> => {
   }
 });
 
+/** True when an admin added `slug` as an extra link to a sale. Errors count as no. */
+export async function isSaleRedirectSlug(slug: string): Promise<boolean> {
+  try {
+    const { adminDb } = await import("@/lib/firebase-admin");
+    const q = await adminDb.collection(SALE_COLLECTION).where("redirectSlugs", "array-contains", slug).limit(1).get();
+    return !q.empty;
+  } catch (e) {
+    console.error("[sale] redirect lookup failed", e);
+    return false;
+  }
+}
+
+/** Where the sale page sends visitors while the sale is draft or ended, if set. */
+export async function getSaleFallbackUrl(slug: string): Promise<string | null> {
+  try {
+    const { adminDb } = await import("@/lib/firebase-admin");
+    const q = await adminDb.collection(SALE_COLLECTION).where("slug", "==", slug).limit(1).get();
+    return q.empty ? null : str(q.docs[0]!.get("fallbackUrl")) || null;
+  } catch (e) {
+    console.error("[sale] fallback lookup failed", e);
+    return null;
+  }
+}
+
 /** Cached per request so generateMetadata and the page share one read. */
 export const getSalePageData = cache(async (slug: string): Promise<SaleLoadResult> => {
   return loadSale("slug", slug, { allowDraft: false });

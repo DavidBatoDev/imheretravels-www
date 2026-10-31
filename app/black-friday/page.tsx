@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Footer from "@/app/components/global/Footer";
-import { getSalePageData, type SaleLoadResult } from "@/lib/sale-firestore";
+import { getSaleFallbackUrl, getSalePageData, type SaleLoadResult } from "@/lib/sale-firestore";
 import { BLACK_FRIDAY_PATH, BLACK_FRIDAY_SLUG } from "@/lib/sale/config";
+import { salePhase } from "@/lib/sale/ladder";
 import SaleHero from "./_components/SaleHero";
 import SalePageView from "./_components/SalePageView";
 
@@ -82,6 +83,17 @@ export async function generateMetadata({
 
 export default async function BlackFridayPage({ searchParams }: { searchParams: SearchParams }) {
   const { result, mock } = await load(searchParams);
+
+  // Draft (not found here) or ended: go to the admin's redirect link if there is one.
+  const closed =
+    result.kind === "not_found" ||
+    (result.kind === "ok" &&
+      !mock &&
+      salePhase(result.sale, Date.parse(result.sale.availability.serverNow)) === "ended");
+  if (closed) {
+    const fallback = await getSaleFallbackUrl(BLACK_FRIDAY_SLUG);
+    if (fallback) redirect(fallback);
+  }
 
   if (result.kind === "not_found") notFound();
 
