@@ -1,5 +1,5 @@
 /**
- * DEV-ONLY in-memory stand-in for the admin sale API, used by /black-friday
+ * DEV-ONLY in-memory stand-in for the admin sale API, used by the sale page
  * when the page is rendered with `?mock=1` (never in production — the page
  * only enables mock mode when NODE_ENV !== "production"). Loaded via dynamic
  * import so it stays out of the normal bundle path.

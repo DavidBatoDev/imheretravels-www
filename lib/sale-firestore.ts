@@ -115,30 +115,30 @@ export function toPublicTourAvailability(
 
 /**
  * Whether the site-wide Black Friday nav item and promo strip should show:
- * only while the sale is public (live or paused). Draft or ended hides them,
- * so the nav never links to a 404. Errors hide them too.
+ * only while a sale is public (live or paused), linking to its page at the
+ * slug set in admin. Draft or ended hides them, so the nav never links to a
+ * 404. Errors hide them too.
  */
-export const isSalePublic = cache(async (slug: string): Promise<boolean> => {
+export const getPublicSalePath = cache(async (): Promise<string | null> => {
   try {
     const { adminDb } = await import("@/lib/firebase-admin");
-    const q = await adminDb.collection(SALE_COLLECTION).where("slug", "==", slug).limit(1).get();
-    const status = q.empty ? null : q.docs[0]!.get("status");
-    return status === "live" || status === "paused";
+    const q = await adminDb.collection(SALE_COLLECTION).where("status", "in", ["live", "paused"]).limit(1).get();
+    return q.empty ? null : `/${str(q.docs[0]!.get("slug"))}`;
   } catch (e) {
     console.error("[sale] promo state lookup failed", e);
-    return false;
+    return null;
   }
 });
 
-/** True when an admin added `slug` as an extra link to a sale. Errors count as no. */
-export async function isSaleRedirectSlug(slug: string): Promise<boolean> {
+/** The sale page an Extra link forwards to, if `slug` is one. Errors count as no. */
+export async function getSaleRedirectPath(slug: string): Promise<string | null> {
   try {
     const { adminDb } = await import("@/lib/firebase-admin");
     const q = await adminDb.collection(SALE_COLLECTION).where("redirectSlugs", "array-contains", slug).limit(1).get();
-    return !q.empty;
+    return q.empty ? null : `/${str(q.docs[0]!.get("slug"))}`;
   } catch (e) {
     console.error("[sale] redirect lookup failed", e);
-    return false;
+    return null;
   }
 }
 
@@ -158,6 +158,25 @@ export async function getSaleFallbackUrl(slug: string): Promise<string | null> {
 export const getSalePageData = cache(async (slug: string): Promise<SaleLoadResult> => {
   return loadSale("slug", slug, { allowDraft: false });
 });
+
+/** The public sale narrowed to one tour, for its tour page. Null if it isn't in one. */
+export async function getTourSaleOffer(tourSlug: string): Promise<SalePageData | null> {
+  const path = await getPublicSalePath();
+  if (!path) return null;
+  const result = await getSalePageData(path.slice(1));
+  if (result.kind !== "ok") return null;
+  const { sale } = result;
+  const tour = sale.tours.find((t) => t.tourSlug === tourSlug);
+  if (!tour) return null;
+  return {
+    ...sale,
+    tours: [tour],
+    availability: {
+      ...sale.availability,
+      tours: sale.availability.tours.filter((t) => t.tourPackageId === tour.tourPackageId),
+    },
+  };
+}
 
 /**
  * Private preview (admin "Preview" link): finds the sale by its secret
@@ -209,7 +228,7 @@ async function loadSale(
       const p = presentation[id];
       return {
         tourPackageId: id,
-        tourSlug: str(t.tourSlug) || p?.slug || "",
+        tourSlug: p?.slug || str(t.tourSlug),
         // Card title is the tour's current name (falls back to the saved snapshot).
         displayName: p?.name || str(t.tourName) || str(t.displayName) || "Tour",
         tourName: str(t.tourName) || p?.name || "",

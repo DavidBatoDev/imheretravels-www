@@ -1,5 +1,6 @@
 import type { TourKeyFact } from "@/types/tour";
 import Icon from "./Icon";
+import { TourSaleDateLink } from "./TourSale";
 
 const MONTHS: Record<string, string> = {
   January: "01", February: "02", March: "03", April: "04",
@@ -80,14 +81,12 @@ export default function KeyFacts({ items, tourSlug }: { items: TourKeyFact[]; to
                         return (
                           <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-1">
                             {href ? (
-                              <a
+                              <TourSaleDateLink
                                 href={href}
-                                target="_blank"
-                                rel="noopener noreferrer"
                                 className="transition-colors hover:text-crimson-red hover:underline underline-offset-2"
                               >
                                 {inner}
-                              </a>
+                              </TourSaleDateLink>
                             ) : (
                               inner
                             )}

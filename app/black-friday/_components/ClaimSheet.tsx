@@ -50,6 +50,11 @@ function lostHeading(lost: PublicSlot[]): string {
   return `${names} are no longer available`;
 }
 
+const PRIMARY_ACTION =
+  "inline-flex min-h-13 w-full items-center justify-center rounded-full bg-crimson-red px-6 py-3.5 font-body font-bold text-white shadow-small transition-colors hover:bg-light-red focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson-red";
+const SECONDARY_ACTION =
+  "mt-1 inline-flex min-h-11 w-full items-center justify-center rounded-full font-body text-b4-desktop font-bold text-midnight underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson-red";
+
 /** Tells the customer a slot they were looking at has gone, and offers the next. */
 function SlotChangePrompt({
   lost,
@@ -57,7 +62,8 @@ function SlotChangePrompt({
   total,
   previousTotal,
   saved,
-  switchedParty,
+  regularHref,
+  closeLabel,
   onContinue,
   onClose,
 }: {
@@ -66,8 +72,8 @@ function SlotChangePrompt({
   total: number;
   previousTotal: number;
   saved: number;
-  /** New party label when there are no longer enough slots for the whole party. */
-  switchedParty: string | null;
+  regularHref: string;
+  closeLabel: string;
   onContinue: () => void;
   onClose: () => void;
 }) {
@@ -113,43 +119,31 @@ function SlotChangePrompt({
           </div>
           <div className="shrink-0 text-right">
             <p className="font-sans text-h6-mobile text-midnight md:text-h6-desktop">{formatGBP(total)}</p>
-            {!switchedParty && (
-              <p className="font-body text-b4-mobile text-dark-gray">
-                {total === previousTotal ? (
-                  "Same price"
-                ) : (
-                  <>
-                    was <s>{formatGBP(previousTotal)}</s>
-                  </>
-                )}
-              </p>
-            )}
+            <p className="font-body text-b4-mobile text-dark-gray">
+              {total === previousTotal ? (
+                "Same price"
+              ) : (
+                <>
+                  was <s>{formatGBP(previousTotal)}</s>
+                </>
+              )}
+            </p>
           </div>
         </div>
       )}
-      {hasNext && switchedParty && (
-        <p className="mt-2 font-body text-b4-mobile text-midnight md:text-b4-desktop">
-          Not enough slots left for your whole party, so this is for {switchedParty}.
-        </p>
-      )}
 
-      <button
-        ref={primaryRef}
-        type="button"
-        onClick={hasNext ? onContinue : onClose}
-        className="mt-3 inline-flex min-h-13 w-full items-center justify-center rounded-full bg-crimson-red px-6 py-3.5 font-body font-bold text-white shadow-small transition-colors hover:bg-light-red focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson-red"
-      >
-        {hasNext ? `Continue with ${names}` : "See other tours"}
-      </button>
-      {hasNext && (
-        <button
-          type="button"
-          onClick={onClose}
-          className="mt-1 inline-flex min-h-11 w-full items-center justify-center rounded-full font-body text-b4-desktop font-bold text-midnight underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson-red"
-        >
-          See other tours
+      {hasNext ? (
+        <button ref={primaryRef} type="button" onClick={onContinue} className={`mt-3 ${PRIMARY_ACTION}`}>
+          Continue with {names}
         </button>
+      ) : (
+        <a href={regularHref} className={`mt-3 ${PRIMARY_ACTION}`}>
+          Book at regular price
+        </a>
       )}
+      <button type="button" onClick={onClose} className={SECONDARY_ACTION}>
+        {closeLabel}
+      </button>
     </div>
   );
 }
@@ -191,6 +185,8 @@ export default function ClaimSheet({
   mock,
   onClaim,
   onTryAgain,
+  regularHref,
+  closeLabel = "See other tours",
 }: {
   open: boolean;
   onClose: () => void;
@@ -207,6 +203,9 @@ export default function ClaimSheet({
   mock: boolean;
   onClaim: (partySize: number, email: string, website: string, shownSlots: number[]) => Promise<ClaimResult>;
   onTryAgain: () => void;
+  /** Where to book when the sale can't take the party. */
+  regularHref: string;
+  closeLabel?: string;
 }) {
   const titleId = useId();
   const formId = useId();
@@ -230,9 +229,9 @@ export default function ClaimSheet({
   const requested = mode === "solo" ? 1 : mode === "duo" ? 2 : groupSize;
   // One slot per person: never ask for more slots than are free right now.
   const party = Math.max(1, Math.min(requested, maxP || 1));
-  const clamped = requested > maxP && maxP > 0;
+  // More people than free slots: the sale can't take them, so offer the regular price.
+  const tooMany = requested > maxP && maxP > 0;
   const groupMax = Math.max(3, maxP);
-  const effectiveMode: PartyMode = party === 1 ? "solo" : party === 2 ? "duo" : "group";
 
   const choose = (size: number) => {
     const n = Math.max(1, Math.min(size, MAX_PARTY_SIZE));
@@ -253,6 +252,7 @@ export default function ClaimSheet({
   const balance = dueToday !== null ? Math.max(0, total - dueToday) : null;
   const soldOut = isSoldOut(availability);
   const canClaim = saleOpen && maxP > 0;
+  const canHold = canClaim && !tooMany;
   const slotWord = party === 1 ? "slot" : "slots";
   const collapsible = picked.length > BREAKDOWN_PREVIEW + 1;
 
@@ -275,7 +275,7 @@ export default function ClaimSheet({
 
   async function submit(e: FormEvent) {
     e.preventDefault();
-    if (submitting || !canClaim || lost.length > 0) return;
+    if (submitting || !canHold || lost.length > 0) return;
     const trimmed = email.trim();
     if (!EMAIL_RE.test(trimmed)) {
       setEmailError("Enter a valid email address, like name@example.com.");
@@ -316,19 +316,29 @@ export default function ClaimSheet({
   }
 
   // ── Form ──────────────────────────────────────────────────────────────────
-  const notEnough = error?.error === "not_enough_slots" && lost.length === 0 ? error : null;
+  const notEnough = error?.error === "not_enough_slots" && lost.length === 0 && !tooMany ? error : null;
   const otherError = error && error.error !== "not_enough_slots" ? error : null;
 
   // Takes the footer's place: always in view (even scrolled to the email field
   // on a phone), and Hold can't be tapped until the new slot is accepted.
-  const footer = lost.length > 0 ? (
+  const footer = tooMany ? (
+    <div>
+      <a href={regularHref} className={PRIMARY_ACTION}>
+        Book at regular price
+      </a>
+      <button type="button" onClick={() => choose(maxP)} className={SECONDARY_ACTION}>
+        Continue with {maxP === 1 ? "1 sale slot" : `${maxP} sale slots`}
+      </button>
+    </div>
+  ) : lost.length > 0 ? (
     <SlotChangePrompt
       lost={lost}
       picked={picked}
       total={total}
       previousTotal={(seen?.slots ?? []).reduce((sum, s) => sum + s.salePrice, 0)}
       saved={saved}
-      switchedParty={clamped ? partyLabel(party) : null}
+      regularHref={regularHref}
+      closeLabel={closeLabel}
       onContinue={acceptNewSlots}
       onClose={onClose}
     />
@@ -368,6 +378,11 @@ export default function ClaimSheet({
           `Hold my ${slotWord} for ${holdMinutes} min`
         )}
       </button>
+      {saleOpen && maxP === 0 && (
+        <a href={regularHref} className={SECONDARY_ACTION}>
+          Book at regular price
+        </a>
+      )}
       <p className="mt-3 text-center font-body text-b4-mobile text-dark-gray">
         Black Friday bookings are non-refundable.{" "}
         <Link
@@ -421,8 +436,7 @@ export default function ClaimSheet({
                 ] as const
               ).map((opt) => {
                 const slots = availability ? pickSlots(availability.slots, opt.size) : null;
-                const disabled = !slots || submitting;
-                const checked = effectiveMode === opt.key;
+                const checked = mode === opt.key;
                 const sub = !slots
                   ? "Not enough"
                   : opt.key === "group"
@@ -432,10 +446,10 @@ export default function ClaimSheet({
                   <label
                     key={opt.key}
                     className={`relative flex min-h-14 cursor-pointer flex-col justify-center rounded-md border-2 px-3 py-2 transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-crimson-red ${
-                      !slots
-                        ? "cursor-not-allowed border-light-grey bg-light-grey/60 text-dark-gray"
-                        : checked
-                          ? "border-midnight bg-midnight text-white"
+                      checked
+                        ? "border-midnight bg-midnight text-white"
+                        : !slots
+                          ? "border-light-grey bg-light-grey/60 text-dark-gray hover:border-grey"
                           : "border-light-grey bg-white text-midnight hover:border-grey"
                     }`}
                   >
@@ -444,8 +458,8 @@ export default function ClaimSheet({
                       name="party"
                       value={opt.key}
                       checked={checked}
-                      disabled={disabled}
-                      onChange={() => choose(opt.key === "group" ? Math.min(groupSize, groupMax) : opt.size)}
+                      disabled={submitting}
+                      onChange={() => choose(opt.key === "group" ? groupSize : opt.size)}
                       className="sr-only"
                     />
                     <span className="font-body text-b4-desktop font-bold">{opt.label}</span>
@@ -459,7 +473,7 @@ export default function ClaimSheet({
               })}
             </div>
 
-            {effectiveMode === "group" && (
+            {mode === "group" && (
               <div className="mt-3 flex items-center justify-between gap-3 rounded-md bg-light-grey px-3 py-2">
                 <span className="font-body text-b2-mobile font-medium text-midnight md:text-b4-desktop">
                   Group size
@@ -467,8 +481,8 @@ export default function ClaimSheet({
                 <div className="flex items-center gap-1">
                   <button
                     type="button"
-                    onClick={() => choose(party - 1)}
-                    disabled={party <= 3 || submitting}
+                    onClick={() => choose(requested - 1)}
+                    disabled={requested <= 3 || submitting}
                     aria-label="One person fewer"
                     className={STEPPER_BTN}
                   >
@@ -478,12 +492,12 @@ export default function ClaimSheet({
                     aria-live="polite"
                     className="min-w-[5.5rem] text-center font-body text-b2-mobile font-bold text-midnight tabular-nums md:text-b4-desktop"
                   >
-                    {peopleLabel(party)}
+                    {peopleLabel(requested)}
                   </output>
                   <button
                     type="button"
-                    onClick={() => choose(party + 1)}
-                    disabled={party >= maxP || submitting}
+                    onClick={() => choose(requested + 1)}
+                    disabled={requested >= MAX_PARTY_SIZE || submitting}
                     aria-label="One person more"
                     className={STEPPER_BTN}
                   >
@@ -492,10 +506,16 @@ export default function ClaimSheet({
                 </div>
               </div>
             )}
-            {clamped && (
-              <p className="mt-2 font-body text-b4-mobile text-midnight md:text-b4-desktop">
-                Availability changed, so we&apos;ve switched you to {partyLabel(party)}.
-              </p>
+            {tooMany && (
+              <div role="alert" className="mt-3 rounded-md border-2 border-crimson-red/30 bg-crimson-red/5 p-4">
+                <p className="font-body text-b2-mobile font-bold text-midnight md:text-b4-desktop">
+                  Not enough sale slots for {peopleLabel(requested)}
+                </p>
+                <p className="mt-1 font-body text-b4-mobile text-dark-gray md:text-b4-desktop">
+                  Only {maxP} {maxP === 1 ? "slot is" : "slots are"} left at the Black Friday price. You can
+                  book everyone at the regular price instead.
+                </p>
+              </div>
             )}
           </fieldset>
         )}
@@ -510,7 +530,7 @@ export default function ClaimSheet({
           </div>
         )}
 
-        {canClaim && picked.length > 0 && (
+        {canHold && picked.length > 0 && (
           <section aria-label="Price breakdown" className="rounded-md bg-light-grey p-4 tabular-nums">
             <p className="mb-2 font-body text-b4-mobile text-dark-gray md:text-b4-desktop">
               {party === 1 ? "Your slot" : `Your ${party} slots, one per person`}
@@ -581,7 +601,7 @@ export default function ClaimSheet({
           </section>
         )}
 
-        {canClaim && (
+        {canHold && (
           <div>
             <label htmlFor={emailId} className="block font-sans text-h6-mobile text-midnight md:text-h6-desktop">
               Your email

@@ -6,7 +6,6 @@ import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import PromoStrip from "@/app/components/global/PromoStrip";
-import { BLACK_FRIDAY_PATH } from "@/lib/sale/config";
 
 type NavLink = { label: string; href: string };
 // A non-clickable heading inside a dropdown, grouping the links after it until
@@ -202,20 +201,20 @@ export default function Header({
   hostedTourLinks = [],
   hostLinks = [],
   destinationLinks = [],
-  showSalePromo = false,
+  salePath = null,
 }: {
   tourLinks?: NavLink[];
   hostedTourLinks?: NavLink[];
   hostLinks?: NavLink[];
   destinationLinks?: NavLink[];
-  /** Black Friday nav item + promo strip: on only while the sale is live or paused. */
-  showSalePromo?: boolean;
+  /** Black Friday nav item + promo strip: set only while the sale is live or paused. */
+  salePath?: string | null;
 }) {
   const navItems = useMemo<NavItem[]>(() => {
     // Black Friday sale — shown while the sale is public (layout reads its status);
     // NEXT_PUBLIC_BLACK_FRIDAY=off still forces it off (see lib/sale/config.ts).
-    const promo: NavItem[] = showSalePromo
-      ? [{ label: "Black Friday", href: BLACK_FRIDAY_PATH, accent: true }]
+    const promo: NavItem[] = salePath
+      ? [{ label: "Black Friday", href: salePath, accent: true }]
       : [];
     return [
       ...promo,
@@ -250,7 +249,7 @@ export default function Header({
       { label: "Reviews", href: "/reviews" },
       { label: "More", dropdown: MORE_DROPDOWN },
     ];
-  }, [tourLinks, hostedTourLinks, hostLinks, destinationLinks, showSalePromo]);
+  }, [tourLinks, hostedTourLinks, hostLinks, destinationLinks, salePath]);
 
   // Paths of hosted-tour detail pages — drives active-state of the parent nav.
   const hostedTourDetailPaths = useMemo(
@@ -373,7 +372,7 @@ export default function Header({
   return (
     <>
     {/* Not sticky: sits above the sticky header and scrolls away with the page. */}
-    {showSalePromo && <PromoStrip />}
+    {salePath && <PromoStrip href={salePath} />}
     <motion.header
       initial={{ y: 0 }}
       animate={{ y: hidden ? "-100%" : "0%" }}

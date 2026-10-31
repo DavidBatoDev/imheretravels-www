@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { isSalePublic } from "@/lib/sale-firestore";
-import { BLACK_FRIDAY_PROMO_ON, BLACK_FRIDAY_SLUG } from "@/lib/sale/config";
+import { getPublicSalePath } from "@/lib/sale-firestore";
+import { BLACK_FRIDAY_PROMO_ON } from "@/lib/sale/config";
 import "./globals.css";
 import Header from "@/app/components/global/Header";
 import GoogleTagManager, {
@@ -175,12 +175,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [tours, hostedTours, hosts, destinations, salePublic] = await Promise.all([
+  const [tours, hostedTours, hosts, destinations, salePath] = await Promise.all([
     getAllTours(),
     getHostedTours(),
     getAllHosts(),
     getAllDestinations(),
-    BLACK_FRIDAY_PROMO_ON ? isSalePublic(BLACK_FRIDAY_SLUG) : Promise.resolve(false),
+    BLACK_FRIDAY_PROMO_ON ? getPublicSalePath() : Promise.resolve(null),
   ]);
 
   const byName = (a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name);
@@ -229,7 +229,7 @@ export default async function RootLayout({
           hostedTourLinks={hostedTourLinks}
           hostLinks={hostLinks}
           destinationLinks={destinationLinks}
-          showSalePromo={salePublic}
+          salePath={salePath}
         />
         {children}
         <ConsentBanner />

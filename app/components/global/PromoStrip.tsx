@@ -5,11 +5,7 @@ import { usePathname } from "next/navigation";
 import { useSyncExternalStore } from "react";
 import { X } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/track";
-import {
-  BLACK_FRIDAY_PATH,
-  BLACK_FRIDAY_PROMO_ON,
-  PROMO_STRIP_DISMISS_KEY,
-} from "@/lib/sale/config";
+import { BLACK_FRIDAY_PROMO_ON, PROMO_STRIP_DISMISS_KEY } from "@/lib/sale/config";
 
 const CHANGE_EVENT = "iht:promo-strip-change";
 
@@ -52,7 +48,7 @@ function dismiss() {
  * itself; the whole bar links to the sale. Not sticky — it scrolls away with the page. Dismissal is remembered
  * in localStorage. Switched off with NEXT_PUBLIC_BLACK_FRIDAY=off.
  */
-export default function PromoStrip() {
+export default function PromoStrip({ href }: { href: string }) {
   const pathname = usePathname();
   // Server snapshot "not dismissed" so first-time visitors get it in the HTML
   // (no layout shift); visitors who dismissed it lose it on hydration.
@@ -61,7 +57,7 @@ export default function PromoStrip() {
   const dismissedSession = useSyncExternalStore(subscribe, readSessionDismissed, () => false);
 
   if (!BLACK_FRIDAY_PROMO_ON) return null;
-  if (pathname === BLACK_FRIDAY_PATH || pathname.startsWith(`${BLACK_FRIDAY_PATH}/`)) return null;
+  if (pathname === href || pathname.startsWith(`${href}/`)) return null;
   if (dismissedStored || dismissedSession) return null;
 
   return (
@@ -70,7 +66,7 @@ export default function PromoStrip() {
       <div aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 bg-crimson-red" />
       <div aria-hidden="true" className="pointer-events-none absolute -left-10 top-1/2 h-24 w-56 -translate-y-1/2 rounded-full bg-crimson-red/25 blur-2xl" />
       <Link
-        href={BLACK_FRIDAY_PATH}
+        href={href}
         onClick={() => trackEvent("select_promotion", { promotion_id: "black-friday", creative_slot: "promo_strip" })}
         className="group relative mx-auto flex w-full max-w-7xl items-center justify-center gap-2.5 py-2.5 pl-3 pr-12 focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-white sm:gap-4 sm:pl-6 sm:pr-14"
       >

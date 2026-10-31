@@ -4,7 +4,7 @@
  * `holdParam` the claim returns.
  */
 
-import { BLACK_FRIDAY_SLUG, SALE_API_BASE } from "./config";
+import { SALE_API_BASE } from "./config";
 import { splitHoldParam } from "./ladder";
 import type { ClaimErrorCode, PublicSaleAvailability, PublicSlot, SaleHoldView } from "./types";
 
@@ -47,10 +47,10 @@ const KNOWN_ERRORS: ClaimErrorCode[] = [
   "tour_not_in_sale",
 ];
 
-export const liveSaleApi: SaleApi = {
+export const createLiveSaleApi = (slug: string): SaleApi => ({
   async availability(signal) {
     const res = await fetch(
-      `${SALE_API_BASE}/api/public/sale/availability?slug=${encodeURIComponent(BLACK_FRIDAY_SLUG)}`,
+      `${SALE_API_BASE}/api/public/sale/availability?slug=${encodeURIComponent(slug)}`,
       { signal, cache: "no-store" },
     );
     if (!res.ok) throw new Error(`availability ${res.status}`);
@@ -99,4 +99,4 @@ export const liveSaleApi: SaleApi = {
       return { ok: false, gone: false };
     }
   },
-};
+});

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Calendar, Route } from "lucide-react";
 import ReviewsLink from "./ReviewsLink";
+import { TourRegularPrice, TourSaleCta } from "./TourSale";
 import type { Tour, TourPriceCategory } from "@/types/tour";
 
 const BADGE_STYLES: Record<
@@ -54,6 +55,7 @@ export default function BookingCard({
         )}
       </div>
 
+      <TourRegularPrice>
       <div className="border-t border-light-grey px-6 py-4 md:px-7">
         {hasCategories ? (
           <ul className="space-y-3">
@@ -89,8 +91,9 @@ export default function BookingCard({
           </div>
         )}
       </div>
+      </TourRegularPrice>
 
-      <div className="px-6 pb-4 md:px-7">
+      <div className="border-t border-light-grey px-6 pb-4 pt-4 md:px-7">
         <ul className="space-y-3">
           <li className="flex items-center gap-3">
             <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-light-grey text-midnight">
@@ -114,20 +117,22 @@ export default function BookingCard({
       </div>
 
       <div className="border-t border-light-grey px-6 py-5 md:px-7 md:py-6">
-        {isExternal ? (
-          <a
-            href={booking.ctaHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={ctaClass}
-          >
-            {booking.ctaLabel}
-          </a>
-        ) : (
-          <Link href={booking.ctaHref} className={ctaClass}>
-            {booking.ctaLabel}
-          </Link>
-        )}
+        <TourSaleCta>
+          {isExternal ? (
+            <a
+              href={booking.ctaHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={ctaClass}
+            >
+              {booking.ctaLabel}
+            </a>
+          ) : (
+            <Link href={booking.ctaHref} className={ctaClass}>
+              {booking.ctaLabel}
+            </Link>
+          )}
+        </TourSaleCta>
         {(booking.depositNote || booking.depositAmount) && (
           <p className="mt-4 text-center font-body text-b4-mobile text-dark-gray">
             {booking.depositNote ??

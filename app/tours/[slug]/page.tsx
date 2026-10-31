@@ -5,6 +5,8 @@ import ShareButton from "./_components/ShareButton";
 import ReviewsLink from "./_components/ReviewsLink";
 export const revalidate = 3600; // Re-fetch from Firestore at most once per hour
 
+import { getTourSaleOffer } from "@/lib/sale-firestore";
+import { regularBookingHref } from "@/lib/sale/config";
 import { getAllTourSlugs, getTourBySlug, getHostedTourSlugs, getCurrentSlugForPreviousSlug } from "@/lib/tours-firestore";
 import {
   getReviewsForTour,
@@ -36,6 +38,7 @@ import TourViewRecorder from "./_components/TourViewRecorder";
 import ReviewsAnchorScroll from "./_components/ReviewsAnchorScroll";
 import Reveal from "@/app/components/global/Reveal";
 import BookingCardReveal from "./_components/BookingCardReveal";
+import { TourSaleAnnouncement, TourSaleProvider } from "./_components/TourSale";
 
 const BASE_URL = "https://www.imheretravels.com";
 
@@ -218,6 +221,9 @@ export default async function TourDetailPage({ params }: { params: Params }) {
     images: fallbackCommunityImages,
   };
 
+  // Availability itself is polled in the browser: this page is cached for an hour.
+  const saleOffer = tour.comingSoon ? null : await getTourSaleOffer(tour.slug);
+
   return (
     <>
       <script
@@ -239,6 +245,7 @@ export default async function TourDetailPage({ params }: { params: Params }) {
         />
 
         <div className="mx-auto w-full max-w-7xl px-4 md:px-8">
+          <TourSaleProvider offer={saleOffer} regularHref={regularBookingHref(tour.bookingSlug ?? tour.slug)}>
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_360px] lg:gap-8">
             <div className="min-w-0">
               <Reveal y={16}>
@@ -260,6 +267,8 @@ export default async function TourDetailPage({ params }: { params: Params }) {
                   </div>
                 </div>
               </Reveal>
+
+              <TourSaleAnnouncement />
 
               <Reveal y={20} delay={80}>
                 <div className="mt-6 md:mt-8">
@@ -377,6 +386,7 @@ export default async function TourDetailPage({ params }: { params: Params }) {
               reviewCount={displayAggregate.count}
             />
           </div>
+          </TourSaleProvider>
         </div>
 
         {/* Not Reveal-wrapped (unlike the sections above): the reviews section is a
