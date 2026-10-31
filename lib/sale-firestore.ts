@@ -189,8 +189,9 @@ async function loadSale(
         // Card title is the tour's current name (falls back to the saved snapshot).
         displayName: p?.name || str(t.tourName) || str(t.displayName) || "Tour",
         tourName: str(t.tourName) || p?.name || "",
-        // Live tour price, so the sale follows price changes (stored snapshot as fallback).
+        // Live "from" price (cheapest upcoming date's price), stored snapshot as fallback.
         originalPrice: p?.originalPrice ?? num(t.originalPrice),
+        pricesVary: p?.pricesVary ?? false,
         coverImage: str(t.coverImage) || p?.coverImage || FALLBACK_IMAGE,
         order: num(t.order),
         durationLabel: p?.durationLabel ?? "",

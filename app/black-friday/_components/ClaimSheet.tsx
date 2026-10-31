@@ -407,6 +407,12 @@ export default function ClaimSheet({
                 You save {formatGBP(saved)} on {formatGBP(originalTotal)}
               </p>
             )}
+            {tour.pricesVary && (
+              <p className="mt-2 font-body text-b4-mobile text-dark-gray">
+                Prices shown are for the cheapest travel date. Your discount comes off the price of the
+                date you pick in the next step.
+              </p>
+            )}
             <div className="mt-4 rounded-sm bg-white p-3">
               <div className="flex items-baseline justify-between gap-3">
                 <span className="font-body text-b2-mobile font-bold text-midnight md:text-b4-desktop">Due today</span>

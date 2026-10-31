@@ -692,8 +692,13 @@ export interface TourCardPresentation {
   routeLabel: string;
   /** Reservation fee per person (`pricing.deposit`), or null when unset. */
   deposit: number | null;
-  /** Live full price per person (`pricing.original`), or null when unset. */
+  /**
+   * Sale "from" price per person: the cheapest upcoming bookable date's price
+   * (a date's own price when set, else `pricing.original`); null when unset.
+   */
   originalPrice: number | null;
+  /** Upcoming dates don't all share one price. */
+  pricesVary: boolean;
   /** Only active tours have a public /tours/[slug] page (drafts can still be on sale). */
   published: boolean;
 }
@@ -712,7 +717,16 @@ export async function getTourCardPresentationByIds(
     const raw = snap.data() as RawDoc;
     const tour = toTour(raw);
     const deposit = Number(raw.pricing?.deposit);
-    const original = Number(raw.pricing?.original);
+    const base = Number(raw.pricing?.original);
+    const datePrices = (Array.isArray(raw.travelDates) ? (raw.travelDates as RawDoc[]) : [])
+      .filter((d) => d?.isAvailable !== false)
+      .filter((d) => {
+        const ms = (d.startDate as { toMillis?: () => number } | undefined)?.toMillis?.();
+        return typeof ms === "number" && ms >= Date.now() - 86_400_000;
+      })
+      .map((d) => (typeof d.customOriginal === "number" && d.customOriginal > 0 ? d.customOriginal : base))
+      .filter((n) => Number.isFinite(n) && n > 0);
+    const original = datePrices.length ? Math.min(...datePrices) : base;
     const destinations = Array.isArray(raw.destinations)
       ? (raw.destinations as unknown[]).filter((d): d is string => typeof d === "string")
       : [];
@@ -725,6 +739,7 @@ export async function getTourCardPresentationByIds(
       routeLabel: tour.booking.routeLabel || destinations.slice(0, 3).join(" → "),
       deposit: Number.isFinite(deposit) && deposit > 0 ? deposit : null,
       originalPrice: Number.isFinite(original) && original > 0 ? original : null,
+      pricesVary: new Set(datePrices).size > 1,
       published: raw.status === "active",
     };
   }

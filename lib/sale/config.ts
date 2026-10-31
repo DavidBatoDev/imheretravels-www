@@ -29,7 +29,8 @@ export const AUTO_REDIRECT_DELAY_MS = 1_300;
 
 /** localStorage keys (always accessed in try/catch). */
 export const HOLD_STORAGE_KEY = `iht:sale-hold:${BLACK_FRIDAY_SLUG}`;
-export const PROMO_STRIP_DISMISS_KEY = `iht:promo-strip-dismissed:${BLACK_FRIDAY_SLUG}`;
+// v2: the ribbon was redesigned, so earlier dismissals don't hide it.
+export const PROMO_STRIP_DISMISS_KEY = `iht:promo-strip-dismissed:${BLACK_FRIDAY_SLUG}:v2`;
 
 /** Largest party one booking can hold (1 slot = 1 person). Mirrors the admin API. */
 export const MAX_PARTY_SIZE = 10;

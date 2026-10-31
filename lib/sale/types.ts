@@ -76,6 +76,8 @@ export interface SalePageTour {
   depositGBP: number | null;
   /** False for draft tours: on sale, but no public tour page to link to. */
   hasDetailsPage: boolean;
+  /** Dates have different prices: shown prices are "from" the cheapest date. */
+  pricesVary?: boolean;
 }
 
 export interface SalePageData {

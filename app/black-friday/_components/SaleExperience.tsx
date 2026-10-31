@@ -21,6 +21,7 @@ import type { PublicSaleAvailability, PublicTourAvailability, SalePageData } fro
 import ClaimSheet, { type ActiveHold } from "./ClaimSheet";
 import ResumeBanner from "./ResumeBanner";
 import SaleTourCard from "./SaleTourCard";
+import { useClock } from "./hooks";
 
 function describe(av: PublicTourAvailability): string {
   const total = av.slots.length;
@@ -75,6 +76,8 @@ export default function SaleExperience({
   const [sheetOpen, setSheetOpen] = useState(false);
   const openTourRef = useRef<string | null>(null);
   const lastFetchRef = useRef(0);
+  const [updatedAt, setUpdatedAt] = useState<number | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
 
   const refresh = useCallback(async () => {
     if (!api) return;
@@ -84,6 +87,7 @@ export default function SaleExperience({
       const prev = availabilityRef.current;
       availabilityRef.current = next;
       setAvailability(next);
+      setUpdatedAt(Date.now());
       const openId = openTourRef.current;
       if (openId) {
         const a = prev.tours.find((t) => t.tourPackageId === openId);
@@ -357,6 +361,17 @@ export default function SaleExperience({
             Prices are per person, and each slot is one person&apos;s place. Slots sell cheapest
             first — when one goes, the next price applies.
           </p>
+          {api && (
+            <LiveStatus
+              updatedAt={updatedAt}
+              refreshing={refreshing}
+              onRefresh={async () => {
+                setRefreshing(true);
+                await refresh();
+                setRefreshing(false);
+              }}
+            />
+          )}
         </motion.div>
 
         {sale.tours.length === 0 ? (
@@ -412,5 +427,60 @@ export default function SaleExperience({
         />
       )}
     </>
+  );
+}
+
+/**
+ * "Live availability · updated 8s ago · Refresh". Availability already
+ * refreshes every 15s and when the tab regains focus; this makes that visible
+ * and gives an on-demand refresh to anyone waiting on a slot that's on hold.
+ */
+function LiveStatus({
+  updatedAt,
+  refreshing,
+  onRefresh,
+}: {
+  updatedAt: number | null;
+  refreshing: boolean;
+  onRefresh: () => void;
+}) {
+  const now = useClock();
+  const secs = updatedAt && now ? Math.max(0, Math.round((now - updatedAt) / 1000)) : null;
+  const ago =
+    secs === null
+      ? "updating…"
+      : secs < 5
+        ? "updated just now"
+        : secs < 60
+          ? `updated ${secs}s ago`
+          : `updated ${Math.round(secs / 60)} min ago`;
+  return (
+    <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 font-body text-b4-mobile text-dark-gray md:text-b4-desktop">
+      <span className="inline-flex items-center gap-2">
+        <span className="relative flex size-2.5" aria-hidden="true">
+          <span className="absolute inline-flex size-full animate-ping rounded-full bg-spring-green opacity-60 motion-reduce:hidden" />
+          <span className="relative inline-flex size-2.5 rounded-full bg-spring-green" />
+        </span>
+        <span>
+          <span className="font-bold text-midnight">Live availability</span> · {ago}
+        </span>
+      </span>
+      <button
+        type="button"
+        onClick={onRefresh}
+        disabled={refreshing}
+        className="inline-flex min-h-9 items-center gap-1.5 rounded-full border-2 border-midnight/15 px-3 font-bold text-midnight transition-colors hover:border-midnight/40 disabled:opacity-60"
+      >
+        <svg
+          viewBox="0 0 20 20"
+          fill="none"
+          aria-hidden="true"
+          className={`size-4 ${refreshing ? "animate-spin motion-reduce:animate-none" : ""}`}
+        >
+          <path d="M16 10a6 6 0 1 1-1.76-4.24M16 4v3h-3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+        {refreshing ? "Refreshing…" : "Refresh"}
+      </button>
+    </div>
   );
 }

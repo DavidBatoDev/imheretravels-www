@@ -48,8 +48,8 @@ function dismiss() {
 }
 
 /**
- * Slim Black Friday strip above the header on every page except the sale
- * itself. Not sticky — it scrolls away with the page. Dismissal is remembered
+ * Branded Black Friday ribbon above the header on every page except the sale
+ * itself; the whole bar links to the sale. Not sticky — it scrolls away with the page. Dismissal is remembered
  * in localStorage. Switched off with NEXT_PUBLIC_BLACK_FRIDAY=off.
  */
 export default function PromoStrip() {
@@ -65,29 +65,35 @@ export default function PromoStrip() {
   if (dismissedStored || dismissedSession) return null;
 
   return (
-    <div className="relative z-[51] bg-midnight text-white">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-center gap-2 px-12 py-2 sm:px-14">
-        <Link
-          href={BLACK_FRIDAY_PATH}
-          onClick={() => trackEvent("select_promotion", { promotion_id: "black-friday", creative_slot: "promo_strip" })}
-          className="inline-flex min-h-7 items-center gap-2 rounded-sm text-center font-body text-b4-mobile font-medium transition-colors hover:text-light-yellow focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:text-b4-desktop"
-        >
-          <span aria-hidden="true" className="inline-block size-2 shrink-0 rounded-full bg-light-red" />
-          <span>
-            <span className="font-bold">Black Friday Sale</span>
-            <span className="hidden text-white/85 sm:inline"> · limited slots per tour</span>
-            <span className="ml-1.5 underline underline-offset-2">See deals</span>
-          </span>
-        </Link>
-        <button
-          type="button"
-          onClick={dismiss}
-          aria-label="Dismiss Black Friday banner"
-          className="absolute right-1 top-1/2 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full text-white/80 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-white sm:right-3"
-        >
-          <X className="size-4" strokeWidth={2.5} aria-hidden="true" />
-        </button>
-      </div>
+    <div className="relative z-[51] overflow-hidden bg-midnight text-white">
+      {/* Brand accent: crimson top rule + soft glow behind the tag. */}
+      <div aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 bg-crimson-red" />
+      <div aria-hidden="true" className="pointer-events-none absolute -left-10 top-1/2 h-24 w-56 -translate-y-1/2 rounded-full bg-crimson-red/25 blur-2xl" />
+      <Link
+        href={BLACK_FRIDAY_PATH}
+        onClick={() => trackEvent("select_promotion", { promotion_id: "black-friday", creative_slot: "promo_strip" })}
+        className="group relative mx-auto flex w-full max-w-7xl items-center justify-center gap-2.5 py-2.5 pl-3 pr-12 focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-white sm:gap-4 sm:pl-6 sm:pr-14"
+      >
+        <span className="shrink-0 rounded-sm bg-crimson-red px-2 py-0.5 font-sans text-[0.7rem] font-bold uppercase tracking-widest sm:text-xs">
+          Black Friday
+        </span>
+        <span className="min-w-0 truncate font-body text-b4-mobile font-medium md:text-b4-desktop">
+          <span className="font-bold">Sale now on</span>
+          <span className="hidden text-white/85 sm:inline"> · small-group tours with limited sale slots, cheapest first</span>
+        </span>
+        <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-white px-3 py-1 font-body text-[0.8rem] font-bold text-midnight transition-colors group-hover:bg-light-yellow sm:px-4">
+          See the deals
+          <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">→</span>
+        </span>
+      </Link>
+      <button
+        type="button"
+        onClick={dismiss}
+        aria-label="Dismiss Black Friday banner"
+        className="absolute right-1 top-1/2 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full text-white/70 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-white sm:right-3"
+      >
+        <X className="size-4" strokeWidth={2.5} aria-hidden="true" />
+      </button>
     </div>
   );
 }
