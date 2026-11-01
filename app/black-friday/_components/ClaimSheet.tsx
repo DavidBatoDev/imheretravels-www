@@ -348,7 +348,7 @@ export default function ClaimSheet({
         <div className="mb-3 flex items-baseline justify-between gap-3 tabular-nums">
           <span className="font-body text-b4-mobile text-dark-gray md:text-b4-desktop">Due today</span>
           <span className="font-sans text-h6-mobile text-midnight md:text-h6-desktop">
-            {dueToday !== null ? formatGBP(dueToday) : "Reservation fee"}
+            {dueToday !== null ? `${tour.depositVaries ? "From " : ""}${formatGBP(dueToday)}` : "Reservation fee"}
           </span>
         </div>
       )}
@@ -584,16 +584,18 @@ export default function ClaimSheet({
               <div className="flex items-baseline justify-between gap-3">
                 <span className="font-body text-b2-mobile font-bold text-midnight md:text-b4-desktop">Due today</span>
                 <span className="font-sans text-h6-mobile text-crimson-red md:text-h6-desktop">
-                  {dueToday !== null ? formatGBP(dueToday) : "—"}
+                  {dueToday !== null ? `${tour.depositVaries ? "From " : ""}${formatGBP(dueToday)}` : "—"}
                 </span>
               </div>
               <p className="mt-1 font-body text-b4-mobile text-dark-gray">
-                {dueToday !== null && deposit
-                  ? `Reservation fee (${formatGBP(deposit)} × ${party})`
-                  : "Reservation fee — shown in the next step"}
+                {tour.depositVaries
+                  ? "Reservation fee. The exact amount depends on the travel date you pick in the next step."
+                  : dueToday !== null && deposit
+                    ? `Reservation fee (${formatGBP(deposit)} × ${party})`
+                    : "Reservation fee — shown in the next step"}
               </p>
               <p className="mt-2 font-body text-b4-mobile text-midnight">
-                {balance !== null
+                {balance !== null && !tour.depositVaries
                   ? `Balance of ${formatGBP(balance)} in instalments at the sale price.`
                   : "The balance is paid in instalments at the sale price."}
               </p>

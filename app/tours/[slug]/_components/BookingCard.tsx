@@ -134,10 +134,12 @@ export default function BookingCard({
           )}
         </TourSaleCta>
         {(booking.depositNote || booking.depositAmount) && (
-          <p className="mt-4 text-center font-body text-b4-mobile text-dark-gray">
-            {booking.depositNote ??
-              `Reserve for ${booking.depositAmount} — deducted from total fees. Non-refundable.`}
-          </p>
+          <TourRegularPrice>
+            <p className="mt-4 text-center font-body text-b4-mobile text-dark-gray">
+              {booking.depositNote ??
+                `Reserve for ${booking.depositAmount} — deducted from total fees. Non-refundable.`}
+            </p>
+          </TourRegularPrice>
         )}
         {booking.footnote && (
           <p className="mt-3 text-center font-body text-b4-mobile text-grey">

@@ -72,8 +72,10 @@ export interface SalePageTour {
   durationLabel: string;
   /** e.g. "Manila → Port Barton → El Nido" */
   routeLabel: string;
-  /** Reservation fee per person (tourPackages pricing.deposit), GBP. */
+  /** Reservation fee per person, GBP: the lowest across upcoming dates. */
   depositGBP: number | null;
+  /** Fee depends on the travel date, so depositGBP is a "from" amount. */
+  depositVaries?: boolean;
   /** False for draft tours: on sale, but no public tour page to link to. */
   hasDetailsPage: boolean;
   /** Dates have different prices: shown prices are "from" the cheapest date. */

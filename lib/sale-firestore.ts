@@ -239,7 +239,8 @@ async function loadSale(
         order: num(t.order),
         durationLabel: p?.durationLabel ?? "",
         routeLabel: p?.routeLabel ?? "",
-        depositGBP: p?.deposit ?? null,
+        depositGBP: p?.depositFrom ?? null,
+        depositVaries: p?.depositVaries ?? false,
         hasDetailsPage: p?.published ?? false,
       };
     });

@@ -699,6 +699,10 @@ export interface TourCardPresentation {
   originalPrice: number | null;
   /** Upcoming dates don't all share one price. */
   pricesVary: boolean;
+  /** Lowest reservation fee across upcoming dates, per person. */
+  depositFrom: number | null;
+  /** Upcoming dates don't all share one reservation fee. */
+  depositVaries: boolean;
   /** Only active tours have a public /tours/[slug] page (drafts can still be on sale). */
   published: boolean;
 }
@@ -718,13 +722,18 @@ export async function getTourCardPresentationByIds(
     const tour = toTour(raw);
     const deposit = Number(raw.pricing?.deposit);
     const base = Number(raw.pricing?.original);
-    const datePrices = (Array.isArray(raw.travelDates) ? (raw.travelDates as RawDoc[]) : [])
+    const upcoming = (Array.isArray(raw.travelDates) ? (raw.travelDates as RawDoc[]) : [])
       .filter((d) => d?.isAvailable !== false)
       .filter((d) => {
         const ms = (d.startDate as { toMillis?: () => number } | undefined)?.toMillis?.();
         return typeof ms === "number" && ms >= Date.now() - 86_400_000;
-      })
+      });
+    const datePrices = upcoming
       .map((d) => (typeof d.customOriginal === "number" && d.customOriginal > 0 ? d.customOriginal : base))
+      .filter((n) => Number.isFinite(n) && n > 0);
+    // Same rule as the admin's priceForDate, which sets what is charged.
+    const dateDeposits = upcoming
+      .map((d) => (d.hasCustomDeposit === true && typeof d.customDeposit === "number" ? d.customDeposit : deposit))
       .filter((n) => Number.isFinite(n) && n > 0);
     const original = datePrices.length ? Math.min(...datePrices) : base;
     const destinations = Array.isArray(raw.destinations)
@@ -740,6 +749,8 @@ export async function getTourCardPresentationByIds(
       deposit: Number.isFinite(deposit) && deposit > 0 ? deposit : null,
       originalPrice: Number.isFinite(original) && original > 0 ? original : null,
       pricesVary: new Set(datePrices).size > 1,
+      depositFrom: dateDeposits.length ? Math.min(...dateDeposits) : Number.isFinite(deposit) && deposit > 0 ? deposit : null,
+      depositVaries: new Set(dateDeposits).size > 1,
       published: raw.status === "active",
     };
   }
