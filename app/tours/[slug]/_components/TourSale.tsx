@@ -207,17 +207,29 @@ export function TourSaleCta({ children }: { children: ReactNode }) {
   );
 }
 
-/** A travel date link: opens the Hold sheet while sale slots are free. */
+/**
+ * A travel date link: opens the Hold sheet while sale slots are free. A date left
+ * out of the sale stays a regular link to the form, with a tag saying so.
+ */
 export function TourSaleDateLink({ href, className, children }: { href: string; className: string; children: ReactNode }) {
   const sale = useContext(TourSaleContext);
+  const date = href.match(/[?&]tourdate=(\d{4}-\d{2}-\d{2})/)?.[1];
+  const notInSale = !!date && !!sale?.tour.excludedDates?.includes(date);
   const onClick = (e: MouseEvent<HTMLAnchorElement>) => {
-    if (!sale?.bookable) return;
+    if (!sale?.bookable || notInSale) return;
     e.preventDefault();
     sale.open();
   };
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className={className} onClick={onClick}>
-      {children}
-    </a>
+    <>
+      <a href={href} target="_blank" rel="noopener noreferrer" className={className} onClick={onClick}>
+        {children}
+      </a>
+      {notInSale && (
+        <span className="inline-flex items-center rounded-full bg-light-grey px-2 py-0.5 font-body text-b4-mobile font-medium text-dark-gray md:text-b4-desktop">
+          Not in sale
+        </span>
+      )}
+    </>
   );
 }

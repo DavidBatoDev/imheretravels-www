@@ -10,6 +10,7 @@ import { MAX_PARTY_SIZE, reservationFormHref } from "@/lib/sale/config";
 import {
   availabilityLine,
   formatCountdown,
+  formatDateKey,
   formatGBP,
   holdReference,
   isSoldOut,
@@ -578,6 +579,12 @@ export default function ClaimSheet({
               <p className="mt-2 font-body text-b4-mobile text-dark-gray">
                 Prices shown are for the cheapest travel date. Your discount comes off the price of the
                 date you pick in the next step.
+              </p>
+            )}
+            {!!tour.excludedDates?.length && (
+              <p className="mt-2 font-body text-b4-mobile text-dark-gray">
+                Not included in this sale: {tour.excludedDates.map(formatDateKey).join(", ")}. {tour.excludedDates.length === 1 ? "That date is" : "Those dates are"} regular
+                price only.
               </p>
             )}
             <div className="mt-4 rounded-sm bg-white p-3">

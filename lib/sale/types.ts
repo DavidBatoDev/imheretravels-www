@@ -80,6 +80,8 @@ export interface SalePageTour {
   hasDetailsPage: boolean;
   /** Dates have different prices: shown prices are "from" the cheapest date. */
   pricesVary?: boolean;
+  /** Upcoming dates left out of the sale (UTC ISO days): regular price only. */
+  excludedDates?: string[];
 }
 
 export interface SalePageData {

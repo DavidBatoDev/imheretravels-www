@@ -703,12 +703,16 @@ export interface TourCardPresentation {
   depositFrom: number | null;
   /** Upcoming dates don't all share one reservation fee. */
   depositVaries: boolean;
+  /** Upcoming dates left out of the sale, soonest first (UTC ISO days). */
+  excludedDates: string[];
   /** Only active tours have a public /tours/[slug] page (drafts can still be on sale). */
   published: boolean;
 }
 
 export async function getTourCardPresentationByIds(
   ids: string[],
+  /** Dates left out of the sale per tour id: prices and fees ignore them. */
+  excludedDates: Record<string, string[]> = {},
 ): Promise<Record<string, TourCardPresentation>> {
   const unique = [...new Set(ids.filter((id) => id && !id.includes("/")))];
   if (unique.length === 0) return {};
@@ -728,11 +732,13 @@ export async function getTourCardPresentationByIds(
         const ms = (d.startDate as { toMillis?: () => number } | undefined)?.toMillis?.();
         return typeof ms === "number" && ms >= Date.now() - 86_400_000;
       });
-    const datePrices = upcoming
+    const excluded = excludedDates[snap.id] ?? [];
+    const saleDates = upcoming.filter((d) => !excluded.includes(isoStartDate(d)));
+    const datePrices = saleDates
       .map((d) => (typeof d.customOriginal === "number" && d.customOriginal > 0 ? d.customOriginal : base))
       .filter((n) => Number.isFinite(n) && n > 0);
     // Same rule as the admin's priceForDate, which sets what is charged.
-    const dateDeposits = upcoming
+    const dateDeposits = saleDates
       .map((d) => (d.hasCustomDeposit === true && typeof d.customDeposit === "number" ? d.customDeposit : deposit))
       .filter((n) => Number.isFinite(n) && n > 0);
     const original = datePrices.length ? Math.min(...datePrices) : base;
@@ -751,6 +757,7 @@ export async function getTourCardPresentationByIds(
       pricesVary: new Set(datePrices).size > 1,
       depositFrom: dateDeposits.length ? Math.min(...dateDeposits) : Number.isFinite(deposit) && deposit > 0 ? deposit : null,
       depositVaries: new Set(dateDeposits).size > 1,
+      excludedDates: upcoming.map(isoStartDate).filter((key) => excluded.includes(key)).sort(),
       published: raw.status === "active",
     };
   }

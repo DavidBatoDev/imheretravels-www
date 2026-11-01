@@ -18,6 +18,19 @@ export function formatGBP(amount: number): string {
   return gbp.format(amount);
 }
 
+// UTC, because a date key is the UTC day of the travel date.
+const tourDate = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+  timeZone: "UTC",
+});
+
+/** "Jan 16, 2027" from a date key, as the reservation form shows it. */
+export function formatDateKey(key: string): string {
+  return tourDate.format(Date.parse(key));
+}
+
 /** Solo / Duo / Group of N — one slot per person. */
 export function partyLabel(size: number): string {
   if (size <= 1) return "Solo";

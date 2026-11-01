@@ -213,7 +213,14 @@ async function loadSale(
     const [invSnap, presentation] = await Promise.all([
       doc.ref.collection(INVENTORY_SUBCOLLECTION).get(),
       import("@/lib/tours-firestore")
-        .then((m) => m.getTourCardPresentationByIds(rawTours.map((t) => str(t.tourPackageId))))
+        .then((m) =>
+          m.getTourCardPresentationByIds(
+            rawTours.map((t) => str(t.tourPackageId)),
+            Object.fromEntries(
+              rawTours.map((t) => [str(t.tourPackageId), Array.isArray(t.excludedDates) ? (t.excludedDates as string[]) : []]),
+            ),
+          ),
+        )
         .catch((e) => {
           console.error("[sale] tour presentation lookup failed", e);
           return {} as Record<string, TourCardPresentation>;
@@ -232,9 +239,10 @@ async function loadSale(
         // Card title is the tour's current name (falls back to the saved snapshot).
         displayName: p?.name || str(t.tourName) || str(t.displayName) || "Tour",
         tourName: str(t.tourName) || p?.name || "",
-        // Live "from" price (cheapest upcoming date's price), stored snapshot as fallback.
+        // Live "from" price (cheapest upcoming sale date's price), stored snapshot as fallback.
         originalPrice: p?.originalPrice ?? num(t.originalPrice),
         pricesVary: p?.pricesVary ?? false,
+        excludedDates: p?.excludedDates ?? [],
         coverImage: str(t.coverImage) || p?.coverImage || FALLBACK_IMAGE,
         order: num(t.order),
         durationLabel: p?.durationLabel ?? "",
