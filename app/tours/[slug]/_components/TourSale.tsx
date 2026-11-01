@@ -227,7 +227,7 @@ export function TourSaleDateLink({ href, className, children }: { href: string; 
       </a>
       {notInSale && (
         <span className="inline-flex items-center rounded-full bg-light-grey px-2 py-0.5 font-body text-b4-mobile font-medium text-dark-gray md:text-b4-desktop">
-          Not in sale
+          Not on sale
         </span>
       )}
     </>
