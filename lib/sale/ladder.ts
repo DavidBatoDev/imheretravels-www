@@ -108,7 +108,7 @@ export function maxDiscount(data: Pick<SalePageData, "availability">): number {
 export function availabilityLine(av: PublicTourAvailability | undefined): string {
   if (!av || av.slots.length === 0) return "Sale places coming soon";
   const total = av.slots.length;
-  if (isSoldOut(av)) return `Sold out · all ${total} sale places taken`;
+  if (isSoldOut(av)) return `0 of ${total} sale places left · Sold out`;
   if (av.left === 0) {
     return av.onHold === 1
       ? "Last place on hold — may free up soon"

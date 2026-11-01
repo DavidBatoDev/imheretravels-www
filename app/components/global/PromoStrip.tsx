@@ -2,63 +2,24 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useSyncExternalStore } from "react";
+import { useState } from "react";
 import { X } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/track";
-import { BLACK_FRIDAY_PROMO_ON, PROMO_STRIP_DISMISS_KEY } from "@/lib/sale/config";
-
-const CHANGE_EVENT = "iht:promo-strip-change";
-
-/** In-memory fallback for when localStorage is blocked. */
-let sessionDismissed = false;
-
-function readDismissed(): boolean {
-  try {
-    return window.localStorage.getItem(PROMO_STRIP_DISMISS_KEY) === "1";
-  } catch {
-    return false;
-  }
-}
-
-function readSessionDismissed(): boolean {
-  return sessionDismissed;
-}
-
-function subscribe(cb: () => void) {
-  window.addEventListener(CHANGE_EVENT, cb);
-  window.addEventListener("storage", cb);
-  return () => {
-    window.removeEventListener(CHANGE_EVENT, cb);
-    window.removeEventListener("storage", cb);
-  };
-}
-
-function dismiss() {
-  sessionDismissed = true;
-  try {
-    window.localStorage.setItem(PROMO_STRIP_DISMISS_KEY, "1");
-  } catch {
-    // Storage blocked — hide for this page view only.
-  }
-  window.dispatchEvent(new Event(CHANGE_EVENT));
-}
+import { BLACK_FRIDAY_PROMO_ON } from "@/lib/sale/config";
 
 /**
  * Branded Black Friday ribbon above the header on every page except the sale
- * itself; the whole bar links to the sale. Not sticky — it scrolls away with the page. Dismissal is remembered
- * in localStorage. Switched off with NEXT_PUBLIC_BLACK_FRIDAY=off.
+ * itself; the whole bar links to the sale. Not sticky — it scrolls away with the page. Dismissing hides it
+ * until the next page load, so nothing is stored and it never flickers. Switched off with
+ * NEXT_PUBLIC_BLACK_FRIDAY=off.
  */
 export default function PromoStrip({ href }: { href: string }) {
   const pathname = usePathname();
-  // Server snapshot "not dismissed" so first-time visitors get it in the HTML
-  // (no layout shift); visitors who dismissed it lose it on hydration.
-  const dismissedStored = useSyncExternalStore(subscribe, readDismissed, () => false);
-  // In-memory fallback when storage is blocked.
-  const dismissedSession = useSyncExternalStore(subscribe, readSessionDismissed, () => false);
+  const [dismissed, setDismissed] = useState(false);
 
   if (!BLACK_FRIDAY_PROMO_ON) return null;
   if (pathname === href || pathname.startsWith(`${href}/`)) return null;
-  if (dismissedStored || dismissedSession) return null;
+  if (dismissed) return null;
 
   return (
     <div className="relative z-[51] overflow-hidden bg-midnight text-white">
@@ -84,7 +45,7 @@ export default function PromoStrip({ href }: { href: string }) {
       </Link>
       <button
         type="button"
-        onClick={dismiss}
+        onClick={() => setDismissed(true)}
         aria-label="Dismiss Black Friday banner"
         className="absolute right-1 top-1/2 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full text-white/70 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-white sm:right-3"
       >

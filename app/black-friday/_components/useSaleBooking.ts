@@ -157,7 +157,9 @@ export function useSaleBooking({
         if (res.gone) writeStoredHold(null);
         return;
       }
-      if (res.hold.status !== "active") {
+      // The timer the customer saw has ended, even if the server's grace hasn't.
+      const timeUp = !res.hold.paying && Date.parse(res.hold.displayExpiresAt) <= Date.parse(res.hold.serverNow);
+      if (res.hold.status !== "active" || timeUp) {
         writeStoredHold(null);
         return;
       }

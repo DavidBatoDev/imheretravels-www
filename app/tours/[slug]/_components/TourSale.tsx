@@ -139,14 +139,14 @@ export function TourSaleAnnouncement() {
     : sale.bookable
       ? `This tour is in our Black Friday Sale. ${availabilityLine(sale.availability)}.`
       : sale.soldOut
-        ? "Black Friday slots for this tour are sold out."
+        ? `0 of ${sale.availability?.slots.length ?? 0} sale places left. Black Friday slots for this tour are sold out.`
         : "Black Friday slots for this tour are all on hold. They may free up soon.";
 
   return (
-    <div className="mt-6 flex flex-col gap-3 rounded-lg bg-midnight p-4 text-white sm:flex-row sm:items-center sm:justify-between">
+    <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <div className="min-w-0">
         <SaleTag />
-        <p className="mt-2 font-body text-b4-mobile font-medium md:text-b4-desktop">{message}</p>
+        <p className="mt-2 font-body text-b4-mobile font-medium text-midnight md:text-b4-desktop">{message}</p>
       </div>
       {sale.bookable && (
         <button
