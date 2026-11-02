@@ -130,6 +130,29 @@ export const getPublicSalePath = cache(async (): Promise<string | null> => {
   }
 });
 
+/** Tours with sale places left in the open sale, for the nav's Sale tag. Errors count as none. */
+export const getOpenSaleTourSlugs = cache(async (): Promise<string[]> => {
+  try {
+    const { adminDb } = await import("@/lib/firebase-admin");
+    const q = await adminDb.collection(SALE_COLLECTION).where("status", "==", "live").limit(1).get();
+    const doc = q.docs[0];
+    if (!doc || !isSaleOpen("live", toMs(doc.get("startAt")), toMs(doc.get("endAt")), Date.now())) return [];
+    const inventory = await doc.ref.collection(INVENTORY_SUBCOLLECTION).get();
+    const withPlaces = new Set(
+      inventory.docs
+        .filter((d) => ((d.get("slots") as { status?: string }[]) ?? []).some((s) => s.status !== "sold"))
+        .map((d) => d.id),
+    );
+    return ((doc.get("tours") as RawDoc[]) ?? [])
+      .filter((t) => withPlaces.has(str(t.tourPackageId)))
+      .map((t) => str(t.tourSlug))
+      .filter(Boolean);
+  } catch (e) {
+    console.error("[sale] nav tour lookup failed", e);
+    return [];
+  }
+});
+
 /** The sale page an Extra link forwards to, if `slug` is one. Errors count as no. */
 export async function getSaleRedirectPath(slug: string): Promise<string | null> {
   try {

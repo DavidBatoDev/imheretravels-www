@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getPublicSalePath } from "@/lib/sale-firestore";
+import { getOpenSaleTourSlugs, getPublicSalePath } from "@/lib/sale-firestore";
 import { BLACK_FRIDAY_PROMO_ON } from "@/lib/sale/config";
 import "./globals.css";
 import Header from "@/app/components/global/Header";
@@ -175,12 +175,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [tours, hostedTours, hosts, destinations, salePath] = await Promise.all([
+  const [tours, hostedTours, hosts, destinations, salePath, saleSlugs] = await Promise.all([
     getAllTours(),
     getHostedTours(),
     getAllHosts(),
     getAllDestinations(),
     BLACK_FRIDAY_PROMO_ON ? getPublicSalePath() : Promise.resolve(null),
+    BLACK_FRIDAY_PROMO_ON ? getOpenSaleTourSlugs() : Promise.resolve([]),
   ]);
 
   const byName = (a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name);
@@ -192,12 +193,12 @@ export default async function RootLayout({
     .filter((t) => !hostedSlugs.has(t.slug))
     .slice()
     .sort(byName)
-    .map((t) => ({ label: t.name, href: `/tours/${t.slug}` }));
+    .map((t) => ({ label: t.name, href: `/tours/${t.slug}`, onSale: saleSlugs.includes(t.slug) }));
 
   const hostedTourLinks = hostedTours
     .slice()
     .sort(byName)
-    .map((t) => ({ label: t.name, href: `/tours/${t.slug}` }));
+    .map((t) => ({ label: t.name, href: `/tours/${t.slug}`, onSale: saleSlugs.includes(t.slug) }));
 
   const hostLinks = hosts
     .slice()

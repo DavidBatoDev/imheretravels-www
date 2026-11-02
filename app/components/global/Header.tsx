@@ -7,7 +7,16 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import PromoStrip from "@/app/components/global/PromoStrip";
 
-type NavLink = { label: string; href: string };
+type NavLink = { label: string; href: string; onSale?: boolean };
+
+function SaleTag() {
+  return (
+    <span className="shrink-0 rounded-full bg-crimson-red px-2 py-0.5 font-body text-[11px] font-bold leading-none text-white">
+      Sale
+    </span>
+  );
+}
+
 // A non-clickable heading inside a dropdown, grouping the links after it until
 // the next section (or the end of the list).
 type NavSection = { section: string };
@@ -183,7 +192,10 @@ function DesktopDropdown({
                           : "text-midnight"
                       }`}
                     >
-                      {child.label}
+                      <span className="flex items-center justify-between gap-2">
+                        <span>{child.label}</span>
+                        {child.onSale && <SaleTag />}
+                      </span>
                     </Link>
                   </li>
                 ))}
@@ -550,7 +562,10 @@ export default function Header({
                                     onClick={closeMenu}
                                     className={`block rounded-sm px-3 py-2 font-body text-b4-mobile transition-colors hover:bg-light-grey hover:text-crimson-red ${isChildActive(child.href) ? "bg-crimson-red/10 text-crimson-red font-medium" : "text-dark-gray"}`}
                                   >
-                                    {child.label}
+                                    <span className="flex items-center justify-between gap-2">
+                                      <span>{child.label}</span>
+                                      {child.onSale && <SaleTag />}
+                                    </span>
                                   </Link>
                                 </li>
                               ),
