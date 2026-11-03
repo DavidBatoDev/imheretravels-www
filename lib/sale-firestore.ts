@@ -266,6 +266,7 @@ async function loadSale(
         originalPrice: p?.originalPrice ?? num(t.originalPrice),
         pricesVary: p?.pricesVary ?? false,
         excludedDates: p?.excludedDates ?? [],
+        dates: p?.dates ?? [],
         coverImage: str(t.coverImage) || p?.coverImage || FALLBACK_IMAGE,
         order: num(t.order),
         durationLabel: p?.durationLabel ?? "",

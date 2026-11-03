@@ -31,6 +31,21 @@ export function formatDateKey(key: string): string {
   return tourDate.format(Date.parse(key));
 }
 
+const monthDay = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+
+/** "Jun 20 – Jun 30, 2027" (the year once when both ends share it). */
+export function formatDateRange(start: string, end: string | null): string {
+  if (!end || end === start) return formatDateKey(start);
+  return start.slice(0, 4) === end.slice(0, 4)
+    ? `${monthDay.format(Date.parse(start))} – ${formatDateKey(end)}`
+    : `${formatDateKey(start)} – ${formatDateKey(end)}`;
+}
+
+/** A slot's price on a given date: the date's price less the slot's discount (the admin's slotPrice). */
+export function datedSalePrice(datePriceGBP: number, discountGBP: number): number {
+  return Math.max(0, Math.round((datePriceGBP - discountGBP) * 100) / 100);
+}
+
 /** Solo / Duo / Group of N — one slot per person. */
 export function partyLabel(size: number): string {
   if (size <= 1) return "Solo";

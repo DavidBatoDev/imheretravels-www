@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useMemo, type MouseEvent, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useMemo, useState, type MouseEvent, type ReactNode } from "react";
 import ClaimSheet from "@/app/black-friday/_components/ClaimSheet";
 import { useSaleBooking } from "@/app/black-friday/_components/useSaleBooking";
 import { formatGBP, availabilityLine, isSoldOut, statusLabel } from "@/lib/sale/ladder";
@@ -53,6 +53,22 @@ function TourSaleBooking({
   const tour = offer.tours[0]!;
   const tourAvailability = byId.get(tour.tourPackageId);
 
+  // ?sale=1&date=YYYY-MM-DD (the reservation form's sale prompt) opens the
+  // Hold sheet on that date. The params are dropped so a refresh doesn't reopen it.
+  const [initialDate, setInitialDate] = useState<string | undefined>(undefined);
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    if (url.searchParams.get("sale") !== "1") return;
+    const date = url.searchParams.get("date");
+    url.searchParams.delete("sale");
+    url.searchParams.delete("date");
+    window.history.replaceState(window.history.state, "", url.pathname + url.search + url.hash);
+    if (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) setInitialDate(date);
+    openSheet(tour.tourPackageId);
+    // Once, on arrival.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const value = useMemo<TourSale>(
     () => ({
       tour,
@@ -87,6 +103,7 @@ function TourSaleBooking({
           onTryAgain={booking.tryAgain}
           regularHref={regularHref}
           closeLabel="Back to tour"
+          initialDate={initialDate}
         />
       )}
     </TourSaleContext.Provider>

@@ -27,7 +27,7 @@ function describe(av: PublicTourAvailability): string {
 }
 
 function toActive(stored: StoredHold): ActiveHold {
-  return { hold: stored.hold, holdParam: stored.holdParam, serverOffsetMs: stored.serverOffsetMs };
+  return { hold: stored.hold, holdParam: stored.holdParam, serverOffsetMs: stored.serverOffsetMs, tourDate: stored.tourDate };
 }
 
 /**
@@ -248,6 +248,7 @@ export function useSaleBooking({
     email: string,
     website: string,
     shownSlots: number[],
+    tourDate?: string,
   ): Promise<ClaimResult> => {
     const tour = sheetTour;
     if (!api || !tour) return { ok: false, error: "network" };
@@ -266,7 +267,7 @@ export function useSaleBooking({
       // built (after the claim transaction), so compare it with arrival time,
       // not the request midpoint — a slow claim would skew a midpoint badly.
       const serverOffsetMs = Date.parse(res.hold.serverNow) - Date.now();
-      const active: ActiveHold = { hold: res.hold, holdParam: res.holdParam, serverOffsetMs };
+      const active: ActiveHold = { hold: res.hold, holdParam: res.holdParam, serverOffsetMs, tourDate };
       setSessionHold(active);
       writeStoredHold({
         holdParam: res.holdParam,
@@ -276,6 +277,7 @@ export function useSaleBooking({
         checkoutMode: res.hold.checkoutMode,
         serverOffsetMs,
         hold: res.hold,
+        tourDate,
       });
       trackEvent("sale_claim_success", {
         tour: tour.tourSlug,
@@ -285,7 +287,7 @@ export function useSaleBooking({
       void refresh();
       if (res.hold.checkoutMode === "auto" && !mock) {
         setRedirecting(true);
-        const href = reservationFormHref(res.hold.tourSlug, res.holdParam);
+        const href = reservationFormHref(res.hold.tourSlug, res.holdParam, tourDate);
         redirectTimer.current = window.setTimeout(() => {
           window.location.assign(href);
         }, AUTO_REDIRECT_DELAY_MS);

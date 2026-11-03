@@ -59,6 +59,19 @@ export interface SaleHoldView {
   serverNow: string;
 }
 
+/** One upcoming travel date of a sale tour. */
+export interface SaleTourDate {
+  /** UTC ISO day of the start: the same key the reservation form uses. */
+  date: string;
+  endDate: string | null;
+  /** Regular price per person for this date; a sale slot takes its discount off this. */
+  price: number;
+  /** Reservation fee per person for this date. */
+  deposit: number | null;
+  /** False for dates left out of the sale: regular price only. */
+  onSale: boolean;
+}
+
 /** One tour card on the sale page: sale config + tour presentation data. */
 export interface SalePageTour {
   tourPackageId: string;
@@ -82,6 +95,8 @@ export interface SalePageTour {
   pricesVary?: boolean;
   /** Upcoming dates left out of the sale (UTC ISO days): regular price only. */
   excludedDates?: string[];
+  /** Upcoming dates, soonest first, on sale or not. */
+  dates?: SaleTourDate[];
 }
 
 export interface SalePageData {

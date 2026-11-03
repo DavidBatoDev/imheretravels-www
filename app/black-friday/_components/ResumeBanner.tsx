@@ -59,7 +59,7 @@ export default function ResumeBanner({
         </div>
       </div>
       {stored.checkoutMode === "auto" && !mock ? (
-        <a href={reservationFormHref(stored.tourSlug, stored.holdParam)} className={cta}>
+        <a href={reservationFormHref(stored.tourSlug, stored.holdParam, stored.tourDate)} className={cta}>
           Continue booking
         </a>
       ) : (

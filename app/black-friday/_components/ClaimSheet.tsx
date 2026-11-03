@@ -2,15 +2,17 @@
 
 import Link from "next/link";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
-import { Check, ChevronDown, Copy, ExternalLink, Loader2, Minus, Plus, TimerOff, X } from "lucide-react";
+import { Check, ChevronDown, ChevronRight, Copy, ExternalLink, Loader2, Minus, Plus, TimerOff, X } from "lucide-react";
 import BottomSheet from "./BottomSheet";
 import SlotLadder from "./SlotLadder";
 import { useClock } from "./hooks";
-import { MAX_PARTY_SIZE, reservationFormHref } from "@/lib/sale/config";
+import { MAX_PARTY_SIZE, reservationFormHref, withTourDate } from "@/lib/sale/config";
 import {
   availabilityLine,
+  datedSalePrice,
   formatCountdown,
   formatDateKey,
+  formatDateRange,
   formatGBP,
   holdReference,
   isSoldOut,
@@ -29,6 +31,8 @@ export type ActiveHold = {
   holdParam: string;
   /** server clock − client clock, ms */
   serverOffsetMs: number;
+  /** Travel date picked in the sheet (UTC ISO day). */
+  tourDate?: string;
 };
 
 type ClaimFailure = Extract<ClaimResult, { ok: false }>;
@@ -188,6 +192,7 @@ export default function ClaimSheet({
   onTryAgain,
   regularHref,
   closeLabel = "See other tours",
+  initialDate,
 }: {
   open: boolean;
   onClose: () => void;
@@ -202,11 +207,19 @@ export default function ClaimSheet({
   /** Polite live-region text for availability changes on this tour. */
   announcement: string;
   mock: boolean;
-  onClaim: (partySize: number, email: string, website: string, shownSlots: number[]) => Promise<ClaimResult>;
+  onClaim: (
+    partySize: number,
+    email: string,
+    website: string,
+    shownSlots: number[],
+    tourDate?: string,
+  ) => Promise<ClaimResult>;
   onTryAgain: () => void;
   /** Where to book when the sale can't take the party. */
   regularHref: string;
   closeLabel?: string;
+  /** A travel date to start on (UTC ISO day), e.g. from the reservation form's sale prompt. */
+  initialDate?: string;
 }) {
   const titleId = useId();
   const formId = useId();
@@ -226,6 +239,26 @@ export default function ClaimSheet({
   const [seen, setSeen] = useState<{ requested: number; slots: PublicSlot[] } | null>(null);
   const emailRef = useRef<HTMLInputElement | null>(null);
 
+  // Travel date, picked here so the price is exact and the booking form opens
+  // with it filled in. Dates left out of the sale are listed apart, at the
+  // regular price. Tours without date data keep the old "pick it next" flow.
+  const saleDates = tour.dates?.filter((d) => d.onSale) ?? [];
+  const regularDates = tour.dates?.filter((d) => !d.onSale) ?? [];
+  const [tourDate, setTourDate] = useState(() =>
+    initialDate && saleDates.some((d) => d.date === initialDate)
+      ? initialDate
+      : saleDates.length === 1
+        ? saleDates[0]!.date
+        : "",
+  );
+  const [dateError, setDateError] = useState(false);
+  const dateRef = useRef<HTMLInputElement | null>(null);
+  const chosen = saleDates.find((d) => d.date === tourDate) ?? null;
+  // A slot's discount comes off the chosen date's price.
+  const slots = (availability?.slots ?? []).map((s) =>
+    chosen ? { ...s, salePrice: datedSalePrice(chosen.price, s.discountGBP) } : s,
+  );
+
   const maxP = maxParty(availability);
   const requested = mode === "solo" ? 1 : mode === "duo" ? 2 : groupSize;
   // One slot per person: never ask for more slots than are free right now.
@@ -244,11 +277,12 @@ export default function ClaimSheet({
     }
     setError(null);
   };
-  const picked = availability ? pickSlots(availability.slots, party) ?? [] : [];
+  const picked = availability ? pickSlots(slots, party) ?? [] : [];
   const total = picked.reduce((sum, s) => sum + s.salePrice, 0);
-  const originalTotal = tour.originalPrice * picked.length;
+  const originalTotal = (chosen?.price ?? tour.originalPrice) * picked.length;
   const saved = Math.max(0, originalTotal - total);
-  const deposit = tour.depositGBP;
+  const deposit = chosen?.deposit ?? tour.depositGBP;
+  const depositVaries = !chosen && !!tour.depositVaries;
   const dueToday = deposit ? deposit * party : null;
   const balance = dueToday !== null ? Math.max(0, total - dueToday) : null;
   const soldOut = isSoldOut(availability);
@@ -277,6 +311,11 @@ export default function ClaimSheet({
   async function submit(e: FormEvent) {
     e.preventDefault();
     if (submitting || !canHold || lost.length > 0) return;
+    if (saleDates.length > 0 && !chosen) {
+      setDateError(true);
+      dateRef.current?.focus();
+      return;
+    }
     const trimmed = email.trim();
     if (!EMAIL_RE.test(trimmed)) {
       setEmailError("Enter a valid email address, like name@example.com.");
@@ -286,7 +325,7 @@ export default function ClaimSheet({
     setEmailError(null);
     setError(null);
     setSubmitting(true);
-    const res = await onClaim(party, trimmed, website, picked.map((s) => s.index));
+    const res = await onClaim(party, trimmed, website, picked.map((s) => s.index), chosen?.date);
     setSubmitting(false);
     // On not_enough_slots the parent has already refreshed availability, so the
     // party selector re-clamps itself; the message offers the size that fits.
@@ -303,6 +342,39 @@ export default function ClaimSheet({
         {[tour.durationLabel, "Black Friday slots"].filter(Boolean).join(" · ")}
       </p>
     </>
+  );
+
+  // Dates left out of the sale: never hidden, so a customer who wants one can
+  // still find where to book it.
+  const regularDatesBlock = regularDates.length > 0 && (
+    <section aria-labelledby={`${formId}-regular`} className="rounded-md border-2 border-light-grey p-4">
+      <h3 id={`${formId}-regular`} className="font-body text-b2-mobile font-bold text-midnight md:text-b4-desktop">
+        Not on sale
+      </h3>
+      <p className="mt-1 font-body text-b4-mobile text-dark-gray md:text-b4-desktop">
+        {regularDates.length === 1 ? "This date is" : "These dates are"} regular price only, booked through our
+        normal booking form.
+      </p>
+      <ul className="mt-1 divide-y divide-light-grey">
+        {regularDates.map((d) => (
+          <li key={d.date}>
+            <a
+              href={withTourDate(regularHref, d.date)}
+              className="flex min-h-12 items-center justify-between gap-3 rounded-sm py-2 font-body text-b2-mobile text-midnight transition-colors hover:text-crimson-red focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson-red md:text-b4-desktop"
+            >
+              <span className="font-medium">{formatDateRange(d.date, d.endDate)}</span>
+              <span className="inline-flex shrink-0 items-center gap-2 tabular-nums">
+                <span className="text-dark-gray">{formatGBP(d.price)}</span>
+                <span className="inline-flex items-center font-bold">
+                  Book
+                  <ChevronRight className="size-4" strokeWidth={2.5} aria-hidden="true" />
+                </span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 
   // ── Held: the visitor's own slots, with the only timer anyone sees ───────
@@ -349,7 +421,7 @@ export default function ClaimSheet({
         <div className="mb-3 flex items-baseline justify-between gap-3 tabular-nums">
           <span className="font-body text-b4-mobile text-dark-gray md:text-b4-desktop">Due today</span>
           <span className="font-sans text-h6-mobile text-midnight md:text-h6-desktop">
-            {dueToday !== null ? `${tour.depositVaries ? "From " : ""}${formatGBP(dueToday)}` : "Reservation fee"}
+            {dueToday !== null ? `${depositVaries ? "From " : ""}${formatGBP(dueToday)}` : "Reservation fee"}
           </span>
         </div>
       )}
@@ -407,12 +479,79 @@ export default function ClaimSheet({
       <form id={formId} onSubmit={submit} noValidate className="flex flex-col gap-6">
         {availability && availability.slots.length > 0 && (
           <div>
-            <SlotLadder slots={availability.slots} highlight={picked.map((s) => s.index)} />
+            <SlotLadder slots={slots} highlight={picked.map((s) => s.index)} />
             <p className="mt-2 font-body text-b4-mobile font-medium text-midnight tabular-nums md:text-b4-desktop">
               {availabilityLine(availability)}
             </p>
           </div>
         )}
+
+        {canClaim && saleDates.length > 0 && (
+          <fieldset aria-describedby={dateError ? `${formId}-date-error` : undefined}>
+            <legend className="font-sans text-h6-mobile text-midnight md:text-h6-desktop">
+              When are you travelling?
+            </legend>
+            <div className="mt-3 grid gap-2">
+              {saleDates.map((d, i) => {
+                const checked = d.date === tourDate;
+                const next = availability?.slots.find((s) => s.state === "available");
+                const price = next ? datedSalePrice(d.price, next.discountGBP) : null;
+                return (
+                  <label
+                    key={d.date}
+                    className={`flex min-h-13 cursor-pointer items-center justify-between gap-3 rounded-md border-2 px-4 py-2.5 transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-crimson-red ${
+                      checked
+                        ? "border-midnight bg-midnight text-white"
+                        : dateError
+                          ? "border-crimson-red/60 bg-white text-midnight hover:border-crimson-red"
+                          : "border-light-grey bg-white text-midnight hover:border-grey"
+                    }`}
+                  >
+                    <input
+                      ref={i === 0 ? dateRef : undefined}
+                      type="radio"
+                      name="tourDate"
+                      value={d.date}
+                      checked={checked}
+                      disabled={submitting}
+                      onChange={() => {
+                        setTourDate(d.date);
+                        setDateError(false);
+                        setError(null);
+                      }}
+                      className="sr-only"
+                    />
+                    <span className="font-body text-b2-mobile font-bold md:text-b4-desktop">
+                      {formatDateRange(d.date, d.endDate)}
+                    </span>
+                    {price !== null && (
+                      <span className="shrink-0 text-right font-body text-b4-mobile tabular-nums md:text-b4-desktop">
+                        <span className="sr-only">Next slot </span>
+                        <span className="font-bold">{formatGBP(price)}</span>
+                        {d.price > price && (
+                          <s className={`ml-1.5 ${checked ? "text-white/70" : "text-dark-gray"}`}>
+                            <span className="sr-only">was </span>
+                            {formatGBP(d.price)}
+                          </s>
+                        )}
+                      </span>
+                    )}
+                  </label>
+                );
+              })}
+            </div>
+            {dateError && (
+              <p
+                id={`${formId}-date-error`}
+                className="mt-2 font-body text-b4-mobile font-medium text-crimson-red md:text-b4-desktop"
+              >
+                Pick your travel date.
+              </p>
+            )}
+          </fieldset>
+        )}
+
+        {canClaim && regularDatesBlock}
 
         {canClaim && (
           <fieldset>
@@ -436,20 +575,20 @@ export default function ClaimSheet({
                   { key: "group", label: "Group", size: 3 },
                 ] as const
               ).map((opt) => {
-                const slots = availability ? pickSlots(availability.slots, opt.size) : null;
+                const optSlots = availability ? pickSlots(slots, opt.size) : null;
                 const checked = mode === opt.key;
-                const sub = !slots
+                const sub = !optSlots
                   ? "Not enough"
                   : opt.key === "group"
                     ? `3–${groupMax} people`
-                    : formatGBP(slots.reduce((t, x) => t + x.salePrice, 0));
+                    : formatGBP(optSlots.reduce((t, x) => t + x.salePrice, 0));
                 return (
                   <label
                     key={opt.key}
                     className={`relative flex min-h-14 cursor-pointer flex-col justify-center rounded-md border-2 px-3 py-2 transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-crimson-red ${
                       checked
                         ? "border-midnight bg-midnight text-white"
-                        : !slots
+                        : !optSlots
                           ? "border-light-grey bg-light-grey/60 text-dark-gray hover:border-grey"
                           : "border-light-grey bg-white text-midnight hover:border-grey"
                     }`}
@@ -531,10 +670,13 @@ export default function ClaimSheet({
           </div>
         )}
 
+        {!canClaim && regularDatesBlock}
+
         {canHold && picked.length > 0 && (
           <section aria-label="Price breakdown" className="rounded-md bg-light-grey p-4 tabular-nums">
             <p className="mb-2 font-body text-b4-mobile text-dark-gray md:text-b4-desktop">
               {party === 1 ? "Your slot" : `Your ${party} slots, one per person`}
+              {chosen && ` · ${formatDateRange(chosen.date, chosen.endDate)}`}
             </p>
             <ul id={`${formId}-slots`} className="space-y-2">
               {(collapsible && !showAllSlots ? picked.slice(0, BREAKDOWN_PREVIEW) : picked).map((s) => (
@@ -575,13 +717,14 @@ export default function ClaimSheet({
                 You save {formatGBP(saved)} on {formatGBP(originalTotal)}
               </p>
             )}
-            {tour.pricesVary && (
+            {!chosen && tour.pricesVary && (
               <p className="mt-2 font-body text-b4-mobile text-dark-gray">
-                Prices shown are for the cheapest travel date. Your discount comes off the price of the
-                date you pick in the next step.
+                {saleDates.length > 0
+                  ? "Prices shown are for the cheapest travel date. Pick your date above for the exact price."
+                  : "Prices shown are for the cheapest travel date. Your discount comes off the price of the date you pick in the next step."}
               </p>
             )}
-            {!!tour.excludedDates?.length && (
+            {!!tour.excludedDates?.length && regularDates.length === 0 && (
               <p className="mt-2 font-body text-b4-mobile text-dark-gray">
                 Not included in this sale: {tour.excludedDates.map(formatDateKey).join(", ")}. {tour.excludedDates.length === 1 ? "That date is" : "Those dates are"} regular
                 price only.
@@ -591,18 +734,20 @@ export default function ClaimSheet({
               <div className="flex items-baseline justify-between gap-3">
                 <span className="font-body text-b2-mobile font-bold text-midnight md:text-b4-desktop">Due today</span>
                 <span className="font-sans text-h6-mobile text-crimson-red md:text-h6-desktop">
-                  {dueToday !== null ? `${tour.depositVaries ? "From " : ""}${formatGBP(dueToday)}` : "—"}
+                  {dueToday !== null ? `${depositVaries ? "From " : ""}${formatGBP(dueToday)}` : "—"}
                 </span>
               </div>
               <p className="mt-1 font-body text-b4-mobile text-dark-gray">
-                {tour.depositVaries
-                  ? "Reservation fee. The exact amount depends on the travel date you pick in the next step."
+                {depositVaries
+                  ? saleDates.length > 0
+                    ? "Reservation fee. The exact amount depends on your travel date."
+                    : "Reservation fee. The exact amount depends on the travel date you pick in the next step."
                   : dueToday !== null && deposit
                     ? `Reservation fee (${formatGBP(deposit)} × ${party})`
                     : "Reservation fee — shown in the next step"}
               </p>
               <p className="mt-2 font-body text-b4-mobile text-midnight">
-                {balance !== null && !tour.depositVaries
+                {balance !== null && !depositVaries
                   ? `Balance of ${formatGBP(balance)} in instalments at the sale price.`
                   : "The balance is paid in instalments at the sale price."}
               </p>
@@ -616,8 +761,8 @@ export default function ClaimSheet({
               Your email
             </label>
             <p id={emailHelpId} className="mt-1 font-body text-b4-mobile text-dark-gray md:text-b4-desktop">
-              We hold your {slotWord} against this email for {holdMinutes} minutes. You&apos;ll pick
-              your travel date in the next step.
+              We hold your {slotWord} against this email for {holdMinutes} minutes
+              {saleDates.length > 0 ? " while you finish booking." : ". You'll pick your travel date in the next step."}
             </p>
             <input
               ref={emailRef}
@@ -868,7 +1013,7 @@ function HeldFooter({
     );
   }
   if (activeHold.hold.checkoutMode === "auto") {
-    const href = reservationFormHref(activeHold.hold.tourSlug, activeHold.holdParam);
+    const href = reservationFormHref(activeHold.hold.tourSlug, activeHold.holdParam, activeHold.tourDate);
     return (
       <a
         href={mock ? "#" : href}

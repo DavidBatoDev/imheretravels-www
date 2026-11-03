@@ -36,6 +36,7 @@ import type {
   TourBookingCard,
   TourDatePrice,
 } from "@/types/tour";
+import type { SaleTourDate } from "@/lib/sale/types";
 
 // ─── Constants ──────────────────────────────────────────────────────────────
 
@@ -705,6 +706,8 @@ export interface TourCardPresentation {
   depositVaries: boolean;
   /** Upcoming dates left out of the sale, soonest first (UTC ISO days). */
   excludedDates: string[];
+  /** Every upcoming bookable date, soonest first, with its own price and fee. */
+  dates: SaleTourDate[];
   /** Only active tours have a public /tours/[slug] page (drafts can still be on sale). */
   published: boolean;
 }
@@ -758,6 +761,22 @@ export async function getTourCardPresentationByIds(
       depositFrom: dateDeposits.length ? Math.min(...dateDeposits) : Number.isFinite(deposit) && deposit > 0 ? deposit : null,
       depositVaries: new Set(dateDeposits).size > 1,
       excludedDates: upcoming.map(isoStartDate).filter((key) => excluded.includes(key)).sort(),
+      dates: upcoming
+        .map((d): SaleTourDate => {
+          const date = isoStartDate(d);
+          const end = (d.endDate as { toDate?: () => Date } | undefined)?.toDate?.();
+          const price = typeof d.customOriginal === "number" && d.customOriginal > 0 ? d.customOriginal : base;
+          const fee = d.hasCustomDeposit === true && typeof d.customDeposit === "number" ? d.customDeposit : deposit;
+          return {
+            date,
+            endDate: end ? end.toISOString().slice(0, 10) : null,
+            price: Number.isFinite(price) && price > 0 ? price : 0,
+            deposit: Number.isFinite(fee) && fee > 0 ? fee : null,
+            onSale: !excluded.includes(date),
+          };
+        })
+        .filter((d) => d.date && d.price > 0)
+        .sort((a, b) => a.date.localeCompare(b.date)),
       published: raw.status === "active",
     };
   }

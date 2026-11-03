@@ -33,17 +33,32 @@ export const HOLD_STORAGE_KEY = `iht:sale-hold:${BLACK_FRIDAY_SLUG}`;
 /** Largest party one booking can hold (1 slot = 1 person). Mirrors the admin API. */
 export const MAX_PARTY_SIZE = 10;
 
-/** The normal booking form for a tour, at its regular price. */
-export function regularBookingHref(tourSlug: string): string {
+/**
+ * The normal booking form for a tour, at its regular price. `price=regular`
+ * tells the form the customer chose that (the sale couldn't take their party,
+ * or sold out), so it doesn't send them back to the sale for a sale date.
+ */
+export function regularBookingHref(tourSlug: string, tourDate?: string): string {
   const url = new URL(RESERVATION_FORM_URL);
   url.searchParams.set("tour", tourSlug);
+  if (tourDate) url.searchParams.set("tourdate", tourDate);
+  url.searchParams.set("price", "regular");
   return url.toString();
 }
 
-export function reservationFormHref(tourSlug: string, holdParam: string): string {
+/** A date's regular-price booking link: dates left out of the sale. */
+export function withTourDate(href: string, tourDate: string): string {
+  const url = new URL(href);
+  url.searchParams.set("tourdate", tourDate);
+  return url.toString();
+}
+
+export function reservationFormHref(tourSlug: string, holdParam: string, tourDate?: string): string {
   const url = new URL(RESERVATION_FORM_URL);
   url.searchParams.set("tour", tourSlug);
   url.searchParams.set("hold", holdParam);
+  // The date picked in the Hold sheet; the form pre-fills it.
+  if (tourDate) url.searchParams.set("tourdate", tourDate);
   // Where the form sends the customer back to if the hold ends.
   if (typeof window !== "undefined") url.searchParams.set("from", window.location.pathname);
   return url.toString();

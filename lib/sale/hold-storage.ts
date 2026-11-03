@@ -19,6 +19,8 @@ export interface StoredHold {
   serverOffsetMs: number;
   /** Snapshot of the hold for the manual-checkout view (payment links etc.). */
   hold: SaleHoldView;
+  /** Travel date picked in the Hold sheet (UTC ISO day); the form pre-fills it. */
+  tourDate?: string;
 }
 
 const CHANGE_EVENT = "iht:sale-hold-change";
