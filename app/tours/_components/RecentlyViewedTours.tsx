@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ImageWithSkeleton from "@/app/components/global/ImageWithSkeleton";
-import type { Tour } from "@/types/tour";
+import type { TourListItem } from "./tour-list";
 
 import "swiper/css";
 
@@ -78,9 +78,9 @@ function PersonalizedToursCard() {
 export default function RecentlyViewedTours({
   allTours,
 }: {
-  allTours: Tour[];
+  allTours: TourListItem[];
 }) {
-  const [viewed, setViewed] = useState<Tour[]>([]);
+  const [viewed, setViewed] = useState<TourListItem[]>([]);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -90,7 +90,7 @@ export default function RecentlyViewedTours({
       const slugs: string[] = raw ? JSON.parse(raw) : [];
       const map = new Map(allTours.map((t) => [t.slug, t]));
       setViewed(
-        slugs.map((s) => map.get(s)).filter((t): t is Tour => t !== undefined),
+        slugs.map((s) => map.get(s)).filter((t): t is TourListItem => t !== undefined),
       );
     } catch {
       // ignore

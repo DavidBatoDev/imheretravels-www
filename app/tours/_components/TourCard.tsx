@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import ImageWithSkeleton from "@/app/components/global/ImageWithSkeleton";
-import type { Tour } from "@/types/tour";
+import type { TourListItem } from "./tour-list";
 
-export default function TourCard({ tour, priority = false }: { tour: Tour; priority?: boolean }) {
+export default function TourCard({ tour, priority = false }: { tour: TourListItem; priority?: boolean }) {
   return (
     <li className="group overflow-hidden rounded-lg bg-white shadow-small transition-shadow hover:shadow-medium">
       <Link href={`/tours/${tour.slug}`} className="flex h-full flex-col">

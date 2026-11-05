@@ -15,8 +15,17 @@ import { salePhase } from "@/lib/sale/ladder";
 import { getTourBySlug, getCurrentSlugForPreviousSlug } from "@/lib/tours-firestore";
 
 // Sale config and the initial slot snapshot refresh at most once a minute;
-// live availability is polled client-side from the admin API.
+// live availability is polled client-side from the admin API (immediately on
+// load, then every 15s), so a cached snapshot is corrected on arrival.
 export const revalidate = 60;
+
+// No paths at build time: each slug renders on first visit, then is served
+// from the ISR cache. Without this export Next treats a dynamic segment as
+// fully dynamic and ignores `revalidate`, so every click on the sale page
+// waited for a fresh Firestore render (~0.6s navigation, ~1.8s full load).
+export async function generateStaticParams(): Promise<{ slug: string }[]> {
+  return [];
+}
 
 const BASE_URL = "https://www.imheretravels.com";
 const TITLE = "Black Friday Sale";

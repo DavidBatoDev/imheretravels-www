@@ -1,17 +1,16 @@
-import Link from "next/link";
+import { Suspense } from "react";
 import Footer from "@/app/components/global/Footer";
+
+// One cached page for every ?destination= / ?sort= (filtering and sorting
+// happen in the browser, see ToursBrowser), refreshed hourly and on admin saves.
 export const revalidate = 3600;
 
 import { getAllTours, getHostedTourSlugs } from "@/lib/tours-firestore";
-import {
-  getAllDestinations,
-  getDestinationBySlug,
-} from "@/lib/destinations-firestore";
+import { getAllDestinations } from "@/lib/destinations-firestore";
 import type { Tour } from "@/types/tour";
-import TourCard from "./_components/TourCard";
-import ToursFilterBar from "./_components/ToursFilterBar";
-import type { SortKey } from "./_components/ToursFilterBar";
+import ToursBrowser, { ToursBrowserView } from "./_components/ToursBrowser";
 import RecentlyViewedTours from "./_components/RecentlyViewedTours";
+import { toTourListItem, type TourListDestination } from "./_components/tour-list";
 
 const BASE_URL = "https://www.imheretravels.com";
 
@@ -48,105 +47,29 @@ function buildToursJsonLd(tours: Tour[]) {
 }
 
 /* -------------------------------------------------------------------------- */
-/* Helpers                                                                     */
-/* -------------------------------------------------------------------------- */
-
-function parsePriceGBP(priceAmount: string): number {
-  return parseFloat(priceAmount.replace(/[^0-9.]/g, "")) || 0;
-}
-
-function parseDurationDays(duration: string): number {
-  const m = duration.match(/\d+/);
-  return m ? parseInt(m[0], 10) : 0;
-}
-
-const VALID_SORTS: SortKey[] = [
-  "relevant",
-  "price-asc",
-  "price-desc",
-  "duration-asc",
-  "duration-desc",
-];
-
-function sortTours(tours: Tour[], sort: SortKey): Tour[] {
-  const s = [...tours];
-  switch (sort) {
-    case "price-asc":
-      return s.sort(
-        (a, b) =>
-          parsePriceGBP(a.booking.priceAmount) -
-          parsePriceGBP(b.booking.priceAmount),
-      );
-    case "price-desc":
-      return s.sort(
-        (a, b) =>
-          parsePriceGBP(b.booking.priceAmount) -
-          parsePriceGBP(a.booking.priceAmount),
-      );
-    case "duration-asc":
-      return s.sort(
-        (a, b) =>
-          parseDurationDays(a.listingCard.duration) -
-          parseDurationDays(b.listingCard.duration),
-      );
-    case "duration-desc":
-      return s.sort(
-        (a, b) =>
-          parseDurationDays(b.listingCard.duration) -
-          parseDurationDays(a.listingCard.duration),
-      );
-    default:
-      return s; // "relevant" = registry order
-  }
-}
-
-/* -------------------------------------------------------------------------- */
 /* Page                                                                        */
 /* -------------------------------------------------------------------------- */
 
-export default async function ToursPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ destination?: string; sort?: string }>;
-}) {
-  const { destination, sort } = await searchParams;
+export default async function ToursPage() {
+  const [hostedSlugs, tours, allDestinations] = await Promise.all([
+    getHostedTourSlugs().then((s) => new Set(s)),
+    getAllTours(),
+    getAllDestinations(),
+  ]);
+  const allTours = tours.filter((tour) => !hostedSlugs.has(tour.slug));
 
-  const hostedSlugs = new Set(await getHostedTourSlugs());
-  const allTours = (await getAllTours()).filter((tour) => !hostedSlugs.has(tour.slug));
-  const allDestinations = await getAllDestinations();
-
-  // Validate destination param — ignore unknown slugs
-  const validDest =
-    destination && allDestinations.some((d) => d.slug === destination)
-      ? destination
-      : undefined;
-
-  // Filter
-  let filtered = allTours;
-  if (validDest) {
-    const dest = (await getDestinationBySlug(validDest))!;
-    filtered = allTours.filter((t) => dest.tourSlugs.includes(t.slug));
-  }
-
-  // Validate sort param
-  const validSort: SortKey =
-    sort && VALID_SORTS.includes(sort as SortKey)
-      ? (sort as SortKey)
-      : "relevant";
-
-  // Sort
-  const sorted = sortTours(filtered, validSort);
-
-  const destOptions = allDestinations.map((d) => ({
+  const listItems = allTours.map(toTourListItem);
+  const destinations: TourListDestination[] = allDestinations.map((d) => ({
     slug: d.slug,
     name: d.name,
+    tourSlugs: d.tourSlugs,
   }));
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildToursJsonLd(sorted)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildToursJsonLd(allTours)) }}
       />
       <main className="flex-1">
         <section className="mx-auto w-full max-w-7xl px-4 pb-16 pt-8 md:px-8 md:pb-24 md:pt-10">
@@ -158,35 +81,12 @@ export default async function ToursPage({
             more.
           </p>
 
-          <ToursFilterBar
-            destinations={destOptions}
-            currentDestination={validDest}
-            currentSort={validSort}
-            totalCount={sorted.length}
-          />
-
-          {sorted.length === 0 ? (
-            <div className="mt-16 text-center">
-              <p className="font-body text-b2-desktop text-dark-gray">
-                No tours found for this destination.
-              </p>
-              <Link
-                href="/tours"
-                className="mt-6 inline-flex items-center justify-center rounded-full bg-crimson-red px-6 py-3 font-body font-medium text-white hover:bg-light-red"
-              >
-                View All Tours
-              </Link>
-            </div>
-          ) : (
-            <ul className="mt-10 grid grid-cols-1 gap-6 md:mt-14 md:grid-cols-2 lg:grid-cols-3">
-              {sorted.map((tour, i) => (
-                <TourCard key={tour.slug} tour={tour} priority={i < 3} />
-              ))}
-            </ul>
-          )}
+          <Suspense fallback={<ToursBrowserView tours={listItems} destinations={destinations} />}>
+            <ToursBrowser tours={listItems} destinations={destinations} />
+          </Suspense>
         </section>
 
-        <RecentlyViewedTours allTours={allTours} />
+        <RecentlyViewedTours allTours={listItems} />
       </main>
       <Footer />
     </>

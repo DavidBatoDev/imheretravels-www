@@ -1,7 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
 import FilterMenu from "@/app/components/global/FilterMenu";
 
 export type SortKey =
@@ -32,17 +30,15 @@ export default function ToursFilterBar({
   currentSort,
   totalCount,
 }: Props) {
-  const router = useRouter();
-  const [, startTransition] = useTransition();
-
+  // Filtering happens in the browser (ToursBrowser reads the URL), so only the
+  // URL changes: Next syncs history.pushState with useSearchParams, with no
+  // server round trip. Back/forward still step through filters.
   function navigate(dest: string | undefined, sort: SortKey) {
     const p = new URLSearchParams();
     if (dest) p.set("destination", dest);
     if (sort !== "relevant") p.set("sort", sort);
     const qs = p.toString();
-    startTransition(() => {
-      router.push(qs ? `/tours?${qs}` : "/tours");
-    });
+    window.history.pushState(null, "", qs ? `/tours?${qs}` : "/tours");
   }
 
   const isFiltered = !!currentDestination || currentSort !== "relevant";
