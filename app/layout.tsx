@@ -165,6 +165,13 @@ const jsonLd = {
           description: "Discover what makes I'm Here Travels different — small groups, curated routes, real experiences.",
           url: `${BASE_URL}/why-us`,
         },
+        {
+          "@type": "ListItem",
+          position: 7,
+          name: "Work With Us",
+          description: "Become a group tour host, join our affiliate creator programme or partner with us as a travel supplier.",
+          url: `${BASE_URL}/work-with-us`,
+        },
       ],
     },
   ],

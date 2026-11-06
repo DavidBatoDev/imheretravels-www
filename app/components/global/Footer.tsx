@@ -50,6 +50,7 @@ const footerColumns = [
     links: [
       { label: "About Us", href: "/about-us" },
       { label: "Why Us?", href: "/why-us" },
+      { label: "Work With Us", href: "/work-with-us" },
     ],
   },
   {

@@ -52,6 +52,7 @@ const MORE_DROPDOWN: NavLink[] = [
   { label: "Travel Safety", href: "/travel-safety" },
   { label: "FAQs", href: "/faqs" },
   { label: "Contact Us", href: "/contact-us" },
+  { label: "Work With Us", href: "/work-with-us" },
   { label: "Terms & Conditions", href: "/terms-and-conditions" },
 ];
 
