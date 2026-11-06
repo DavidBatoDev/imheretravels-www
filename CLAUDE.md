@@ -101,7 +101,8 @@ existing event name before adding a new one.
 
 Shared with `admin.imheretravels.com/reservation-booking-form` — same
 container, same GA4 property. Current tags/triggers/variables, rebuilt
-2026-08-03 off the `contact_click` / `form_submission` dataLayer contract:
+2026-08-03 off the `contact_click` / `form_submission` dataLayer contract
+(Calendly tag added in container Version 3, published 2026-11-06):
 
 | Tag | Trigger | Condition |
 | --- | --- | --- |
@@ -110,10 +111,19 @@ container, same GA4 property. Current tags/triggers/variables, rebuilt
 | GA4 Event - Mail Clicks | Mail Clicks Trigger | Custom Event `contact_click`, `{{DLV - Contact Method}}` equals `email` |
 | GA4 Event - Messenger Link Clicks | Messenger Link Clicks Trigger | Custom Event `contact_click`, `{{DLV - Contact Method}}` equals `messenger` |
 | GA4 Event - WhatsApp Clicks | WhatsApp Clicks Trigger | Custom Event `contact_click`, `{{DLV - Contact Method}}` equals `whatsapp` |
+| GA4 Event - Calendly Clicks | Calendly Clicks Trigger | Custom Event `contact_click`, `{{DLV - Contact Method}}` equals `calendly`. Sends GA4 event `calendly_click` with parameter `click_location` = `{{DLV - Click Location}}` |
 | GA4 Event - Form Submissions | Form Submissions Trigger | Custom Event `form_submission`, All Custom Events (no condition — differentiate by the `form_name` event parameter, not the trigger) |
 
-Two Data Layer Variables back the conditions above: `DLV - Contact Method`
-(reads `method`) and `DLV - Form Name` (reads `form_name`), both Version 2.
+Three Data Layer Variables back the conditions above, all Version 2:
+`DLV - Contact Method` (reads `method`), `DLV - Form Name` (reads
+`form_name`) and `DLV - Click Location` (reads `location`, e.g.
+`work_with_us_host` / `_affiliate` / `_supplier` / `_closing` /
+`_<type>_success` on /work-with-us).
+
+GTM only loads when `NEXT_PUBLIC_GTM_ID` is set (off in local dev). To test a
+tag in Tag Assistant Preview locally, put `NEXT_PUBLIC_GTM_ID=GTM-K29G5GPR`
+in a gitignored `.env.local`, accept analytics in the cookie banner, and
+remove the file afterwards so local clicks stay out of GA4.
 
 **When adding a new feature that should be tracked:** check the table above
 first — if it's a contact click or a form submit, the trigger/tag likely
