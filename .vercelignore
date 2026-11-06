@@ -1,0 +1,2 @@
+# Never upload local recovery copies of migrated public assets.
+.asset-backup/

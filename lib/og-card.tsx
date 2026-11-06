@@ -5,7 +5,7 @@
  * self-hosted, no external service. Used by the `opengraph-image` / `twitter-image`
  * file conventions in `app/tours/[slug]` and `app/resident-hosts/[slug]`.
  *
- * Node runtime only: reads brand fonts + logo from `public/` via `fs`, and the
+ * Node runtime only: reads local brand fonts and the logo from Firebase, and the
  * data libs use `firebase-admin`. Satori supports OTF/TTF/WOFF — never WOFF2.
  */
 
@@ -15,6 +15,7 @@ import { join } from "node:path";
 import sharp from "sharp";
 import { getTourBySlug } from "@/lib/tours-firestore";
 import { getHostBySlug } from "@/lib/resident-hosts-firestore";
+import publicAssets from "@/data/public-assets.json";
 
 export const OG_SIZE = { width: 1200, height: 630 } as const;
 // Served as JPEG (not PNG): the rendered card is a photo, and PNG runs ~1MB —
@@ -55,10 +56,14 @@ function loadFonts() {
 let logoPromise: Promise<string> | null = null;
 function loadLogo() {
   if (!logoPromise) {
-    logoPromise = readFile(
-      join(process.cwd(), "public", "Logos", "Horizontal", "Digital", "PNG", "White", "Digital_Horizontal_White.png"),
-      "base64",
-    )
+    const logoPath = "/logos/Horizontal/Digital/PNG/White/Digital_Horizontal_White.png";
+    const asset = (publicAssets as Record<string, { destination: string }>)[logoPath];
+    logoPromise = (asset
+      ? fetch(asset.destination, { signal: AbortSignal.timeout(15_000) }).then(async (response) => {
+          if (!response.ok) throw new Error("Unable to load the brand logo");
+          return Buffer.from(await response.arrayBuffer()).toString("base64");
+        })
+      : readFile(join(process.cwd(), "public", logoPath.slice(1)), "base64"))
       .then((b64) => `data:image/png;base64,${b64}`)
       .catch(() => "");
   }

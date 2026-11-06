@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 import { fileURLToPath } from "node:url";
 import { getAllTourSlugs } from "./data/tours";
+import publicAssets from "./data/public-assets.json";
 
 const nextConfig: NextConfig = {
   // Pin the workspace root so Next.js doesn't infer it from the stray
@@ -44,6 +45,16 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Keep historical and dynamically constructed asset URLs working after
+      // the verified originals have moved out of the deployment into Firebase.
+      ...Object.entries(publicAssets as Record<string, { destination: string }>).flatMap(([source, asset]) =>
+        // Browsers preserve '&' in a pathname; callers may also encode it.
+        [...new Set([encodeURI(source), source.split("/").map(encodeURIComponent).join("/")])].map((encoded) => ({
+          source: encoded.replace(/[(){}:*+?]/g, "\\$&"),
+          destination: asset.destination,
+          permanent: true,
+        })),
+      ),
       { source: "/dev", destination: "/resident-hosts/dev", permanent: true },
       ...getAllTourSlugs().map((slug) => ({
         source: `/${slug}`,

@@ -49,3 +49,6 @@ data/html
 
 # Local npm cache (should never be tracked)
 .npm-cache/
+
+# Local recovery copies of assets verified in Firebase Storage
+/.asset-backup/

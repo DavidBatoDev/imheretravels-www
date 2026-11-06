@@ -259,7 +259,9 @@ web/
 
 ## 🎨 Brand Kit
 
-Full guidelines live in [`public/brandkitGuideLines/`](public/brandkitGuideLines/). Key excerpts:
+The brand guidelines PDF is stored in Firebase; its download URL is in
+[`data/public-assets.json`](data/public-assets.json) under
+`/brandkitGuideLines/ImHereTravels_BrandGuidelines.pdf`. Key excerpts:
 
 ### Color palette
 
@@ -303,6 +305,25 @@ _Light-only — do **not** add a `prefers-color-scheme: dark` block. The brand d
 ---
 
 ## ✦ Deployment
+
+### Public media in Firebase Storage
+
+Raster images and PDFs are stored in the production Firebase bucket under
+`website-assets/<sha256>.<extension>`. `data/public-assets.json` maps their
+historical public paths to verified Firebase download URLs. Next.js redirects
+those paths to Storage, so existing page data and external links keep working.
+Fonts and SVGs remain bundled locally. Social-card generation loads its PNG logo
+from the same manifest.
+
+For new media, place files in `public/`, run `npm run assets:plan`, then run
+`npm run assets:migrate` with production Firebase Admin credentials available.
+The migration checks every public download's SHA-256 before updating the
+manifest or removing bundled files. `.asset-backup/` contains local recovery
+copies and is excluded from Git and Vercel. Commit the manifest and asset
+deletions together; never remove a cloud object still referenced by a manifest.
+
+This reduces new deployment output. Previously retained Vercel deployments keep
+their original assets until they expire or are removed through deployment retention.
 
 The site is hosted on **Vercel**. Every push to `main` triggers a production deploy to [imheretravels.com](https://imheretravels.com); pull requests get preview URLs automatically.
 

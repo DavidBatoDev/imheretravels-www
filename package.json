@@ -7,7 +7,9 @@
     "dev:turbo": "next dev -p 4200",
     "build": "next build",
     "start": "next start -p 4200",
-    "lint": "eslint"
+    "lint": "eslint",
+    "assets:plan": "node scripts/migrate-public-assets.mjs",
+    "assets:migrate": "node scripts/migrate-public-assets.mjs --upload --apply"
   },
   "dependencies": {
     "firebase-admin": "^13",
