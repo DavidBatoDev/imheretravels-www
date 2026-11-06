@@ -19,6 +19,8 @@ import { FieldValue } from "firebase-admin/firestore";
 import { adminBucket, adminDb } from "@/lib/firebase-admin";
 import { forms, SUPPLIER_UPLOAD } from "@/data/workWithUs";
 import { partnerTypeSchema, validateApplication } from "@/lib/work-with-us/schema";
+import { getDestinationOptions } from "@/lib/work-with-us/destinations";
+import { getAllNationalities } from "@/lib/nationalities";
 import { storeDocument, validateDocument, type StoredAttachment } from "@/lib/work-with-us/upload";
 import {
   answerRows,
@@ -84,6 +86,26 @@ export async function POST(request: Request) {
     return bad("Please check the highlighted fields.", 400, { fieldErrors: validated.errors });
   }
   const answers = validated.data;
+
+  // Country and destinations must come from the real lists the form offers.
+  const listErrors: Record<string, string> = {};
+  const countries = new Set(getAllNationalities().map((c) => c.countryName));
+  let allowedDestinations: Set<string> | null = null;
+  for (const f of cfg.fields) {
+    const v = answers[f.name];
+    if (f.kind === "country" && typeof v === "string" && v && !countries.has(v)) {
+      listErrors[f.name] = "Please choose a country from the list.";
+    }
+    if (f.kind === "destinations" && Array.isArray(v) && v.length > 0) {
+      allowedDestinations ??= new Set(await getDestinationOptions());
+      if (v.some((d) => !allowedDestinations!.has(d))) {
+        listErrors[f.name] = "Please choose destinations from the list.";
+      }
+    }
+  }
+  if (Object.keys(listErrors).length > 0) {
+    return bad("Please check the highlighted fields.", 400, { fieldErrors: listErrors });
+  }
 
   // Optional supplier document.
   const fileEntry = form.get(cfg.upload?.name ?? "__none__");

@@ -16,13 +16,11 @@ export default function ApplyPanel({
   sectionId,
   ctaLabel,
   destinations,
-  countries,
 }: {
   type: PartnerType;
   sectionId: string;
   ctaLabel: string;
   destinations: string[];
-  countries: string[];
 }) {
   const anchor = `${sectionId}-application`;
   const [open, setOpen] = useState(false);
@@ -86,7 +84,7 @@ export default function ApplyPanel({
       <div id={anchor} ref={panelRef} data-apply-panel hidden={!open}>
         {open && (
           <div className="mt-8">
-            <ApplicationForm type={type} destinations={destinations} countries={countries} />
+            <ApplicationForm type={type} destinations={destinations} />
           </div>
         )}
       </div>

@@ -11,14 +11,12 @@ export default function PartnerSection({
   tone,
   imageFirst,
   destinations,
-  countries,
 }: {
   section: PartnerSectionContent;
   /** Section background; inner cards use the opposite tone. */
   tone: "white" | "grey";
   imageFirst?: boolean;
   destinations: string[];
-  countries: string[];
 }) {
   const accent = ACCENTS[section.type];
   const card = tone === "white" ? "bg-light-grey" : "bg-white";
@@ -125,7 +123,6 @@ export default function PartnerSection({
           sectionId={section.id}
           ctaLabel={section.ctaLabel}
           destinations={destinations}
-          countries={countries}
         />
       </div>
     </section>

@@ -1,18 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { useId, useRef, useState } from "react";
+import { useCallback, useId, useRef, useState } from "react";
 import { CircleCheck, FileText, Upload, X } from "lucide-react";
+import Dropdown from "@/app/components/global/Dropdown";
+import NationalitySelect from "@/app/components/reviews/NationalitySelect";
 import {
   CALENDLY_URL,
   SUPPLIER_UPLOAD,
   consentCopy,
   forms,
+  otherFieldName,
   successCopy,
   type FormField,
   type PartnerType,
 } from "@/data/workWithUs";
-import { validateApplication, type FieldErrors } from "@/lib/work-with-us/schema";
+import {
+  fieldErrors,
+  otherSelected,
+  validateApplication,
+  type FieldErrors,
+} from "@/lib/work-with-us/schema";
 import { trackEvent } from "@/lib/analytics/track";
 import TrackedLink from "./TrackedLink";
 
@@ -26,9 +34,18 @@ const inputClass =
 
 const labelClass = "mb-2 block font-body font-bold text-b2-mobile text-midnight md:text-b2-desktop";
 
-function omit(errs: FieldErrors, key: string): FieldErrors {
+const chipClass = (checked: boolean, invalid: boolean) =>
+  `cursor-pointer select-none rounded-full border-[1.5px] px-4 py-2 font-body text-b2-mobile transition-colors has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-midnight md:text-b2-desktop ${
+    checked
+      ? "border-midnight bg-midnight text-white"
+      : invalid
+        ? "border-crimson-red/60 bg-white text-midnight hover:border-midnight"
+        : "border-grey/60 bg-white text-midnight hover:border-midnight"
+  }`;
+
+function omit(errs: FieldErrors, ...keys: string[]): FieldErrors {
   const next = { ...errs };
-  delete next[key];
+  for (const k of keys) delete next[k];
   return next;
 }
 
@@ -36,6 +53,7 @@ function initialValues(type: PartnerType): Values {
   const v: Values = {};
   for (const f of forms[type].fields) {
     v[f.name] = f.kind === "checkboxes" || f.kind === "destinations" ? [] : "";
+    if (f.otherOption) v[otherFieldName(f.name)] = "";
   }
   return v;
 }
@@ -51,61 +69,21 @@ function RequiredMark({ required }: { required: boolean }) {
   );
 }
 
-function ChipGroup({
-  idBase,
-  options,
-  selected,
-  onToggle,
-  invalid,
-  describedBy,
-}: {
-  idBase: string;
-  options: readonly string[];
-  selected: string[];
-  onToggle: (opt: string) => void;
-  invalid: boolean;
-  describedBy?: string;
-}) {
+function FieldError({ id, message }: { id?: string; message?: string }) {
+  if (!message) return null;
   return (
-    <div className="flex flex-wrap gap-2" aria-describedby={describedBy}>
-      {options.map((opt, i) => {
-        const id = `${idBase}-${i}`;
-        const checked = selected.includes(opt);
-        return (
-          <label
-            key={opt}
-            htmlFor={id}
-            className={`cursor-pointer select-none rounded-full border-[1.5px] px-4 py-2 font-body text-b2-mobile transition-colors has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-midnight md:text-b2-desktop ${
-              checked
-                ? "border-midnight bg-midnight text-white"
-                : invalid
-                  ? "border-crimson-red/60 bg-white text-midnight hover:border-midnight"
-                  : "border-grey/60 bg-white text-midnight hover:border-midnight"
-            }`}
-          >
-            <input
-              id={id}
-              type="checkbox"
-              className="sr-only"
-              checked={checked}
-              onChange={() => onToggle(opt)}
-            />
-            {opt}
-          </label>
-        );
-      })}
-    </div>
+    <p id={id} className="mt-1.5 font-body text-b4-mobile text-crimson-red md:text-b4-desktop">
+      {message}
+    </p>
   );
 }
 
 export default function ApplicationForm({
   type,
   destinations,
-  countries,
 }: {
   type: PartnerType;
   destinations: string[];
-  countries: string[];
 }) {
   const cfg = forms[type];
   const uid = useId();
@@ -117,25 +95,60 @@ export default function ApplicationForm({
   const [status, setStatus] = useState<Status>("idle");
   const [formError, setFormError] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
+  // Latest values for blur handlers fired right after a state update; kept in
+  // sync by setValue (the only writer of `values`).
+  const valuesRef = useRef(values);
 
   const fid = (name: string) => `${uid}-${type}-${name}`;
 
+  /** Re-checks one field (and its "please specify" text) against the schema. */
+  const revalidate = useCallback(
+    (name: string, next: Values) => {
+      const keys = [name, otherFieldName(name)];
+      const found = fieldErrors(type, next, keys);
+      setErrors((x) => ({ ...omit(x, ...keys), ...found }));
+    },
+    [type],
+  );
+
   function setValue(name: string, value: string | string[]) {
-    setValues((v) => ({ ...v, [name]: value }));
-    if (errors[name]) setErrors((x) => omit(x, name));
+    const next = { ...valuesRef.current, [name]: value };
+    valuesRef.current = next;
+    setValues(next);
+    // Once a field shows an error, re-check it as the person types so the
+    // message disappears as soon as it's fixed.
+    const base = name.endsWith("Other") ? name.slice(0, -5) : name;
+    if (errors[name] || errors[base]) revalidate(base, next);
   }
 
-  function toggle(name: string, opt: string) {
-    const cur = (values[name] as string[]) ?? [];
-    setValue(name, cur.includes(opt) ? cur.filter((o) => o !== opt) : [...cur, opt]);
+  /** Validate on leaving a field, but only once something was entered. */
+  const onBlurField = useCallback(
+    (name: string) => {
+      const v = valuesRef.current[name];
+      const filled = Array.isArray(v) ? v.length > 0 : String(v ?? "").trim() !== "";
+      if (filled) revalidate(name, valuesRef.current);
+    },
+    [revalidate],
+  );
+
+  function toggle(f: FormField, opt: string) {
+    const cur = (values[f.name] as string[]) ?? [];
+    const next = cur.includes(opt) ? cur.filter((o) => o !== opt) : [...cur, opt];
+    setValue(f.name, next);
+    if (opt === f.otherOption && !next.includes(opt)) setErrors((x) => omit(x, otherFieldName(f.name)));
   }
 
   function focusFirstError(errs: FieldErrors) {
-    const first = cfg.fields.find((f) => errs[f.name])?.name ?? (errs.consent ? "consent" : errs[cfg.upload?.name ?? ""] ? cfg.upload?.name : undefined);
+    const order = [
+      ...cfg.fields.flatMap((f) => (f.otherOption ? [f.name, otherFieldName(f.name)] : [f.name])),
+      ...(cfg.upload ? [cfg.upload.name] : []),
+      "consent",
+    ];
+    const first = order.find((k) => errs[k]);
     if (!first) return;
     const el = formRef.current?.querySelector<HTMLElement>(`[data-field="${first}"]`);
     el?.scrollIntoView({ behavior: "smooth", block: "center" });
-    el?.querySelector<HTMLElement>("input, select, textarea")?.focus({ preventScroll: true });
+    el?.querySelector<HTMLElement>("input:not([type=hidden]), button, textarea")?.focus({ preventScroll: true });
   }
 
   function onFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -145,6 +158,7 @@ export default function ApplicationForm({
     const ext = /\.[A-Za-z0-9]+$/.exec(f.name)?.[0].toLowerCase() ?? "";
     let err = "";
     if (!SUPPLIER_UPLOAD.extensions.includes(ext)) err = "Please upload a PDF, Word, Excel or CSV file.";
+    else if (f.size === 0) err = "That file appears to be empty.";
     else if (f.size > SUPPLIER_UPLOAD.maxBytes)
       err = "That file is larger than 4 MB. Please upload a smaller file or email it to bella@imheretravels.com.";
     if (err) {
@@ -227,6 +241,38 @@ export default function ApplicationForm({
     );
   }
 
+  /** "Please specify" text field shown while a field's other option is selected. */
+  function renderOther(f: FormField) {
+    if (!otherSelected(f, values[f.name])) return null;
+    const key = otherFieldName(f.name);
+    const id = fid(key);
+    const err = errors[key];
+    return (
+      <div data-field={key} className="mt-3">
+        <label htmlFor={id} className="sr-only">
+          {f.label} – please specify
+        </label>
+        <input
+          id={id}
+          type="text"
+          autoFocus
+          maxLength={200}
+          value={(values[key] as string) ?? ""}
+          onChange={(e) => setValue(key, e.target.value)}
+          onBlur={() => {
+            // Only check once something was typed; an empty box is flagged on submit.
+            if (String(valuesRef.current[key] ?? "").trim()) revalidate(f.name, valuesRef.current);
+          }}
+          placeholder={f.otherPlaceholder ?? "Please specify"}
+          aria-invalid={err ? true : undefined}
+          aria-describedby={err ? `${id}-error` : undefined}
+          className={inputClass}
+        />
+        <FieldError id={`${id}-error`} message={err} />
+      </div>
+    );
+  }
+
   function renderField(f: FormField) {
     const id = fid(f.name);
     const err = errors[f.name];
@@ -241,11 +287,6 @@ export default function ApplicationForm({
         {f.help}
       </p>
     ) : null;
-    const error = err ? (
-      <p id={errId} className="mt-1.5 font-body text-b4-mobile text-crimson-red md:text-b4-desktop">
-        {err}
-      </p>
-    ) : null;
 
     if (f.kind === "radio" || f.kind === "checkboxes" || f.kind === "destinations") {
       const options = f.kind === "destinations" ? destinations : (f.options ?? []);
@@ -256,106 +297,125 @@ export default function ApplicationForm({
             <RequiredMark required={f.required} />
           </legend>
           {help}
-          {f.kind === "radio" ? (
-            <div className="flex flex-wrap gap-2" role="radiogroup" aria-describedby={describedBy}>
-              {options.map((opt, i) => {
-                const rid = `${id}-${i}`;
-                const checked = value === opt;
-                return (
-                  <label
-                    key={opt}
-                    htmlFor={rid}
-                    className={`min-w-20 cursor-pointer select-none rounded-full border-[1.5px] px-5 py-2 text-center font-body text-b2-mobile transition-colors has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-midnight md:text-b2-desktop ${
-                      checked ? "border-midnight bg-midnight text-white" : err ? "border-crimson-red/60 bg-white" : "border-grey/60 bg-white hover:border-midnight"
-                    }`}
-                  >
-                    <input
-                      id={rid}
-                      type="radio"
-                      name={`${uid}-${f.name}`}
-                      className="sr-only"
-                      checked={checked}
-                      onChange={() => setValue(f.name, opt)}
-                    />
-                    {opt}
-                  </label>
-                );
-              })}
-            </div>
-          ) : (
-            <ChipGroup
-              idBase={id}
-              options={options}
-              selected={(value as string[]) ?? []}
-              onToggle={(opt) => toggle(f.name, opt)}
-              invalid={!!err}
-              describedBy={describedBy}
-            />
-          )}
-          {error}
+          <div
+            className="flex flex-wrap gap-2"
+            role={f.kind === "radio" ? "radiogroup" : undefined}
+            aria-describedby={describedBy}
+          >
+            {options.map((opt, i) => {
+              const oid = `${id}-${i}`;
+              const checked = f.kind === "radio" ? value === opt : ((value as string[]) ?? []).includes(opt);
+              return (
+                <label
+                  key={opt}
+                  htmlFor={oid}
+                  className={`${chipClass(checked, !!err)} ${f.kind === "radio" ? "min-w-20 text-center" : ""}`}
+                >
+                  <input
+                    id={oid}
+                    type={f.kind === "radio" ? "radio" : "checkbox"}
+                    name={f.kind === "radio" ? `${uid}-${f.name}` : undefined}
+                    className="sr-only"
+                    checked={checked}
+                    onChange={() => (f.kind === "radio" ? setValue(f.name, opt) : toggle(f, opt))}
+                  />
+                  {opt}
+                </label>
+              );
+            })}
+          </div>
+          <FieldError id={errId} message={err} />
+          {renderOther(f)}
         </fieldset>
       );
     }
 
-    const common = {
-      id,
-      "aria-invalid": err ? true : undefined,
-      "aria-describedby": describedBy,
-      "aria-required": f.required || undefined,
-    } as const;
-
     let control: React.ReactNode;
-    if (f.kind === "textarea") {
+    if (f.kind === "country") {
       control = (
-        <textarea
-          {...common}
-          rows={4}
-          maxLength={f.maxLength}
+        <NationalitySelect
+          id={id}
+          variant="form"
+          placeholder="Select a country"
           value={value as string}
-          onChange={(e) => setValue(f.name, e.target.value)}
-          placeholder={f.placeholder}
-          className={`${inputClass} resize-y`}
+          onChange={(v) => {
+            setValue(f.name, v);
+            setErrors((x) => omit(x, f.name));
+          }}
+          invalid={!!err}
+          describedBy={describedBy}
         />
       );
-    } else if (f.kind === "select" || f.kind === "country") {
-      const options = f.kind === "country" ? countries : (f.options ?? []);
+    } else if (f.kind === "select") {
       control = (
-        <select
-          {...common}
+        <Dropdown
+          id={id}
+          placeholder="Select an option"
+          options={(f.options ?? []).map((o) => ({ value: o, label: o }))}
           value={value as string}
-          onChange={(e) => setValue(f.name, e.target.value)}
-          className={`${inputClass} appearance-none bg-[url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='16'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%231C1F2A'%20stroke-width='2'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E")] bg-size-[16px] bg-position-[right_1rem_center] bg-no-repeat pr-10 ${value ? "" : "text-grey"}`}
-        >
-          <option value="">{f.kind === "country" ? "Select a country" : "Select an option"}</option>
-          {options.map((o) => (
-            <option key={o} value={o} className="text-midnight">
-              {o}
-            </option>
-          ))}
-        </select>
+          onChange={(v) => {
+            setValue(f.name, v);
+            setErrors((x) => omit(x, f.name, ...(v === f.otherOption ? [] : [otherFieldName(f.name)])));
+          }}
+          invalid={!!err}
+          describedBy={describedBy}
+        />
+      );
+    } else if (f.kind === "textarea") {
+      const len = String(value ?? "").trim().length;
+      control = (
+        <>
+          <textarea
+            id={id}
+            rows={4}
+            maxLength={f.maxLength}
+            value={value as string}
+            onChange={(e) => setValue(f.name, e.target.value)}
+            onBlur={() => onBlurField(f.name)}
+            placeholder={f.placeholder}
+            aria-invalid={err ? true : undefined}
+            aria-describedby={describedBy}
+            aria-required={f.required || undefined}
+            className={`${inputClass} resize-y`}
+          />
+          {f.minLength && f.minLength > 1 && len < f.minLength && (
+            <p className="mt-1 text-right font-body text-b4-mobile text-grey md:text-b4-desktop" aria-live="polite">
+              {len}/{f.minLength} characters minimum
+            </p>
+          )}
+        </>
       );
     } else {
-      const inputType = f.kind === "url" ? "text" : f.kind;
+      const inputType =
+        f.kind === "email" ? "email" : f.kind === "phone" || f.kind === "tel" ? "tel" : "text";
       control = (
         <input
-          {...common}
+          id={id}
           type={inputType}
-          inputMode={f.kind === "url" ? "url" : undefined}
+          inputMode={f.kind === "url" ? "url" : f.kind === "number" ? "numeric" : undefined}
           autoComplete={
-            f.name === "fullName" || f.name === "contactPerson"
+            f.kind === "name"
               ? "name"
               : f.kind === "email"
                 ? "email"
-                : f.kind === "tel"
+                : f.kind === "phone" || f.kind === "tel"
                   ? "tel"
                   : f.name === "companyName"
                     ? "organization"
-                    : undefined
+                    : f.kind === "url" && f.name === "website"
+                      ? "url"
+                      : "off"
           }
-          maxLength={f.maxLength}
+          maxLength={f.kind === "number" ? 7 : (f.maxLength ?? (f.kind === "url" ? 500 : undefined))}
           value={value as string}
-          onChange={(e) => setValue(f.name, e.target.value)}
+          onChange={(e) =>
+            setValue(f.name, f.kind === "number" ? e.target.value.replace(/[^\d]/g, "") : e.target.value)
+          }
+          onBlur={() => onBlurField(f.name)}
           placeholder={f.placeholder}
+          aria-invalid={err ? true : undefined}
+          aria-describedby={describedBy}
+          aria-required={f.required || undefined}
           className={inputClass}
         />
       );
@@ -369,7 +429,8 @@ export default function ApplicationForm({
         </label>
         {help}
         {control}
-        {error}
+        <FieldError id={errId} message={err} />
+        {renderOther(f)}
       </div>
     );
   }
@@ -381,7 +442,7 @@ export default function ApplicationForm({
       ref={formRef}
       onSubmit={onSubmit}
       noValidate
-      className="rounded-lg bg-white p-6 shadow-xsmall md:p-10"
+      className="relative rounded-lg bg-white p-6 shadow-xsmall md:p-10"
       aria-labelledby={`${uid}-${type}-heading`}
     >
       <h3 id={`${uid}-${type}-heading`} className="font-sans font-bold text-h4-mobile text-midnight md:text-h4-desktop">
@@ -408,8 +469,7 @@ export default function ApplicationForm({
               <div className="flex items-center gap-3 rounded-sm border-[1.5px] border-grey/60 px-4 py-3">
                 <FileText className="size-5 shrink-0 text-midnight" aria-hidden="true" />
                 <span className="min-w-0 flex-1 truncate font-body text-b2-mobile text-midnight md:text-b2-desktop">
-                  {file.name}{" "}
-                  <span className="text-grey">({(file.size / 1024 / 1024).toFixed(2)} MB)</span>
+                  {file.name} <span className="text-grey">({(file.size / 1024 / 1024).toFixed(2)} MB)</span>
                 </span>
                 <button
                   type="button"
@@ -442,11 +502,7 @@ export default function ApplicationForm({
               aria-describedby={`${fid(cfg.upload.name)}-help${uploadErr ? ` ${fid(cfg.upload.name)}-error` : ""}`}
               aria-invalid={uploadErr ? true : undefined}
             />
-            {uploadErr && (
-              <p id={`${fid(cfg.upload.name)}-error`} className="mt-1.5 font-body text-b4-mobile text-crimson-red md:text-b4-desktop">
-                {uploadErr}
-              </p>
-            )}
+            <FieldError id={`${fid(cfg.upload.name)}-error`} message={uploadErr} />
           </div>
         )}
 
@@ -487,11 +543,7 @@ export default function ApplicationForm({
               </span>
             </span>
           </label>
-          {errors.consent && (
-            <p id={`${uid}-${type}-consent-error`} className="mt-1.5 font-body text-b4-mobile text-crimson-red md:text-b4-desktop">
-              {errors.consent}
-            </p>
-          )}
+          <FieldError id={`${uid}-${type}-consent-error`} message={errors.consent} />
         </div>
       </div>
 

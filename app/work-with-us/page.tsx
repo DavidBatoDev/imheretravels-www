@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import Footer from "@/app/components/global/Footer";
 import { partnerSections, workWithUsMetadata } from "@/data/workWithUs";
-import { getAllDestinations as getStaticDestinations } from "@/data/destinations";
-import { getAllDestinations } from "@/lib/destinations-firestore";
-import { getAllNationalities } from "@/lib/nationalities";
+import { getDestinationOptions } from "@/lib/work-with-us/destinations";
 import WorkWithUsHero from "./_components/WorkWithUsHero";
 import PartnerSection from "./_components/PartnerSection";
 import PartnerStories from "./_components/PartnerStories";
@@ -33,22 +31,8 @@ const jsonLd = {
   },
 };
 
-async function destinationNames(): Promise<string[]> {
-  let names: string[];
-  try {
-    names = (await getAllDestinations()).map((d) => d.name);
-  } catch (e) {
-    console.error("[work-with-us] Firestore destinations unavailable, using static list", e);
-    names = getStaticDestinations().map((d) => d.name);
-  }
-  const unique = Array.from(new Set(names.filter(Boolean)));
-  // Always offer a way out for places we don't list yet.
-  return [...unique, "Somewhere else (tell us below)"];
-}
-
 export default async function WorkWithUsPage() {
-  const destinations = await destinationNames();
-  const countries = getAllNationalities().map((c) => c.countryName);
+  const destinations = await getDestinationOptions();
 
   return (
     <>
@@ -62,7 +46,6 @@ export default async function WorkWithUsPage() {
             tone={i % 2 === 0 ? "white" : "grey"}
             imageFirst={i % 2 === 1}
             destinations={destinations}
-            countries={countries}
           />
         ))}
         <PartnerStories />

@@ -11,6 +11,8 @@ import {
   CALENDLY_URL,
   TEAM_NOTIFY_EMAIL,
   forms,
+  otherFieldName,
+  type FormField,
   type PartnerType,
 } from "@/data/workWithUs";
 import { escapeHtml, formatAddress, type MailMessage, type MailAttachment } from "@/lib/gmail";
@@ -38,15 +40,22 @@ export interface SubmissionSummary {
   attachment?: MailAttachment & { size: number };
 }
 
-function displayValue(v: string | string[] | undefined): string {
-  if (Array.isArray(v)) return v.join(", ");
-  return v ?? "";
+/**
+ * Display text for one answer. A chosen "Other" / "Somewhere else" option is
+ * shown with what the applicant typed, e.g. "Travel, Other: Food & drink".
+ */
+function displayValue(f: FormField, answers: ApplicationAnswers): string {
+  const v = answers[f.name];
+  const other = f.otherOption ? String(answers[otherFieldName(f.name)] ?? "").trim() : "";
+  const show = (opt: string) => (other && opt === f.otherOption ? `${opt}: ${other}` : opt);
+  if (Array.isArray(v)) return v.map(show).join(", ");
+  return v ? show(v) : "";
 }
 
 /** Ordered [label, value] rows using the form's own labels. */
 export function answerRows(type: PartnerType, answers: ApplicationAnswers): [string, string][] {
   return forms[type].fields
-    .map((f) => [f.label.replace(/[?.:]$/, ""), displayValue(answers[f.name])] as [string, string])
+    .map((f) => [f.label.replace(/[?.:]$/, ""), displayValue(f, answers)] as [string, string])
     .filter(([, v]) => v.trim() !== "");
 }
 

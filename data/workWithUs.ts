@@ -289,7 +289,13 @@ export type FieldKind =
   | "radio"
   | "checkboxes"
   | "country"
-  | "destinations";
+  | "destinations"
+  /** A person's name: letters, spaces, hyphens, apostrophes and full stops. */
+  | "name"
+  /** Phone / WhatsApp: 7–15 digits, optional leading +, spaces, ( ) - . */
+  | "phone"
+  /** Whole number between `min` and `max`. */
+  | "number";
 
 export interface FormField {
   name: string;
@@ -302,11 +308,30 @@ export interface FormField {
   options?: readonly string[];
   /** Lay out side by side with the next half-width field on desktop. */
   half?: boolean;
-  /** Max characters (text-like fields). */
+  /** Min / max characters (text-like fields). */
+  minLength?: number;
   maxLength?: number;
+  /** number kind: allowed range. */
+  min?: number;
+  max?: number;
   /** url kind: an "@handle" is turned into this base + handle. */
   handleBase?: string;
+  /** url kind: the link must be on one of these sites (e.g. instagram.com). */
+  domains?: readonly string[];
+  /**
+   * select / radio / checkboxes / destinations: choosing this option opens a
+   * "please specify" text field, saved as `${name}Other` and required while the
+   * option is selected.
+   */
+  otherOption?: string;
+  otherPlaceholder?: string;
 }
+
+/** The free-text companion field for a field with an `otherOption`. */
+export const otherFieldName = (name: string) => `${name}Other`;
+
+/** Last option of every destination picker; opens a text field. */
+export const DESTINATION_OTHER = "Somewhere else";
 
 export interface FormConfig {
   type: PartnerType;
@@ -352,8 +377,8 @@ export const forms: Record<PartnerType, FormConfig> = {
     kindLabel: "Host Application",
     nameField: "fullName",
     fields: [
-      { name: "fullName", label: "Full Name", kind: "text", required: true, half: true, maxLength: 120 },
-      { name: "email", label: "Email Address", kind: "email", required: true, half: true },
+      { name: "fullName", label: "Full Name", kind: "name", required: true, half: true, minLength: 2, maxLength: 120 },
+      { name: "email", label: "Email Address", kind: "email", required: true, half: true, placeholder: "you@example.com" },
       { name: "country", label: "Country of Residence", kind: "country", required: true, half: true },
       {
         name: "instagram",
@@ -362,7 +387,9 @@ export const forms: Record<PartnerType, FormConfig> = {
         required: true,
         half: true,
         placeholder: "https://instagram.com/yourhandle",
+        help: "Or just your @handle.",
         handleBase: "https://instagram.com/",
+        domains: ["instagram.com"],
       },
       {
         name: "otherSocials",
@@ -373,7 +400,7 @@ export const forms: Record<PartnerType, FormConfig> = {
         placeholder: "TikTok, YouTube, Facebook…",
         maxLength: 500,
       },
-      { name: "website", label: "Website / Blog", kind: "url", required: false, half: true, placeholder: "https://" },
+      { name: "website", label: "Website / Blog", kind: "url", required: false, half: true, placeholder: "https://yourblog.com" },
       {
         name: "describesYou",
         label: "What best describes you?",
@@ -381,6 +408,8 @@ export const forms: Record<PartnerType, FormConfig> = {
         required: true,
         half: true,
         options: ["Content Creator", "Influencer", "Travel Enthusiast", "Community Leader", "Other"],
+        otherOption: "Other",
+        otherPlaceholder: "Tell us how you'd describe yourself",
       },
       {
         name: "following",
@@ -390,14 +419,30 @@ export const forms: Record<PartnerType, FormConfig> = {
         half: true,
         options: FOLLOWING_OPTIONS,
       },
-      { name: "aboutYou", label: "Tell us about yourself and your community.", kind: "textarea", required: true, maxLength: 3000 },
-      { name: "whyHost", label: "Why would you like to become an IHT host?", kind: "textarea", required: true, maxLength: 3000 },
+      {
+        name: "aboutYou",
+        label: "Tell us about yourself and your community.",
+        kind: "textarea",
+        required: true,
+        minLength: 20,
+        maxLength: 3000,
+      },
+      {
+        name: "whyHost",
+        label: "Why would you like to become an IHT host?",
+        kind: "textarea",
+        required: true,
+        minLength: 20,
+        maxLength: 3000,
+      },
       {
         name: "destinations",
         label: "Which destinations are you interested in hosting?",
         kind: "destinations",
         required: true,
         help: "Select all that apply.",
+        otherOption: DESTINATION_OTHER,
+        otherPlaceholder: "Which destination(s) do you have in mind?",
       },
       {
         name: "travelPeriod",
@@ -405,6 +450,7 @@ export const forms: Record<PartnerType, FormConfig> = {
         kind: "text",
         required: true,
         placeholder: "e.g. March 2027, or any time in 2027",
+        minLength: 3,
         maxLength: 300,
       },
       { name: "hostedBefore", label: "Have you hosted group trips before?", kind: "radio", required: true, options: YES_NO },
@@ -420,8 +466,8 @@ export const forms: Record<PartnerType, FormConfig> = {
     kindLabel: "Affiliate Application",
     nameField: "fullName",
     fields: [
-      { name: "fullName", label: "Full Name", kind: "text", required: true, half: true, maxLength: 120 },
-      { name: "email", label: "Email Address", kind: "email", required: true, half: true },
+      { name: "fullName", label: "Full Name", kind: "name", required: true, half: true, minLength: 2, maxLength: 120 },
+      { name: "email", label: "Email Address", kind: "email", required: true, half: true, placeholder: "you@example.com" },
       { name: "country", label: "Country of Residence", kind: "country", required: true, half: true },
       {
         name: "instagram",
@@ -430,7 +476,9 @@ export const forms: Record<PartnerType, FormConfig> = {
         required: true,
         half: true,
         placeholder: "https://instagram.com/yourhandle",
+        help: "Or just your @handle.",
         handleBase: "https://instagram.com/",
+        domains: ["instagram.com"],
       },
       {
         name: "tiktok",
@@ -440,9 +488,19 @@ export const forms: Record<PartnerType, FormConfig> = {
         half: true,
         placeholder: "https://tiktok.com/@yourhandle",
         handleBase: "https://tiktok.com/@",
+        domains: ["tiktok.com"],
       },
-      { name: "youtube", label: "YouTube Channel", kind: "url", required: false, half: true, placeholder: "https://youtube.com/@yourchannel" },
-      { name: "website", label: "Website / Blog", kind: "url", required: false, half: true, placeholder: "https://" },
+      {
+        name: "youtube",
+        label: "YouTube Channel",
+        kind: "url",
+        required: false,
+        half: true,
+        placeholder: "https://youtube.com/@yourchannel",
+        handleBase: "https://youtube.com/@",
+        domains: ["youtube.com", "youtu.be"],
+      },
+      { name: "website", label: "Website / Blog", kind: "url", required: false, half: true, placeholder: "https://yourblog.com" },
       {
         name: "otherSocials",
         label: "Other Social Media Profiles",
@@ -466,17 +524,42 @@ export const forms: Record<PartnerType, FormConfig> = {
         required: true,
         help: "Select all that apply.",
         options: ["Travel", "Lifestyle", "Adventure", "Fashion", "Other"],
+        otherOption: "Other",
+        otherPlaceholder: "What other content do you create?",
       },
-      { name: "aboutAudience", label: "Tell us about your audience.", kind: "textarea", required: true, maxLength: 3000 },
-      { name: "whyPartner", label: "Why are you interested in partnering with IHT?", kind: "textarea", required: true, maxLength: 3000 },
+      {
+        name: "aboutAudience",
+        label: "Tell us about your audience.",
+        kind: "textarea",
+        required: true,
+        minLength: 20,
+        maxLength: 3000,
+      },
+      {
+        name: "whyPartner",
+        label: "Why are you interested in partnering with IHT?",
+        kind: "textarea",
+        required: true,
+        minLength: 20,
+        maxLength: 3000,
+      },
       {
         name: "destinations",
         label: "Which IHT destinations or tours interest you most?",
         kind: "destinations",
         required: true,
         help: "Select all that apply.",
+        otherOption: DESTINATION_OTHER,
+        otherPlaceholder: "Which destination(s) do you have in mind?",
       },
-      { name: "howPromote", label: "How would you promote IHT tours?", kind: "textarea", required: true, maxLength: 3000 },
+      {
+        name: "howPromote",
+        label: "How would you promote IHT tours?",
+        kind: "textarea",
+        required: true,
+        minLength: 20,
+        maxLength: 3000,
+      },
       {
         name: "affiliateBefore",
         label: "Have you worked with affiliate programmes before?",
@@ -496,27 +579,35 @@ export const forms: Record<PartnerType, FormConfig> = {
     nameField: "contactPerson",
     orgField: "companyName",
     fields: [
-      { name: "companyName", label: "Company / Business Name", kind: "text", required: true, half: true, maxLength: 200 },
-      { name: "contactPerson", label: "Contact Person", kind: "text", required: true, half: true, maxLength: 120 },
-      { name: "email", label: "Email Address", kind: "email", required: true, half: true },
+      { name: "companyName", label: "Company / Business Name", kind: "text", required: true, half: true, minLength: 2, maxLength: 200 },
+      { name: "contactPerson", label: "Contact Person", kind: "name", required: true, half: true, minLength: 2, maxLength: 120 },
+      { name: "email", label: "Email Address", kind: "email", required: true, half: true, placeholder: "you@yourbusiness.com" },
       {
         name: "phone",
         label: "Phone / WhatsApp Number",
-        kind: "tel",
+        kind: "phone",
         required: true,
         half: true,
         placeholder: "+63 912 345 6789",
-        maxLength: 40,
+        help: "Include your country code.",
+        maxLength: 30,
       },
       { name: "country", label: "Country", kind: "country", required: true, half: true },
-      { name: "website", label: "Website URL (if available)", kind: "url", required: false, half: true, placeholder: "https://" },
+      {
+        name: "website",
+        label: "Website URL (if available)",
+        kind: "url",
+        required: false,
+        half: true,
+        placeholder: "https://yourbusiness.com",
+      },
       {
         name: "social",
         label: "Instagram / Social Media Profile",
         kind: "text",
         required: false,
         placeholder: "@yourbusiness or a link",
-        maxLength: 500,
+        maxLength: 300,
       },
       {
         name: "serviceType",
@@ -534,6 +625,8 @@ export const forms: Record<PartnerType, FormConfig> = {
           "DMC",
           "Other",
         ],
+        otherOption: "Other",
+        otherPlaceholder: "What other services do you offer?",
       },
       {
         name: "destinationsCovered",
@@ -541,6 +634,7 @@ export const forms: Record<PartnerType, FormConfig> = {
         kind: "text",
         required: true,
         placeholder: "e.g. El Nido, Coron and Puerto Princesa",
+        minLength: 2,
         maxLength: 500,
       },
       {
@@ -548,6 +642,7 @@ export const forms: Record<PartnerType, FormConfig> = {
         label: "Brief Description of Your Business and Services",
         kind: "textarea",
         required: true,
+        minLength: 30,
         maxLength: 4000,
       },
       {
@@ -569,11 +664,13 @@ export const forms: Record<PartnerType, FormConfig> = {
       {
         name: "groupCapacity",
         label: "Approximate Group Capacity",
-        kind: "text",
+        kind: "number",
         required: true,
         half: true,
-        placeholder: "e.g. up to 30 guests",
-        maxLength: 200,
+        placeholder: "e.g. 30",
+        help: "Maximum number of guests per group.",
+        min: 1,
+        max: 10000,
       },
       {
         name: "currency",
@@ -600,6 +697,8 @@ export const forms: Record<PartnerType, FormConfig> = {
           "BRL",
           "Other",
         ],
+        otherOption: "Other",
+        otherPlaceholder: "Which currency? (e.g. NZD)",
       },
       { name: "additionalInfo", label: "Additional Information", kind: "textarea", required: false, maxLength: 3000 },
     ],

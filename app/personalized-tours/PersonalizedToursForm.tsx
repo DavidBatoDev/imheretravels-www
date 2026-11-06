@@ -8,7 +8,7 @@ import {
 } from "@/data/personalizedTours";
 import { trackEvent } from "@/lib/analytics/track";
 import DatePicker from "./_components/DatePicker";
-import CountrySelect from "./_components/CountrySelect";
+import CountrySelect from "@/app/components/global/Dropdown";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
