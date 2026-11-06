@@ -282,8 +282,15 @@ export default function ApplicationForm({
     const value = values[f.name];
     const span = f.half ? "md:col-span-1" : "md:col-span-2";
 
+    // Chip groups (full width) show their hint above the options. Single inputs
+    // show it below, so inputs side by side in a row stay level.
     const help = f.help ? (
       <p id={helpId} className="mb-2 font-body text-b4-mobile text-dark-gray md:text-b4-desktop">
+        {f.help}
+      </p>
+    ) : null;
+    const helpBelow = f.help ? (
+      <p id={helpId} className="mt-1.5 font-body text-b4-mobile text-dark-gray md:text-b4-desktop">
         {f.help}
       </p>
     ) : null;
@@ -330,6 +337,8 @@ export default function ApplicationForm({
       );
     }
 
+    // Single inputs show either the error or the hint, never both.
+    const inputDescribedBy = err ? errId : helpId;
     let control: React.ReactNode;
     if (f.kind === "country") {
       control = (
@@ -343,7 +352,7 @@ export default function ApplicationForm({
             setErrors((x) => omit(x, f.name));
           }}
           invalid={!!err}
-          describedBy={describedBy}
+          describedBy={inputDescribedBy}
         />
       );
     } else if (f.kind === "select") {
@@ -358,7 +367,7 @@ export default function ApplicationForm({
             setErrors((x) => omit(x, f.name, ...(v === f.otherOption ? [] : [otherFieldName(f.name)])));
           }}
           invalid={!!err}
-          describedBy={describedBy}
+          describedBy={inputDescribedBy}
         />
       );
     } else if (f.kind === "textarea") {
@@ -374,7 +383,7 @@ export default function ApplicationForm({
             onBlur={() => onBlurField(f.name)}
             placeholder={f.placeholder}
             aria-invalid={err ? true : undefined}
-            aria-describedby={describedBy}
+            aria-describedby={inputDescribedBy}
             aria-required={f.required || undefined}
             className={`${inputClass} resize-y`}
           />
@@ -414,7 +423,7 @@ export default function ApplicationForm({
           onBlur={() => onBlurField(f.name)}
           placeholder={f.placeholder}
           aria-invalid={err ? true : undefined}
-          aria-describedby={describedBy}
+          aria-describedby={inputDescribedBy}
           aria-required={f.required || undefined}
           className={inputClass}
         />
@@ -427,9 +436,9 @@ export default function ApplicationForm({
           {f.label}
           <RequiredMark required={f.required} />
         </label>
-        {help}
         {control}
-        <FieldError id={errId} message={err} />
+        {/* An error replaces the hint, so the row height doesn't grow twice. */}
+        {err ? <FieldError id={errId} message={err} /> : helpBelow}
         {renderOther(f)}
       </div>
     );
