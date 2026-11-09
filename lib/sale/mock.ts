@@ -10,7 +10,7 @@
  * `mode=auto|manual`.
  */
 
-import type { PublicSlotState, SalePageData, SalePageTour } from "./types";
+import type { PublicSlotState, SalePageData, SalePageTour, SaleTourDate } from "./types";
 
 type MockTour = {
   id: string;
@@ -98,9 +98,25 @@ export async function getMockSalePageData(opts: {
     phase === "paused" ? "paused" : phase === "ended" ? "ended" : "live";
   const startAt = phase === "upcoming" ? new Date(now + 3 * 86_400_000).toISOString() : null;
 
+  // 1, 2 and 5 sale dates (+1 left out of the sale) so every card layout shows.
+  const day = (offsetDays: number) => new Date(now + offsetDays * 86_400_000).toISOString().slice(0, 10);
+  const mockDates = (i: number, price: number, deposit: number | null): SaleTourDate[] => {
+    const count = [1, 2, 5][i % 3]!;
+    const dates: SaleTourDate[] = Array.from({ length: count }, (_, k) => ({
+      date: day(45 + k * 28),
+      endDate: day(45 + k * 28 + 10),
+      price,
+      deposit,
+      onSale: true,
+    }));
+    if (count > 2) dates.push({ date: day(400), endDate: day(410), price, deposit, onSale: false });
+    return dates;
+  };
+
   const tours: SalePageTour[] = MOCK_TOURS.map((t, i) => {
     const p = presentation[t.id];
     return {
+      dates: mockDates(i, t.originalPrice, p?.deposit ?? t.fallback.deposit),
       tourPackageId: t.id,
       tourSlug: t.slug,
       displayName: t.displayName,

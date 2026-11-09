@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { UserRound } from "lucide-react";
+import { CalendarDays, UserRound } from "lucide-react";
 import ImageWithSkeleton from "@/app/components/global/ImageWithSkeleton";
 import {
   availabilityLine,
+  formatDateRange,
   formatGBP,
   isSoldOut,
   onHoldLine,
@@ -18,6 +19,40 @@ import type { PublicSlot, PublicTourAvailability, SalePageTour } from "@/lib/sal
  * taken places fade out, in ladder order, so "slot 1 sold" reads at a glance.
  * Purely visual: the sentence next to it carries the same information.
  */
+/** Sale dates listed on a card before the rest collapse into "+N more". */
+const CARD_DATES_SHOWN = 3;
+
+/**
+ * The travel dates this sale applies to, soonest first. Dates left out of the
+ * sale are not listed here; the claim sheet shows them at the regular price.
+ */
+function SaleDates({ dates }: { dates: SalePageTour["dates"] }) {
+  const onSale = (dates ?? []).filter((d) => d.onSale);
+  if (onSale.length === 0) return null;
+  const shown = onSale.slice(0, CARD_DATES_SHOWN);
+  const more = onSale.length - shown.length;
+  return (
+    <div className="mt-3 flex items-start gap-1.5 font-body text-b4-mobile text-midnight md:text-b4-desktop">
+      <CalendarDays className="mt-0.5 size-3.5 shrink-0 text-crimson-red" strokeWidth={2.25} aria-hidden="true" />
+      <div>
+        <span className="sr-only">{onSale.length === 1 ? "Tour date: " : "Tour dates: "}</span>
+        <ul className="tabular-nums">
+          {shown.map((d) => (
+            <li key={d.date} className="font-medium">
+              {formatDateRange(d.date, d.endDate)}
+            </li>
+          ))}
+        </ul>
+        {more > 0 && (
+          <p className="text-dark-gray">
+            +{more} more {more === 1 ? "date" : "dates"}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function PlacesBar({ slots }: { slots: PublicSlot[] }) {
   return (
     <div aria-hidden="true" className="flex h-2.5 gap-0.5 overflow-hidden rounded-full">
@@ -156,6 +191,7 @@ export default function SaleTourCard({
         <p className="mt-1 font-body text-b4-mobile text-dark-gray md:text-b4-desktop">
           per person{tour.pricesVary && " · Prices vary by date"}
         </p>
+        <SaleDates dates={tour.dates} />
 
         {hasSlots && (
           <div className="mt-4">
