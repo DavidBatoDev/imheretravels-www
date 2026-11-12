@@ -65,7 +65,13 @@ export function closePanel(): void {
  * granting. Closes the panel afterward.
  */
 export function setChoice(choice: ConsentChoice): void {
-  document.cookie = `${CONSENT_COOKIE}=${choice}; path=/; max-age=${CONSENT_MAX_AGE}; SameSite=Lax`;
+  // One choice covers www and admin.imheretravels.com (same business, same notice),
+  // so the reservation form doesn't ask again. Local/preview hosts keep a
+  // host-only cookie. An older host-only copy is dropped so the two can't disagree.
+  const host = window.location.hostname;
+  const shared = host === "imheretravels.com" || host.endsWith(".imheretravels.com");
+  if (shared) document.cookie = `${CONSENT_COOKIE}=; path=/; max-age=0; SameSite=Lax`;
+  document.cookie = `${CONSENT_COOKIE}=${choice}; path=/; max-age=${CONSENT_MAX_AGE}; SameSite=Lax${shared ? "; domain=.imheretravels.com" : ""}`;
   window.gtag?.("consent", "update", consentState(choice));
   // GTM doesn't re-fire a page-load tag that waited for consent, so tags that
   // need it (Meta Pixel - Base) also trigger on this event: the page the
