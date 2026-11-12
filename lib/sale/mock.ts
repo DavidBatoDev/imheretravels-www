@@ -140,6 +140,7 @@ export async function getMockSalePageData(opts: {
     endAt: null,
     holdMinutes: 15,
     checkoutMode: opts.mode === "manual" ? "manual" : "auto",
+    discountModel: { type: "tiered" },
     hero: {
       title: "Black Friday Sale",
       subtitle:

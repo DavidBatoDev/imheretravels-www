@@ -1,5 +1,4 @@
 import type { SalePhase } from "@/lib/sale/ladder";
-import { formatGBP } from "@/lib/sale/ladder";
 import DealsCta from "./DealsCta";
 import SaleCountdown from "./SaleCountdown";
 
@@ -13,7 +12,7 @@ export default function SaleHero({
   subtitle,
   statusText,
   phase,
-  upTo,
+  offer,
   bannerUrl,
   mobileBannerUrl,
   fallbackImage,
@@ -26,7 +25,8 @@ export default function SaleHero({
   statusText: string;
   phase: SalePhase;
   /** Biggest single-slot saving, for "Up to £X off" (0 hides it). */
-  upTo: number;
+  /** "20% off" / "Up to £500 off"; null hides the line. */
+  offer: string | null;
   bannerUrl?: string;
   mobileBannerUrl?: string;
   fallbackImage?: string;
@@ -62,9 +62,9 @@ export default function SaleHero({
             {title}
           </h1>
 
-          {upTo > 0 && (
+          {offer && (
             <p className="mt-2 font-display text-h3-mobile text-light-red tabular-nums md:text-h3-desktop">
-              Up to {formatGBP(upTo)} off
+              {offer}
             </p>
           )}
 

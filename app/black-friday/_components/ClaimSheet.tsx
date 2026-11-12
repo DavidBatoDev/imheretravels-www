@@ -10,6 +10,7 @@ import { MAX_PARTY_SIZE, reservationFormHref, withTourDate } from "@/lib/sale/co
 import {
   availabilityLine,
   datedSalePrice,
+  slotDiscountGBP,
   formatCountdown,
   formatDateKey,
   formatDateRange,
@@ -256,7 +257,7 @@ export default function ClaimSheet({
   const chosen = saleDates.find((d) => d.date === tourDate) ?? null;
   // A slot's discount comes off the chosen date's price.
   const slots = (availability?.slots ?? []).map((s) =>
-    chosen ? { ...s, salePrice: datedSalePrice(chosen.price, s.discountGBP) } : s,
+    chosen ? { ...s, discountGBP: slotDiscountGBP(chosen.price, s), salePrice: datedSalePrice(chosen.price, s) } : s,
   );
 
   const maxP = maxParty(availability);
@@ -495,7 +496,7 @@ export default function ClaimSheet({
               {saleDates.map((d, i) => {
                 const checked = d.date === tourDate;
                 const next = availability?.slots.find((s) => s.state === "available");
-                const price = next ? datedSalePrice(d.price, next.discountGBP) : null;
+                const price = next ? datedSalePrice(d.price, next) : null;
                 return (
                   <label
                     key={d.date}
@@ -683,7 +684,11 @@ export default function ClaimSheet({
                 <li key={s.index} className="flex items-baseline justify-between gap-3 font-body text-b2-mobile text-midnight md:text-b4-desktop">
                   <span>
                     Slot {s.index}
-                    <span className="text-dark-gray"> · save {formatGBP(s.discountGBP)}</span>
+                    <span className="text-dark-gray">
+                      {" "}
+                      · save {formatGBP(s.discountGBP)}
+                      {s.discountPct ? ` (${s.discountPct}%)` : ""}
+                    </span>
                   </span>
                   <span className="font-medium">{formatGBP(s.salePrice)}</span>
                 </li>

@@ -3,7 +3,7 @@
  * and the copy for party sizes. Shared by the server page and client components.
  */
 
-import type { PublicSaleAvailability, PublicSlot, PublicTourAvailability, SalePageData } from "./types";
+import type { PublicSaleAvailability, PublicSlot, PublicTourAvailability, SaleDiscountModel, SalePageData } from "./types";
 import { MAX_PARTY_SIZE } from "./config";
 
 const gbp = new Intl.NumberFormat("en-GB", {
@@ -41,9 +41,30 @@ export function formatDateRange(start: string, end: string | null): string {
     : `${formatDateKey(start)} – ${formatDateKey(end)}`;
 }
 
+type SlotDiscount = Pick<PublicSlot, "discountGBP" | "discountPct">;
+
+/**
+ * £ off `price` for one slot: its % of that price (whole pounds) for a percent
+ * slot, else its fixed £. Same rule as the admin's slotDiscountGBP.
+ */
+export function slotDiscountGBP(price: number, slot: SlotDiscount): number {
+  const pct = slot.discountPct;
+  return typeof pct === "number" && pct > 0 ? Math.round((price * pct) / 100) : slot.discountGBP;
+}
+
 /** A slot's price on a given date: the date's price less the slot's discount (the admin's slotPrice). */
-export function datedSalePrice(datePriceGBP: number, discountGBP: number): number {
-  return Math.max(0, Math.round((datePriceGBP - discountGBP) * 100) / 100);
+export function datedSalePrice(datePriceGBP: number, slot: SlotDiscount): number {
+  return Math.max(0, Math.round((datePriceGBP - slotDiscountGBP(datePriceGBP, slot)) * 100) / 100);
+}
+
+/** The sale's flat percentage, or null for a tiered sale. */
+export function percentOff(model: SaleDiscountModel | undefined): number | null {
+  return model?.type === "percent" && model.percent > 0 ? model.percent : null;
+}
+
+/** "20%" or "£250": what one slot saves. */
+export function savingLabel(slot: SlotDiscount): string {
+  return slot.discountPct ? `${slot.discountPct}%` : formatGBP(slot.discountGBP);
 }
 
 /** Solo / Duo / Group of N — one slot per person. */
@@ -118,6 +139,14 @@ export function maxParty(av: PublicTourAvailability | undefined): number {
 
 export function isSoldOut(av: PublicTourAvailability | undefined): boolean {
   return !!av && av.slots.length > 0 && av.slots.every((s) => s.state === "sold");
+}
+
+/** The hero's offer line: "20% off" for a percent sale, else "Up to £X off". Null without a discount. */
+export function heroOfferLabel(data: Pick<SalePageData, "availability" | "discountModel">): string | null {
+  const pct = percentOff(data.discountModel);
+  if (pct) return data.availability.tours.some((t) => t.slots.length) ? `${pct}% off` : null;
+  const max = maxDiscount(data);
+  return max > 0 ? `Up to ${formatGBP(max)} off` : null;
 }
 
 /** Biggest single-slot saving across the sale — the hero's "Up to £X off". */

@@ -36,7 +36,7 @@ export default function PromoStrip({ href }: { href: string }) {
         </span>
         <span className="min-w-0 truncate font-body text-b4-mobile font-medium md:text-b4-desktop">
           <span className="font-bold">Sale now on</span>
-          <span className="hidden text-white/85 sm:inline"> · small-group tours with limited sale slots, cheapest first</span>
+          <span className="hidden text-white/85 sm:inline"> · small-group tours with limited sale slots</span>
         </span>
         <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-white px-3 py-1 font-body text-[0.8rem] font-bold text-midnight transition-colors group-hover:bg-light-yellow sm:px-4">
           See the deals

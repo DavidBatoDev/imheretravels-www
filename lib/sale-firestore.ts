@@ -18,10 +18,12 @@ import type {
   PublicSlotState,
   PublicTourAvailability,
   SaleCheckoutMode,
+  SaleDiscountModel,
   SalePageData,
   SalePageTour,
   SaleStatus,
 } from "@/lib/sale/types";
+import { datedSalePrice, slotDiscountGBP } from "@/lib/sale/ladder";
 // Type-only: erased at build, so it doesn't evaluate firebase-admin eagerly.
 import type { TourCardPresentation } from "@/lib/tours-firestore";
 
@@ -63,6 +65,13 @@ function num(v: unknown, fallback = 0): number {
 
 const STATUSES: SaleStatus[] = ["draft", "live", "paused", "ended"];
 
+/** Mirrors the admin's parseDiscountModel: anything unknown is tiered. */
+function discountModelOf(raw: unknown): SaleDiscountModel {
+  const r = (raw ?? {}) as RawDoc;
+  const pct = num(r.percent);
+  return r.type === "percent" && pct > 0 && pct <= 100 ? { type: "percent", percent: pct } : { type: "tiered" };
+}
+
 /** Same rule as the admin: held/paying with a future heldUntil → on hold. */
 function publicState(slot: RawDoc, nowMs: number): PublicSlotState {
   const status = slot.status;
@@ -95,12 +104,13 @@ export function toPublicTourAvailability(
   const slots: PublicSlot[] = (Array.isArray(rawSlots) ? (rawSlots as RawDoc[]) : [])
     .map((s) => {
       const state = publicState(s, nowMs);
-      const discountGBP = num(s.discountGBP);
-      const salePrice =
-        state !== "sold" && liveOriginal !== null
-          ? Math.max(0, Math.round((liveOriginal - discountGBP) * 100) / 100)
-          : num(s.salePrice);
-      return { index: num(s.index), salePrice, discountGBP, state };
+      const pct = num(s.discountPct);
+      const stored = { discountGBP: num(s.discountGBP), ...(pct > 0 ? { discountPct: pct } : {}) };
+      const live = state !== "sold" && liveOriginal !== null;
+      // A percent slot's £ follows the live price too.
+      const discountGBP = live ? slotDiscountGBP(liveOriginal, stored) : stored.discountGBP;
+      const salePrice = live ? datedSalePrice(liveOriginal, stored) : num(s.salePrice);
+      return { index: num(s.index), salePrice, ...stored, discountGBP, state };
     })
     .sort((a, b) => a.index - b.index);
   const free = slots.filter((s) => s.state === "available");
@@ -293,6 +303,7 @@ async function loadSale(
         endAt,
         holdMinutes: num(raw.holdMinutes, 15) || 15,
         checkoutMode: (raw.checkoutMode === "manual" ? "manual" : "auto") as SaleCheckoutMode,
+        discountModel: discountModelOf(raw.discountModel),
         hero: {
           title: str(hero.title) || str(raw.name, "Black Friday Sale"),
           subtitle: str(hero.subtitle),

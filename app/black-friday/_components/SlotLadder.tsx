@@ -49,7 +49,7 @@ export default function SlotLadder({
     <div className="relative">
       <ol
         ref={scrollerRef}
-        aria-label="Sale slots, cheapest first. One slot is one person's place."
+        aria-label="Sale slots, in the order they sell. One slot is one person's place."
         tabIndex={overflows ? 0 : undefined}
         className={`no-scrollbar relative flex snap-x gap-1.5 overflow-x-auto overscroll-x-contain rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson-red ${overflows ? "pr-8" : ""}`}
       >

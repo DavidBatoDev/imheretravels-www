@@ -14,9 +14,18 @@ export type PublicSlotState = "available" | "on_hold" | "sold";
 export interface PublicSlot {
   index: number; // 1-based position on the ladder
   salePrice: number;
+  /** £ off; for a percent slot, at the tour's "from" price. */
   discountGBP: number;
+  /** Percent slot: this % comes off the travel date's own price. */
+  discountPct?: number | null;
   state: PublicSlotState;
 }
+
+/**
+ * How the sale discounts slots (admin Settings). tiered: a £ discount per
+ * slot, slot 1 cheapest. percent: every slot is `percent`% off the date's price.
+ */
+export type SaleDiscountModel = { type: "tiered" } | { type: "percent"; percent: number };
 
 export interface PublicTourAvailability {
   tourPackageId: string;
@@ -49,6 +58,7 @@ export interface SaleHoldView {
     index: number;
     salePrice: number;
     originalPrice: number;
+    discountPct?: number | null;
     paymentLinkUrl?: string | null;
   }[];
   status: "active" | "converted" | "expired" | "released" | "conflict";
@@ -108,6 +118,7 @@ export interface SalePageData {
   endAt: string | null;
   holdMinutes: number;
   checkoutMode: SaleCheckoutMode;
+  discountModel: SaleDiscountModel;
   hero: {
     title: string;
     subtitle: string;

@@ -136,7 +136,7 @@ export default async function RootSlugPage({ params, searchParams }: { params: P
             subtitle="We can't load the sale right now. Please refresh in a moment — your chance at a slot isn't gone."
             statusText="Temporarily unavailable"
             phase="paused"
-            upTo={0}
+            offer={null}
             showCta={false}
           />
           <div className="mx-auto w-full max-w-7xl px-4 py-12 md:px-8">

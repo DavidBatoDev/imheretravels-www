@@ -10,6 +10,7 @@ import {
   formatGBP,
   isSoldOut,
   onHoldLine,
+  savingLabel,
 } from "@/lib/sale/ladder";
 import type { PublicSlot, PublicTourAvailability, SalePageTour } from "@/lib/sale/types";
 
@@ -98,9 +99,12 @@ export default function SaleTourCard({
   // Price a new booking gets; when every free place is on hold, the price of
   // the next one that could free up (sold-out cards show the original only).
   const fromPrice = availability?.nextPrice ?? nextUnsold?.salePrice ?? null;
-  // Slots are sold cheapest first, so the next free slot carries the biggest
-  // saving still on offer — hence "up to".
-  const saving = (nextSlot ?? nextUnsold)?.discountGBP ?? 0;
+  // Tiered: slots are sold cheapest first, so the next free slot carries the
+  // biggest saving still on offer — hence "up to". Percent: every slot saves
+  // the same %, so it's just "Save 20%".
+  const savingSlot = nextSlot ?? nextUnsold;
+  const saving = savingSlot?.discountGBP ?? 0;
+  const savingPct = savingSlot?.discountPct ?? null;
   const heldNote = onHoldLine(availability);
   // Draft tours can be on sale but have no public tour page to link to.
   const detailsHref = tour.hasDetailsPage && tour.tourSlug ? `/tours/${tour.tourSlug}` : undefined;
@@ -137,9 +141,9 @@ export default function SaleTourCard({
             <span className="inline-flex items-center rounded-full bg-midnight px-3 py-1.5 font-body text-b4-mobile font-bold text-white md:text-b4-desktop">
               Sold out
             </span>
-          ) : saving > 0 ? (
+          ) : savingSlot && (savingPct || saving > 0) ? (
             <span className="inline-flex items-center rounded-full bg-crimson-red px-3 py-1.5 font-body text-b4-mobile font-bold text-white tabular-nums md:text-b4-desktop">
-              Save up to {formatGBP(saving)}
+              {savingPct ? `Save ${savingLabel(savingSlot)}` : `Save up to ${formatGBP(saving)}`}
             </span>
           ) : null}
           {isMine && (
@@ -207,7 +211,7 @@ export default function SaleTourCard({
 
         <p className="mt-3 flex items-center gap-1.5 font-body text-b4-mobile text-dark-gray md:text-b4-desktop">
           <UserRound className="size-3.5 shrink-0" strokeWidth={2.25} aria-hidden="true" />
-          1 slot = 1 person · earlier slots cost less
+          {savingPct ? `1 slot = 1 person · ${savingPct}% off every slot` : "1 slot = 1 person · earlier slots cost less"}
         </p>
 
         <div className="mt-auto flex gap-2 pt-5">

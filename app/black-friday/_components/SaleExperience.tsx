@@ -90,8 +90,9 @@ export default function SaleExperience({
             The deals
           </h2>
           <p className="mt-3 font-body text-b2-mobile text-midnight md:text-b2-desktop">
-            Prices are per person, and each slot is one person&apos;s place. Slots sell cheapest
-            first — when one goes, the next price applies.
+            {sale.discountModel.type === "percent"
+              ? `Prices are per person, and each slot is one person's place. Every slot is ${sale.discountModel.percent}% off the price of your travel date.`
+              : "Prices are per person, and each slot is one person's place. Slots sell cheapest first — when one goes, the next price applies."}
           </p>
           {api && (
             <LiveStatus

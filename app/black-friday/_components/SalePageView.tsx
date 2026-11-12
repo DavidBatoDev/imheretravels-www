@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Footer from "@/app/components/global/Footer";
-import { maxDiscount, salePhase, statusLabel } from "@/lib/sale/ladder";
+import { heroOfferLabel, percentOff, salePhase, statusLabel } from "@/lib/sale/ladder";
 import type { SalePageData } from "@/lib/sale/types";
 import HowItWorks from "./HowItWorks";
 import SaleExperience from "./SaleExperience";
@@ -28,7 +28,8 @@ export default function SalePageView({
 }) {
   const phase = salePhase(sale, Date.parse(sale.availability.serverNow));
   const statusText = statusLabel(sale, phase);
-  const faqs = saleFaqs(sale.holdMinutes);
+  const percent = percentOff(sale.discountModel);
+  const faqs = saleFaqs(sale.holdMinutes, percent);
   const firstTour = sale.tours[0];
   const firstSlots = sale.availability.tours.find(
     (t) => t.tourPackageId === firstTour?.tourPackageId,
@@ -65,7 +66,7 @@ export default function SalePageView({
           subtitle={sale.hero.subtitle}
           statusText={statusText}
           phase={phase}
-          upTo={maxDiscount(sale)}
+          offer={heroOfferLabel(sale)}
           bannerUrl={sale.hero.bannerUrl}
           mobileBannerUrl={sale.hero.mobileBannerUrl}
           fallbackImage={firstTour?.coverImage}
@@ -78,6 +79,7 @@ export default function SalePageView({
         <SaleExperience sale={sale} mock={mock} preview={preview}>
           <HowItWorks
             holdMinutes={sale.holdMinutes}
+            percent={percent}
             example={
               firstTour && firstSlots
                 ? { name: firstTour.displayName, originalPrice: firstTour.originalPrice, slots: firstSlots }

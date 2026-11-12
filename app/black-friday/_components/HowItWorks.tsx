@@ -20,11 +20,15 @@ const VIEWPORT = { once: true, amount: 0.3 } as const;
  */
 export default function HowItWorks({
   holdMinutes,
+  percent = null,
   example,
 }: {
   holdMinutes: number;
+  /** Flat-percentage sale: every slot the same % off, so no price ladder to show. */
+  percent?: number | null;
   example?: { name: string; originalPrice: number; slots: PublicSlot[] };
 }) {
+  const exampleSlot = example?.slots.find((s) => s.state !== "sold") ?? example?.slots[0];
   const reduce = useReducedMotion() ?? false;
 
   const steps = [
@@ -120,13 +124,31 @@ export default function HowItWorks({
           transition={{ duration: 0.6, ease: EASE }}
         >
           <div className="md:max-w-sm">
-            <p className="font-sans text-h5-mobile text-midnight md:text-h5-desktop">Earlier slots = bigger savings</p>
-            <p className="mt-1 font-body text-b2-mobile text-dark-gray md:text-b4-desktop">
-              One slot is one person&apos;s place. Slot 1 is the cheapest and each slot after it costs a little more, so
-              the sooner you book, the more you save.
-            </p>
+            {percent ? (
+              <>
+                <p className="font-sans text-h5-mobile text-midnight md:text-h5-desktop">{percent}% off every slot</p>
+                <p className="mt-1 font-body text-b2-mobile text-dark-gray md:text-b4-desktop">
+                  One slot is one person&apos;s place. Every slot is {percent}% off the price of your travel date, but
+                  each tour only has a few, so book before they&apos;re gone.
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="font-sans text-h5-mobile text-midnight md:text-h5-desktop">Earlier slots = bigger savings</p>
+                <p className="mt-1 font-body text-b2-mobile text-dark-gray md:text-b4-desktop">
+                  One slot is one person&apos;s place. Slot 1 is the cheapest and each slot after it costs a little more, so
+                  the sooner you book, the more you save.
+                </p>
+              </>
+            )}
           </div>
-          {example && example.slots.length > 1 && (
+          {percent && example && exampleSlot && (
+            <p className="mt-5 font-body text-b2-mobile text-midnight tabular-nums md:mt-0 md:text-b4-desktop">
+              {example.name}: <span className="text-dark-gray line-through">{formatGBP(example.originalPrice)}</span>{" "}
+              <span className="font-bold">{formatGBP(exampleSlot.salePrice)}</span> per person
+            </p>
+          )}
+          {!percent && example && example.slots.length > 1 && (
             <figure className="mt-5 md:mt-0 md:flex-1">
               <motion.ol
                 className="flex items-end gap-1.5 tabular-nums"
