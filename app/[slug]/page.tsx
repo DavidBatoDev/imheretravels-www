@@ -12,6 +12,7 @@ import {
 } from "@/lib/sale-firestore";
 import { BLACK_FRIDAY_SLUG } from "@/lib/sale/config";
 import { salePhase } from "@/lib/sale/ladder";
+import { SALE_SHARE_IMAGE_SIZE, saleShareImageSource, saleShareImageUrl } from "@/lib/sale/share-image";
 import { getTourBySlug, getCurrentSlugForPreviousSlug } from "@/lib/tours-firestore";
 
 // Sale config and the initial slot snapshot refresh at most once a minute;
@@ -72,7 +73,10 @@ export async function generateMetadata({
   const indexable = !mock && sale?.status === "live";
   // Admin "SEO & sharing" overrides win; otherwise fall back to the hero.
   const description = sale?.seo.description || sale?.hero.subtitle || DESCRIPTION;
-  const image = sale?.seo.ogImage || sale?.hero.bannerUrl || sale?.tours[0]?.coverImage;
+  const source = sale ? saleShareImageSource(sale) : null;
+  // A same-site 1200×630 JPEG of that image: WhatsApp/Messenger drop the
+  // preview for the admin's Firebase-hosted WebP banners.
+  const image = source && !mock ? saleShareImageUrl(slug, source) : source;
   const pageTitle = sale?.hero.title || TITLE;
   const shareTitle = sale?.seo.title || `${pageTitle} — I'm Here Travels`;
   const pageUrl = `${BASE_URL}/${slug}`;
@@ -88,7 +92,15 @@ export async function generateMetadata({
       description,
       type: "website",
       url: pageUrl,
-      ...(image ? { images: [{ url: image, alt: shareTitle }] } : {}),
+      ...(image
+        ? {
+            images: [
+              image === source
+                ? { url: image, alt: shareTitle }
+                : { url: image, alt: shareTitle, type: "image/jpeg", ...SALE_SHARE_IMAGE_SIZE },
+            ],
+          }
+        : {}),
     },
     twitter: {
       card: "summary_large_image",
