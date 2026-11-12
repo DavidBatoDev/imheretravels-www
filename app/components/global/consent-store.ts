@@ -67,6 +67,13 @@ export function closePanel(): void {
 export function setChoice(choice: ConsentChoice): void {
   document.cookie = `${CONSENT_COOKIE}=${choice}; path=/; max-age=${CONSENT_MAX_AGE}; SameSite=Lax`;
   window.gtag?.("consent", "update", consentState(choice));
+  // GTM doesn't re-fire a page-load tag that waited for consent, so tags that
+  // need it (Meta Pixel - Base) also trigger on this event: the page the
+  // visitor accepted on still counts.
+  if (choice === "granted") {
+    const w = window as unknown as { dataLayer?: unknown[] };
+    (w.dataLayer = w.dataLayer || []).push({ event: "consent_granted" });
+  }
   panelOpen = false;
   emit();
 }
