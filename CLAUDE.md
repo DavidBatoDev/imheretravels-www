@@ -120,6 +120,24 @@ Three Data Layer Variables back the conditions above, all Version 2:
 `work_with_us_host` / `_affiliate` / `_supplier` / `_closing` /
 `_<type>_success` on /work-with-us).
 
+`form_name` values in use: `contact_us` (/contact-us form, then
+`/message-sent`), `tour_enquiry` ("Inquire now" on sale cards and tour pages,
+then `/enquiry-sent`), `personalized_tours`, `newsletter`.
+
+**Meta pixel 1763037730995774** (added 2026-11-12) runs from two Custom HTML
+tags in this container, not from code: "Meta Pixel - Base" (All Pages +
+Custom Event `consent_granted`, which the cookie banner pushes on Accept) and
+"Meta Pixel - PageView (page change)" (History Change where History Source
+matches `pushState|popstate`; Next.js calls replaceState on every load, so an
+unfiltered History Change double-counts). Both need `ad_storage` consent. The
+ad agency (WaveX) counts conversions by URL: `/enquiry-sent`,
+`/message-sent` and `admin.imheretravels.com/reservation-booking-form/booking-confirmed`.
+
+**Server events in Meta Events Manager are expected.** They come from
+Meta's own "Conversions API with Meta", which Meta connects from its side and
+which copies the pixel's browser events (confirmed with WaveX 2026-11-13).
+We have no Conversions API of our own, and nothing needs deduplicating.
+
 GTM only loads when `NEXT_PUBLIC_GTM_ID` is set (off in local dev). To test a
 tag in Tag Assistant Preview locally, put `NEXT_PUBLIC_GTM_ID=GTM-K29G5GPR`
 in a gitignored `.env.local`, accept analytics in the cookie banner, and
