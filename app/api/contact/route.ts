@@ -1,9 +1,15 @@
 import { NextResponse } from "next/server";
+import { FieldValue } from "firebase-admin/firestore";
+import { adminDb } from "@/lib/firebase-admin";
 import { subscribeToMailchimp } from "@/lib/mailchimp";
 
 export const runtime = "nodejs";
 
 const CONTACT_RECIPIENT = "bella@imheretravels.com";
+/** Local dev saves to the dev Firestore but doesn't email Bella or touch
+ *  Mailchimp unless ENQUIRY_SIDE_EFFECTS_IN_DEV=1 (same switch as /api/enquiry). */
+const SIDE_EFFECTS =
+  process.env.NODE_ENV === "production" || process.env.ENQUIRY_SIDE_EFFECTS_IN_DEV === "1";
 
 type ContactPayload = {
   firstName?: string;
@@ -134,6 +140,45 @@ export async function POST(request: Request) {
   }
 
   const fullName = `${firstName} ${lastName}`.trim();
+
+  // Saved first, to the same `enquiries` list as the tour "Inquire now" form
+  // (admin → Enquiries), so a message is never lost to a Gmail outage.
+  const ref = adminDb.collection("enquiries").doc();
+  let saved = false;
+  try {
+    await ref.set({
+      status: "new",
+      firstName,
+      lastName,
+      name: fullName,
+      nameLower: fullName.toLowerCase(),
+      email: email.toLowerCase(),
+      phone,
+      message,
+      tour: null,
+      subscribe: payload.subscribe === true,
+      consent: {
+        agreed: true,
+        at: FieldValue.serverTimestamp(),
+        privacyPolicyUrl: "https://www.imheretravels.com/privacy-policy",
+      },
+      source: {
+        form: "contact_us",
+        location: null,
+        page: (request.headers.get("referer") ?? "").slice(0, 300),
+        userAgent: (request.headers.get("user-agent") ?? "").slice(0, 300),
+      },
+      emails: { team: "pending" },
+      mailchimp: payload.subscribe ? "pending" : "not_requested",
+      createdAt: FieldValue.serverTimestamp(),
+      updatedAt: FieldValue.serverTimestamp(),
+    });
+    saved = true;
+  } catch (err) {
+    console.error("Contact form: Firestore save failed:", err);
+  }
+  const adminUrl = saved ? `https://admin.imheretravels.com/enquiries?id=${ref.id}` : "";
+
   const subject = "New Website Enquiry";
   const text = [
     `Name: ${fullName}`,
@@ -141,7 +186,10 @@ export async function POST(request: Request) {
     `Phone: ${phone}`,
     `Message: ${message}`,
     payload.subscribe ? "Subscribed to updates: Yes" : "Subscribed to updates: No",
-  ].join("\n");
+    adminUrl ? `Open in admin: ${adminUrl}` : "",
+  ]
+    .filter(Boolean)
+    .join("\n");
 
   const html = `
     <div style="font-family: Arial, sans-serif; font-size: 14px; color: #1C1F2A;">
@@ -151,59 +199,58 @@ export async function POST(request: Request) {
       <p><strong>Phone:</strong> ${escapeHtml(phone)}</p>
       <p><strong>Message:</strong><br/>${escapeHtml(message).replace(/\n/g, "<br/>")}</p>
       <p><strong>Subscribed to updates:</strong> ${payload.subscribe ? "Yes" : "No"}</p>
+      ${adminUrl ? `<p><a href="${adminUrl}">Open in admin</a></p>` : ""}
     </div>
   `.trim();
 
-  try {
-    const accessToken = await getAccessToken();
-
-    const raw = toBase64Url(
-      buildRawMessage({
-        to: CONTACT_RECIPIENT,
-        from: `ImHereTravels <${CONTACT_RECIPIENT}>`,
-        replyTo: `${fullName} <${email}>`,
-        subject,
-        html,
-        text,
-      }),
-    );
-
-    const sendRes = await fetch(
-      "https://gmail.googleapis.com/gmail/v1/users/me/messages/send",
-      {
+  let team = SIDE_EFFECTS ? "failed" : "skipped_dev";
+  let mailchimp = payload.subscribe ? (SIDE_EFFECTS ? "failed" : "skipped_dev") : "not_requested";
+  if (SIDE_EFFECTS) {
+    try {
+      const accessToken = await getAccessToken();
+      const raw = toBase64Url(
+        buildRawMessage({
+          to: CONTACT_RECIPIENT,
+          from: `ImHereTravels <${CONTACT_RECIPIENT}>`,
+          replyTo: `${fullName} <${email}>`,
+          subject,
+          html,
+          text,
+        }),
+      );
+      const sendRes = await fetch("https://gmail.googleapis.com/gmail/v1/users/me/messages/send", {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
+        headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
         body: JSON.stringify({ raw }),
         cache: "no-store",
-      },
-    );
-
-    if (!sendRes.ok) {
-      const errorText = await sendRes.text();
-      console.error("Gmail send failed:", errorText);
-      return NextResponse.json(
-        { error: "Failed to send message. Please try again later." },
-        { status: 502 },
-      );
+      });
+      if (sendRes.ok) team = "sent";
+      else console.error("Gmail send failed:", await sendRes.text());
+    } catch (err) {
+      console.error("Contact API email error:", err);
     }
 
     if (payload.subscribe) {
       try {
         await subscribeToMailchimp({ email, firstName, lastName, tag: "Website Contact Form" });
+        mailchimp = "subscribed";
       } catch (err) {
         console.error("Mailchimp subscribe (contact form) failed:", err);
       }
     }
+  }
 
-    return NextResponse.json({ ok: true });
-  } catch (err) {
-    console.error("Contact API error:", err);
+  if (saved) {
+    await ref
+      .update({ emails: { team, at: FieldValue.serverTimestamp() }, mailchimp })
+      .catch((err) => console.error("Contact form: status update failed:", err));
+  } else if (team !== "sent") {
+    // Neither saved nor emailed: the message would be lost, so say so.
     return NextResponse.json(
       { error: "Failed to send message. Please try again later." },
       { status: 500 },
     );
   }
+
+  return NextResponse.json({ ok: true });
 }
