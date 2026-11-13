@@ -113,8 +113,10 @@ container, same GA4 property. Current tags/triggers/variables, rebuilt
 | GA4 Event - WhatsApp Clicks | WhatsApp Clicks Trigger | Custom Event `contact_click`, `{{DLV - Contact Method}}` equals `whatsapp` |
 | GA4 Event - Calendly Clicks | Calendly Clicks Trigger | Custom Event `contact_click`, `{{DLV - Contact Method}}` equals `calendly`. Sends GA4 event `calendly_click` with parameter `click_location` = `{{DLV - Click Location}}` |
 | GA4 Event - Form Submissions | Form Submissions Trigger | Custom Event `form_submission`, All Custom Events (no condition — differentiate by the `form_name` event parameter, not the trigger) |
+| GA4 - Reservation Confirmed | reservation_confirmed | Custom Event `reservation_confirmed` (pushed by the admin reservation form once the reservation fee is paid; "reservation" = fee paid, "booking" = tour fully paid). Sends GA4 event `reservation_confirmed` with `payment_id` = `{{DLV - Payment ID}}`. Marked as a key event in GA4. Added 2026-11-13 |
 
-Three Data Layer Variables back the conditions above, all Version 2:
+Four Data Layer Variables back the conditions above, all Version 2:
+`DLV - Payment ID` (reads `payment_id`),
 `DLV - Contact Method` (reads `method`), `DLV - Form Name` (reads
 `form_name`) and `DLV - Click Location` (reads `location`, e.g.
 `work_with_us_host` / `_affiliate` / `_supplier` / `_closing` /
