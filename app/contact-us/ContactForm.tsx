@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { contactForm } from "@/data/contactUs";
 import { trackEvent } from "@/lib/analytics/track";
@@ -8,6 +9,7 @@ import { trackEvent } from "@/lib/analytics/track";
 type Status = "idle" | "submitting" | "success" | "error";
 
 export default function ContactForm() {
+  const router = useRouter();
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [form, setForm] = useState({
@@ -48,15 +50,8 @@ export default function ContactForm() {
       }
       setStatus("success");
       trackEvent("form_submission", { form_name: "contact_us" });
-      setForm({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        message: "",
-        subscribe: false,
-        acceptedPrivacy: false,
-      });
+      // Its own URL, so a sent message can be counted by page (ads, GA4).
+      router.push("/message-sent");
     } catch (err) {
       setStatus("error");
       setErrorMessage(err instanceof Error ? err.message : "Something went wrong");
@@ -143,11 +138,6 @@ export default function ContactForm() {
         </span>
       </label>
 
-      {status === "success" && (
-        <p className="font-body text-b2-mobile text-spring-green md:text-b2-desktop">
-          Thanks! Your message has been sent. We&apos;ll be in touch shortly.
-        </p>
-      )}
       {status === "error" && errorMessage && (
         <p className="font-body text-b2-mobile text-crimson-red md:text-b2-desktop">
           {errorMessage}
@@ -157,10 +147,10 @@ export default function ContactForm() {
       <div>
         <button
           type="submit"
-          disabled={status === "submitting"}
+          disabled={status === "submitting" || status === "success"}
           className="inline-flex items-center justify-center rounded-full bg-crimson-red px-10 py-3 font-body font-bold text-b2-mobile text-white transition-colors hover:bg-light-red disabled:cursor-not-allowed disabled:opacity-60 md:text-b2-desktop"
         >
-          {status === "submitting" ? "Sending..." : contactForm.submitLabel}
+          {status === "submitting" || status === "success" ? "Sending..." : contactForm.submitLabel}
         </button>
       </div>
     </form>
