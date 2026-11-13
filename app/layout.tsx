@@ -43,14 +43,11 @@ export const metadata: Metadata = {
     title: "I'm Here Travels | Small-Group Tours to the Philippines & Beyond",
     description:
       "Small-group adventures across the Philippines, Japan, Maldives, India, Tanzania and beyond. Book your trip and explore the world with us.",
-    images: [
-      {
-        url: "/tours/philippine-sunrise/hero-1.jpg",
-        width: 1200,
-        height: 630,
-        alt: "I'm Here Travels — Small-Group Tours",
-      },
-    ],
+    // og:image comes from app/opengraph-image.jpg (+ twitter-image.jpg): the
+    // Siargao jeep with the banner, pre-sized to 1200×630 JPEG (~130KB) so it
+    // stays under WhatsApp's ~300KB preview limit and is served from this
+    // domain without a redirect. Tour and resident-host pages override it
+    // with their own generated cards.
   },
   twitter: {
     card: "summary_large_image",
