@@ -6,11 +6,15 @@ import type { Tour } from "@/types/tour";
 
 export default function BookingCardReveal({
   booking,
+  tourName,
+  tourSlug,
   comingSoon = false,
   reviewAverage = 0,
   reviewCount = 0,
 }: {
   booking: Tour["booking"];
+  tourName: string;
+  tourSlug: string;
   comingSoon?: boolean;
   reviewAverage?: number;
   reviewCount?: number;
@@ -24,6 +28,8 @@ export default function BookingCardReveal({
     >
       <BookingCard
         booking={booking}
+        tourName={tourName}
+        tourSlug={tourSlug}
         sticky
         comingSoon={comingSoon}
         reviewAverage={reviewAverage}

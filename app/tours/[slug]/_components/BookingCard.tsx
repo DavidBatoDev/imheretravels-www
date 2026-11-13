@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Calendar, Route } from "lucide-react";
+import InquireButton from "@/app/components/inquiry/InquireButton";
 import ReviewsLink from "./ReviewsLink";
 import { TourRegularPrice, TourSaleCta } from "./TourSale";
 import type { Tour, TourPriceCategory } from "@/types/tour";
@@ -16,12 +17,16 @@ const BADGE_STYLES: Record<
 
 export default function BookingCard({
   booking,
+  tourName,
+  tourSlug,
   sticky = false,
   comingSoon = false,
   reviewAverage = 0,
   reviewCount = 0,
 }: {
   booking: Tour["booking"];
+  tourName: string;
+  tourSlug: string;
   sticky?: boolean;
   comingSoon?: boolean;
   reviewAverage?: number;
@@ -133,6 +138,12 @@ export default function BookingCard({
             </Link>
           )}
         </TourSaleCta>
+        <InquireButton
+          tourName={tourName}
+          tourSlug={tourSlug}
+          location="tour_page"
+          className="mt-3 inline-flex w-full items-center justify-center rounded-full border-2 border-crimson-red bg-white px-6 py-3 font-body font-bold text-crimson-red transition-colors hover:bg-crimson-red hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson-red"
+        />
         {(booking.depositNote || booking.depositAmount) && (
           <TourRegularPrice>
             <p className="mt-4 text-center font-body text-b4-mobile text-dark-gray">

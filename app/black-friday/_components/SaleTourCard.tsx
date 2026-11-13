@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { CalendarDays, UserRound } from "lucide-react";
+import { ArrowRight, CalendarDays, UserRound } from "lucide-react";
+import InquireButton from "@/app/components/inquiry/InquireButton";
 import ImageWithSkeleton from "@/app/components/global/ImageWithSkeleton";
 import {
   availabilityLine,
@@ -128,6 +129,11 @@ export default function SaleTourCard({
       className={`flex h-full flex-col overflow-hidden rounded-lg bg-white shadow-small transition-shadow hover:shadow-medium ${soldOut ? "opacity-75" : ""}`}
     >
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-light-grey">
+        {/* The photo opens the tour too; one link per card for keyboard and
+            screen-reader users is the title, so this one is skipped by both. */}
+        {detailsHref && (
+          <Link href={detailsHref} tabIndex={-1} aria-hidden="true" className="absolute inset-0 z-[1]" />
+        )}
         <ImageWithSkeleton
           src={tour.coverImage}
           alt=""
@@ -136,7 +142,7 @@ export default function SaleTourCard({
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className={`object-cover ${soldOut ? "grayscale" : ""}`}
         />
-        <div className="absolute left-3 top-3 flex flex-wrap gap-2">
+        <div className="pointer-events-none absolute left-3 top-3 z-[2] flex flex-wrap gap-2">
           {soldOut ? (
             <span className="inline-flex items-center rounded-full bg-midnight px-3 py-1.5 font-body text-b4-mobile font-bold text-white md:text-b4-desktop">
               Sold out
@@ -162,7 +168,13 @@ export default function SaleTourCard({
           </span>
         )}
         <h3 id={headingId} className="mt-3 font-sans text-h5-mobile text-midnight md:text-h5-desktop">
-          {tour.displayName}
+          {detailsHref ? (
+            <Link href={detailsHref} className="transition-colors hover:text-crimson-red">
+              {tour.displayName}
+            </Link>
+          ) : (
+            tour.displayName
+          )}
         </h3>
         {tour.routeLabel && tour.routeLabel.trim().toLowerCase() !== tour.displayName.trim().toLowerCase() && (
           <p className="mt-1 line-clamp-2 font-body text-b4-mobile text-dark-gray md:text-b4-desktop">
@@ -215,15 +227,6 @@ export default function SaleTourCard({
         </p>
 
         <div className="mt-auto flex gap-2 pt-5">
-          {detailsHref && (
-            <Link
-              href={detailsHref}
-              aria-describedby={headingId}
-              className={`${btn} flex-1 border-2 border-midnight/15 bg-white text-midnight hover:border-midnight`}
-            >
-              View tour
-            </Link>
-          )}
           <button
             type="button"
             disabled={!cta.enabled}
@@ -239,7 +242,23 @@ export default function SaleTourCard({
           >
             {cta.label}
           </button>
+          <InquireButton
+            tourName={tour.displayName}
+            tourSlug={tour.tourSlug || undefined}
+            location="sale_card"
+            className={`${btn} flex-1 border-2 border-crimson-red bg-white text-crimson-red hover:bg-crimson-red hover:text-white`}
+          />
         </div>
+        {detailsHref && (
+          <Link
+            href={detailsHref}
+            aria-describedby={headingId}
+            className="mt-3 inline-flex min-h-11 items-center justify-center gap-1.5 self-center font-body text-b4-desktop font-bold text-midnight underline underline-offset-4 transition-colors hover:text-crimson-red focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson-red"
+          >
+            View tour details
+            <ArrowRight className="size-4" strokeWidth={2.25} aria-hidden="true" />
+          </Link>
+        )}
       </div>
     </article>
   );

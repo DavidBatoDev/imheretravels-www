@@ -6,7 +6,7 @@ import { useSaleBooking } from "@/app/black-friday/_components/useSaleBooking";
 import { formatGBP, availabilityLine, isSoldOut, statusLabel } from "@/lib/sale/ladder";
 import type { PublicTourAvailability, SalePageData, SalePageTour } from "@/lib/sale/types";
 
-type TourSale = {
+export type TourSale = {
   tour: SalePageTour;
   availability: PublicTourAvailability | undefined;
   /** Sale slots can be held right now. */
@@ -110,7 +110,22 @@ function TourSaleBooking({
   );
 }
 
-const ctaLabel = (sale: TourSale) => (sale.isMine ? "View my held slots" : "Reserve now with Black Friday discount");
+/** The live sale for this tour page, or null when the tour isn't in one. */
+export function useTourSale(): TourSale | null {
+  return useContext(TourSaleContext);
+}
+
+/** The % off the next free slot gives, for a percent sale; null for a tiered one. */
+export function salePercent(sale: TourSale): number | null {
+  const slot = sale.availability?.slots.find((s) => s.state === "available");
+  return slot?.discountPct ?? null;
+}
+
+const ctaLabel = (sale: TourSale) => {
+  if (sale.isMine) return "View my held slots";
+  const pct = salePercent(sale);
+  return pct ? `Reserve Now ${pct}% Off` : "Reserve Now at the Sale Price";
+};
 
 const CTA_CLASS =
   "inline-flex w-full items-center justify-center rounded-full bg-crimson-red px-6 py-3.5 text-center font-body font-bold text-white shadow-small transition-all hover:bg-light-red hover:shadow-medium";

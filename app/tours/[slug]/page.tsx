@@ -38,6 +38,7 @@ import TourViewRecorder from "./_components/TourViewRecorder";
 import ReviewsAnchorScroll from "./_components/ReviewsAnchorScroll";
 import Reveal from "@/app/components/global/Reveal";
 import BookingCardReveal from "./_components/BookingCardReveal";
+import TourMobileBar from "./_components/TourMobileBar";
 import { TourSaleAnnouncement, TourSaleProvider } from "./_components/TourSale";
 
 const BASE_URL = "https://www.imheretravels.com";
@@ -368,9 +369,11 @@ export default async function TourDetailPage({ params }: { params: Params }) {
               </div>
 
               <Reveal y={16} delay={60}>
-                <div className="mt-6 lg:hidden">
+                <div id="tour-booking-card" className="mt-6 lg:hidden">
                   <BookingCard
                     booking={tour.booking}
+                    tourName={tour.name}
+                    tourSlug={tour.slug}
                     comingSoon={tour.comingSoon}
                     reviewAverage={displayAggregate.average}
                     reviewCount={displayAggregate.count}
@@ -381,11 +384,21 @@ export default async function TourDetailPage({ params }: { params: Params }) {
 
             <BookingCardReveal
               booking={tour.booking}
+              tourName={tour.name}
+              tourSlug={tour.slug}
               comingSoon={tour.comingSoon}
               reviewAverage={displayAggregate.average}
               reviewCount={displayAggregate.count}
             />
           </div>
+          {!tour.comingSoon && (
+            <TourMobileBar
+              booking={tour.booking}
+              tourName={tour.name}
+              tourSlug={tour.slug}
+              cardId="tour-booking-card"
+            />
+          )}
           </TourSaleProvider>
         </div>
 

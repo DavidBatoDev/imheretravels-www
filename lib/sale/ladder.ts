@@ -159,8 +159,9 @@ export function maxDiscount(data: Pick<SalePageData, "availability">): number {
 }
 
 /**
- * Copy for "N of M sale places left" (one slot = one person's place), honest
- * and without timers.
+ * Copy for how many sale places are free (one slot = one person's place),
+ * honest and without timers: "Only 10 places at this price" while none have
+ * gone, then "Only 7 places left at this price".
  */
 export function availabilityLine(av: PublicTourAvailability | undefined): string {
   if (!av || av.slots.length === 0) return "Sale places coming soon";
@@ -171,7 +172,10 @@ export function availabilityLine(av: PublicTourAvailability | undefined): string
       ? "Last place on hold — may free up soon"
       : "All places on hold — may free up soon";
   }
-  return `${av.left} of ${total} sale ${total === 1 ? "place" : "places"} left`;
+  const places = av.left === 1 ? "place" : "places";
+  return av.left === total
+    ? `Only ${av.left} ${places} at this price`
+    : `Only ${av.left} ${places} left at this price`;
 }
 
 export function onHoldLine(av: PublicTourAvailability | undefined): string | null {
